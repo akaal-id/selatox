@@ -1,0 +1,55 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.2s ease;
+  border: none;
+  font-family: inherit;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.button:not(:disabled):hover {
+  filter: brightness(1.05);
+  
+}
+
+.sm {
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.875rem;
+}
+
+.md {
+  padding: var(--space-3) var(--space-5);
+  font-size: 1rem;
+}
+
+.lg {
+  padding: var(--space-4) var(--space-6);
+  font-size: 1.125rem;
+}
+
+.primary {
+  background: var(--color-innovation-blue);
+  color: white;
+}
+
+.secondary {
+  background: var(--color-selatox-dark);
+  color: var(--color-selatox-light);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--color-selatox-dark);
+}
+
+.ghost:hover {
+  background: rgba(46, 34, 46, 0.06);
+}
