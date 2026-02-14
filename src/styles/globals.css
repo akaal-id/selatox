@@ -61,6 +61,9 @@
   --color-bg: var(--neutral-40);
   --color-bg-elevated: var(--neutral-20);
   --color-border: var(--neutral-60);
+  --color-innovation-blue: #4490e4;
+  --color-selatox-dark: #2e222e;
+  --color-selatox-light: #f5f5f5;
 
   /* Typography */
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;

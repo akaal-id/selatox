@@ -2,12 +2,34 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
-  border-radius: 8px;
+  gap: 12px;
+  border-radius: 4px;
+  height: 48px;
+  width: fit-content;
+  padding: 0 8px 0 12px;
   cursor: pointer;
   transition: filter 0.2s ease, transform 0.2s ease;
   border: none;
-  font-family: inherit;
+}
+
+.buttonText {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.iconContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  background: var(--neutral-20);
 }
 
 .button:disabled {
@@ -17,22 +39,23 @@
 
 .button:not(:disabled):hover {
   filter: brightness(1.05);
-  
 }
 
 .sm {
-  padding: var(--space-2) var(--space-3);
-  font-size: 0.875rem;
+  font-size: 14px;
+}
+
+.sm .iconContainer {
+  width: 24px;
+  height: 24px;
 }
 
 .md {
-  padding: var(--space-3) var(--space-5);
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 .lg {
-  padding: var(--space-4) var(--space-6);
-  font-size: 1.125rem;
+  font-size: 18px;
 }
 
 .primary {
@@ -52,4 +75,13 @@
 
 .ghost:hover {
   background: rgba(46, 34, 46, 0.06);
+}
+
+.border {
+  background: transparent;
+}
+
+.border:hover {
+  filter: brightness(1);
+  opacity: 0.9;
 }
