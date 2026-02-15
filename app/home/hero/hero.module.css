@@ -4,32 +4,32 @@
 
 .section {
   position: relative;
-  min-height: 80vh;
+  min-height: 100svh;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   padding: 64px 24px;
   background: linear-gradient(
       180deg,
-      rgba(46, 34, 46, 0.5) 0%,
-      rgba(46, 34, 46, 0.3) 100%
+      rgba(46, 34, 46, 0.1) 0%,
+      rgba(46, 34, 46, 0.1) 100%
     ),
-    url("/images/selatox-hero-2.png") center / cover no-repeat;
+    url("/images/selatox-hero.png") center / cover no-repeat;
 }
 
-/* Y-axis only grid overlay */
-.section::before {
-  content: "";
+/* Y-axis only grid overlay — full height, centered */
+.gridContainer {
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1280px;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  z-index: 0;
   pointer-events: none;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent 0px,
-    transparent 59px,
-    rgba(255, 255, 255, 0.08) 59px,
-    rgba(255, 255, 255, 0.08) 60px
-  );
 }
 
 .container {
@@ -37,14 +37,21 @@
   z-index: 1;
   max-width: 1280px;
   margin: 0 auto;
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
   font-size: 36px;
-  font-weight: var(--font-bold);
-  color: white;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  font-weight: 500;
+  color: var(--neutral-20);
   letter-spacing: -0.02em;
   line-height: 1.25;
   margin-bottom: 16px;
@@ -63,8 +70,7 @@
 .subtitle {
   font-size: 18px;
   color: rgba(255, 255, 255, 0.9);
-  max-width: 576px;
-  margin: 0 auto 32px;
+  margin: 0 auto;
   line-height: 1.625;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
@@ -76,26 +82,5 @@
 }
 
 .cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: var(--font-medium);
-  color: white;
-  background-color: var(--blue-100);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background-color 0.2s ease, transform 0.15s ease;
-}
-
-.cta:hover {
-  background-color: var(--blue-120);
-  transform: translateY(-1px);
-}
-
-.cta:active {
-  transform: translateY(0);
+  /* Overrides for hero context; Button base styles from /ui */
 }
