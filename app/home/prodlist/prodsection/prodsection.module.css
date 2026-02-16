@@ -1,0 +1,58 @@
+/**
+ * Prodsection — Featured products section. Uses globals for tokens.
+ */
+
+.section {
+  background: var(--color-bg);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 64px;
+  height: 100vh;
+}
+
+.container {
+  width: 100%;
+  padding: 32px 32px 48px 32px;
+
+  
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: clamp(12px, 3vw, 16px);
+  font-weight: 300;
+  color: var(--neutral-20);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  line-height: 1.2;
+  
+  /* container */
+
+  padding: 12px;
+  background-color: var(--blue-100);
+  width: fit-content;
+  border-radius: 4px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 24px;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+}

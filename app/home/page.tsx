@@ -1,9 +1,6 @@
-import { Hero } from "./hero/hero";
+import { redirect } from "next/navigation";
 
-export default function HomePage() {
-  return (
-    <main>
-      <Hero />
-    </main>
-  );
+/** /home redirects to canonical home at / */
+export default function HomeRedirect() {
+  redirect("/");
 }
