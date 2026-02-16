@@ -3,21 +3,31 @@
  */
 
 .section {
-  background: var(--color-bg);
+  background: var(--neutral-20);
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 64px;
+  padding: 120px;
   height: 100vh;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .container {
   width: 100%;
   padding: 32px 32px 48px 32px;
 
-  
   border-left: 1px solid rgba(255, 255, 255, 0.3);
   border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.topSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
 }
 
 .eyebrow {
@@ -27,32 +37,83 @@
   color: var(--neutral-20);
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  margin-bottom: 32px;
   line-height: 1.2;
+  margin: 0;
+  
   
   /* container */
 
-  padding: 12px;
+  
+  padding: 14px 12px;
   background-color: var(--blue-100);
   width: fit-content;
   border-radius: 4px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
+.arrowGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.buttonWrapper {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 4px;
+}
+
+.arrowBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-bg-elevated);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.arrowBtn:hover {
+  border-color: var(--neutral-80);
+  background: var(--neutral-40);
+}
+
+.arrowBtn:focus-visible {
+  outline: 2px solid var(--blue-100);
+  outline-offset: 2px;
+}
+
+/* Embla carousel — viewport clips to container, ~3 cards visible on desktop */
+.viewport {
+  overflow: visible;
+  touch-action: pan-y pinch-zoom;
+}
+
+.carousel {
+  display: flex;
   gap: 24px;
+  user-select: none;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.slide {
+  flex: 0 0 100%;
+  min-width: 0;
 }
 
 @media (min-width: 640px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+  .slide {
+    flex: 0 0 calc((100% - 24px) / 2); /* 2 cards in view */
   }
 }
 
 @media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
+  .slide {
+    flex: 0 0 calc((100% - 48px) / 3); /* 3 cards in view, 2×24px gap */
   }
 }

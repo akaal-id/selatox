@@ -16,36 +16,42 @@ const navLinks = [
 export type NavbarVariant = "default" | "negative";
 
 const homePaths = ["/", "/home"];
-const HERO_ID = "hero";
 
-export function Navbar({ variant }: { variant?: NavbarVariant }) {
+function getVariantFromScroll(): NavbarVariant | null {
+  if (typeof document === "undefined") return null;
+  const sections = document.querySelectorAll<HTMLElement>("[data-navbar]");
+  const viewportTop = 0;
+  for (const section of sections) {
+    const rect = section.getBoundingClientRect();
+    // Section that contains the top of the viewport
+    if (rect.top <= viewportTop && rect.bottom > viewportTop) {
+      const value = section.getAttribute("data-navbar");
+      if (value === "negative" || value === "default") return value as NavbarVariant;
+      return null;
+    }
+  }
+  return null;
+}
+
+export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [heroInView, setHeroInView] = useState(true);
+  const [scrollVariant, setScrollVariant] = useState<NavbarVariant | null>(null);
 
   useEffect(() => {
-    if (variant !== undefined) return;
-    if (!homePaths.includes(pathname)) {
-      setHeroInView(false);
-      return;
-    }
-    const el = document.getElementById(HERO_ID);
-    if (!el) {
-      setHeroInView(false);
-      return;
-    }
-    const obs = new IntersectionObserver(
-      ([entry]) => setHeroInView(entry.isIntersecting),
-      { threshold: 0, rootMargin: "0px" }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [pathname, variant]);
+    const update = () => setScrollVariant(getVariantFromScroll());
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [pathname]);
 
   const effectiveVariant =
-    variant ??
-    (homePaths.includes(pathname) && heroInView ? "negative" : "default");
+    variantProp ?? scrollVariant ?? (homePaths.includes(pathname) ? "negative" : "default");
   const isNegative = effectiveVariant === "negative";
 
   return (
@@ -69,14 +75,6 @@ export function Navbar({ variant }: { variant?: NavbarVariant }) {
           ))}
         </nav>
         <div className={styles.right}>
-          <button
-            type="button"
-            className={styles.langToggle}
-            aria-label="Language"
-            title="Language"
-          >
-            EN
-          </button>
           <Button
             variant="primary"
             size="sm"

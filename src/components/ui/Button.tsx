@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import { ArrowRight } from "lucide-react";
 import styles from "./Button.module.css";
 
-export type ButtonVariant = "primary" | "secondary" | "ghost" | "border";
+export type ButtonVariant = "primary" | "border" | "blur";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;

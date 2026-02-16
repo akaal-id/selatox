@@ -1,5 +1,5 @@
 /**
- * Hero section — Home page hero. Colors and fonts from globals; rest manual px.
+ * Introsection — Home intro section. Copy of hero styling.
  */
 
 .section {
@@ -14,23 +14,19 @@
       rgba(46, 34, 46, 0.2) 0%,
       rgba(46, 34, 46, 0.3) 100%
     ),
-    url("/images/hero-4.png") center / cover no-repeat;
+    url("/images/hero-3.jpg") center / cover no-repeat;
 }
-
 
 .container {
   position: relative;
   z-index: 51;
-  /* max-width: 1440px; */
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* padding: 32px 32px 48px 32px; */
   gap: 24px;
-  
   border-left: 1px solid rgba(255, 255, 255, 0.3);
   border-right: 1px solid rgba(255, 255, 255, 0.3);
 }
@@ -40,51 +36,62 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
- 
-  
   min-height: 0;
   gap: 24px;
 }
 
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: clamp(12px, 3vw, 16px);
+  font-weight: 300;
+  color: var(--neutral-20);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin: 0;
+  
+  
+  /* container */
+
+  
+  padding: 14px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  /* background-color: var(--blue-100); */
+  width: fit-content;
+  border-radius: 4px;
+}
+
 .title {
   font-family: var(--font-mono);
-  font-size: clamp(48px, 5vw, 48px);
+  font-size: clamp(28px, 5vw, 32px);
   font-weight: 400;
   color: var(--neutral-20);
   letter-spacing: 0.02em;
   line-height: 1.2;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   text-align: center;
-  max-width: 800px;
-  /* max-width: 100%; */
+  max-width: 920px;
 }
 
 .subtitle {
   font-family: var(--font-sans);
   color: rgba(255, 255, 255, 0.8);
   max-width: 640px;
-  /* line-height: 1.625;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); */
   font-size: 22px;
   font-weight: 300;
   height: 100%;
   text-align: center;
 }
 
-
 @media (max-width: 768px) {
-.title {
+  .title {
     font-size: 48px;
   }
-
+}
 
 .accent {
   color: var(--blue-60);
 }
-
-
-}
-
 
 .buttonGroup {
   position: absolute;
@@ -99,6 +106,8 @@
 
 .buttonWrapperBlur {
   display: inline-flex;
+  background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: 4px;
 }
