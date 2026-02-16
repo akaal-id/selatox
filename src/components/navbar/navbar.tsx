@@ -41,10 +41,14 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
 
   useEffect(() => {
     const update = () => setScrollVariant(getVariantFromScroll());
-    update();
+    // Defer initial read until after hydration to avoid removeChild(null) during commit
+    const id = requestAnimationFrame(() => {
+      update();
+    });
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
     return () => {
+      cancelAnimationFrame(id);
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };

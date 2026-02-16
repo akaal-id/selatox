@@ -47,13 +47,13 @@
 }
 
 .title {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: clamp(48px, 5vw, 48px);
   font-weight: 400;
   color: var(--neutral-20);
-  letter-spacing: 0.02em;
+  letter-spacing: -0.02em;
   line-height: 1.2;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   text-align: center;
   max-width: 800px;
   /* max-width: 100%; */
