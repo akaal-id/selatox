@@ -30,6 +30,12 @@ function getVariantFromScroll(): NavbarVariant | null {
       return null;
     }
   }
+  // If no section contains viewport top (e.g. at bottom), prefer default when value section is in view
+  const valuesection = document.getElementById("valuesection");
+  if (valuesection) {
+    const rect = valuesection.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) return "default";
+  }
   return null;
 }
 

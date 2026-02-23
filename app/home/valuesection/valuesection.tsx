@@ -66,7 +66,7 @@ export function Valuesection() {
       aria-labelledby="values-heading"
       data-navbar="default"
     >
-      
+      {/* Navbar variant: default (solid bg, dark text) while this section is in view */}
       <div className={styles.container}>
         <div className={styles.grid}>
           {/* Left: heading block */}
