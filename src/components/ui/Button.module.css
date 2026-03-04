@@ -3,13 +3,14 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  border-radius: 4px;
+  border-radius: 8px;
   height: 48px;
   width: fit-content;
-  padding: 16px;
+  padding: 16px 32px;
   cursor: pointer;
   transition: filter 0.2s ease, transform 0.2s ease;
   border: none;
+  font-size: 14px;
 }
 
 .buttonText {
@@ -21,15 +22,9 @@
   white-space: nowrap;
 }
 
-.iconContainer {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 4px;
+.button svg {
   flex-shrink: 0;
-  background: var(--neutral-20);
+  color: currentColor;
 }
 
 .button:disabled {
@@ -45,13 +40,8 @@
   font-size: 14px;
 }
 
-.sm .iconContainer {
-  width: 24px;
-  height: 24px;
-}
-
 .md {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .lg {
@@ -77,4 +67,16 @@
   background: transparent;
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.simple {
+  padding: 0;
+  border: none;
+  background: none;
+  height: auto;
+  min-height: 0;
+}
+
+.simple:hover {
+  background: none;
 }

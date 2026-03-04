@@ -8,7 +8,7 @@ export function Hero() {
   const router = useRouter();
 
   return (
-    <section id="hero" className={styles.section} aria-label="Hero" data-navbar="negative">
+    <section id="hero" className={styles.section} aria-label="Hero" data-navbar="default">
       {/* Navbar variant: negative (transparent, light text) while this section is in view */}
       <div className={styles.container}>
           <h1 className={styles.title}>
@@ -16,32 +16,26 @@ export function Hero() {
             <span className={styles.accent}>Biotech</span> & Pharmaceutical
             Excellence
           </h1>
-        <div className={styles.textContainer}>
-          <p className={styles.subtitle}>
-            PT. Selatox Bio Pharma — trusted globally for quality, safety, and
-            research-driven solutions.
-          </p>
-        </div>
+        
 
         <div className={styles.buttonGroup} aria-label="Hero actions">
           <Button
-            variant="primary"
+            variant="simple"
             onClick={() => router.push("/products")}
             showIcon={true}
-            iconColor="var(--blue-100)"
+            color="var(--blue-100)"
           >
             Our products
           </Button>
-          <span className={styles.buttonWrapperBlur}>
-            <Button
-              variant="blur"
-              onClick={() => router.push("/about")}
-              showIcon={false}
-              iconColor="var(--neutral-100)"
-            >
-              About us
-            </Button>
-          </span>
+          <span className={styles.divider} aria-hidden />
+          <Button
+            variant="simple"
+            onClick={() => router.push("/about")}
+            showIcon={false}
+            color="var(--green-100)"
+          >
+            About us
+          </Button>
         </div>
         
       </div>

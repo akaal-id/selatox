@@ -8,13 +8,13 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding: 0 240px 0 240px;
+  padding: 80px;
   background: linear-gradient(
       180deg,
-      rgba(46, 34, 46, 0.2) 0%,
-      rgba(46, 34, 46, 0.3) 100%
+      rgba(46, 34, 46, 0.0) 0%,
+      rgba(46, 34, 46, 0.0) 100%
     ),
-    url("/images/hero-4.png") center / cover no-repeat;
+    url("/images/hero-2.png") center / cover no-repeat;
 }
 
 
@@ -26,13 +26,13 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-end;
   /* padding: 32px 32px 48px 32px; */
   gap: 24px;
   
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
-  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  /* border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.3); */
 }
 
 .textContainer {
@@ -48,27 +48,25 @@
 
 .title {
   font-family: var(--font-sans);
-  font-size: clamp(48px, 5vw, 48px);
-  font-weight: 400;
-  color: var(--neutral-20);
-  letter-spacing: -0.02em;
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--neutral-140);
+  letter-spacing: -0.04em;
   line-height: 1.2;
   /* text-transform: uppercase; */
-  text-align: center;
-  max-width: 800px;
+  max-width: 480px;
   /* max-width: 100%; */
 }
 
 .subtitle {
   font-family: var(--font-sans);
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--blue-60);
   max-width: 640px;
   /* line-height: 1.625;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); */
   font-size: 22px;
   font-weight: 300;
   height: 100%;
-  text-align: center;
 }
 
 
@@ -87,14 +85,17 @@
 
 
 .buttonGroup {
-  position: absolute;
-  bottom: 48px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
   display: flex;
   align-items: center;
   gap: 16px;
-  z-index: 52;
+}
+
+.divider {
+  width: 1px;
+  height: 1em;
+  background: var(--neutral-80);
+  flex-shrink: 0;
 }
 
 .buttonWrapperBlur {

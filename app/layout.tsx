@@ -2,20 +2,31 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Navbar } from "@/components/navbar/navbar";
+import { ScrollFloater } from "@/components/scrollfloater/ScrollFloater";
 import "@/styles/globals.css";
+
+const baseUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://selatox.com";
 
 export const metadata: Metadata = {
   title: "PT. Selatox Bio Pharma | Global Website",
   description:
     "PT. Selatox Bio Pharma — Innovation in biotech and pharmaceutical excellence. Trusted globally for quality and safety.",
+  icons: {
+    icon: "/assets/icon.svg",
+    apple: "/assets/icon.svg",
+  },
   openGraph: {
     title: "PT. Selatox Bio Pharma Global Website",
     description:
       "Innovation in biotech and pharmaceutical excellence. Trusted globally for quality and safety.",
+    images: [{ url: "/assets/icon.svg", alt: "Selatox" }],
   },
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://selatox.com"
-  ),
+  twitter: {
+    card: "summary",
+    images: [{ url: "/assets/icon.svg", alt: "Selatox" }],
+  },
+  metadataBase: new URL(baseUrl),
 };
 
 /**
@@ -35,6 +46,7 @@ export default function RootLayout({
       <body className="min-h-screen antialiased font-sans">
         <Navbar />
         {children}
+        <ScrollFloater />
       </body>
     </html>
   );

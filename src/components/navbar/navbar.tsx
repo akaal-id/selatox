@@ -1,16 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/Button";
 import styles from "./navbar.module.css";
 
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/products", label: "Products" },
+  { href: "/careers", label: "Careers" },
 ];
 
 export type NavbarVariant = "default" | "negative";
@@ -70,7 +71,14 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
     >
       <div className={styles.container}>
         <Link href="/" className={styles.logo} aria-label="Selatox Home">
-          <span className={styles.logoText}>Selatox</span>
+          <Image
+            src="/assets/icon.svg"
+            alt="Selatox"
+            width={20}
+            height={20}
+            className={styles.logoIcon}
+          />
+         
         </Link>
         <nav className={`${styles.nav} ${open ? styles.navOpen : ""}`}>
           {navLinks.map(({ href, label }) => (
@@ -85,20 +93,17 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
           ))}
         </nav>
         <div className={styles.right}>
-          <Button
-            variant="primary"
-            size="sm"
-            showIcon={true}
-            backgroundColor="var(--neutral-160)"
-            color="white"
-            iconColor="var(--neutral-160)"
+          <button
+            type="button"
+            className={styles.navButton}
             onClick={() => {
               setOpen(false);
               router.push("/contact");
             }}
           >
-            Contact Us
-          </Button>
+            <span>Contact Us</span>
+            <ArrowRight size={16} aria-hidden />
+          </button>
           <button
             type="button"
             className={styles.toggle}

@@ -2,26 +2,26 @@ import { forwardRef } from "react";
 import { ArrowRight } from "lucide-react";
 import styles from "./Button.module.css";
 
-export type ButtonVariant = "primary" | "border" | "blur";
+export type ButtonVariant = "primary" | "border" | "blur" | "simple";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
   size?: "sm" | "md" | "lg";
-  /** Show arrow icon inside iconContainer (controllable from parent) */
+  /** Show arrow icon (no container) */
   showIcon?: boolean;
   /** Override background color (e.g. from parent) */
   backgroundColor?: string;
-  /** Override text color */
+  /** Override text color (icon matches this) */
   color?: string;
-  /** Arrow and icon container border color (border variant uses this for both containers) */
+  /** Fallback border color for border/blur when borderColor not set */
   iconColor?: string;
-  /** Border color for variant="border" (main + icon container); falls back to iconColor */
+  /** Border color for variant="border" and variant="blur"; falls back to iconColor */
   borderColor?: string;
 };
 
 /**
  * Reusable Button — Global UI component. Colors adjustable via props from parent.
- * Use showIcon to show/hide arrow in iconContainer. Variant "border" = no fill, 1px border.
+ * Use showIcon to show/hide arrow icon (no container). Variant "border" = no fill, 1px border.
  */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -41,6 +41,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const isBorder = variant === "border";
+    const isBlur = variant === "blur";
     const effectiveBorderColor = borderColor ?? iconColor ?? "currentColor";
 
     const buttonStyle: React.CSSProperties = {
@@ -50,15 +51,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         border: "1px solid",
         borderColor: effectiveBorderColor,
       }),
+      ...(isBlur &&
+        (borderColor != null || iconColor != null) && {
+          border: "1px solid",
+          borderColor: effectiveBorderColor,
+        }),
       ...style,
     };
-
-    const iconContainerStyle: React.CSSProperties =
-      isBorder && effectiveBorderColor
-        ? { border: "1px solid", borderColor: effectiveBorderColor }
-        : {};
-
-    const arrowColor = iconColor ?? (isBorder ? effectiveBorderColor : "currentColor");
 
     return (
       <button
@@ -71,15 +70,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {children != null && children !== "" ? (
           <span className={styles.buttonText}>{children}</span>
         ) : null}
-        {showIcon && (
-          <span
-            className={styles.iconContainer}
-            style={iconContainerStyle}
-            aria-hidden
-          >
-            <ArrowRight size={16} style={{ color: arrowColor }} />
-          </span>
-        )}
+        {showIcon && <ArrowRight size={16} aria-hidden />}
       </button>
     );
   }
