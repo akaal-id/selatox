@@ -1,99 +1,89 @@
 "use client";
 
-import Link from "next/link";
-import { Globe, Sparkles, ShieldCheck, Search, ArrowRight } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
 import styles from "./valuesection.module.css";
 
 const values = [
   {
-    title: "Global Market Leader",
+    id: "vision",
+    label: "// 01. Vision",
+    title: "2030 Global Leading Biopharmaceutical Company.",
     description:
-      "Establishing a professional presence that aligns with international brand values.",
-    icon: Globe,
-    iconColor: "var(--blue-100)",
+      "We are committed to setting new standards in the global aesthetics market—combining scientific rigor with a clear roadmap to become the reference for quality, innovation, and trust.",
   },
   {
-    title: "Intuitive Innovation",
+    id: "mission",
+    label: "// 02. Mission",
+    title: "World-Class Production.",
     description:
-      "Enhancing communication with domestic and international audiences through a seamless, multilingual interface.",
-    icon: Sparkles,
-    iconColor: "var(--green-80)",
+      "Excellence in toxin production and global distribution sits at the heart of our operations. We invest in state-of-the-art facilities and processes to deliver pharmaceutical-grade solutions that meet the highest international standards.",
   },
   {
-    title: "Scalable & Secure",
+    id: "core-value",
+    label: "// 03. Core Value",
+    title: "Uncompromising Justice.",
     description:
-      "A robust digital platform built to support continuous business growth and digital marketing.",
-    icon: ShieldCheck,
-    iconColor: "var(--neutral-160)",
-  },
-  {
-    title: "Enhanced Discovery",
-    description:
-      "Optimized content structures that make product and corporate information easily accessible.",
-    icon: Search,
-    iconColor: "var(--blue-80)",
+      "Never taking an unrighteous path, ensuring clinical safety, transparency, and trust in every vial we produce.",
   },
 ];
 
-function ValueCard({
-  icon: Icon,
-  iconColor,
-  title,
-  description,
-}: {
-  icon: React.ComponentType<{ size?: number; className?: string; strokeWidth?: number }>;
-  iconColor: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className={styles.card}>
-      <div className={styles.cardIconWrap} style={{ color: iconColor }}>
-        <Icon size={64} strokeWidth={0.5} aria-hidden />
-        <h3 className={styles.cardTitle}>{title}</h3>
-      </div>
-      
-      <p className={styles.cardDescription}>{description}</p>
-    </div>
-  );
-}
-
 export function Valuesection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsInView(true);
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -5% 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="valuesection"
-      className={styles.section}
+      className={`${styles.section} ${isInView ? styles.inView : ""}`.trim()}
       aria-labelledby="values-heading"
       data-navbar="default"
     >
-      {/* Navbar variant: default (solid bg, dark text) while this section is in view */}
       <div className={styles.container}>
-        <div className={styles.grid}>
-          {/* Left: heading block */}
-          <div className={styles.leftCol}>
-            <span className={styles.eyebrow}>Our strengths</span>
-            <h2 id="values-heading" className={styles.title}>
-            Redefining Standards in Biotechnology
-            </h2>
-            <p className={styles.subtitle}>
-            At Selatox, we believe that the intersection of rigorous science and human-centric care is where the future lies. We are dedicated to developing pharmaceutical-grade solutions that empower lives.
+        {/* Sticky left: section title */}
+        <div className={styles.leftCol}>
+          <p className={styles.eyebrow} aria-hidden>
+            // Why Selatox
+          </p>
+          <h2 id="values-heading" className={styles.headline}>
+            Driven by Justice. <br/>Defined by Excellence.
+          </h2>
+        </div>
 
-
-            </p>
-          </div>
-
-          {/* Right: value cards */}
+        {/* Right: typographic list of values */}
+        <div className={styles.rightCol}>
           <div className={styles.rightCol}>
-            {values.map((item) => (
-              <ValueCard
-                key={item.title}
-                icon={item.icon}
-                iconColor={item.iconColor}
-                title={item.title}
-                description={item.description}
-              />
-            ))}
-          </div>
+          <p className={styles.eyebrow} aria-hidden>
+            // Why Selatox
+          </p>
+          <h2 id="values-heading" className={styles.headline}>
+            Driven by Justice. <br/>Defined by Excellence.
+          </h2>
+        </div>
+          {values.map((item, index) => (
+            <article
+              key={item.id}
+              className={styles.valueItem}
+              style={{ ["--delay" as string]: `${0.25 + index * 0.15}s` }}
+            >
+              <p className={styles.valueLabel} aria-hidden>{item.label}</p>
+              <h3 className={styles.valueTitle}>{item.title}</h3>
+              <p className={styles.valueDescription}>{item.description}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>

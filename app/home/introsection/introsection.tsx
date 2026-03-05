@@ -1,48 +1,60 @@
 "use client";
 
+import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import styles from "./introsection.module.css";
 
-const plusIconProps = { strokeWidth: 0.5 };
-
 export function Introsection() {
   const router = useRouter();
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsInView(true);
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -5% 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="introsection" className={styles.section} aria-label="Introduction" data-navbar="negative">
-      {/* Navbar variant: negative while this section is in view */}
+    <section
+      ref={sectionRef}
+      id="intro"
+      className={`${styles.section} ${isInView ? styles.inView : ""}`.trim()}
+      aria-label="Company Overview"
+      data-navbar="default"
+    >
       <div className={styles.container}>
-        <div className={styles.iconContainer1} aria-hidden>
-          <Plus size={120} {...plusIconProps} />
+        {/* Left Column: Eyebrow & Headline */}
+        <div className={styles.leftColumn}>
+          <p className={styles.eyebrow} aria-hidden>// Overview</p>
+          <h2 className={styles.headline}>
+            Where <span className={styles.highlightGreen}>Safety</span> meets{" "}
+            <span className={styles.highlightBlue}>Innovation.</span> Redefining beauty through medical precision.
+          </h2>
         </div>
-        <div className={styles.iconContainer2} aria-hidden>
-          <Plus size={120} {...plusIconProps} />
+
+        {/* Right Column: Copy & CTA — offset downwards */}
+        <div className={styles.rightColumn}>
+          <p className={styles.paragraph}>
+            We are a global biopharmaceutical leader dedicated to clinical excellence. Selatox delivers innovative toxin solutions to set a new standard in global aesthetics.          </p>
+          <Button
+            variant="simple"
+            showIcon={true}
+            onClick={() => router.push("/about")}
+            className={styles.ctaButton}
+            color="var(--blue-100)"
+          >
+            Discover Our Vision
+          </Button>
         </div>
-        <div className={styles.textContainer}>  
-          <h2 className={styles.eyebrow}>Introduction</h2>
-          <h1 className={styles.title}>
-          Selatox Bio Pharma is a global biopharmaceutical innovator dedicated to delivering world-class health solutions through cutting-edge R&D and strategic international partnerships.
-          </h1>
-        </div>
-        <div className={styles.textContainer2}>  
-          <p className={styles.subtitle}>
-          We bridge the gap between advanced research and global accessibility, ensuring our mission of excellence reaches stakeholders worldwide.
-          </p>
-          
-        <div className={styles.buttonWrapperBlur}>
-            <Button
-              variant="blur"
-              onClick={() => router.push("/about")}
-              showIcon={true}
-              iconColor="var(--neutral-100)"
-            >
-              About us
-            </Button>
-          </div>
-        </div>
-        
       </div>
     </section>
   );

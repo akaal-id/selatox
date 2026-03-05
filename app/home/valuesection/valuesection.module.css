@@ -1,143 +1,141 @@
 /**
- * Valuesection — Why Selatox. Two-column layout with value cards.
- * Default = desktop (>1024px). Use @media for tablet and mobile only.
+ * Valuesection — Why Selatox. Premium editorial: sticky title left, typographic list right.
+ * Pure CSS Modules; no Tailwind. Structural lines, negative space, blurIn on view.
  */
 
-/* ---------------------------------------------------------------------------
-   Desktop (default)
-   --------------------------------------------------------------------------- */
+@keyframes blurIn {
+  from {
+    filter: blur(12px);
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .section {
   position: relative;
-  background: var(--neutral-20);
-  padding: 120px 48px;
-  overflow: hidden;
-  height: 110vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  background: var(--blue-5);
+  padding: 160px 80px;
+  font-family: var(--font-sans);
+  overflow: visible;
 }
 
 .container {
-  position: relative;
-  width: 100%;
-}
-
-.grid {
   display: flex;
-  flex-direction: column;
-  align-items: start;
-  gap: 64px;
-  padding: 32px;
-}
-
-.leftCol {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  position: relative;
-}
-
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: clamp(12px, 3vw, 16px);
-  font-weight: 300;
-  color: var(--neutral-20);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  line-height: 1.2;
-  margin: 0;
-  padding: 14px 12px;
-  background-color: var(--green-80);
-  width: fit-content;
-  border-radius: 4px;
-}
-
-.title {
-  font-family: var(--font-sans);
-  font-size: clamp(28px, 5vw, 40px);
-  font-weight: 400;
-  color: var(--neutral-160);
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  margin: 0;
-}
-
-.subtitle {
-  font-family: var(--font-sans);
-  font-size: 22px;
-  font-weight: 400;
-  color: var(--neutral-120);
-  line-height: 1.5;
-  margin: 0;
-  max-width: 800px;
-}
-
-.rightCol {
-  display: flex;
-  flex-direction: row;
-  gap: 24px;
-  position: relative;
-}
-
-.card {
-  padding: 32px 32px;
-  background: var(--neutral-40);
-  border: 1px solid transparent;
-  border-radius: 8px;
-  width: 100%;
-  aspect-ratio: 5/6;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.card:hover {
-  background: var(--neutral-20);
-  border-color: var(--neutral-60);
-  box-shadow: 0 4px 24px rgba(46, 34, 46, 0.06);
-}
-
-.cardIconWrap {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  transition: box-shadow 0.2s ease;
-}
-
-.cardTitle {
-  font-family: var(--font-sans);
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--neutral-160);
-  letter-spacing: -0.01em;
-  margin: 0 0 8px 0;
-  line-height: 1.25;
-  text-align: center;
-}
-
-.cardDescription {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  color: var(--neutral-120);
-  line-height: 1.5;
-  margin: 0;
-  text-align: center;
-  opacity: 0;
-}
-
-.card:hover .cardDescription{
-  opacity: 1;
+  align-items: stretch;
+  justify-content: space-between;
+  
+  max-width: 1400px;
+  margin: 0 auto;
+  height: fit-content;
 }
 
 /* ---------------------------------------------------------------------------
-   Tablet (≤1024px)
+   Left column — sticky section title (eyebrow + headline)
+   --------------------------------------------------------------------------- */
+.leftCol {
+  position: sticky;
+  top: 120px;
+  height: 100%;
+  width: 100%;
+  border-right: 1px solid var(--neutral-40);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue-100);
+  margin: 0 0 24px 0;
+  opacity: 0;
+  font-family: var(--font-mono);
+}
+
+.section.inView .eyebrow {
+  animation: blurIn 0.8s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+.headline {
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--neutral-140);
+  margin: 0;
+  letter-spacing: -0.02em;
+  opacity: 0;
+}
+
+.section.inView .headline {
+  animation: blurIn 0.9s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+/* ---------------------------------------------------------------------------
+   Right column — staggered typographic list of values
+   --------------------------------------------------------------------------- */
+.rightCol {
+  flex: 1 1 auto;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.valueItem {
+  padding-bottom: 80px;
+  border-bottom: 1px solid var(--neutral-40);
+  opacity: 0;
+}
+
+.valueItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.section.inView .valueItem {
+  animation: blurIn 0.85s ease-out forwards;
+  animation-delay: var(--delay, 0.3s);
+}
+
+.valueLabel {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue-100);
+  margin: 0 0 24px 0;
+  font-family: var(--font-mono);
+}
+
+.valueTitle {
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1.25;
+  color: var(--neutral-140);
+  margin: 0 0 20px 0;
+  letter-spacing: -0.01em;
+}
+
+.valueDescription {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--neutral-120);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Tablet
    --------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
   .section {
@@ -145,42 +143,82 @@
   }
 
   .container {
-    padding: 0 16px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 48px;
+    flex-direction: column;
+    gap: 64px;
   }
 
   .leftCol {
     position: static;
+    flex: none;
+    max-width: 100%;
+    padding-right: 0;
+    padding-bottom: 48px;
+    border-right: none;
+    border-bottom: 1px solid var(--neutral-40);
+  }
+
+  .headline {
+    font-size: 32px;
   }
 
   .rightCol {
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    max-width: 100%;
+    gap: 64px;
+  }
+
+  .valueItem {
+    padding-bottom: 64px;
+  }
+
+  .valueTitle {
+    font-size: 24px;
+  }
+
+  .valueDescription {
+    font-size: 17px;
   }
 }
 
 /* ---------------------------------------------------------------------------
-   Mobile (≤768px)
+   Mobile
    --------------------------------------------------------------------------- */
 @media (max-width: 768px) {
   .section {
-    padding: 64px 24px;
+    padding: 80px 24px;
   }
 
   .container {
-    padding: 0;
+    gap: 48px;
+  }
+
+  .leftCol {
+    padding-bottom: 32px;
+  }
+
+  .headline {
+    font-size: 26px;
   }
 
   .rightCol {
-    grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 48px;
   }
 
-  .card {
-    padding: 24px 20px;
+  .valueItem {
+    padding-bottom: 48px;
+  }
+
+  .valueHeader {
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .valueTitle {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .valueDescription {
+    font-size: 16px;
   }
 }

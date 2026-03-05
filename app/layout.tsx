@@ -9,15 +9,15 @@ const baseUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://selatox.com";
 
 export const metadata: Metadata = {
-  title: "PT. Selatox Bio Pharma | Global Website",
+  title: "Selatox | Global Website",
   description:
-    "PT. Selatox Bio Pharma — Innovation in biotech and pharmaceutical excellence. Trusted globally for quality and safety.",
+    "Selatox — Innovation in biotech and pharmaceutical excellence. Trusted globally for quality and safety.",
   icons: {
     icon: "/assets/icon.svg",
     apple: "/assets/icon.svg",
   },
   openGraph: {
-    title: "PT. Selatox Bio Pharma Global Website",
+    title: "Selatox Global Website",
     description:
       "Innovation in biotech and pharmaceutical excellence. Trusted globally for quality and safety.",
     images: [{ url: "/assets/icon.svg", alt: "Selatox" }],
