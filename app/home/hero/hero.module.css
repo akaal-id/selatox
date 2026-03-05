@@ -2,6 +2,18 @@
  * Hero section — Home page hero. Colors and fonts from globals; rest manual px.
  */
 
+/* Blur-in intro: from blurry + faint to clear */
+@keyframes blurIn {
+  from {
+    filter: blur(12px);
+    opacity: 0.4;
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
 .section {
   position: relative;
   height: 100svh;
@@ -9,6 +21,12 @@
   align-items: flex-end;
   justify-content: center;
   padding: 80px;
+  overflow: hidden;
+}
+
+.heroImage {
+  position: absolute;
+  inset: 0;
   background: linear-gradient(
       180deg,
       rgba(46, 34, 46, 0.0) 0%,
@@ -56,6 +74,7 @@
   /* text-transform: uppercase; */
   max-width: 480px;
   /* max-width: 100%; */
+  animation: blurIn 0.9s ease-out 0.2s both;
 }
 
 .subtitle {
@@ -89,6 +108,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  animation: blurIn 0.9s ease-out 0.45s both;
 }
 
 .divider {

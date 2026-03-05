@@ -10,8 +10,9 @@ export default function HomePage() {
     <main>
       <Hero />
       <Prodsection products={featuredProducts} />
-      <Introsection />
-      <Valuesection />
+      
+      {/* <Introsection />
+      <Valuesection /> */}
       
     </main>
   );

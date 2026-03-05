@@ -33,13 +33,11 @@
 .navbarNegative .logo,
 .navbarNegative .logoSub,
 .navbarNegative .link,
-.navbarNegative .linkActive,
 .navbarNegative .toggle {
   color: var(--neutral-20);
 }
 
-.navbarNegative .link:hover,
-.navbarNegative .linkActive {
+.navbarNegative .link:hover {
   color: var(--neutral-20);
 }
 
@@ -113,23 +111,29 @@
   border-bottom: 1px solid var(--color-border);
 }
 
-.link,
-.linkActive {
+.link {
   font-family: var(--font-mono);
   font-size: 14px;
   text-decoration: none;
   font-weight: 500;
   color: var(--color-text);
   padding: 8px 0 8px;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   line-height: 1;
 }
 
-.link:hover,
-.linkActive {
+/* When any link is hovered, blur and dim the others so the hovered link acts as focus */
+.nav:has(.link:hover) .link:not(:hover) {
+  filter: blur(2px);
+  opacity: 0.5;
+}
+
+.link:hover {
   color: var(--blue-100);
+  filter: none;
+  opacity: 1;
 }
 
 /* Nav button: nav + link look with button behaviour; icon inline, no icon container */

@@ -9,7 +9,8 @@ export function Hero() {
 
   return (
     <section id="hero" className={styles.section} aria-label="Hero" data-navbar="default">
-      {/* Navbar variant: negative (transparent, light text) while this section is in view */}
+      {/* Hero background — animated separately for blur-in */}
+      <div className={styles.heroImage} aria-hidden />
       <div className={styles.container}>
           <h1 className={styles.title}>
             Innovation in{" "}

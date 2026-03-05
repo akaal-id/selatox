@@ -85,7 +85,7 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
             <Link
               key={href}
               href={href}
-              className={pathname === href ? styles.linkActive : styles.link}
+              className={styles.link}
               onClick={() => setOpen(false)}
             >
               {label}
