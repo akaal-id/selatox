@@ -1,0 +1,128 @@
+/**
+ * Business — "Editorial Landscape".
+ * Top: ultra-wide landscape image. Bottom: 2-column text grid.
+ * Pure CSS Modules; no Tailwind. blurIn on view.
+ */
+
+@keyframes blurIn {
+  from {
+    filter: blur(12px);
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  font-family: var(--font-sans);
+  background: var(--neutral-0);
+  padding: 0 80px 120px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* ---------------------------------------------------------------------------
+   Top Area — Media container
+   --------------------------------------------------------------------------- */
+.mediaContainer {
+  width: 100%;
+  height: 60vh;
+  min-height: 400px;
+  max-height: 600px;
+  overflow: hidden;
+  background: var(--neutral-10);
+}
+
+.mediaImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mediaContainer:hover .mediaImage {
+  transform: scale(1.05);
+}
+
+/* ---------------------------------------------------------------------------
+   Bottom Area — Text grid (2 columns)
+   --------------------------------------------------------------------------- */
+.textGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px 64px;
+  margin-top: 64px;
+  align-items: start;
+}
+
+.titleColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue-100);
+  font-family: var(--font-sans);
+  opacity: 0;
+}
+
+.section.inView .eyebrow {
+  animation: blurIn 0.8s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+.headline {
+  font-size: clamp(36px, 4.5vw, 52px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--neutral-140);
+  margin: 0;
+  opacity: 0;
+}
+
+.section.inView .headline {
+  animation: blurIn 0.9s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+.descColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 24px;
+}
+
+.subtitle {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--neutral-80);
+  margin: 0;
+  opacity: 0;
+}
+
+.section.inView .subtitle {
+  animation: blurIn 0.9s ease-out forwards;
+  animation-delay: 0.35s;
+}
+
+.cta {
+  margin-top: 32px;
+  opacity: 0;
+}
+
+.section.inView .cta {
+  animation: blurIn 0.8s ease-out forwards;
+  animation-delay: 0.5s;
+}

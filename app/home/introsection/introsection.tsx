@@ -32,19 +32,20 @@ export function Introsection() {
       data-navbar="default"
     >
       <div className={styles.container}>
-        {/* Left Column: Eyebrow & Headline */}
+        {/* Left Column: Eyebrow only */}
         <div className={styles.leftColumn}>
           <p className={styles.eyebrow} aria-hidden>// Overview</p>
+        </div>
+
+        {/* Right Column: Headline, copy & CTA */}
+        <div className={styles.rightColumn}>
           <h2 className={styles.headline}>
             Where <span className={styles.highlightGreen}>Safety</span> meets{" "}
             <span className={styles.highlightBlue}>Innovation.</span> Redefining beauty through medical precision.
           </h2>
-        </div>
-
-        {/* Right Column: Copy & CTA — offset downwards */}
-        <div className={styles.rightColumn}>
           <p className={styles.paragraph}>
-            We are a global biopharmaceutical leader dedicated to clinical excellence. Selatox delivers innovative toxin solutions to set a new standard in global aesthetics.          </p>
+            We are a global biopharmaceutical leader dedicated to clinical excellence. Selatox delivers innovative toxin solutions to set a new standard in global aesthetics.
+          </p>
           <Button
             variant="simple"
             showIcon={true}

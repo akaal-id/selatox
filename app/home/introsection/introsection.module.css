@@ -28,21 +28,21 @@
 
 .container {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
   gap: 64px;
   margin: 0 auto;
+  width: 100%;
+  max-width: 1400px;
 }
 
-/* Left Column: Eyebrow + massive headline */
+/* Left Column: Eyebrow only */
 .leftColumn {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  /* max-width: 720px; */
 }
 
 .eyebrow {
@@ -66,10 +66,10 @@
   font-weight: 300;
   line-height: 1.12;
   color: var(--neutral-140);
-  margin: 0;
+  margin: 0 0 24px 0;
   opacity: 0;
-  max-width: 800px;
-  text-align: center;
+  max-width: 720px;
+  text-align: left;
 }
 
 .section.inView .headline {
@@ -85,14 +85,12 @@
   color: var(--blue-100);
 }
 
-/* Right Column: Copy & CTA — offset downwards for editorial flow */
+/* Right Column: Headline, copy & CTA */
 .rightColumn {
-  flex: 1 1 40%;
-  max-width: 720px;
   display: flex;
   flex-direction: column;
   gap: 32px;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -103,7 +101,7 @@
   color: var(--neutral-120);
   margin: 0;
   opacity: 0;
-  text-align: center;
+  text-align: left;
 }
 
 .section.inView .paragraph {
@@ -113,7 +111,7 @@
 
 .ctaButton {
   opacity: 0;
-  align-self: center;
+  align-self: flex-start;
 }
 
 .section.inView .ctaButton {
