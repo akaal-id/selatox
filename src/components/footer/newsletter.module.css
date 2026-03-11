@@ -1,0 +1,164 @@
+.newsletterSection {
+    background-color: var(--neutral-20);
+    padding: 160px 40px;
+}
+
+.folioWrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    background-color: var(--neutral-0);
+    border: 1px solid var(--neutral-40);
+    border-radius: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.03);
+}
+
+.leftPanel {
+    padding: 100px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+}
+
+.eyebrow {
+    color: var(--blue-100);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.headline {
+    font-weight: 300;
+    color: var(--neutral-140);
+    line-height: 1.1;
+    font-size: 48px;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.description {
+    font-size: 18px;
+    color: var(--neutral-80);
+    margin: 0;
+    line-height: 1.6;
+    max-width: 90%;
+}
+
+.rightPanel {
+    padding: 100px 80px;
+    border-left: 1px solid var(--neutral-40);
+    background-color: var(--neutral-0);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: background-color 0.5s ease;
+}
+
+.rightPanel:hover,
+.rightPanel:focus-within {
+    background-color: var(--neutral-10);
+}
+
+.disclaimer {
+    color: var(--neutral-80);
+    font-size: 14px;
+    margin: 0 0 80px 0;
+}
+
+.formContainer {
+    width: 100%;
+    position: relative;
+    padding-bottom: 24px;
+}
+
+.input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid var(--neutral-40);
+    background: transparent;
+    padding: 0 100px 16px 0;
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--neutral-140);
+    outline: none;
+    transition: border-color 0.4s ease;
+}
+
+.input::placeholder {
+    color: var(--neutral-40);
+}
+
+.input:focus {
+    border-color: var(--blue-100);
+}
+
+.submitButton {
+    position: absolute;
+    right: 0px;
+    bottom: -8px;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background-color: var(--neutral-140);
+    color: var(--neutral-0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 2;
+}
+
+.submitButton:hover,
+.submitButton:focus {
+    transform: scale(1.1);
+    background-color: var(--blue-100);
+    outline: none;
+}
+
+@media (max-width: 1024px) {
+    .folioWrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .rightPanel {
+        border-left: none;
+        border-top: 1px solid var(--neutral-40);
+    }
+}
+
+@media (max-width: 768px) {
+    .newsletterSection {
+        padding: 64px 20px;
+    }
+
+    .folioWrapper {
+        border-radius: 16px;
+    }
+
+    .leftPanel,
+    .rightPanel {
+        padding: 48px 24px;
+    }
+
+    .headline {
+        font-size: 36px;
+    }
+
+    .input {
+        font-size: 24px;
+    }
+
+    .submitButton {
+        width: 56px;
+        height: 56px;
+        bottom: 0px;
+    }
+}

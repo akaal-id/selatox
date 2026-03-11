@@ -9,6 +9,7 @@
     opacity: 0;
     transform: translateY(16px);
   }
+
   to {
     filter: blur(0);
     opacity: 1;
@@ -48,7 +49,7 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--green-100);
- 
+
   opacity: 0;
   font-family: var(--font-mono);
 }
@@ -79,7 +80,7 @@
 .cardGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  
+
 }
 
 .valueCard {
@@ -87,7 +88,6 @@
   flex-direction: column;
   background: var(--neutral-20);
   border: 1px solid var(--green-20);
-  
   overflow: hidden;
   opacity: 0;
 }
@@ -96,7 +96,7 @@
   border-right: none;
 }
 
-.valueCard:last-child{
+.valueCard:last-child {
   border-left: none;
 }
 

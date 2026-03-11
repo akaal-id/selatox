@@ -1,0 +1,144 @@
+/**
+ * Newsroom — "Editorial Window Cards".
+ * 3 Portrait cards grid.
+ */
+
+@keyframes blurIn {
+  from {
+    filter: blur(12px);
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  font-family: var(--font-sans);
+  padding: 160px 80px;
+  background-color: var(--neutral-10);
+}
+
+.container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ---------------------------------------------------------------------------
+   Top Area — Header (Flex Space Between)
+   --------------------------------------------------------------------------- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 64px;
+}
+
+.titleColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue-100);
+  font-family: var(--font-sans);
+  opacity: 0;
+}
+
+.section.inView .eyebrow {
+  animation: blurIn 0.8s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+.headline {
+  font-size: clamp(36px, 4.5vw, 52px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--neutral-140);
+  margin: 0;
+  opacity: 0;
+}
+
+.section.inView .headline {
+  animation: blurIn 0.9s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+.actionColumn {
+  opacity: 0;
+}
+
+.section.inView .actionColumn {
+  animation: blurIn 0.8s ease-out forwards;
+  animation-delay: 0.3s;
+}
+
+.viewAllButton {
+  margin-bottom: 8px;
+  /* Tweak for optical baseline alignment */
+}
+
+/* ---------------------------------------------------------------------------
+   Bottom Area — 3-Column Grid
+   --------------------------------------------------------------------------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.cardWrapper {
+  opacity: 0;
+}
+
+.section.inView .cardWrapper {
+  animation: blurIn 0.9s ease-out forwards;
+}
+
+
+/* ---------------------------------------------------------------------------
+   Responsive Adjustments
+   --------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .section {
+    padding: 120px 48px;
+  }
+
+  .header {
+    padding-bottom: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 24px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 40px;
+    gap: 24px;
+  }
+
+  .viewAllButton {
+    margin-bottom: 0;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    /* More spacing vertically between cards */
+  }
+}

@@ -7,17 +7,29 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 120px 48px;
+  padding: 160px 80px;
   max-width: 100%;
   overflow: hidden;
 }
 
 .container {
+  max-width: 1400px;
   width: 100%;
-  padding: 32px;
-
+  margin: 0 auto;
   border-left: 1px solid rgba(255, 255, 255, 0.3);
   border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 120px 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 24px;
+  }
 }
 
 .topSection {

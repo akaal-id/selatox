@@ -68,9 +68,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {children != null && children !== "" ? (
-          <span className={styles.buttonText}>{children}</span>
+          <span className={styles.textWrapper}>
+            <span className={styles.textPrimary}>{children}</span>
+            <span className={styles.textSecondary} aria-hidden>{children}</span>
+          </span>
         ) : null}
-        {showIcon && <ArrowRight size={16} aria-hidden />}
+        {showIcon && (
+          <span className={styles.iconWrapper}>
+            <ArrowRight size={16} className={styles.iconPrimary} aria-hidden />
+            <ArrowRight size={16} className={styles.iconSecondary} aria-hidden />
+          </span>
+        )}
       </button>
     );
   }

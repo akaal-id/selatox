@@ -26,36 +26,39 @@ export function Business() {
       ref={sectionRef}
       className={`${styles.section} ${isInView ? styles.inView : ""}`}
       id="our-business"
+      data-navbar="default"
     >
-      <div className={styles.mediaContainer}>
-        <img
-          src="/images/hero-1.png"
-          alt="Our Business Overview"
-          className={styles.mediaImage}
-        />
-      </div>
-
-      <div className={styles.textGrid}>
-        <div className={styles.titleColumn}>
-          <span className={styles.eyebrow}>Our Business</span>
-          <h2 className={styles.headline}>
-            Pioneering Research. Strategic Global Partnerships.
-          </h2>
+      <div className={styles.container}>
+        <div className={styles.mediaContainer}>
+          <img
+            src="/images/hero-1.png"
+            alt="Our Business Overview"
+            className={styles.mediaImage}
+          />
         </div>
-        <div className={styles.descColumn}>
-          <p className={styles.subtitle}>
-            Developing high-purity aesthetic formulations through advanced
-            biotechnology, and collaborating with top-tier international clinics
-            to deliver clinical excellence across borders.
-          </p>
-          <Button
-            variant="simple"
-            showIcon={true}
-            color="var(--neutral-140)"
-            className={styles.cta}
-          >
-            Explore Our Research
-          </Button>
+
+        <div className={styles.textGrid}>
+          <div className={styles.titleColumn}>
+            <span className={styles.eyebrow}>Our Business</span>
+            <h2 className={styles.headline}>
+              Pioneering Research. Strategic Global Partnerships.
+            </h2>
+          </div>
+          <div className={styles.descColumn}>
+            <p className={styles.subtitle}>
+              Developing high-purity aesthetic formulations through advanced
+              biotechnology, and collaborating with top-tier international clinics
+              to deliver clinical excellence across borders.
+            </p>
+            <Button
+              variant="simple"
+              showIcon={true}
+              color="var(--neutral-140)"
+              className={styles.cta}
+            >
+              Explore Our Research
+            </Button>
+          </div>
         </div>
       </div>
     </section>

@@ -1,0 +1,81 @@
+.card {
+  border: 1px solid var(--neutral-40);
+  background-color: var(--neutral-0);
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--neutral-80);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  transition: color 0.4s ease;
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--neutral-140);
+  line-height: 1.2;
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+.bottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.department {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--neutral-80);
+  font-weight: 400;
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+.icon {
+  color: var(--neutral-140);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover {
+  background-color: var(--neutral-140);
+}
+
+.card:hover .topRow,
+.card:hover .department {
+  color: var(--neutral-40);
+}
+
+.card:hover .title {
+  color: var(--neutral-0);
+}
+
+.card:hover .icon {
+  color: var(--blue-100);
+  transform: translate(4px, -4px);
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 32px 24px;
+    min-height: 240px;
+  }
+}

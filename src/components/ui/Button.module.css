@@ -3,37 +3,87 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  border-radius: 8px;
+  border-radius: 9999px;
   height: 48px;
   width: fit-content;
   padding: 16px 32px;
   cursor: pointer;
-  transition: filter 0.2s ease, transform 0.2s ease;
-  border: none;
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  border: 1px solid var(--neutral-40);
   font-size: 14px;
 }
 
-.buttonText {
+.textWrapper {
+  display: inline-grid;
+  overflow: hidden;
+  align-items: center;
+}
+
+.textPrimary,
+.textSecondary {
+  grid-area: 1 / 1;
   font-family: var(--font-mono);
   font-weight: 400;
   letter-spacing: 0.04em;
   line-height: 1;
   text-transform: uppercase;
   white-space: nowrap;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.button svg {
-  flex-shrink: 0;
+.textPrimary {
+  transform: translateY(0);
+}
+
+.textSecondary {
+  transform: translateY(100%);
+}
+
+.button:not(:disabled):hover .textPrimary {
+  transform: translateY(-100%);
+}
+
+.button:not(:disabled):hover .textSecondary {
+  transform: translateY(0);
+}
+
+.iconWrapper {
+  display: inline-grid;
+  align-items: center;
+}
+
+.iconPrimary,
+.iconSecondary {
+  grid-area: 1 / 1;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+    opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   color: currentColor;
+  flex-shrink: 0;
+}
+
+.iconPrimary {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.iconSecondary {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.button:not(:disabled):hover .iconPrimary {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.button:not(:disabled):hover .iconSecondary {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 .button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-}
-
-.button:not(:disabled):hover {
-  filter: brightness(1.05);
 }
 
 .sm {
@@ -58,7 +108,7 @@
   /* padding: 12px; */
 }
 
-.border:hover {
+.button.border:hover {
   border-color: var(--neutral-80);
   background: var(--neutral-40);
 }
@@ -77,6 +127,6 @@
   min-height: 0;
 }
 
-.simple:hover {
+.button.simple:hover {
   background: none;
 }

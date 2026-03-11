@@ -12,6 +12,7 @@ const navLinks = [
   { href: "/about", label: "About" },
   { href: "/products", label: "Products" },
   { href: "/careers", label: "Careers" },
+  { href: "/news", label: "News" },
 ];
 
 export type NavbarVariant = "default" | "negative";
@@ -62,7 +63,7 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
   }, [pathname]);
 
   const effectiveVariant =
-    variantProp ?? scrollVariant ?? (homePaths.includes(pathname) ? "negative" : "default");
+    variantProp ?? scrollVariant ?? "default";
   const isNegative = effectiveVariant === "negative";
 
   return (
@@ -78,7 +79,7 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
             height={20}
             className={styles.logoIcon}
           />
-         
+
         </Link>
         <nav className={`${styles.nav} ${open ? styles.navOpen : ""}`}>
           {navLinks.map(({ href, label }) => (
@@ -101,8 +102,14 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
               router.push("/contact");
             }}
           >
-            <span>Contact Us</span>
-            <ArrowRight size={16} aria-hidden />
+            <span className={styles.textWrapper}>
+              <span className={styles.textPrimary}>Contact Us</span>
+              <span className={styles.textSecondary} aria-hidden>Contact Us</span>
+            </span>
+            <span className={styles.iconWrapper}>
+              <ArrowRight size={16} className={styles.iconPrimary} aria-hidden />
+              <ArrowRight size={16} className={styles.iconSecondary} aria-hidden />
+            </span>
           </button>
           <button
             type="button"
