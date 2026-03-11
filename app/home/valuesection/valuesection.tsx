@@ -59,7 +59,7 @@ export function Valuesection() {
         {/* Top: section heading + tagline */}
         <div className={styles.topBlock}>
           <p className={styles.eyebrow} aria-hidden>
-            // Why Selatox
+            {"// Why Selatox"}
           </p>
           <h2 id="values-heading" className={styles.headline}>
             Driven by Justice.

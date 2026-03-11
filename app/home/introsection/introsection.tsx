@@ -34,7 +34,7 @@ export function Introsection() {
       <div className={styles.container}>
         {/* Left Column: Eyebrow only */}
         <div className={styles.leftColumn}>
-          <p className={styles.eyebrow} aria-hidden>// Overview</p>
+          <p className={styles.eyebrow} aria-hidden>{"// Overview"}</p>
         </div>
 
         {/* Right Column: Headline, copy & CTA */}

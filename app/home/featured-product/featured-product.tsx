@@ -57,7 +57,7 @@ export function FeaturedProduct() {
         {/* Right — The Dossier */}
         <div className={styles.dossier}>
           <p className={styles.eyebrow} aria-hidden>
-            // Featured Innovation
+            {"// Featured Innovation"}
           </p>
           <h2 id="featured-product-heading" className={styles.headline}>
             Botulinum Toxin Type A
