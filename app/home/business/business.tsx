@@ -24,40 +24,41 @@ export function Business() {
   return (
     <section
       ref={sectionRef}
-      className={`${styles.section} ${isInView ? styles.inView : ""}`}
+      className={`${styles.section} ${isInView ? styles.inView : ""}`.trim()}
       id="our-business"
       data-navbar="default"
     >
+      <img
+        src="/images/hero-1.png"
+        alt=""
+        className={styles.backgroundImage}
+        aria-hidden
+      />
+      <div className={styles.overlay} aria-hidden />
+
       <div className={styles.container}>
-        <div className={styles.mediaContainer}>
-          <img
-            src="/images/hero-1.png"
-            alt="Our Business Overview"
-            className={styles.mediaImage}
-          />
+        <div className={styles.top}>
+          <p className={styles.eyebrow} aria-hidden>{"// Our Business"}</p>
         </div>
 
-        <div className={styles.textGrid}>
-          <div className={styles.titleColumn}>
-            <span className={styles.eyebrow}>Our Business</span>
-            <h2 className={styles.headline}>
-              Pioneering Research. Strategic Global Partnerships.
-            </h2>
-          </div>
-          <div className={styles.descColumn}>
+        <div className={styles.bottom}>
+          <h2 className={styles.headline}>
+            Clinical science,
+            
+            built for global aesthetics.
+          </h2>
+
+          <div className={styles.right}>
             <p className={styles.subtitle}>
-              Developing high-purity aesthetic formulations through advanced
-              biotechnology, and collaborating with top-tier international clinics
-              to deliver clinical excellence across borders.
+              We develop precision toxin formulations and partner with leading
+              clinics worldwide to bring trusted, scalable aesthetic solutions
+              to every market we serve.
             </p>
-            <Button
-              variant="simple"
-              showIcon={true}
-              color="var(--neutral-140)"
-              className={styles.cta}
-            >
-              Explore Our Research
-            </Button>
+            <div className={styles.cta}>
+              <Button variant="simple" showIcon color="var(--neutral-0)">
+                Explore Our Research
+              </Button>
+            </div>
           </div>
         </div>
       </div>

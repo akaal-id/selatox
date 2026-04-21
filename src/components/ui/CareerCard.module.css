@@ -1,11 +1,12 @@
 .card {
-  border: 1px solid var(--neutral-40);
-  background-color: var(--neutral-0);
-  padding: 40px 32px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(4px);
+  padding: 32px 28px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 280px;
+  min-height: 240px;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   text-decoration: none;
@@ -17,7 +18,7 @@
   gap: 16px;
   font-family: var(--font-sans);
   font-size: 12px;
-  color: var(--neutral-80);
+  color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 500;
@@ -26,9 +27,9 @@
 
 .title {
   font-family: var(--font-sans);
-  font-size: 28px;
-  font-weight: 300;
-  color: var(--neutral-140);
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--neutral-0);
   line-height: 1.2;
   margin: 0;
   transition: color 0.4s ease;
@@ -44,24 +45,26 @@
 .department {
   font-family: var(--font-sans);
   font-size: 14px;
-  color: var(--neutral-80);
+  color: rgba(255, 255, 255, 0.78);
   font-weight: 400;
   margin: 0;
   transition: color 0.4s ease;
 }
 
 .icon {
-  color: var(--neutral-140);
+  color: #8eb8ef;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card:hover {
-  background-color: var(--neutral-140);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
 }
 
 .card:hover .topRow,
 .card:hover .department {
-  color: var(--neutral-40);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .card:hover .title {
@@ -69,7 +72,7 @@
 }
 
 .card:hover .icon {
-  color: var(--blue-100);
+  color: #b0d0fb;
   transform: translate(4px, -4px);
 }
 

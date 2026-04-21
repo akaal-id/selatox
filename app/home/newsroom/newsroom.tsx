@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import { NewsCard } from "@/components/ui/NewsCard";
 import styles from "./newsroom.module.css";
 import { useRouter } from "next/navigation";
 
@@ -57,11 +57,12 @@ export function Newsroom() {
       ref={sectionRef}
       className={`${styles.section} ${isInView ? styles.inView : ""}`}
       id="newsroom"
+      data-navbar="default"
     >
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.titleColumn}>
-            <span className={styles.eyebrow}>Newsroom</span>
+            <span className={styles.eyebrow} aria-hidden>{"// Newsroom"}</span>
             <h2 className={styles.headline}>Latest Updates &amp; Insights.</h2>
           </div>
           <div className={styles.actionColumn}>
@@ -79,19 +80,23 @@ export function Newsroom() {
 
         <div className={styles.grid}>
           {NEWS_ITEMS.map((article, index) => (
-            <div 
-              key={article.id} 
-              className={styles.cardWrapper}
-              style={{ animationDelay: `${0.4 + index * 0.1}s` }}
+            <Link
+              key={article.id}
+              href={article.href}
+              className={styles.newsCard}
+              style={{ animationDelay: `${0.38 + index * 0.1}s` }}
             >
-              <NewsCard
-                title={article.title}
-                date={article.date}
-                category={article.category}
-                image={article.image}
-                href={article.href}
-              />
-            </div>
+              <div className={styles.media}>
+                <img src={article.image} alt={article.title} className={styles.image} />
+              </div>
+              <div className={styles.content}>
+                <p className={styles.meta}>
+                  <span>{article.category}</span>
+                  <span>{article.date}</span>
+                </p>
+                <h3 className={styles.title}>{article.title}</h3>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

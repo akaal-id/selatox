@@ -1,9 +1,24 @@
+@keyframes blurIn {
+  from {
+    filter: blur(10px);
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .section {
-  padding: 160px 80px;
-  background-color: var(--neutral-0);
+  padding: 150px 80px;
+  background: var(--neutral-0);
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-top: 1px solid var(--neutral-60);
+  border-bottom: 1px solid var(--neutral-60);
 }
 
 .container {
@@ -13,52 +28,145 @@
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding-bottom: 64px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 28px;
+  margin-bottom: 40px;
 }
 
 .titleArea {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-width: 700px;
+  gap: 14px;
+  max-width: 800px;
 }
 
 .eyebrow {
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   color: var(--blue-100);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 500;
-  font-size: 14px;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  font-size: 12px;
   margin: 0;
+  opacity: 0;
+}
+
+.section.inView .eyebrow {
+  animation: blurIn 0.8s ease-out forwards;
+  animation-delay: 0.08s;
 }
 
 .title {
   font-family: var(--font-sans);
   font-weight: 300;
   color: var(--neutral-140);
-  font-size: 48px;
+  font-size: clamp(34px, 4.2vw, 52px);
   line-height: 1.1;
+  letter-spacing: -0.02em;
   margin: 0;
+  opacity: 0;
+}
+
+.section.inView .title {
+  animation: blurIn 0.9s ease-out forwards;
+  animation-delay: 0.18s;
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  max-width: 640px;
+  color: var(--neutral-120);
+  font-size: 18px;
+  line-height: 1.58;
+  font-weight: 300;
+  opacity: 0;
+}
+
+.section.inView .subtitle {
+  animation: blurIn 0.85s ease-out forwards;
+  animation-delay: 0.27s;
 }
 
 .actionArea {
   display: flex;
   align-items: center;
+  opacity: 0;
+}
+
+.section.inView .actionArea {
+  animation: blurIn 0.85s ease-out forwards;
+  animation-delay: 0.33s;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-top: 1px solid var(--neutral-60);
+  opacity: 0;
+}
+
+.section.inView .grid {
+  animation: blurIn 0.95s ease-out forwards;
+  animation-delay: 0.44s;
+}
+
+.jobCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr) minmax(0, 0.7fr);
+  align-items: center;
+  gap: 18px;
+  padding: 24px 4px;
+  border-bottom: 1px solid var(--neutral-60);
+}
+
+.jobMeta {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--neutral-120);
+}
+
+.jobCard h3 {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.12;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: var(--neutral-140);
+}
+
+.jobCard p:last-child {
+  margin: 0;
+  text-align: right;
+  color: var(--neutral-120);
+  font-size: 15px;
 }
 
 @media (max-width: 1024px) {
   .section {
     padding: 120px 48px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .jobCard {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 18px 0;
+  }
+
+  .jobCard p:last-child {
+    text-align: left;
   }
 }
 
@@ -66,20 +174,16 @@
   .section {
     padding: 80px 24px;
   }
-  
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 32px;
-    padding-bottom: 48px;
-  }
-  
+
   .title {
     font-size: 36px;
   }
-  
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .jobCard h3 {
+    font-size: 24px;
   }
 }
