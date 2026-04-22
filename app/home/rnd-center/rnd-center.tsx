@@ -62,11 +62,18 @@ export function RndCenter() {
       <div className={styles.container}>
         <div className={styles.intro}>
           <p className={styles.eyebrow} aria-hidden>{"// R&D Center"}</p>
-          <h2 id="rnd-center-heading" className={styles.headline}>
-            Advancing our
-            <br />
-            clinical pipeline.
-          </h2>
+          <div className={styles.headerContainer}>
+            <h2 id="rnd-center-heading" className={styles.headline}>
+              Advancing our
+              <br />
+              clinical pipeline.
+            </h2>
+            <p className={styles.sub}>
+              Our core research discipline drives every program with rigorous
+              methodology, translational science, and a long-term commitment to
+              clinical impact.
+            </p>
+          </div>
         </div>
 
         <div className={styles.tableWrap} role="table" aria-label="RND pipeline">
