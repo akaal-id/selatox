@@ -9,8 +9,18 @@ export function Hero() {
 
   return (
     <section id="hero" className={styles.section} aria-label="Hero" data-navbar="default">
-      {/* Hero background — animated separately for blur-in */}
-      <div className={styles.heroImage} aria-hidden />
+      <div className={styles.heroImage} aria-hidden>
+        <video
+          className={styles.heroVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        >
+          <source src="/videos/hero-selatox.mp4" type="video/mp4" />
+        </video>
+      </div>
       <div className={styles.container}>
           <h1 className={styles.title}>
             Innovation in{" "}

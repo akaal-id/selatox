@@ -65,7 +65,7 @@ export function ManufacturingPlan() {
             preload="metadata"
             aria-label="Manufacturing plan overview video"
           >
-            <source src="/videos/manufacturing-plan.mp4" type="video/mp4" />
+            <source src="/videos/hero-selatox.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>

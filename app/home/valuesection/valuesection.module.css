@@ -90,6 +90,10 @@
   border: 1px solid var(--green-20);
   overflow: hidden;
   opacity: 0;
+  transition:
+    transform 260ms ease,
+    box-shadow 260ms ease,
+    border-color 260ms ease;
 }
 
 .valueCard:first-child {
@@ -122,6 +126,7 @@
   object-fit: cover;
   display: block;
   vertical-align: middle;
+  transition: transform 320ms ease;
 }
 
 .cardContent {
@@ -141,6 +146,7 @@
   margin-bottom: 12px;
   font-family: var(--font-mono);
   width: 100%;
+  transition: color 220ms ease;
 }
 
 .valueTitle {
@@ -158,6 +164,22 @@
   line-height: 1.6;
   color: var(--neutral-120);
   margin: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .valueCard:hover {
+    transform: translateY(-8px);
+    /* border-color: var(--green-50); */
+    box-shadow: 0 16px 32px rgba(17, 46, 44, 0.08);
+  }
+
+  .valueCard:hover .cardImage {
+    transform: scale(1.06);
+  }
+
+  .valueCard:hover .valueLabel {
+    color: var(--green-100);
+  }
 }
 
 /* ---------------------------------------------------------------------------
