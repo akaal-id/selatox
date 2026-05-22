@@ -1,0 +1,225 @@
+.section {
+  position: relative;
+  background-color: var(--neutral-20);
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--section-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--section-px);
+  padding-right: var(--section-px);
+}
+
+.headerGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.eyebrowCol {
+  grid-column: span 12 / span 12;
+}
+
+@media (min-width: 768px) {
+  .eyebrowCol {
+    grid-column: span 2 / span 2;
+  }
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--neutral-100);
+}
+
+.titleCol {
+  grid-column: span 12 / span 12;
+}
+
+@media (min-width: 768px) {
+  .titleCol {
+    grid-column: 3 / span 6;
+  }
+}
+
+.textWrap {
+  overflow: hidden;
+}
+
+.title {
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  color: var(--neutral-160);
+}
+
+.timelineList {
+  position: relative;
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.progressLineWrap {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  left: calc((3 / 12) * 100% + ((1 / 12) * 100% / 2));
+}
+
+@media (min-width: 768px) {
+  .progressLineWrap {
+    left: calc((2 / 12) * 100% + ((1 / 12) * 100% / 2));
+  }
+}
+
+.progressTrack {
+  position: absolute;
+  inset: 0;
+  background-color: var(--neutral-60);
+}
+
+.progressFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: var(--neutral-160);
+}
+
+/* MilestoneItem elements */
+.milestoneRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.yearCol {
+  grid-column: span 3 / span 3;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding-right: 32px;
+}
+
+@media (min-width: 768px) {
+  .yearCol {
+    grid-column: span 2 / span 2;
+  }
+}
+
+.yearText {
+  font-family: var(--font-mono);
+  font-size: clamp(24px, 3vw, 40px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--neutral-160);
+}
+
+.dotCol {
+  position: relative;
+  grid-column: span 1 / span 1;
+  display: flex;
+  justify-content: center;
+}
+
+.dot {
+  position: relative;
+  z-index: 10;
+  margin-top: 8px;
+  height: 12px;
+  width: 12px;
+  border-radius: 9999px;
+}
+
+.dotCompleted {
+  background-color: var(--neutral-160);
+}
+
+.dotActive {
+  background-color: var(--blue-60);
+  box-shadow: 0 0 0 4px var(--blue-20);
+}
+
+.dotUpcoming {
+  background-color: var(--neutral-60);
+}
+
+.dotVision {
+  background-color: var(--green-60);
+  box-shadow: 0 0 0 4px var(--green-20);
+}
+
+.contentCol {
+  grid-column: span 8 / span 8;
+  border-bottom: 1px solid var(--neutral-60);
+  padding-bottom: 48px;
+}
+
+@media (min-width: 768px) {
+  .contentCol {
+    grid-column: span 9 / span 9;
+  }
+}
+
+.milestoneTitle {
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--neutral-100);
+}
+
+.milestoneDescription {
+  max-width: 520px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.625;
+  color: var(--neutral-120);
+}
+
+.badgeActive {
+  margin-top: 16px;
+  display: inline-block;
+  border-radius: 9999px;
+  border: 1px solid var(--blue-20);
+  background-color: var(--blue-5);
+  padding: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--blue-100);
+}
+
+.badgeVision {
+  margin-top: 16px;
+  display: inline-block;
+  border-radius: 9999px;
+  border: 1px solid var(--green-20);
+  background-color: var(--green-5);
+  padding: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--green-100);
+}

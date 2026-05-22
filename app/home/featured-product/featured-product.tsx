@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import styles from "./featured-product.module.css";
 
 const FEATURED_PRODUCT = {
-  image: "/images/hero-2.png",
+  image: "/images/product.webp",
   specs: [
     { label: "Strain", value: "Hall A Hyper" },
     { label: "Formulation", value: "Freeze-dried white powder" },

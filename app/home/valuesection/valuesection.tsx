@@ -10,7 +10,7 @@ const values = [
     title: "2030 Global Leading Biopharmaceutical Company.",
     description:
       "We are committed to setting new standards in the global aesthetics market—combining scientific rigor with a clear roadmap to become the reference for quality, innovation, and trust.",
-    image: "/images/hero-1.png",
+    image: "/images/hero-1.webp",
   },
   {
     id: "mission",
@@ -18,7 +18,7 @@ const values = [
     title: "World-Class Production.",
     description:
       "Excellence in toxin production and global distribution sits at the heart of our operations. We invest in state-of-the-art facilities and processes to deliver pharmaceutical-grade solutions that meet the highest international standards.",
-    image: "/images/hero-3.jpg",
+    image: "/images/hero-3.webp",
   },
   {
     id: "core-value",
@@ -26,7 +26,7 @@ const values = [
     title: "Uncompromising Justice.",
     description:
       "Never taking an unrighteous path, ensuring clinical safety, transparency, and trust in every vial we produce.",
-    image: "/images/intro.png",
+    image: "/images/intro.webp",
   },
 ];
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Navbar } from "@/components/navbar/navbar";
+import { LenisProvider } from "@/components/lenis/LenisProvider";
 import { ScrollFloater } from "@/components/scrollfloater/ScrollFloater";
 import { Footer } from "@/components/footer/Footer";
 import "@/styles/globals.css";
@@ -45,10 +46,12 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen antialiased font-sans">
-        <Navbar />
-        {children}
-        <Footer />
-        <ScrollFloater />
+        <LenisProvider>
+          <Navbar />
+          {children}
+          <Footer />
+          <ScrollFloater />
+        </LenisProvider>
       </body>
     </html>
   );

@@ -1,0 +1,266 @@
+@keyframes blurIn {
+  from {
+    filter: blur(10px);
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes progressGrow {
+  from {
+    width: 0;
+  }
+}
+
+.section {
+  position: relative;
+  padding: var(--section-py) var(--section-px);
+  background: var(--neutral-10);
+  font-family: var(--font-sans);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--section-max-width);
+  margin: 0 auto;
+}
+
+/* Header */
+.headerRow {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 80px;
+}
+
+.headerInner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: 16px;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--blue-100);
+}
+
+.headline {
+  margin: 0;
+  font-size: clamp(34px, 4.4vw, 52px);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--neutral-160);
+}
+
+.headerSub {
+  margin: 0;
+  max-width: 420px;
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--neutral-120);
+}
+
+/* Research grid — diagram-style bento layout */
+.researchGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0;
+  border: 1px solid var(--neutral-60);
+}
+
+.researchCard {
+  grid-column: span 12;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 32px;
+  border-bottom: 1px solid var(--neutral-60);
+  position: relative;
+  transition: background-color 0.35s ease;
+}
+
+.researchCard:last-child {
+  border-bottom: none;
+}
+
+.researchCard:hover {
+  background-color: var(--neutral-20);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.cardIndex {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--neutral-100);
+  flex-shrink: 0;
+  padding-top: 4px;
+}
+
+.cardPhase {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--blue-100);
+  border: 1px solid var(--blue-40);
+  padding: 4px 10px;
+  flex-shrink: 0;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--neutral-160);
+}
+
+.cardDescription {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--neutral-120);
+  max-width: 720px;
+}
+
+/* Tags */
+.cardTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--neutral-140);
+  background: var(--neutral-40);
+  padding: 6px 12px;
+  border: 1px solid var(--neutral-60);
+}
+
+/* Featured highlight card */
+.featuredCard {
+  grid-column: span 12;
+  background: var(--neutral-160);
+  color: var(--neutral-0);
+  padding: 56px 40px;
+  border-bottom: 1px solid var(--neutral-60);
+}
+
+.featuredCard .cardIndex {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.featuredCard .cardPhase {
+  color: var(--green-60);
+  border-color: var(--green-120);
+}
+
+.featuredCard .cardTitle {
+  color: var(--neutral-0);
+  font-size: 30px;
+}
+
+.featuredCard .cardDescription {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.featuredCard .tag {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.featuredBadge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green-100);
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .researchCard {
+    grid-column: span 6;
+    border-right: 1px solid var(--neutral-60);
+  }
+
+  .researchCard:nth-child(even) {
+    border-right: none;
+  }
+
+  .featuredCard {
+    grid-column: span 12;
+    border-right: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .headerInner {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .researchCard {
+    padding: 48px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerRow {
+    margin-bottom: 56px;
+  }
+
+  .headerInner {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .researchCard {
+    padding: 32px 24px;
+  }
+
+  .cardTitle {
+    font-size: 22px;
+  }
+
+  .featuredCard {
+    padding: 40px 24px;
+  }
+
+  .featuredCard .cardTitle {
+    font-size: 24px;
+  }
+}

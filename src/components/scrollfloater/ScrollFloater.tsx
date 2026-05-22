@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
+import { useLenis } from "@/components/lenis/LenisProvider";
+import { useScrollToTop } from "@/hooks/useScrollToTop";
 import styles from "./scrollfloater.module.css";
 
 const CIRCLE_R = 45;
@@ -13,6 +15,8 @@ const SCROLL_LEAVE_TOP = 48;
 const LERP_FACTOR = 0.12;
 
 export function ScrollFloater() {
+  const lenis = useLenis();
+  const scrollToTop = useScrollToTop();
   const [scrollY, setScrollY] = useState(0);
   const [maxScroll, setMaxScroll] = useState(0);
   const [showAtTop, setShowAtTop] = useState(true);
@@ -23,9 +27,10 @@ export function ScrollFloater() {
 
   useEffect(() => {
     const update = () => {
-      const sy = window.scrollY;
-      const max =
-        document.documentElement.scrollHeight - window.innerHeight;
+      const sy = lenis ? lenis.scroll : window.scrollY;
+      const max = lenis
+        ? lenis.limit
+        : document.documentElement.scrollHeight - window.innerHeight;
       latestRef.current = { scrollY: sy, maxScroll: max };
 
       if (rafRef.current != null) return;
@@ -42,6 +47,17 @@ export function ScrollFloater() {
     };
 
     update();
+
+    if (lenis) {
+      const unsubscribe = lenis.on("scroll", update);
+      window.addEventListener("resize", update);
+      return () => {
+        unsubscribe();
+        window.removeEventListener("resize", update);
+        if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
+      };
+    }
+
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
     return () => {
@@ -49,7 +65,7 @@ export function ScrollFloater() {
       window.removeEventListener("resize", update);
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
     };
-  }, []);
+  }, [lenis]);
 
   useEffect(() => {
     let rafId: number;
@@ -79,7 +95,7 @@ export function ScrollFloater() {
 
   const handleClick = () => {
     if (atTop) return;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollToTop();
   };
 
   const strokeDasharray = `${displayProgress * CIRCLE_CIRCUMFERENCE} ${CIRCLE_CIRCUMFERENCE}`;

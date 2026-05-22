@@ -5,11 +5,13 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useLenis } from "@/components/lenis/LenisProvider";
 import styles from "./navbar.module.css";
 
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
+  { href: "/our-business", label: "Our Business" },
   { href: "/products", label: "Products" },
   { href: "/careers", label: "Careers" },
   { href: "/news", label: "News" },
@@ -44,6 +46,7 @@ function getVariantFromScroll(): NavbarVariant | null {
 export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
   const pathname = usePathname();
   const router = useRouter();
+  const lenis = useLenis();
   const [open, setOpen] = useState(false);
   const [scrollVariant, setScrollVariant] = useState<NavbarVariant | null>(null);
 
@@ -53,14 +56,24 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
     const id = requestAnimationFrame(() => {
       update();
     });
-    window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
+
+    if (lenis) {
+      const unsubscribe = lenis.on("scroll", update);
+      return () => {
+        cancelAnimationFrame(id);
+        unsubscribe();
+        window.removeEventListener("resize", update);
+      };
+    }
+
+    window.addEventListener("scroll", update, { passive: true });
     return () => {
       cancelAnimationFrame(id);
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [pathname]);
+  }, [pathname, lenis]);
 
   const effectiveVariant =
     variantProp ?? scrollVariant ?? "default";

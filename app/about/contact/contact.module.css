@@ -1,0 +1,183 @@
+.section {
+  position: relative;
+  background-color: var(--color-selatox-dark);
+}
+
+.splitGrid {
+  display: grid;
+  min-height: 85svh;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .splitGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.leftPanel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid var(--neutral-140);
+  padding: 32px;
+}
+
+@media (min-width: 768px) {
+  .leftPanel {
+    padding: 64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .leftPanel {
+    border-bottom: none;
+    border-right: 1px solid var(--neutral-140);
+    padding: 96px;
+  }
+}
+
+.eyebrow {
+  margin-bottom: 32px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--neutral-100);
+}
+
+.titleWrap {
+  overflow: hidden;
+}
+
+.title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  color: var(--neutral-0);
+}
+
+.channelsWrap {
+  margin-top: 48px;
+  border-top: 1px solid var(--neutral-140);
+  padding-top: 32px;
+}
+
+.channelsWrap > * + * {
+  margin-top: 24px;
+}
+
+.channelLabel {
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--neutral-100);
+}
+
+.channelLink {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--neutral-40);
+  text-decoration: none;
+  transition: color 300ms ease;
+}
+
+.channelLink:hover {
+  color: var(--neutral-0);
+}
+
+.channelLinkMono {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--neutral-40);
+  text-decoration: none;
+  transition: color 300ms ease;
+}
+
+.channelLinkMono:hover {
+  color: var(--neutral-0);
+}
+
+.switcherWrap {
+  margin-top: 48px;
+}
+
+.switcherWrap > * + * {
+  margin-top: 12px;
+}
+
+.switcherBtn {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  border: 1px solid var(--neutral-140);
+  background-color: transparent;
+  padding: 20px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 300ms ease;
+}
+
+.switcherBtn:hover {
+  border-color: var(--neutral-120);
+  background-color: rgba(30, 30, 30, 0.5);
+}
+
+.switcherBtnActive {
+  border-color: var(--neutral-100);
+  background-color: var(--neutral-140);
+}
+
+.btnName {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--neutral-80);
+  transition: color 300ms ease;
+}
+
+.switcherBtnActive .btnName {
+  color: var(--neutral-0);
+}
+
+.btnLocation {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--neutral-100);
+}
+
+.btnRole {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--neutral-100);
+}
+
+.rightPanel {
+  position: relative;
+  min-height: 400px;
+  background-color: var(--neutral-160);
+}
+
+@media (min-width: 1024px) {
+  .rightPanel {
+    min-height: 0;
+  }
+}
+
+.iframe {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  border: 0;
+  filter: grayscale(100%) invert(92%) contrast(1.2);
+}

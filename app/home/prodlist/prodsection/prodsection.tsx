@@ -87,7 +87,7 @@ export function Prodsection({
           </div>
         </div>
 
-        <div className={styles.viewport} ref={emblaRef}>
+        <div className={styles.viewport} ref={emblaRef} data-lenis-prevent>
           <div className={styles.carousel}>
             {products.map((product) => (
               <div key={product.title} className={styles.slide}>

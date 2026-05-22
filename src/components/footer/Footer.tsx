@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronDown, ArrowUp, ArrowRight, ArrowUpRight } from "lucide-react";
@@ -39,10 +40,7 @@ const familySiteData = [
 
 export const Footer = () => {
     const [isFamilySiteOpen, setIsFamilySiteOpen] = useState(false);
-
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    };
+    const scrollToTop = useScrollToTop();
 
     return (
         <>

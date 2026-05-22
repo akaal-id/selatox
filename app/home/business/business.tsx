@@ -29,7 +29,7 @@ export function Business() {
       data-navbar="default"
     >
       <img
-        src="/images/hero-1.png"
+        src="/images/product.webp"
         alt=""
         className={styles.backgroundImage}
         aria-hidden

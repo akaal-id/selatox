@@ -13,14 +13,14 @@
 
 .section {
   position: relative;
-  padding: 160px 80px;
+  padding: var(--section-py) var(--section-px);
   background: var(--neutral-10);
   font-family: var(--font-sans);
 }
 
 .container {
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--section-max-width);
   margin: 0 auto;
 }
 
@@ -195,10 +195,6 @@
 }
 
 @media (max-width: 1024px) {
-  .section {
-    padding: 120px 48px;
-  }
-
   .intro {
     margin-bottom: 56px;
   }
@@ -230,10 +226,6 @@
 }
 
 @media (max-width: 768px) {
-  .section {
-    padding: 80px 24px;
-  }
-
   .intro {
     margin-bottom: 40px;
   }

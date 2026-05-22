@@ -3,9 +3,9 @@
  * Color scale: -20 to -160; default -100. Lower = brighter, higher = darker.
  */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 /* ---------------------------------------------------------------------------
    Color system (20 = brightest, 100 = default, 160 = darkest)
@@ -64,7 +64,7 @@
   --color-bg-elevated: var(--neutral-20);
   --color-border: var(--neutral-60);
   --color-innovation-blue: #4490e4;
-  --color-selatox-dark: #2e222e;
+  --color-selatox-dark: #101010;
   --color-selatox-light: #f5f5f5;
 
   /* Typography */
@@ -120,11 +120,52 @@
   --shadow-glass-lg: 0 16px 48px rgba(46, 34, 46, 0.12);
   --blur-glass: 12px;
   --blur-glass-lg: 20px;
+
+  /* Layout & Section System */
+  --section-max-width: 1440px;
+  --section-px: 24px;
+  --section-py: 80px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --section-px: 48px;
+    --section-py: 120px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --section-px: 80px;
+    --section-py: 160px;
+  }
 }
 
 /* ---------------------------------------------------------------------------
    Base styles
    --------------------------------------------------------------------------- */
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 @layer base {
   html {
     -webkit-font-smoothing: antialiased;
@@ -139,7 +180,12 @@
     background-color: var(--color-bg);
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-weight: var(--font-semibold);
     line-height: var(--leading-tight);
   }
@@ -155,5 +201,21 @@
   ::selection {
     background-color: var(--green-100);
     color: var(--neutral-20);
+  }
+}
+
+@layer utilities {
+  .section-container-global {
+    width: 100%;
+    max-width: var(--section-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--section-px);
+    padding-right: var(--section-px);
+  }
+
+  .section-py-global {
+    padding-top: var(--section-py);
+    padding-bottom: var(--section-py);
   }
 }

@@ -1,0 +1,174 @@
+.section {
+  position: relative;
+  background-color: var(--color-selatox-dark);
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--section-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--section-px);
+  padding-right: var(--section-px);
+}
+
+.eyebrow {
+  margin-bottom: 64px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--neutral-120);
+}
+
+.splitLayout {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .splitLayout {
+    gap: 0;
+  }
+}
+
+.portraitCol {
+  grid-column: span 12 / span 12;
+}
+
+@media (min-width: 1024px) {
+  .portraitCol {
+    grid-column: span 5 / span 5;
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  /* border-top: 1px solid var(--neutral-140);
+  border-left: 1px solid var(--neutral-140);
+  border-right: 1px solid var(--neutral-140); */
+  background-color: var(--neutral-160);
+}
+
+.parallaxImage {
+  position: absolute;
+  inset: -15%;
+}
+
+.imageLabelWrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(10, 10, 10, 1), transparent);
+  padding: 32px;
+}
+
+.imageLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--neutral-100);
+}
+
+.dividerCol {
+  grid-column: span 12 / span 12;
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .dividerCol {
+    grid-column: span 1 / span 1;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+  }
+}
+
+.dividerLine {
+  width: 1px;
+  transform-origin: top;
+  background-color: var(--neutral-140);
+}
+
+.quoteCol {
+  grid-column: span 12 / span 12;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .quoteCol {
+    grid-column: span 6 / span 6;
+  }
+}
+
+.quoteMark {
+  display: block;
+  font-size: 120px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--neutral-140);
+}
+
+@media (min-width: 768px) {
+  .quoteMark {
+    font-size: 160px;
+  }
+}
+
+.blockquote {
+  margin-top: -64px;
+}
+
+@media (min-width: 768px) {
+  .blockquote {
+    margin-top: -80px;
+  }
+}
+
+.quoteText {
+  font-size: clamp(20px, 2.5vw, 32px);
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--neutral-80);
+}
+
+.quoteFooter {
+  margin-top: 48px;
+  border-top: 1px solid var(--neutral-140);
+  padding-top: 32px;
+}
+
+.executiveName {
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--neutral-0);
+}
+
+@media (min-width: 768px) {
+  .executiveName {
+    font-size: 30px;
+  }
+}
+
+.executiveTitle {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--neutral-100);
+}

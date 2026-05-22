@@ -13,7 +13,7 @@ const NEWS_ITEMS = [
     category: "Press Release",
     date: "Mar 12, 2026",
     title: "Selatox Announces Breakthrough in High-Purity Toxin Formulation.",
-    image: "/images/hero-2.png",
+    image: "/images/hero-2.webp",
     href: "/news/1",
   },
   {
@@ -21,7 +21,7 @@ const NEWS_ITEMS = [
     category: "Notice",
     date: "Feb 28, 2026",
     title: "Successful Completion of Phase III Global Clinical Trials.",
-    image: "/images/hero-2.png",
+    image: "/images/hero-2.webp",
     href: "/news/2",
   },
   {
@@ -29,7 +29,7 @@ const NEWS_ITEMS = [
     category: "Event",
     date: "Feb 15, 2026",
     title: "Participation in the 2026 International Aesthetics Congress.",
-    image: "/images/hero-2.png",
+    image: "/images/hero-2.webp",
     href: "/news/3",
   },
 ];

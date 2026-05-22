@@ -20,7 +20,7 @@
 .section {
   position: relative;
   background: var(--blue-5);
-  padding: 160px 80px;
+  padding: var(--section-py) var(--section-px);
   font-family: var(--font-sans);
   overflow: visible;
 }
@@ -30,7 +30,7 @@
   flex-direction: column;
   align-items: stretch;
   gap: 80px;
-  max-width: 1400px;
+  max-width: var(--section-max-width);
   margin: 0 auto;
 }
 
@@ -125,7 +125,6 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  vertical-align: middle;
   transition: transform 320ms ease;
 }
 
@@ -186,10 +185,6 @@
    Tablet
    --------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
-  .section {
-    padding: 120px 48px;
-  }
-
   .container {
     gap: 64px;
   }
@@ -220,10 +215,6 @@
    Mobile
    --------------------------------------------------------------------------- */
 @media (max-width: 768px) {
-  .section {
-    padding: 80px 24px;
-  }
-
   .container {
     gap: 48px;
   }
