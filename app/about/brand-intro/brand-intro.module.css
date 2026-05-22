@@ -2,13 +2,7 @@
   position: relative;
   background-color: var(--neutral-0);
   padding-top: var(--section-py);
-  padding-bottom: var(--section-py);
-}
-
-.gridOverlay {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
+  padding-bottom: 120px;
 }
 
 .overlayContainer {
@@ -42,39 +36,9 @@
   padding-right: var(--section-px);
 }
 
-.contentGrid {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 24px;
-}
-
-.eyebrowCol {
-  grid-column: span 12 / span 12;
-}
-
-@media (min-width: 768px) {
-  .eyebrowCol {
-    grid-column: span 2 / span 2;
-  }
-}
-
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  color: var(--neutral-100);
-}
-
-.mainCol {
-  grid-column: span 12 / span 12;
-}
-
-@media (min-width: 768px) {
-  .mainCol {
-    grid-column: 3 / span 9;
-  }
+.content {
+  display: flex;
+  flex-direction: column;
 }
 
 .textWrap {

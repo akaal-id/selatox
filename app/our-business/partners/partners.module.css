@@ -28,13 +28,6 @@
   overflow: hidden;
 }
 
-/* 12-col grid overlay */
-.gridOverlay {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-}
-
 .overlayContainer {
   height: 100%;
   width: 100%;

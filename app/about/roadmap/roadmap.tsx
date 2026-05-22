@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useLayoutEffect, useState } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { aboutRoadmap } from "@/constants/about";
 import styles from "./roadmap.module.css";
@@ -72,10 +72,54 @@ function MilestoneItem({
   );
 }
 
+function useTimelineLinePosition(
+  timelineRef: React.RefObject<HTMLOListElement | null>,
+) {
+  const [linePosition, setLinePosition] = useState<{
+    left: number;
+    top: number;
+    height: number;
+  } | null>(null);
+
+  useLayoutEffect(() => {
+    const update = () => {
+      const list = timelineRef.current;
+      if (!list) return;
+
+      const dots = list.querySelectorAll<HTMLElement>(`.${styles.dot}`);
+      if (dots.length === 0) return;
+
+      const listRect = list.getBoundingClientRect();
+      const first = dots[0].getBoundingClientRect();
+      const last = dots[dots.length - 1].getBoundingClientRect();
+      const firstCenterY = first.top + first.height / 2 - listRect.top;
+      const lastCenterY = last.top + last.height / 2 - listRect.top;
+
+      setLinePosition({
+        left: first.left + first.width / 2 - listRect.left,
+        top: firstCenterY,
+        height: Math.max(0, lastCenterY - firstCenterY),
+      });
+    };
+
+    update();
+    const observer = new ResizeObserver(update);
+    if (timelineRef.current) observer.observe(timelineRef.current);
+    window.addEventListener("resize", update);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", update);
+    };
+  }, [timelineRef]);
+
+  return linePosition;
+}
+
 export function Roadmap() {
   const sectionRef = useRef<HTMLElement>(null);
   const timelineRef = useRef<HTMLOListElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-5%" });
+  const linePosition = useTimelineLinePosition(timelineRef);
 
   const { scrollYProgress } = useScroll({
     target: timelineRef,
@@ -123,14 +167,6 @@ export function Roadmap() {
 
         {/* Timeline */}
         <ol ref={timelineRef} className={styles.timelineList}>
-          {/* Animated vertical progress line */}
-          <div className={styles.progressLineWrap}>
-            {/* Background track */}
-            <div className={styles.progressTrack} />
-            {/* Animated fill */}
-            <motion.div style={{ height: lineHeight }} className={styles.progressFill} />
-          </div>
-
           {aboutRoadmap.milestones.map((item, index) => (
             <MilestoneItem
               key={item.year}
@@ -139,6 +175,23 @@ export function Roadmap() {
               isInView={isInView}
             />
           ))}
+
+          <div
+            className={`${styles.progressLineWrap} ${linePosition ? styles.progressLineReady : ""}`}
+            aria-hidden
+            style={
+              linePosition
+                ? {
+                    left: linePosition.left,
+                    top: linePosition.top,
+                    height: linePosition.height,
+                  }
+                : undefined
+            }
+          >
+            <div className={styles.progressTrack} />
+            <motion.div style={{ height: lineHeight }} className={styles.progressFill} />
+          </div>
         </ol>
       </div>
     </section>

@@ -1,8 +1,7 @@
 .section {
   position: relative;
-  background-color: var(--neutral-40);
-  padding-top: var(--section-py);
-  padding-bottom: var(--section-py);
+  background-color: var(--neutral-0);
+  padding-bottom: 120px;
 }
 
 .container {
@@ -14,7 +13,7 @@
   padding-right: var(--section-px);
 }
 
-.headerGrid {
+.gridWrap {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 24px;
@@ -22,11 +21,12 @@
 
 .eyebrowCol {
   grid-column: span 12 / span 12;
+  align-self: start;
 }
 
 @media (min-width: 768px) {
   .eyebrowCol {
-    grid-column: span 2 / span 2;
+    grid-column: 1 / span 2;
   }
 }
 
@@ -39,35 +39,12 @@
   color: var(--neutral-100);
 }
 
-.titleCol {
-  grid-column: span 12 / span 12;
-}
-
-@media (min-width: 768px) {
-  .titleCol {
-    grid-column: 3 / span 6;
-  }
-}
-
-.textWrap {
-  overflow: hidden;
-}
-
-.title {
-  font-size: clamp(28px, 4vw, 52px);
-  font-weight: 300;
-  letter-spacing: -0.04em;
-  color: var(--neutral-160);
-}
-
-.gridWrap {
-  margin-top: 64px;
-  border: 1px solid var(--neutral-60);
-}
-
 .grid3 {
+  grid-column: 3 / -1;
   display: grid;
   grid-template-columns: 1fr;
+  border-left: 1px solid var(--neutral-60);
+  border-top: 1px solid var(--neutral-60);
 }
 
 @media (min-width: 768px) {

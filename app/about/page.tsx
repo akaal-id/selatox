@@ -27,8 +27,8 @@ export default function AboutPage() {
       />
       <BrandIntro />
       <CompanyOverview />
-      <ExecutiveSection />
       <AboutValues />
+      <ExecutiveSection />
       <Roadmap />
       <Facilities />
       <AboutContact />

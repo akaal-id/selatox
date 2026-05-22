@@ -1,7 +1,7 @@
 .section {
   position: relative;
   background-color: var(--neutral-0);
-  padding-top: var(--section-py);
+  padding-top: 0;
   padding-bottom: var(--section-py);
 }
 
@@ -22,6 +22,7 @@
 
 .eyebrowCol {
   grid-column: span 12 / span 12;
+  margin-top: 10px;
 }
 
 @media (min-width: 768px) {
@@ -45,7 +46,7 @@
 
 @media (min-width: 768px) {
   .titleCol {
-    grid-column: 3 / span 6;
+    grid-column: 3 / -1;
   }
 }
 
@@ -58,18 +59,37 @@
   font-weight: 300;
   letter-spacing: -0.04em;
   color: var(--neutral-160);
+  
+}
+
+.contentGrid {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+
+}
+
+.visionMissionRow,
+.coreValuesRow {
+  grid-column: 1 / -1;
+  display: grid;
+}
+
+@media (min-width: 768px) {
+  .visionMissionRow,
+  .coreValuesRow {
+    grid-column: 3 / -1;
+  }
 }
 
 .visionMissionRow {
-  margin-top: 64px;
-  display: grid;
-  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
   border: 1px solid var(--neutral-60);
 }
 
 @media (min-width: 768px) {
   .visionMissionRow {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
   }
 }
 
@@ -78,10 +98,11 @@
   padding: 32px;
 }
 
+
 @media (min-width: 768px) {
   .visionCard {
-    border-bottom: none;
-    border-right: 1px solid var(--neutral-60);
+   
+    /* border-right: 1px solid var(--neutral-60); */
     padding: 48px;
   }
 }
@@ -121,7 +142,6 @@
 }
 
 .coreValuesRow {
-  margin-top: 0;
   border-left: 1px solid var(--neutral-60);
   border-right: 1px solid var(--neutral-60);
   border-bottom: 1px solid var(--neutral-60);
@@ -129,18 +149,34 @@
 
 .coreValuesGrid {
   display: grid;
+  width: 100%;
   grid-template-columns: 1fr;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
+  /* 6-column track: top row 3×2, bottom row 2×3 */
   .coreValuesGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
-}
 
-@media (min-width: 1024px) {
-  .coreValuesGrid {
-    grid-template-columns: repeat(5, 1fr);
+  .coreValueCard:nth-child(1) {
+    grid-column: 1 / span 2;
+  }
+
+  .coreValueCard:nth-child(2) {
+    grid-column: 3 / span 2;
+  }
+
+  .coreValueCard:nth-child(3) {
+    grid-column: 5 / span 2;
+  }
+
+  .coreValueCard:nth-child(4) {
+    grid-column: 1 / span 3;
+  }
+
+  .coreValueCard:nth-child(5) {
+    grid-column: 4 / span 3;
   }
 }
 
@@ -162,24 +198,19 @@
   border-right: none;
 }
 
-@media (min-width: 640px) {
-  .coreValueCard:nth-child(2n) {
-    border-right: none;
-  }
-}
-
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .coreValueCard {
-    border-bottom: none;
     padding: 40px;
   }
-  
-  .coreValueCard:nth-child(2n) {
-    border-right: 1px solid var(--neutral-60);
-  }
-  
-  .coreValueCard:last-child {
+
+  .coreValueCard:nth-child(3),
+  .coreValueCard:nth-child(5) {
     border-right: none;
+  }
+
+  .coreValueCard:nth-child(4),
+  .coreValueCard:nth-child(5) {
+    border-bottom: none;
   }
 }
 

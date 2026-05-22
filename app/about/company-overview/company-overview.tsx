@@ -14,12 +14,16 @@ export function CompanyOverview() {
       ref={sectionRef}
       id="company-overview"
       className={styles.section}
-      aria-labelledby="company-overview-heading"
+      aria-label={aboutCompanyOverview.title}
       data-navbar="default"
     >
       <div className={styles.container}>
-        {/* Header row */}
-        <div className={styles.headerGrid}>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className={styles.gridWrap}
+        >
           <div className={styles.eyebrowCol}>
             <motion.p
               initial={{ opacity: 0, y: 12 }}
@@ -30,28 +34,7 @@ export function CompanyOverview() {
               {aboutCompanyOverview.eyebrow}
             </motion.p>
           </div>
-          <div className={styles.titleCol}>
-            <div className={styles.textWrap}>
-              <motion.h2
-                id="company-overview-heading"
-                initial={{ y: "100%" }}
-                animate={isInView ? { y: "0%" } : {}}
-                transition={{ duration: 0.8, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className={styles.title}
-              >
-                {aboutCompanyOverview.title}
-              </motion.h2>
-            </div>
-          </div>
-        </div>
 
-        {/* Data grid — bento layout with visible borders */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className={styles.gridWrap}
-        >
           <div className={styles.grid3}>
             {aboutCompanyOverview.items.map((item, index) => (
               <motion.article

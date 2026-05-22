@@ -5,7 +5,6 @@ export const aboutHero = {
 } as const;
 
 export const aboutBrandIntro = {
-  eyebrow: "// Brand",
   paragraph:
     "Fusing uncompromising global GMP standards with localized innovation to develop a world-class pipeline engineered for absolute precision, safety, and scale.",
   supportingText:
@@ -13,7 +12,7 @@ export const aboutBrandIntro = {
 } as const;
 
 export const aboutCompanyOverview = {
-  eyebrow: "// Overview",
+  eyebrow: "About Selatox",
   title: "Company Overview",
   items: [
     { label: "Established", value: "September 2022", mono: true },

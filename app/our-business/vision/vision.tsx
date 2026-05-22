@@ -26,7 +26,7 @@ export function Vision() {
       data-navbar="default"
     >
       {/* Visible 12-column grid overlay */}
-      <div className={styles.gridOverlay}>
+      <div className="gridOverlay">
         <div className={styles.overlayContainer}>
           <div className={styles.grid12}>
             {Array.from({ length: 13 }).map((_, i) => (

@@ -46,69 +46,66 @@ export function AboutValues() {
           </div>
         </div>
 
-        {/* Vision & Mission row */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.25 }}
-          className={styles.visionMissionRow}
-        >
-          <article className={styles.visionCard}>
-            <p className={styles.visionLabel}>
-              Vision
-            </p>
-            <p className={styles.visionText}>
-              {aboutValues.vision}
-            </p>
-          </article>
-          <article className={styles.missionCard}>
-            <p className={styles.visionLabel}>
-              Mission
-            </p>
-            <p className={styles.visionText}>
-              {aboutValues.mission}
-            </p>
-          </article>
-        </motion.div>
+        <div className={styles.contentGrid}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.25 }}
+            className={styles.visionMissionRow}
+          >
+            <article className={styles.visionCard}>
+              <p className={styles.visionLabel}>
+                Vision
+              </p>
+              <p className={styles.visionText}>
+                {aboutValues.vision}
+              </p>
+            </article>
+            <article className={styles.missionCard}>
+              <p className={styles.visionLabel}>
+                Mission
+              </p>
+              <p className={styles.visionText}>
+                {aboutValues.mission}
+              </p>
+            </article>
+          </motion.div>
 
-        {/* Core Values — rigid modular columns */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.35 }}
-          className={styles.coreValuesRow}
-        >
-          <div className={styles.coreValuesGrid}>
-            {aboutValues.coreValues.map((value, index) => (
-              <motion.article
-                key={value.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.4 + index * 0.08,
-                  ease: "easeOut",
-                }}
-                className={styles.coreValueCard}
-              >
-                {/* Index number */}
-                <span className={styles.cardIndex}>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className={styles.coreValuesRow}
+          >
+            <div className={styles.coreValuesGrid}>
+              {aboutValues.coreValues.map((value, index) => (
+                <motion.article
+                  key={value.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.4 + index * 0.08,
+                    ease: "easeOut",
+                  }}
+                  className={styles.coreValueCard}
+                >
+                  <span className={styles.cardIndex}>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
 
-                {/* Value name */}
-                <h3 className={styles.cardTitle}>
-                  {value.name}
-                </h3>
+                  <h3 className={styles.cardTitle}>
+                    {value.name}
+                  </h3>
 
-                {/* Description */}
-                <p className={styles.cardDescription}>
-                  {value.description}
-                </p>
-              </motion.article>
-            ))}
-          </div>
-        </motion.div>
+                  <p className={styles.cardDescription}>
+                    {value.description}
+                  </p>
+                </motion.article>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -63,52 +63,20 @@
 .timelineList {
   position: relative;
   margin-top: 80px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
   padding: 0;
   list-style: none;
 }
 
-.progressLineWrap {
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  left: calc((3 / 12) * 100% + ((1 / 12) * 100% / 2));
-}
-
-@media (min-width: 768px) {
-  .progressLineWrap {
-    left: calc((2 / 12) * 100% + ((1 / 12) * 100% / 2));
-  }
-}
-
-.progressTrack {
-  position: absolute;
-  inset: 0;
-  background-color: var(--neutral-60);
-}
-
-.progressFill {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  background-color: var(--neutral-160);
-}
-
-/* MilestoneItem elements */
+/* Milestone children participate in the list grid (same tracks as progress line) */
 .milestoneRow {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 24px;
+  display: contents;
 }
 
 .yearCol {
-  grid-column: span 3 / span 3;
+  grid-column: 1 / span 3;
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
@@ -117,7 +85,7 @@
 
 @media (min-width: 768px) {
   .yearCol {
-    grid-column: span 2 / span 2;
+    grid-column: 1 / span 2;
   }
 }
 
@@ -131,15 +99,22 @@
 }
 
 .dotCol {
+  grid-column: 4 / span 1;
   position: relative;
-  grid-column: span 1 / span 1;
+  z-index: 2;
   display: flex;
   justify-content: center;
 }
 
+@media (min-width: 768px) {
+  .dotCol {
+    grid-column: 3 / span 1;
+  }
+}
+
 .dot {
   position: relative;
-  z-index: 10;
+  z-index: 2;
   margin-top: 8px;
   height: 12px;
   width: 12px;
@@ -165,15 +140,43 @@
 }
 
 .contentCol {
-  grid-column: span 8 / span 8;
+  grid-column: 5 / -1;
   border-bottom: 1px solid var(--neutral-60);
   padding-bottom: 48px;
 }
 
 @media (min-width: 768px) {
   .contentCol {
-    grid-column: span 9 / span 9;
+    grid-column: 4 / -1;
   }
+}
+
+/* Positioned from first→last dot center via layout measurement */
+.progressLineWrap {
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+  width: 1px;
+  transform: translateX(-50%);
+  visibility: hidden;
+}
+
+.progressLineReady {
+  visibility: visible;
+}
+
+.progressTrack {
+  position: absolute;
+  inset: 0;
+  background-color: var(--neutral-60);
+}
+
+.progressFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: var(--neutral-160);
 }
 
 .milestoneTitle {
