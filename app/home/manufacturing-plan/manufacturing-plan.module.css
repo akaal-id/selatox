@@ -13,7 +13,10 @@
 
 .section {
   position: relative;
-  padding: var(--section-py) var(--section-px);
+  padding-top: 0;
+  padding-right: var(--section-px);
+  padding-bottom: var(--section-py);
+  padding-left: var(--section-px);
   background: var(--neutral-0);
   font-family: var(--font-sans);
 }
@@ -24,13 +27,33 @@
   margin: 0 auto;
 }
 
+.media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--neutral-20);
+  opacity: 0;
+}
+
+.section.inView .media {
+  animation: blurIn 1s ease-out forwards;
+  animation-delay: 0.08s;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .intro {
-  /* max-width: 900px; */
-  margin-bottom: 72px;
+  margin-top: 96px;
+  margin-bottom: 64px;
   display: flex;
-  flex-direction: column; 
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .eyebrow {
@@ -45,11 +68,19 @@
 
 .section.inView .eyebrow {
   animation: blurIn 0.8s ease-out forwards;
-  animation-delay: 0.08s;
+  animation-delay: 0.2s;
+}
+
+.headerContainer {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: flex-end;
 }
 
 .headline {
-  margin: 10px 0 0;
+  font-family: var(--font-display);
+  margin: 0;
   font-size: clamp(34px, 4.4vw, 52px);
   font-weight: 300;
   line-height: 1.08;
@@ -60,96 +91,150 @@
 
 .section.inView .headline {
   animation: blurIn 0.95s ease-out forwards;
-  animation-delay: 0.2s;
+  animation-delay: 0.32s;
 }
 
-.media {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  background: var(--neutral-20);
+.sub {
+  margin: 0;
+  max-width: 420px;
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--neutral-130);
   opacity: 0;
 }
 
-.section.inView .media {
-  animation: blurIn 1s ease-out forwards;
-  animation-delay: 0.34s;
-}
-
-.video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.section.inView .sub {
+  animation: blurIn 0.95s ease-out forwards;
+  animation-delay: 0.42s;
 }
 
 .pillars {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 56px;
-  margin-top: 24px;
+  gap: 0;
+  border-top: 1px solid var(--neutral-60);
+  list-style: none;
+  margin: 0;
+  padding: 0;
   opacity: 0;
 }
 
 .section.inView .pillars {
   animation: blurIn 0.95s ease-out forwards;
-  animation-delay: 0.5s;
+  animation-delay: 0.55s;
 }
 
 .pillar {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding-top: 28px;
-  border-top: 1px solid var(--neutral-60);
+  padding: 32px 32px 32px 0;
+  border-right: 1px solid var(--neutral-60);
+  min-height: 280px;
+}
+
+.pillar:not(:first-child) {
+  padding-left: 32px;
+}
+
+.pillar:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.pillarHead {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .pillarNumber {
-  margin: 0;
   font-family: var(--font-mono);
   font-size: 12px;
-  letter-spacing: 0.16em;
-  color: var(--neutral-100);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--blue-100);
+  flex-shrink: 0;
+}
+
+.pillarRule {
+  flex: 1;
+  height: 1px;
+  background: var(--neutral-60);
 }
 
 .pillarTitle {
+  font-family: var(--font-display);
   margin: 0;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--neutral-160);
 }
 
 .pillarBody {
   margin: 0;
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 15px;
+  line-height: 1.65;
   font-weight: 300;
   color: var(--neutral-120);
 }
 
+.pillarMeta {
+  margin-top: auto;
+  padding-top: 24px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--neutral-100);
+}
+
 @media (max-width: 1024px) {
   .intro {
-    margin-bottom: 56px;
+    margin-top: 64px;
+    margin-bottom: 48px;
+    gap: 24px;
+  }
+
+  .headerContainer {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .sub {
+    max-width: none;
   }
 
   .pillars {
     grid-template-columns: 1fr;
-    gap: 40px;
-    margin-top: 72px;
+  }
+
+  .pillar {
+    padding: 32px 0;
+    border-right: none;
+    border-bottom: 1px solid var(--neutral-60);
+    min-height: 0;
+  }
+
+  .pillar:not(:first-child) {
+    padding-left: 0;
+  }
+
+  .pillar:last-child {
+    border-bottom: none;
   }
 }
 
 @media (max-width: 768px) {
   .intro {
+    margin-top: 48px;
     margin-bottom: 40px;
-  }
-
-  .pillars {
-    margin-top: 56px;
-    gap: 32px;
   }
 
   .pillarTitle {

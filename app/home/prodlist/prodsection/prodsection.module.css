@@ -32,7 +32,7 @@
 }
 
 .eyebrow {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: clamp(12px, 3vw, 16px);
   font-weight: 300;
   color: var(--neutral-20);

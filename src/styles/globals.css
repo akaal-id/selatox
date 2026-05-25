@@ -70,6 +70,7 @@
   /* Typography */
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-manrope), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -186,6 +187,7 @@ html.lenis body {
   h4,
   h5,
   h6 {
+    font-family: var(--font-display);
     font-weight: var(--font-semibold);
     line-height: var(--leading-tight);
   }
@@ -224,5 +226,9 @@ html.lenis body {
     position: absolute;
     inset: 0;
     opacity: 0.4;
+  }
+
+  .font-display {
+    font-family: var(--font-display);
   }
 }

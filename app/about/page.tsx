@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/pageheader/PageHeader";
 import { aboutHero } from "@/constants/about";
 import { BrandIntro } from "./brand-intro/brand-intro";
-import { CompanyOverview } from "./company-overview/company-overview";
 import { ExecutiveSection } from "./executive/executive";
 import { AboutValues } from "./values/values";
 import { Roadmap } from "./roadmap/roadmap";
@@ -22,11 +21,8 @@ export default function AboutPage() {
         title={aboutHero.headline}
         subtitle={aboutHero.subheadline}
         backgroundImage={aboutHero.backgroundImage}
-        eyebrow="// About PT. Selatox Bio Pharma"
-        monoAccent="Est. 2022 — Cikarang & Depok"
       />
       <BrandIntro />
-      <CompanyOverview />
       <AboutValues />
       <ExecutiveSection />
       <Roadmap />

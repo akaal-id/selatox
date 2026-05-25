@@ -54,7 +54,7 @@ export function OurBusinessFacilities() {
         {/* Centered header — mirrors home manufacturing */}
         <div className={styles.intro}>
           <p className={styles.eyebrow} aria-hidden>
-            {"// Facilities"}
+            Facilities
           </p>
           <h2 id="ob-facilities-heading" className={styles.headline}>
             Cikarang Manufacturing Plant.

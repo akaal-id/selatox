@@ -70,7 +70,7 @@ export function Research() {
             transition={{ duration: 0.7, delay: 0.08 }}
             className={styles.eyebrow}
           >
-            {"// Research Fields"}
+            Research Fields
           </motion.p>
 
           <div className={styles.headerInner}>

@@ -34,7 +34,7 @@
   position: relative;
   font-family: var(--font-sans);
   overflow: hidden;
-  background-color: var(--neutral-0);
+  background-color: var(--neutral-20);
 }
 
 .split {
@@ -77,7 +77,7 @@
    Right — The Dossier. High-key white, grid typography, structural lines.
    --------------------------------------------------------------------------- */
 .dossier {
-  background: var(--neutral-0);
+  background: var(--neutral-20);
   padding: 80px 72px 80px 64px;
   display: flex;
   flex-direction: column;
@@ -101,6 +101,7 @@
 }
 
 .headline {
+  font-family: var(--font-display);
   font-size: 42px;
   font-weight: 300;
   line-height: 1.12;

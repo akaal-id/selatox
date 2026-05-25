@@ -1,6 +1,7 @@
 /**
- * Valuesection — Why Selatox. Premium editorial: sticky title left, typographic list right.
- * Pure CSS Modules; no Tailwind. Structural lines, negative space, blurIn on view.
+ * Valuesection — The Selatox Standard.
+ * Editorial column layout: large numeral + long rule, then category, title, body.
+ * No card boxes; columns separated by vertical hairlines.
  */
 
 @keyframes blurIn {
@@ -19,8 +20,8 @@
 
 .section {
   position: relative;
-  background: var(--blue-5);
-  padding: var(--section-py) var(--section-px);
+  background: var(--neutral-0);
+  padding: 80px var(--section-px) var(--section-py);
   font-family: var(--font-sans);
   overflow: visible;
 }
@@ -29,29 +30,29 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 80px;
+  gap: 56px;
   max-width: var(--section-max-width);
   margin: 0 auto;
 }
 
 /* ---------------------------------------------------------------------------
-   Top block — // Why Selatox + tagline
+   Top block — section eyebrow
    --------------------------------------------------------------------------- */
 .topBlock {
   display: flex;
-  flex-direction: column;
-  gap: 24px;
+  justify-content: center;
+  align-items: center;
 }
 
 .eyebrow {
+  font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--green-100);
-
+  margin: 0;
   opacity: 0;
-  font-family: var(--font-mono);
 }
 
 .section.inView .eyebrow {
@@ -59,49 +60,33 @@
   animation-delay: 0.1s;
 }
 
-.headline {
-  font-size: 40px;
-  font-weight: 300;
-  line-height: 1.15;
-  color: var(--neutral-140);
-  margin: 0;
-  letter-spacing: -0.02em;
-  opacity: 0;
-}
-
-.section.inView .headline {
-  animation: blurIn 0.9s ease-out forwards;
-  animation-delay: 0.2s;
-}
-
 /* ---------------------------------------------------------------------------
-   Bottom: card grid
+   Card grid — vertical hairline dividers between columns, no card boxes
    --------------------------------------------------------------------------- */
 .cardGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-
+  gap: 0;
+  border-top: 1px solid var(--neutral-60);
 }
 
 .valueCard {
+  position: relative;
   display: flex;
   flex-direction: column;
-  background: var(--neutral-20);
-  border: 1px solid var(--green-20);
-  overflow: hidden;
+  gap: 28px;
+  padding: 32px 36px 8px 0;
+  border-right: 1px solid var(--neutral-60);
   opacity: 0;
-  transition:
-    transform 260ms ease,
-    box-shadow 260ms ease,
-    border-color 260ms ease;
-}
-
-.valueCard:first-child {
-  border-right: none;
 }
 
 .valueCard:last-child {
-  border-left: none;
+  border-right: none;
+  padding-right: 0;
+}
+
+.valueCard:not(:first-child) {
+  padding-left: 36px;
 }
 
 .section.inView .valueCard {
@@ -109,134 +94,193 @@
   animation-delay: var(--delay, 0.3s);
 }
 
-.cardImageWrap {
-  position: relative;
+/* ---------------------------------------------------------------------------
+   Card head — large numeral + long rule extending to right
+   --------------------------------------------------------------------------- */
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 16px;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  background: var(--neutral-20);
-  overflow: hidden;
 }
 
-/* Lock image to 4:3 box — any aspect ratio crops to fill */
-.cardImage {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 320ms ease;
+.cardNumber {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--neutral-160);
+  transition: color 320ms ease;
 }
 
-.cardContent {
-  padding: 28px 24px;
+.cardRule {
+  flex: 1;
+  height: 1px;
+  background: var(--neutral-60);
+  transition: background 320ms ease;
+}
+
+/* ---------------------------------------------------------------------------
+   Card body — category, title, description
+   --------------------------------------------------------------------------- */
+.cardBody {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  border-top: 1px solid var(--green-20);
+  gap: 14px;
 }
 
-.valueLabel {
-  font-size: 12px;
+.cardCategory {
+  font-family: var(--font-mono);
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--blue-100);
-  margin-bottom: 12px;
-  font-family: var(--font-mono);
-  width: 100%;
-  transition: color 220ms ease;
+  margin: 0;
+  transition: color 320ms ease;
 }
 
 .valueTitle {
-  font-size: 24px;
-  font-weight: 300;
-  line-height: 1.25;
-  color: var(--neutral-140);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  color: var(--neutral-160);
   margin: 0;
-  letter-spacing: -0.01em;
+  text-wrap: balance;
 }
 
 .valueDescription {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 300;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--neutral-120);
   margin: 0;
+  text-wrap: pretty;
+  max-width: 38ch;
 }
 
+/* ---------------------------------------------------------------------------
+   CTA — below card grid
+   --------------------------------------------------------------------------- */
+.ctaWrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 16px;
+  opacity: 0;
+}
+
+.section.inView .ctaWrap {
+  animation: blurIn 0.85s ease-out forwards;
+  animation-delay: 0.65s;
+}
+
+/* ---------------------------------------------------------------------------
+   Hover — numeral and rule pick up brand accent
+   --------------------------------------------------------------------------- */
 @media (hover: hover) and (pointer: fine) {
-  .valueCard:hover {
-    transform: translateY(-8px);
-    /* border-color: var(--green-50); */
-    box-shadow: 0 16px 32px rgba(17, 46, 44, 0.08);
+  .valueCard:hover .cardNumber {
+    color: var(--blue-100);
   }
 
-  .valueCard:hover .cardImage {
-    transform: scale(1.06);
+  .valueCard:hover .cardRule {
+    background: var(--blue-60);
   }
 
-  .valueCard:hover .valueLabel {
+  .valueCard:hover .cardCategory {
     color: var(--green-100);
   }
 }
 
 /* ---------------------------------------------------------------------------
-   Tablet
+   Tablet — 2 columns, divider on first card only
    --------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
   .container {
-    gap: 64px;
-  }
-
-  .headline {
-    font-size: 32px;
+    gap: 40px;
   }
 
   .cardGrid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    border-top: 1px solid var(--neutral-60);
+  }
+
+  .valueCard {
+    padding: 28px 24px 8px 0;
+    border-right: 1px solid var(--neutral-60);
+  }
+
+  .valueCard:nth-child(2n) {
+    border-right: none;
+    padding-right: 0;
+  }
+
+  .valueCard:nth-child(2n + 1) {
+    padding-left: 0;
+  }
+
+  .valueCard:nth-child(2n) {
+    padding-left: 24px;
+  }
+
+  .valueCard:nth-child(3) {
+    border-top: 1px solid var(--neutral-60);
+    padding-top: 28px;
+    margin-top: 0;
+  }
+
+  .cardNumber {
+    font-size: 38px;
   }
 
   .valueTitle {
-    font-size: 20px;
+    font-size: 24px;
   }
 
   .valueDescription {
     font-size: 15px;
-  }
-
-  .cardContent {
-    padding: 24px 20px;
+    max-width: none;
   }
 }
 
 /* ---------------------------------------------------------------------------
-   Mobile
+   Mobile — stacked, horizontal dividers
    --------------------------------------------------------------------------- */
 @media (max-width: 768px) {
   .container {
-    gap: 48px;
-  }
-
-  .headline {
-    font-size: 26px;
+    gap: 32px;
   }
 
   .cardGrid {
     grid-template-columns: 1fr;
-    gap: 24px;
+  }
+
+  .valueCard {
+    padding: 24px 0 24px 0;
+    border-right: none;
+    border-bottom: 1px solid var(--neutral-60);
+    gap: 20px;
+  }
+
+  .valueCard:not(:first-child) {
+    padding-left: 0;
+  }
+
+  .valueCard:last-child {
+    border-bottom: none;
+  }
+
+  .cardNumber {
+    font-size: 34px;
   }
 
   .valueTitle {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .valueDescription {
-    font-size: 15px;
-  }
-
-  .cardContent {
-    padding: 20px 18px;
+    font-size: 14.5px;
   }
 }

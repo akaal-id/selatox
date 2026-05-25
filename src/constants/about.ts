@@ -1,7 +1,7 @@
 export const aboutHero = {
   headline: "Engineering the Future of Bio-Aesthetics.",
   subheadline: "Indonesia's Pioneer in Biopharmaceutical Specialization.",
-  backgroundImage: "/images/hero-1.webp",
+  backgroundImage: "/images/hero-4.webp",
 } as const;
 
 export const aboutBrandIntro = {
@@ -11,38 +11,17 @@ export const aboutBrandIntro = {
     "Established in September 2022, PT. Selatox Bio Pharma is redefining the global biopharmaceutical landscape from Indonesia — pioneering a new standard for toxin specialization and bio-aesthetic research across Southeast Asia and beyond.",
 } as const;
 
-export const aboutCompanyOverview = {
-  eyebrow: "About Selatox",
-  title: "Company Overview",
-  items: [
-    { label: "Established", value: "September 2022", mono: true },
-    {
-      label: "Core Business",
-      value: "Botulinum Toxin Product Development & Manufacturing",
-      mono: false,
-    },
-    { label: "Total Operations Area", value: "18,469.36 m²", mono: true },
-    {
-      label: "Strategic Hubs",
-      value: "Cikarang (Manufacturing) & Depok (R&D)",
-      mono: false,
-    },
-    { label: "Annual Capacity", value: "6.5M Vials", mono: true },
-    { label: "Global Reach", value: "40+ Countries", mono: true },
-  ],
-} as const;
-
 export const aboutExecutive = {
-  eyebrow: "// Leadership",
+  eyebrow: "Leadership",
   name: "Joh Young hoon",
   title: "Chief Executive Officer",
   message:
     "At Selatox, our commitment goes beyond manufacturing; it is about establishing a sustainable, world-class bio-ecosystem in Indonesia. Through strategic partnerships, rigorous talent discovery, and an unwavering adherence to quality, we are not just entering the global market—we are preparing to lead it.",
-  portrait: "/images/product.webp",
+  portrait: "/images/placeholder.jpg",
 } as const;
 
 export const aboutValues = {
-  eyebrow: "// Purpose",
+  eyebrow: "Purpose",
   title: "Vision, Mission & Core Values",
   vision: "2030 Global Leading Biopharmaceutical Company",
   mission:
@@ -82,7 +61,6 @@ export const aboutValues = {
 } as const;
 
 export const aboutRoadmap = {
-  eyebrow: "// Roadmap",
   title: "Strategy & Milestones",
   milestones: [
     {
@@ -127,7 +105,6 @@ export const aboutRoadmap = {
 } as const;
 
 export const aboutFacilities = {
-  eyebrow: "// Infrastructure",
   header: "Scaled for Global Dominance",
   facilities: [
     {
@@ -166,7 +143,7 @@ export const aboutFacilities = {
 } as const;
 
 export const aboutContact = {
-  eyebrow: "// Contact",
+  eyebrow: "Contact",
   title: "Get in Touch",
   generalInquiry: "info@selatox.com",
   phone: "+62 21 0000 0000",

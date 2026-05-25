@@ -15,38 +15,12 @@
 }
 
 .headerGrid {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 24px;
-}
-
-.eyebrowCol {
-  grid-column: span 12 / span 12;
-}
-
-@media (min-width: 768px) {
-  .eyebrowCol {
-    grid-column: span 2 / span 2;
-  }
-}
-
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  color: var(--neutral-100);
+  display: flex;
+  flex-direction: column;
 }
 
 .titleCol {
-  grid-column: span 12 / span 12;
-}
-
-@media (min-width: 768px) {
-  .titleCol {
-    grid-column: 3 / span 6;
-  }
+  width: 100%;
 }
 
 .textWrap {
@@ -54,17 +28,23 @@
 }
 
 .title {
+  font-family: var(--font-display);
   font-size: clamp(28px, 4vw, 52px);
   font-weight: 300;
   letter-spacing: -0.04em;
   color: var(--neutral-160);
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid var(--neutral-60);
+  padding-bottom: 48px;
+  margin-bottom: 48px;
 }
 
 .timelineList {
   position: relative;
-  margin-top: 80px;
+  
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: repeat(8, minmax(0, 1fr));
   gap: 24px;
   padding: 0;
   list-style: none;
@@ -80,7 +60,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
-  padding-right: 32px;
+  /* padding-right: 32px; */
 }
 
 @media (min-width: 768px) {
@@ -187,6 +167,7 @@
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: var(--neutral-100);
+  
 }
 
 .milestoneDescription {

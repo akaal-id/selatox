@@ -19,8 +19,9 @@ export default function HomePage() {
       <Valuesection />
       <FeaturedProduct />
       <Business />
-      <ManufacturingPlan />
       <RndCenter />
+      <ManufacturingPlan />
+      
       <CareerSection />
       <Newsroom />
     </main>

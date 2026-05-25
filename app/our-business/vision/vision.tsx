@@ -54,7 +54,7 @@ export function Vision() {
               transition={{ duration: 0.7, delay: 0.08, ease: "easeOut" }}
               className={styles.eyebrow}
             >
-              {"// R\u0026D Vision"}
+              {"R&D Vision"}
             </motion.p>
           </div>
           <div className={styles.titleCol}>

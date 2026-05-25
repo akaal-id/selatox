@@ -1,65 +1,130 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { Button } from "@/components/ui/Button";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import navStyles from "@/components/navbar/navbar.module.css";
 import styles from "./business.module.css";
 
-export function Business() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isInView, setIsInView] = useState(false);
+const ease: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
 
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsInView(true);
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -5% 0px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+export function Business() {
+  const router = useRouter();
+  const containerRef = useRef<HTMLElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-10%" });
 
   return (
     <section
-      ref={sectionRef}
-      className={`${styles.section} ${isInView ? styles.inView : ""}`.trim()}
+      ref={containerRef}
       id="our-business"
-      data-navbar="default"
+      className={styles.section}
+      aria-labelledby="our-business-heading"
+      data-navbar="negative"
     >
-      <img
-        src="/images/product.webp"
-        alt=""
-        className={styles.backgroundImage}
-        aria-hidden
-      />
-      <div className={styles.overlay} aria-hidden />
-
-      <div className={styles.container}>
-        <div className={styles.top}>
-          <p className={styles.eyebrow} aria-hidden>{"// Our Business"}</p>
+      <div className={styles.background} aria-hidden>
+        <div className={styles.backgroundInner}>
+          <Image
+            src="/images/hero-4.webp"
+            alt=""
+            fill
+            sizes="100vw"
+            className={styles.backgroundImage}
+          />
         </div>
+      </div>
 
-        <div className={styles.bottom}>
-          <h2 className={styles.headline}>
-            Clinical science,
-            
-            built for global aesthetics.
-          </h2>
-
-          <div className={styles.right}>
-            <p className={styles.subtitle}>
-              We develop precision toxin formulations and partner with leading
-              clinics worldwide to bring trusted, scalable aesthetic solutions
-              to every market we serve.
-            </p>
-            <div className={styles.cta}>
-              <Button variant="simple" showIcon color="var(--neutral-0)">
-                Explore Our Research
-              </Button>
-            </div>
+      <div className={styles.gridBackground}>
+        <div className={styles.gridContainer}>
+          <div className={styles.gridCols}>
+            {Array.from({ length: 13 }).map((_, i) => (
+              <div
+                key={i}
+                className={styles.gridLine}
+                style={
+                  i === 12 ? { gridColumn: "12 / -1" } : undefined
+                }
+              />
+            ))}
           </div>
+        </div>
+      </div>
+
+      <div className={styles.gradientOverlay} />
+
+      <div className={styles.contentWrap}>
+        <div className={styles.container}>
+          <div className={styles.titleWrap}>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.08, ease: "easeOut" }}
+              className={styles.eyebrow}
+            >
+              Our Business
+            </motion.p>
+            <motion.h2
+              id="our-business-heading"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.2, ease }}
+              className={styles.headline}
+            >
+              Clinical Science,
+              
+              Built For Global Aesthetics.
+            </motion.h2>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className={styles.bottomBar}
+          >
+            <div className={styles.subWrap}>
+              <motion.p
+                initial={{ y: "100%" }}
+                animate={isInView ? { y: "0%" } : {}}
+                transition={{ duration: 1, delay: 0.35, ease }}
+                className={styles.sub}
+              >
+                We develop precision toxin formulations and partner with leading
+                clinics worldwide to bring trusted, scalable aesthetic solutions
+                to every market we serve.
+              </motion.p>
+            </div>
+
+            <div className={styles.ctaGroup}>
+              <button
+                type="button"
+                className={`${navStyles.navButton} ${styles.cta}`}
+                onClick={() => router.push("/our-business")}
+              >
+                <span className={navStyles.textWrapper}>
+                  <span className={navStyles.textPrimary}>
+                    Explore Our Research
+                  </span>
+                  <span className={navStyles.textSecondary} aria-hidden>
+                    Explore Our Research
+                  </span>
+                </span>
+                <span className={navStyles.iconWrapper}>
+                  <ArrowRight
+                    size={16}
+                    className={navStyles.iconPrimary}
+                    aria-hidden
+                  />
+                  <ArrowRight
+                    size={16}
+                    className={navStyles.iconSecondary}
+                    aria-hidden
+                  />
+                </span>
+              </button>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -61,7 +61,7 @@ export function RndCenter() {
     >
       <div className={styles.container}>
         <div className={styles.intro}>
-          <p className={styles.eyebrow} aria-hidden>{"// R&D Center"}</p>
+          <p className={styles.eyebrow} aria-hidden>R&D Center</p>
           <div className={styles.headerContainer}>
             <h2 id="rnd-center-heading" className={styles.headline}>
               Advancing our

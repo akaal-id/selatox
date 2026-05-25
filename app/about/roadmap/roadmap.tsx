@@ -137,19 +137,7 @@ export function Roadmap() {
       data-navbar="default"
     >
       <div className={styles.container}>
-        {/* Header */}
         <div className={styles.headerGrid}>
-          <div className={styles.eyebrowCol}>
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.08 }}
-              className={styles.eyebrow}
-              aria-hidden
-            >
-              {aboutRoadmap.eyebrow}
-            </motion.p>
-          </div>
           <div className={styles.titleCol}>
             <div className={styles.textWrap}>
               <motion.h2

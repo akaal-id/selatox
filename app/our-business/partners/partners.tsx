@@ -70,7 +70,7 @@ export function Partners() {
               transition={{ duration: 0.7, delay: 0.08 }}
               className={styles.eyebrow}
             >
-              {"// Alliances"}
+              Alliances
             </motion.p>
           </div>
           <div className={styles.titleCol}>

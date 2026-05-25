@@ -33,6 +33,7 @@
 }
 
 .headline {
+    font-family: var(--font-display);
     font-weight: 300;
     color: var(--neutral-140);
     line-height: 1.1;

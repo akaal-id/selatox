@@ -52,7 +52,7 @@ export function CareerSection() {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.titleArea}>
-            <span className={styles.eyebrow} aria-hidden>{"// Careers"}</span>
+            <span className={styles.eyebrow} aria-hidden>Careers</span>
             <h2 className={styles.title}>Join Teams Building Global Impact.</h2>
             <p className={styles.subtitle}>
               Explore open opportunities across research, strategy, and

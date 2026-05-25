@@ -17,10 +17,8 @@ export default function OurBusinessPage() {
       <PageHeader
         title="Our Business"
         subtitle="Pioneering Botulinum Toxin Specialization & Research."
-        eyebrow="// Global Operations"
         backgroundImage="/images/hero-2.webp"
         backgroundAlt="Selatox Manufacturing Facility"
-        monoAccent="Cikarang & Depok Hubs"
       />
       <Vision />
       <Research />

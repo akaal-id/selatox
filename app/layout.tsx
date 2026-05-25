@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Manrope } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Navbar } from "@/components/navbar/navbar";
@@ -6,6 +7,12 @@ import { LenisProvider } from "@/components/lenis/LenisProvider";
 import { ScrollFloater } from "@/components/scrollfloater/ScrollFloater";
 import { Footer } from "@/components/footer/Footer";
 import "@/styles/globals.css";
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+  display: "swap",
+});
 
 const baseUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://selatox.com";
@@ -42,7 +49,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      className={`${manrope.variable} ${GeistSans.variable} ${GeistMono.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen antialiased font-sans">
