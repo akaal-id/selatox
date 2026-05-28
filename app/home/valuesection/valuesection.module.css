@@ -36,31 +36,6 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Top block — section eyebrow
-   --------------------------------------------------------------------------- */
-.topBlock {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--green-100);
-  margin: 0;
-  opacity: 0;
-}
-
-.section.inView .eyebrow {
-  animation: blurIn 0.8s ease-out forwards;
-  animation-delay: 0.1s;
-}
-
-/* ---------------------------------------------------------------------------
    Card grid — vertical hairline dividers between columns, no card boxes
    --------------------------------------------------------------------------- */
 .cardGrid {

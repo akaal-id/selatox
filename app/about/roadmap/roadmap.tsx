@@ -24,6 +24,12 @@ function MilestoneItem({
     upcoming: styles.dotUpcoming,
     vision: styles.dotVision,
   }[item.status] ?? styles.dotUpcoming;
+  const rowStatusClass = {
+    completed: styles.rowCompleted,
+    active: styles.rowActive,
+    upcoming: styles.rowUpcoming,
+    vision: styles.rowVision,
+  }[item.status] ?? styles.rowUpcoming;
 
   return (
     <motion.li
@@ -35,7 +41,7 @@ function MilestoneItem({
         delay: 0.1 + index * 0.08,
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
-      className={styles.milestoneRow}
+      className={`${styles.milestoneRow} ${rowStatusClass}`}
     >
       {/* Year column */}
       <div className={styles.yearCol}>

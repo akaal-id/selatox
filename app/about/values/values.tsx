@@ -23,25 +23,12 @@ const CORE_VALUE_ICONS: Record<string, LucideIcon> = {
   "win-win": Handshake,
 };
 
-const PRINCIPLE_SLOTS = [
-  { type: "eyebrow" as const, area: "eyebrow" },
-  { type: "card" as const, area: "card1", valueIndex: 0 },
-  { type: "card" as const, area: "card2", valueIndex: 1 },
-  { type: "card" as const, area: "card3", valueIndex: 2 },
-  { type: "card" as const, area: "card4", valueIndex: 3 },
-  { type: "card" as const, area: "card5", valueIndex: 4 },
-] as const;
-
-const PRINCIPLE_AREA_CLASS: Record<
-  (typeof PRINCIPLE_SLOTS)[number]["area"],
-  string
-> = {
-  card1: styles.principleAreaCard1,
-  eyebrow: styles.principleAreaEyebrow,
-  card2: styles.principleAreaCard2,
-  card3: styles.principleAreaCard3,
-  card4: styles.principleAreaCard4,
-  card5: styles.principleAreaCard5,
+const CORE_VALUE_ACCENT: Record<string, "blue" | "green"> = {
+  justice: "blue",
+  stewardship: "green",
+  fairness: "blue",
+  "open-mind": "green",
+  "win-win": "blue",
 };
 
 export function AboutValues() {
@@ -57,84 +44,66 @@ export function AboutValues() {
       data-navbar="default"
     >
       <div className={styles.container}>
-        {/* ────────── HEADER ────────── */}
-        {/* <header className={styles.header}>
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.08 }}
-            className={styles.eyebrow}
-            aria-hidden
-          >
-            {aboutValues.eyebrow}
-          </motion.p>
-
-          <div className={styles.titleWrap}>
-            <motion.h2
-              id="about-values-heading"
-              initial={{ y: "100%" }}
-              animate={isInView ? { y: "0%" } : {}}
-              transition={{ duration: 0.9, delay: 0.15, ease: EASE_OUT_EXPO }}
-              className={styles.title}
-            >
-              {aboutValues.title}
-            </motion.h2>
-          </div>
-        </header> */}
-
-        {/* ────────── VISION / MISSION BILLBOARD ────────── */}
+        {/* ────────── VISION / MISSION ────────── */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.3 }}
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.2, ease: EASE_OUT_EXPO }}
           className={styles.statementGrid}
         >
           <article className={styles.statementCard}>
-            <span className={`${styles.statementLabel} ${styles.statementLabelVision}`}>
-              Vision
-            </span>
-
-            <div className={styles.statementBody}>
-              <p className={styles.statementText}>
-                {aboutValues.vision}
-              </p>
+            <div className={styles.statementLabelWrap}>
+              <span
+                className={`${styles.statementAccent} ${styles.accentGreen}`}
+              />
+              <span
+                className={`${styles.statementLabel} ${styles.statementLabelVision}`}
+              >
+                Vision
+              </span>
             </div>
+            <p className={styles.statementText}>{aboutValues.vision}</p>
           </article>
 
           <article className={styles.statementCard}>
-            <span className={`${styles.statementLabel} ${styles.statementLabelMission}`}>
-              Mission
-            </span>
-
-            <div className={styles.statementBody}>
-              <p className={`${styles.statementText} ${styles.statementTextMission}`}>
-                {aboutValues.mission}
-              </p>
+            <div className={styles.statementLabelWrap}>
+              <span
+                className={`${styles.statementAccent} ${styles.accentBlue}`}
+              />
+              <span
+                className={`${styles.statementLabel} ${styles.statementLabelMission}`}
+              >
+                Mission
+              </span>
             </div>
+            <p
+              className={`${styles.statementText} ${styles.statementTextMission}`}
+            >
+              {aboutValues.mission}
+            </p>
           </article>
         </motion.div>
 
         {/* ────────── CORE VALUES ────────── */}
         <div className={styles.principlesBlock}>
           <ul className={styles.principlesGrid}>
-            {PRINCIPLE_SLOTS.map((slot) => {
-              if (slot.type === "eyebrow") {
-                return (
-                  <motion.li
-                    key="core-values-eyebrow"
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.7, delay: 0.42 }}
-                    className={`${styles.principlesEyebrowCell} ${PRINCIPLE_AREA_CLASS.eyebrow}`}
-                  >
-                    <span className={styles.principlesEyebrow}>Core Values</span>
-                  </motion.li>
-                );
-              }
+            <motion.li
+              initial={{ opacity: 0, y: 16 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.38 }}
+              className={`${styles.principleCard} ${styles.principlesIntroCard}`}
+            >
+              <p className={styles.principlesIntroLabel}>Core Values</p>
+              <h3 className={styles.principlesIntroTitle}>Our Shared Principles</h3>
+              <p className={styles.principlesIntroText}>
+                Five commitments that guide every decision, partnership, and
+                long-term move at Selatox.
+              </p>
+            </motion.li>
 
-              const value = aboutValues.coreValues[slot.valueIndex];
+            {aboutValues.coreValues.map((value, index) => {
               const Icon = CORE_VALUE_ICONS[value.id];
-              const areaClass = PRINCIPLE_AREA_CLASS[slot.area];
+              const accent = CORE_VALUE_ACCENT[value.id];
 
               return (
                 <motion.li
@@ -143,12 +112,17 @@ export function AboutValues() {
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{
                     duration: 0.65,
-                    delay: 0.48 + slot.valueIndex * 0.06,
+                    delay: 0.46 + (index + 1) * 0.08,
                     ease: EASE_OUT_EXPO,
                   }}
-                  className={`${styles.principleCard} ${areaClass}`}
+                  className={styles.principleCard}
                 >
-                  <div className={styles.principleIconWrap} aria-hidden>
+                  <div
+                    className={`${styles.principleIconWrap} ${
+                      accent === "green" ? styles.iconGreen : styles.iconBlue
+                    }`}
+                    aria-hidden
+                  >
                     {Icon ? <Icon strokeWidth={1.25} /> : null}
                   </div>
 

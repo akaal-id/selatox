@@ -83,11 +83,11 @@
 
 .headline em {
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .highlightGreen {
-  color: var(--green-100);
+  color: var(--green-80);
 }
 
 .highlightBlue {

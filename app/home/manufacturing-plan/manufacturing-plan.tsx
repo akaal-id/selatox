@@ -86,10 +86,10 @@ export function ManufacturingPlan() {
           {pillars.map((pillar, index) => (
             <li key={pillar.title} className={styles.pillar}>
               <div className={styles.pillarHead}>
-                <span className={styles.pillarNumber}>
+                {/* <span className={styles.pillarNumber}>
                   {String(index + 1).padStart(2, "0")}
-                </span>
-                <span className={styles.pillarRule} aria-hidden />
+                </span> */}
+                {/* <span className={styles.pillarRule} aria-hidden /> */}
               </div>
               <h3 className={styles.pillarTitle}>{pillar.title}</h3>
               <p className={styles.pillarBody}>{pillar.body}</p>

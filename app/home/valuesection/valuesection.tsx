@@ -59,12 +59,6 @@ export function Valuesection() {
       data-navbar="default"
     >
       <div className={styles.container}>
-        <div className={styles.topBlock}>
-          <p className={styles.eyebrow} aria-hidden>
-            The Selatox Standard
-          </p>
-        </div>
-
         <div className={styles.cardGrid}>
           {values.map((item, index) => (
             <article
@@ -72,12 +66,12 @@ export function Valuesection() {
               className={styles.valueCard}
               style={{ ["--delay" as string]: `${0.25 + index * 0.15}s` }}
             >
-              <div className={styles.cardHead}>
+              {/* <div className={styles.cardHead}>
                 <span className={styles.cardNumber} aria-hidden>
                   {item.index}
                 </span>
                 <span className={styles.cardRule} aria-hidden />
-              </div>
+              </div> */}
 
               <div className={styles.cardBody}>
                 <p className={styles.cardCategory}>{item.category}</p>

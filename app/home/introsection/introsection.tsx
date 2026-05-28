@@ -37,7 +37,7 @@ export function Introsection() {
 
         <h2 className={styles.headline}>
           We believe true aesthetic innovation begins with{" "}
-          <em className={styles.highlightBlue}>uncompromising quality</em>. By
+          <em className={styles.highlightGreen}>uncompromising quality</em>. By
           combining state-of-the-art research with rigorous global standards,
           Selatox is creating a safer, more precise foundation for modern beauty
           and wellness. As{" "}

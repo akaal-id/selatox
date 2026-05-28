@@ -15,96 +15,61 @@
 }
 
 /* ============================================================
-   HEADER
-   ============================================================ */
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 28px;
-  padding-bottom: 56px;
-  border-bottom: 1px solid var(--neutral-60);
-}
-
-@media (min-width: 768px) {
-  .header {
-    gap: 40px;
-    padding-bottom: 80px;
-  }
-}
-
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  color: var(--neutral-100);
-}
-
-.titleWrap {
-  overflow: hidden;
-  width: 100%;
-}
-
-.title {
-  font-family: var(--font-display);
-  font-size: clamp(36px, 5.4vw, 72px);
-  font-weight: 300;
-  line-height: 1.02;
-  letter-spacing: -0.045em;
-  color: var(--neutral-160);
-  text-wrap: balance;
-}
-
-/* ============================================================
-   VISION / MISSION BILLBOARD
+   VISION / MISSION
    ============================================================ */
 .statementGrid {
   display: grid;
   grid-template-columns: 1fr;
-  /* border-bottom: 1px solid var(--neutral-60); */
-  border-top: 1px solid var(--neutral-60);
+  gap: 8px;
 }
 
 @media (min-width: 1024px) {
   .statementGrid {
     grid-template-columns: 1fr 1fr;
+    gap: 80px;
   }
 }
 
 .statementCard {
-  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   padding: 32px 0;
-  border-bottom: 1px solid var(--neutral-60);
-}
-
-.statementCard:last-child {
-  border-bottom: none;
 }
 
 @media (min-width: 768px) {
   .statementCard {
     padding: 40px 0;
-    gap: 16px;
+    gap: 24px;
   }
 }
 
 @media (min-width: 1024px) {
   .statementCard {
-    padding:  64px 32px;
-    border-bottom: none;
-    border-right: 1px solid var(--neutral-60);
+    padding: 48px 0;
   }
+}
 
-  .statementCard:last-child {
-    
-    border-right: none;
-  }
+.statementLabelWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.statementAccent {
+  display: block;
+  width: 3px;
+  height: 18px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.accentGreen {
+  background-color: var(--green-100);
+}
+
+.accentBlue {
+  background-color: var(--blue-100);
 }
 
 .statementLabel {
@@ -113,7 +78,6 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.28em;
-  color: var(--neutral-160);
 }
 
 .statementLabelVision {
@@ -124,46 +88,35 @@
   color: var(--blue-100);
 }
 
-.statementBody {
-  /* flex: 1 1 auto; */
-  display: flex;
-  align-items: flex-start;
-}
-
 .statementText {
-  font-size: clamp(18px, 2vw, 28px);
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.4vw, 36px);
   font-weight: 300;
-  line-height: 1.18;
+  line-height: 1.2;
   letter-spacing: -0.03em;
   color: var(--neutral-160);
   text-wrap: balance;
+  margin: 0;
 }
 
 .statementTextMission {
-  font-size: clamp(18px, 2vw, 28px);
   color: var(--neutral-120);
- }
+}
 
 /* ============================================================
    CORE VALUES
    ============================================================ */
 .principlesBlock {
-  margin-top: 0px;
+  margin-top: 56px;
+  padding-top: 56px;
+  border-top: 1px solid var(--neutral-60);
 }
 
 @media (min-width: 768px) {
   .principlesBlock {
-    margin-top: 0px;
+    margin-top: 72px;
+    padding-top: 72px;
   }
-}
-
-.principlesEyebrow {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  color: var(--neutral-160);
 }
 
 .principlesGrid {
@@ -172,59 +125,20 @@
   list-style: none;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1px;
-  border: 1px solid var(--neutral-60);
-  background-color: var(--neutral-60);
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .principlesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
 }
 
 @media (min-width: 1024px) {
   .principlesGrid {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas:
-      "eyebrow card1 card2"
-      "card3 card4 card5";
-  }
-}
-
-.principlesEyebrowCell {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  background-color: var(--neutral-0);
-  padding: 28px;
-  text-align: left;
-}
-
-@media (min-width: 768px) {
-  .principlesEyebrowCell {
-    padding: 32px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .principleAreaCard1 {
-    grid-area: card1;
-  }
-
-  .principleAreaEyebrow {
-    grid-area: eyebrow;
-  }
-
-  .principleAreaCard2 {
-    grid-area: card2;
-  }
-
-  .principleAreaCard3 {
-    grid-area: card3;
-  }
-
-  .principleAreaCard4 {
-    grid-area: card4;
-  }
-
-  .principleAreaCard5 {
-    grid-area: card5;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
   }
 }
 
@@ -232,10 +146,12 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  border: none;
-  background-color: var(--neutral-0);
   padding: 28px;
-  transition: background-color 300ms ease;
+  background: var(--neutral-10);
+  border-radius: 12px;
+  border: 1px solid var(--neutral-40);
+  transition: background-color 320ms ease, border-color 320ms ease,
+    box-shadow 320ms ease;
 }
 
 @media (min-width: 768px) {
@@ -246,45 +162,114 @@
 }
 
 .principleCard:hover {
-  background-color: var(--neutral-20);
+  background-color: var(--neutral-0);
+  border-color: var(--neutral-60);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
 }
 
+.principlesIntroCard {
+  justify-content: space-between;
+  border-color: var(--neutral-60);
+  background:
+    radial-gradient(
+      circle at 12% 14%,
+      rgba(68, 144, 228, 0.1) 0%,
+      rgba(68, 144, 228, 0) 48%
+    ),
+    radial-gradient(
+      circle at 86% 88%,
+      rgba(80, 177, 55, 0.1) 0%,
+      rgba(80, 177, 55, 0) 44%
+    ),
+    var(--neutral-0);
+}
+
+.principlesIntroCard:hover {
+  border-color: var(--neutral-80);
+}
+
+.principlesIntroLabel {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--blue-100);
+}
+
+.principlesIntroTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.1vw, 30px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--neutral-160);
+  text-wrap: balance;
+}
+
+.principlesIntroText {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--neutral-120);
+  max-width: 34ch;
+}
+
+/* ── Icon containers ── */
 .principleIconWrap {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
-  border: 1px solid var(--neutral-60);
-  background-color: var(--neutral-20);
-  color: var(--neutral-140);
-  transition: border-color 300ms ease, color 300ms ease, background-color 300ms ease;
+  border-radius: 12px;
+  transition: transform 320ms ease, background-color 320ms ease;
 }
 
 .principleIconWrap svg {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 }
 
 @media (min-width: 768px) {
   .principleIconWrap {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
   }
 
   .principleIconWrap svg {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
   }
 }
 
-.principleCard:hover .principleIconWrap {
-  border-color: var(--neutral-80);
-  background-color: var(--neutral-0);
-  color: var(--neutral-160);
+.iconBlue {
+  background-color: var(--blue-20);
+  color: var(--blue-100);
 }
 
+.iconGreen {
+  background-color: var(--green-20);
+  color: var(--green-100);
+}
+
+.principleCard:hover .principleIconWrap {
+  transform: translateY(-2px);
+}
+
+.principleCard:hover .iconBlue {
+  background-color: var(--blue-40);
+}
+
+.principleCard:hover .iconGreen {
+  background-color: var(--green-40);
+}
+
+/* ── Content ── */
 .principleContent {
   display: flex;
   flex: 1 1 auto;
@@ -296,7 +281,7 @@
 .principleTitle {
   font-family: var(--font-display);
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--neutral-160);

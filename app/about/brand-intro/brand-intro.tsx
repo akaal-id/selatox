@@ -1,62 +1,48 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { aboutBrandIntro } from "@/constants/about";
+import { useRef, useState, useEffect } from "react";
 import styles from "./brand-intro.module.css";
 
 export function BrandIntro() {
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-10%" });
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsInView(true);
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -5% 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
       ref={sectionRef}
       id="brand-intro"
-      className={styles.section}
+      className={`${styles.section} ${isInView ? styles.inView : ""}`.trim()}
       aria-label="Brand introduction"
       data-navbar="default"
     >
-      {/* Visible grid overlay */}
-      <div className="gridOverlay">
-        <div className={styles.overlayContainer}>
-          <div className={styles.grid12}>
-            {Array.from({ length: 13 }).map((_, i) => (
-              <div
-                key={i}
-                className={styles.gridLine}
-                style={{
-                  gridColumn: i === 12 ? "12 / -1" : undefined,
-                  borderRight: i === 12 ? "1px solid rgb(244 244 245)" : undefined,
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
       <div className={styles.container}>
-        <div className={styles.content}>
-          <div className={styles.textWrap}>
-            <motion.p
-              initial={{ y: "100%", opacity: 0 }}
-              animate={isInView ? { y: "0%", opacity: 1 } : {}}
-              transition={{ duration: 0.9, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className={styles.paragraph}
-            >
-              {aboutBrandIntro.paragraph}
-            </motion.p>
-          </div>
+        <p className={styles.eyebrow}>
+          <span className={styles.eyebrowLabel}>Rooted in Purpose, Built for Precision</span>
+        </p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
-            className={styles.supportingText}
-          >
-            {aboutBrandIntro.supportingText}
-          </motion.p>
-        </div>
+        <h2 className={styles.headline}>
+          Established in September 2022, PT. Selatox Bio Pharma is Indonesia&rsquo;s first specialized
+          botulinum toxin manufacturer and research center. We were founded with a clear vision: <em className={styles.highlightGreen}>to
+          elevate the standard of global aesthetics through safe, ethical, and advanced science.</em> By
+          combining state-of-the-art research in Depok with world-class manufacturing in Cikarang, we
+          control every step of the creation process. Our pioneering Halal-certified pipeline ensures
+          that every product we make is backed by uncompromising purity and transparency. Today, Selatox is not just creating premium aesthetic solutions for Indonesia,
+          <em className={styles.highlightGreen}> but building a trusted
+          foundation for beauty and wellness across more than 40 countries worldwide.</em>
+        </h2>
       </div>
     </section>
   );
