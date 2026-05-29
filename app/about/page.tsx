@@ -26,7 +26,7 @@ export default function AboutPage() {
       <AboutValues />
       <ExecutiveSection />
       <Roadmap />
-      <Facilities />
+      {/* <Facilities /> */}
       <AboutContact />
     </main>
   );

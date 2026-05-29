@@ -84,7 +84,7 @@ export function Valuesection() {
 
         <div className={styles.ctaWrap}>
           <Button
-            variant="simple"
+            variant="primary"
             showIcon={true}
             color="var(--blue-100)"
             onClick={() => router.push("/about")}

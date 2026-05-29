@@ -26,7 +26,7 @@ export function AboutContact() {
       id="contact"
       className={styles.section}
       aria-labelledby="about-contact-heading"
-      data-navbar="negative"
+      data-navbar="default"
     >
       <div className={styles.splitGrid}>
         {/* Left panel — info */}

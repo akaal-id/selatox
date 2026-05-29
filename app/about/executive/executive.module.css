@@ -1,6 +1,6 @@
 .section {
   position: relative;
-  background-color: var(--color-selatox-dark);
+  background-color: var(--neutral-20);
   padding-top: var(--section-py);
   padding-bottom: var(--section-py);
 }
@@ -50,10 +50,9 @@
   position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  /* border-top: 1px solid var(--neutral-140);
-  border-left: 1px solid var(--neutral-140);
-  border-right: 1px solid var(--neutral-140); */
-  background-color: var(--neutral-160);
+  background-color: var(--neutral-40);
+  border: 1px solid var(--neutral-60);
+  border-radius: 8px;
 }
 
 .parallaxImage {
@@ -66,7 +65,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(10, 10, 10, 1), transparent);
+  background: linear-gradient(to top, var(--neutral-20), transparent);
   padding: 32px;
 }
 
@@ -76,7 +75,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: var(--neutral-100);
+  color: var(--neutral-120);
 }
 
 .dividerCol {
@@ -96,7 +95,7 @@
 .dividerLine {
   width: 1px;
   transform-origin: top;
-  background-color: var(--neutral-140);
+  background-color: var(--neutral-60);
 }
 
 .quoteCol {
@@ -117,7 +116,7 @@
   font-size: 120px;
   font-weight: 300;
   line-height: 1;
-  color: var(--neutral-140);
+  color: var(--neutral-60);
 }
 
 @media (min-width: 768px) {
@@ -141,12 +140,12 @@
   font-weight: 300;
   line-height: 1.4;
   letter-spacing: -0.02em;
-  color: var(--neutral-80);
+  color: var(--neutral-160);
 }
 
 .quoteFooter {
   margin-top: 48px;
-  border-top: 1px solid var(--neutral-140);
+  border-top: 1px solid var(--neutral-60);
   padding-top: 32px;
 }
 
@@ -155,7 +154,7 @@
   font-size: 24px;
   font-weight: 400;
   letter-spacing: -0.02em;
-  color: var(--neutral-0);
+  color: var(--neutral-160);
 }
 
 @media (min-width: 768px) {
@@ -171,5 +170,5 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: var(--neutral-100);
+  color: var(--neutral-120);
 }

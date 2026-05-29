@@ -66,77 +66,84 @@ export const aboutRoadmap = {
     {
       year: "2022",
       title: "Establishment",
-      description: "Establishment of PT. Selatox Bio Pharma.",
       status: "completed" as const,
+      image: "/images/selatox-hero.webp",
+      items: [
+        {
+          month: "September",
+          text: "Establishment of PT. Selatox Bio Pharma",
+        },
+      ],
+    },
+    {
+      year: "2023",
+      title: "Facility Foundation",
+      status: "completed" as const,
+      image: "/images/intro.webp",
+      items: [
+        {
+          month: "March",
+          text: "Pile construction",
+        },
+        {
+          month: "April",
+          text: "Main construction",
+        },
+      ],
     },
     {
       year: "2024",
       title: "Facility Completion",
-      description: "Completion of state-of-the-art facility construction.",
       status: "completed" as const,
+      image: "/images/selatox-hero-2.webp",
+      items: [
+        {
+          month: "November",
+          text: "Technology development contract (w/ Daewoong)",
+        },
+        {
+          month: "December",
+          text: "Construction completion (SLF application)",
+        },
+      ],
     },
     {
       year: "2026",
-      title: "GMP & Clinical Trials",
-      description:
-        "Target for GMP certification and Export approval; initiation of clinical trials.",
+      title: "GMP & Clinical Approval",
       status: "active" as const,
+      image: "/images/product.webp",
+      items: [
+        {
+          text: "GMP certification and Expert approval",
+        },
+        {
+          text: "R&D center establishment",
+        },
+      ],
     },
     {
       year: "2028",
       title: "Domestic Launch",
-      description:
-        "Domestic product launch in Indonesia; strategic partnering with over 40 countries.",
       status: "upcoming" as const,
-    },
-    {
-      year: "2030",
-      title: "Global Launch",
-      description: "Global launching and commercialization.",
-      status: "upcoming" as const,
-    },
-    {
-      year: "2040",
-      title: "Vision Milestone",
-      description: "Projected milestone of US$150M in annual sales.",
-      status: "vision" as const,
-    },
-  ],
-} as const;
-
-export const aboutFacilities = {
-  header: "Scaled for Global Dominance",
-  facilities: [
-    {
-      id: "cikarang",
-      name: "Cikarang Manufacturing Plant",
-      role: "Production Hub",
-      focus: "High-capacity, GMP-compliant commercial manufacturing.",
-      details:
-        "Spanning over 18,400m², this facility integrates an automated aseptic manufacturing process. It operates under strict global GMP compliance—leveraging the NABOTA quality system—ensuring absolute safety and sterility.",
-      capacity:
-        "Engineered to produce 6.5 million vials annually to support both domestic demand and massive global export operations.",
-      image: "/images/hero-2.webp",
-      specs: [
-        { label: "Area", value: "18,400 m²" },
-        { label: "Capacity", value: "6.5M vials/yr" },
-        { label: "Compliance", value: "Global GMP" },
+      image: "/images/hero-1.webp",
+      items: [
+        {
+          text: "Product registration (Indonesia)",
+        },
+        {
+          text: "Partnering with +40 countries",
+        },
       ],
     },
     {
-      id: "depok",
-      name: "Depok R&D Center",
-      role: "Innovation Hub",
-      focus: "Pioneer research and specialized pipeline development.",
-      details:
-        "Serving as Indonesia's first dedicated Botulinum neurotoxin research facility, this center drives our core scientific advancements. It is the birthplace of our Halal-Toxin pipeline, prioritizing stringent ingredient control and ethical consumption.",
-      partnerships:
-        "Bolstered by strategic research collaborations with Universitas Indonesia (Science Techno Park) and the Daewoong Foundation.",
-      image: "/images/hero-3.webp",
-      specs: [
-        { label: "Focus", value: "BTX Research" },
-        { label: "Partners", value: "UI & Daewoong" },
-        { label: "Pipeline", value: "Halal-Toxin" },
+      year: "2030",
+      title: "Global Scaling",
+      status: "vision" as const,
+      image: "/images/hero-4.webp",
+      items: [
+        {
+          text: "Global Launching and commercialization",
+        },
       ],
     },
   ],

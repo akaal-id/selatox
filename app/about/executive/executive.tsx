@@ -24,7 +24,7 @@ export function ExecutiveSection() {
       id="executive"
       className={styles.section}
       aria-labelledby="executive-heading"
-      data-navbar="negative"
+      data-navbar="default"
     >
       <div className={styles.container}>
         {/* Eyebrow */}

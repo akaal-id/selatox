@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useLayoutEffect, useState } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { aboutRoadmap } from "@/constants/about";
@@ -57,22 +58,54 @@ function MilestoneItem({
 
       {/* Content */}
       <div className={styles.contentCol}>
-        <p className={styles.milestoneTitle}>
-          {item.title}
-        </p>
-        <p className={styles.milestoneDescription}>
-          {item.description}
-        </p>
-        {item.status === "active" && (
-          <span className={styles.badgeActive}>
-            Current Phase
-          </span>
-        )}
-        {item.status === "vision" && (
-          <span className={styles.badgeVision}>
-            Vision 2040
-          </span>
-        )}
+        {/* Left: Image */}
+        <div className={styles.imageCol}>
+          <div className={styles.imageWrapper}>
+            <Image
+              src={item.image}
+              alt={item.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 25vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
+
+        {/* Right: flex column -> milestone title and sub */}
+        <div className={styles.infoCol}>
+          <div className={styles.infoTopGroup}>
+            <span className={styles.mobileYear}>
+              {item.year}
+            </span>
+            <p className={styles.milestoneTitle}>
+              {item.title}
+            </p>
+            <div className={styles.milestoneItemsList}>
+              {item.items.map((subItem, idx) => (
+                <div key={idx} className={styles.milestoneItem}>
+                  {"month" in subItem && subItem.month && (
+                    <span className={styles.itemMonth}>
+                      {subItem.month}
+                    </span>
+                  )}
+                  <span className={styles.itemText}>
+                    {subItem.text}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          {item.status === "active" && (
+            <span className={styles.badgeActive}>
+              Current Phase
+            </span>
+          )}
+          {item.status === "vision" && (
+            <span className={styles.badgeVision}>
+              Vision {item.year}
+            </span>
+          )}
+        </div>
       </div>
     </motion.li>
   );

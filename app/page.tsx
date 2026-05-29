@@ -9,6 +9,7 @@ import { RndCenter } from "./home/rnd-center/rnd-center";
 import { featuredProducts } from "@/lib/prod-data";
 import { Newsroom } from "./home/newsroom/newsroom";
 import { CareerSection } from "./home/career/career";
+import { Newsletter } from "@/components/newsletter/Newsletter";
 
 /** Single home page at "/". Section order: Hero → Intro → Values → Featured Product → Business → Career → Newsroom → Prodsection. */
 export default function HomePage() {
@@ -24,6 +25,7 @@ export default function HomePage() {
       
       <CareerSection />
       <Newsroom />
+      <Newsletter />
     </main>
   );
 }

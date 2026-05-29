@@ -4,9 +4,8 @@ import React, { useState } from "react";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronDown, ArrowUp, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ChevronDown, ArrowUp } from "lucide-react";
 import footerStyles from "./footer.module.css";
-import newsletterStyles from "./newsletter.module.css";
 
 // 1. Corporate Data Object
 const corporateData = {
@@ -43,40 +42,7 @@ export const Footer = () => {
     const scrollToTop = useScrollToTop();
 
     return (
-        <>
-            {/* Newsletter Section */}
-            <section className={newsletterStyles.newsletterSection} aria-labelledby="newsletter-heading">
-                <div className={newsletterStyles.folioWrapper}>
-                    {/* Left Panel: Typography */}
-                    <div className={newsletterStyles.leftPanel}>
-                        <p className={newsletterStyles.eyebrow}>Newsletter</p>
-                        <h2 id="newsletter-heading" className={newsletterStyles.headline}>Global Insights.<br />Delivered.</h2>
-                        <p className={newsletterStyles.description}>
-                            Stay at the forefront of medical aesthetics. Subscribe for exclusive updates on R&D milestones and corporate announcements.
-                        </p>
-                    </div>
-
-                    {/* Right Panel: Interactive Zone & Form */}
-                    <div className={newsletterStyles.rightPanel}>
-                        <p className={newsletterStyles.disclaimer}>Join the network of industry leaders.</p>
-                        <form className={newsletterStyles.formContainer} onSubmit={(e) => e.preventDefault()}>
-                            <input
-                                type="email"
-                                className={newsletterStyles.input}
-                                placeholder="name@company.com"
-                                aria-label="Email address for newsletter"
-                                required
-                            />
-                            <button type="submit" className={newsletterStyles.submitButton} aria-label="Subscribe">
-                                <ArrowUpRight size={32} strokeWidth={1.5} />
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </section>
-
-            {/* Existing Footer */}
-            <footer className={footerStyles.footerWrapper}>
+        <footer className={footerStyles.footerWrapper}>
                 {/* Top Layer: Massive Brand Element */}
                 <div className={footerStyles.topLayer}>
                     <div className={footerStyles.container}>
@@ -195,6 +161,5 @@ export const Footer = () => {
                     </div>
                 </div>
             </footer>
-        </>
     );
 };
