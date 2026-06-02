@@ -21,7 +21,6 @@ export function ProductsBrowser() {
         product.brand,
         product.title,
         product.shortDescription,
-        ...product.tags,
       ]
         .join(" ")
         .toLowerCase();
@@ -43,7 +42,7 @@ export function ProductsBrowser() {
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search by name, brand, indication, or tags"
+              placeholder="Search by name, brand, or indication"
               className={styles.searchInput}
             />
           </label>
