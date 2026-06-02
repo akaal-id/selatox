@@ -137,15 +137,7 @@
   color: var(--neutral-160);
 }
 
-.regimen {
-  margin: 8px 0 0;
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--neutral-120);
-  font-weight: 300;
-}
-
-.indication {
+.scope {
   margin: 0;
   font-size: 15px;
   line-height: 1.5;

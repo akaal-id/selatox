@@ -7,19 +7,6 @@
   }
 }
 
-@keyframes blurIn {
-  from {
-    filter: blur(10px);
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    filter: blur(0);
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .section {
   position: relative;
   padding: var(--section-py) var(--section-px);
@@ -56,41 +43,66 @@
   margin: 0 auto;
 }
 
-/* Header */
+/* Header — 12-col editorial layout */
 .headerGrid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 24px;
-  margin-bottom: 80px;
-}
-
-.eyebrowCol {
-  grid-column: span 12;
+  gap: 24px 32px;
+  margin-bottom: 72px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--neutral-60);
 }
 
 .eyebrow {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-bottom: 28px;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  letter-spacing: 0.25em;
   color: var(--neutral-100);
 }
 
-.titleCol {
-  grid-column: span 12;
+.headlineCol {
+  grid-column: 1 / span 8;
+  align-self: end;
 }
 
-.textWrap {
+.headlineMask {
   overflow: hidden;
 }
 
-.title {
+.headline {
+  margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(28px, 4vw, 52px);
+  font-size: clamp(40px, 5.5vw, 72px);
   font-weight: 300;
+  line-height: 0.98;
   letter-spacing: -0.04em;
   color: var(--neutral-160);
+}
+
+.headlineAccent {
+  display: block;
+  margin-top: 0.06em;
+  color: var(--blue-100);
+}
+
+.headerAside {
+  grid-column: 9 / -1;
+  align-self: end;
+  padding-left: 32px;
+  border-left: 1px solid var(--neutral-60);
+}
+
+.sub {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  font-weight: 300;
+  color: var(--neutral-120);
 }
 
 /* Infinite marquee track */
@@ -124,24 +136,18 @@
   white-space: nowrap;
 }
 
-.partnerName {
-  font-size: 18px;
-  font-weight: 300;
-  letter-spacing: -0.01em;
-  color: var(--neutral-120);
-  transition: color 0.3s ease;
+.partnerLogo {
+  display: block;
+  width: auto;
+  height: 52px;
+  max-width: 220px;
+  object-fit: contain;
+  opacity: 0.55;
+  transition: opacity 0.3s ease;
 }
 
-.marqueeItem:hover .partnerName {
-  color: var(--neutral-160);
-}
-
-.marqueeDivider {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--neutral-80);
-  padding: 0 24px;
-  flex-shrink: 0;
+.marqueeItem:hover .partnerLogo {
+  opacity: 1;
 }
 
 /* Partnership highlights */
@@ -194,81 +200,40 @@
   max-width: 560px;
 }
 
-/* CTA */
-.ctaWrap {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 24px;
-  margin-top: 80px;
-  padding-top: 40px;
-  border-top: 1px solid var(--neutral-60);
-}
-
-.ctaContent {
-  grid-column: span 12;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 32px;
-}
-
-.ctaText {
-  font-size: 18px;
-  font-weight: 300;
-  letter-spacing: -0.01em;
-  color: var(--neutral-140);
-}
-
-.ctaButton {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 32px;
-  background: var(--neutral-160);
-  color: var(--neutral-0);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: 1px solid var(--neutral-160);
-  cursor: pointer;
-  transition: all 0.35s ease;
-  flex-shrink: 0;
-}
-
-.ctaButton:hover {
-  background: transparent;
-  color: var(--neutral-160);
-}
-
-.ctaArrow {
-  font-size: 14px;
-  transition: transform 0.35s ease;
-}
-
-.ctaButton:hover .ctaArrow {
-  transform: translateX(4px);
-}
-
 @media (min-width: 768px) {
-  .eyebrowCol {
-    grid-column: span 2;
-  }
-
-  .titleCol {
-    grid-column: 3 / span 9;
-  }
-
   .highlightCard {
     grid-column: span 6;
+  }
+}
+
+@media (max-width: 1024px) {
+  .headlineCol {
+    grid-column: 1 / -1;
+  }
+
+  .headerAside {
+    grid-column: 1 / -1;
+    padding-left: 0;
+    border-left: none;
+    padding-top: 8px;
+    max-width: 520px;
   }
 }
 
 @media (max-width: 768px) {
   .headerGrid {
     margin-bottom: 48px;
+    padding-bottom: 28px;
+    gap: 20px;
+  }
+
+  .eyebrow {
+    padding-bottom: 20px;
+  }
+
+  .sub {
+    font-size: 14px;
+    line-height: 1.6;
   }
 
   .marqueeItem {
@@ -281,19 +246,5 @@
 
   .highlightCard {
     padding: 28px 20px;
-  }
-
-  .ctaWrap {
-    margin-top: 56px;
-  }
-
-  .ctaContent {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-  }
-
-  .ctaText {
-    font-size: 16px;
   }
 }

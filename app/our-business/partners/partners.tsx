@@ -2,24 +2,42 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Link from "next/link";
+import Image from "next/image";
 import styles from "./partners.module.css";
 
-const partners = [
-  "Universitas Indonesia (STP)",
-  "Daewoong Foundation",
-  "Global GMP Alliance",
-  "NABOTA Quality Systems",
-  "KFDA Regulatory Partners",
-  "BPOM Compliance Network",
-];
+const partnerLogos = [
+  {
+    name: "Universitas Indonesia Science Techno Park",
+    src: "/images/partnerships/stp_ui.png",
+  },
+  {
+    name: "Daewoong Foundation",
+    src: "/images/partnerships/daewoong.png",
+  },
+  {
+    name: "Global GMP Alliance",
+    src: "/images/partnerships/gmp.png",
+  },
+  {
+    name: "NABOTA Quality Systems",
+    src: "/images/partnerships/nabota.png",
+  },
+  {
+    name: "KFDA Regulatory Partners",
+    src: "/images/partnerships/kfda.png",
+  },
+  {
+    name: "BPOM Compliance Network",
+    src: "/images/partnerships/bpom.png",
+  },
+] as const;
 
 const highlights = [
   {
-    label: "Strategic R\u0026D",
-    title: "Universitas Indonesia (Science Techno Park)",
+    label: "Product Lineage",
+    title: "NABOTA",
     description:
-      "Collaborating with UI STP to pioneer advanced biopharmaceutical research, focusing on specialized neurotoxin formulations and driving clinical excellence within the region.",
+      "NABOTA is Daewoong Pharmaceutical\u2019s established botulinum toxin brand and the parent product behind Selatox. Our pipeline builds on this proven reference with localized innovation, Halal-certified development, and manufacturing scaled for Indonesia and export markets.",
   },
   {
     label: "Global Backbone",
@@ -27,7 +45,7 @@ const highlights = [
     description:
       "A fundamental partnership empowering our global operations with robust infrastructure, world-class GMP protocols, and extensive pharmaceutical network capabilities.",
   },
-];
+] as const;
 
 export function Partners() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -61,36 +79,48 @@ export function Partners() {
       </div>
 
       <div className={styles.container}>
-        {/* Header */}
-        <div className={styles.headerGrid}>
-          <div className={styles.eyebrowCol}>
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.08 }}
-              className={styles.eyebrow}
-            >
-              Alliances
-            </motion.p>
-          </div>
-          <div className={styles.titleCol}>
-            <div className={styles.textWrap}>
+        <header className={styles.headerGrid}>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.06 }}
+            className={styles.eyebrow}
+          >
+            Alliances
+          </motion.p>
+
+          <div className={styles.headlineCol}>
+            <div className={styles.headlineMask}>
               <motion.h2
                 id="partners-heading"
-                initial={{ y: "100%" }}
+                initial={{ y: "110%" }}
                 animate={isInView ? { y: "0%" } : {}}
                 transition={{
-                  duration: 0.9,
-                  delay: 0.15,
+                  duration: 0.95,
+                  delay: 0.14,
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
-                className={styles.title}
+                className={styles.headline}
               >
-                Strategic Partnerships.
+                Strategic{" "}
+                <span className={styles.headlineAccent}>Partnerships.</span>
               </motion.h2>
             </div>
           </div>
-        </div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 12 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.75, delay: 0.32 }}
+            className={styles.headerAside}
+          >
+            <p className={styles.sub}>
+              From NABOTA product lineage and Daewoong infrastructure to
+              university research, GMP systems, and multi-market regulatory
+              networks.
+            </p>
+          </motion.div>
+        </header>
       </div>
 
       {/* Infinite marquee block */}
@@ -100,12 +130,19 @@ export function Partners() {
         transition={{ duration: 1, delay: 0.3 }}
         className={styles.marqueeOuter}
       >
-        <div className={styles.marqueeTrack} aria-hidden="true">
-          {/* Double the array to ensure seamless infinite scrolling */}
-          {[...partners, ...partners].map((partner, index) => (
-            <div key={`${partner}-${index}`} className={styles.marqueeItem}>
-              <span className={styles.partnerName}>{partner}</span>
-              <span className={styles.marqueeDivider}>{"\u25A0"}</span>
+        <div
+          className={styles.marqueeTrack}
+          aria-label="Partner organizations"
+        >
+          {[...partnerLogos, ...partnerLogos].map((partner, index) => (
+            <div key={`${partner.src}-${index}`} className={styles.marqueeItem}>
+              <Image
+                src={partner.src}
+                alt={partner.name}
+                width={220}
+                height={56}
+                className={styles.partnerLogo}
+              />
             </div>
           ))}
         </div>
@@ -128,25 +165,6 @@ export function Partners() {
             </motion.div>
           ))}
         </div>
-
-        {/* Call-to-action */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.7 }}
-          className={styles.ctaWrap}
-        >
-          <div className={styles.ctaContent}>
-            <p className={styles.ctaText}>
-              Interested in integrating our clinical pipeline or leveraging our
-              Cikarang capabilities?
-            </p>
-            <Link href="/about#contact" className={styles.ctaButton}>
-              Collaboration Inquiries
-              <span className={styles.ctaArrow}>{"\u2192"}</span>
-            </Link>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

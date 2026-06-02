@@ -22,7 +22,7 @@ export default function OurBusinessPage() {
       />
       <Vision />
       <Research />
-      <OurBusinessFacilities />
+      {/* <OurBusinessFacilities /> */}
       <Partners />
     </main>
   );
