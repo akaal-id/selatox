@@ -33,13 +33,13 @@
 }
 
 /* ============================================================
-   HEADER
-   ============================================================ */
-.header {
+  Intro
+  ============================================================ */
+.introPrimary {
   display: flex;
   flex-direction: column;
   gap: 28px;
-  max-width: 980px;
+  max-width: 740px;
 }
 
 .eyebrow {
@@ -84,11 +84,11 @@
    INTRO + STATS
    ============================================================ */
 .introRow {
-  margin-top: 56px;
+  margin-top: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   gap: 48px;
-  align-items: end;
+  align-items: flex-end;
   padding-bottom: 56px;
   border-bottom: 1px solid var(--neutral-140);
 }
@@ -108,53 +108,13 @@
   animation-delay: 0.28s;
 }
 
-.stats {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-  opacity: 0;
-}
-
-.section.inView .stats {
-  animation: blurIn 0.85s ease-out forwards;
-  animation-delay: 0.36s;
-}
-
-.stat {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding-left: 16px;
-  border-left: 1px solid var(--neutral-140);
-}
-
-.statValue {
-  font-family: var(--font-display);
-  font-size: clamp(28px, 2.6vw, 36px);
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  color: var(--neutral-0);
-  line-height: 1;
-}
-
-.statLabel {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--neutral-100);
-}
-
 /* ============================================================
    FEATURE IMAGE — wide landscape, full-bleed inside container
    ============================================================ */
 .mediaWrap {
   margin-top: 56px;
   opacity: 0;
+  
 }
 
 .section.inView .mediaWrap {
@@ -168,6 +128,7 @@
   aspect-ratio: 21 / 9;
   overflow: hidden;
   background-color: var(--neutral-160);
+  border-radius: 16px;
 }
 
 .mediaImage {
@@ -270,12 +231,8 @@
 @media (max-width: 1024px) {
   .introRow {
     grid-template-columns: 1fr;
-    gap: 40px;
-    align-items: start;
-  }
-
-  .stats {
-    gap: 16px;
+    gap: 28px;
+    align-items: flex-end;
   }
 
   .mediaCaption {
@@ -292,22 +249,13 @@
 }
 
 @media (max-width: 768px) {
-  .header {
+  .introPrimary {
     gap: 20px;
   }
 
   .introRow {
-    margin-top: 40px;
     padding-bottom: 40px;
-  }
-
-  .stats {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-  }
-
-  .stat {
-    padding-left: 12px;
+    gap: 20px;
   }
 
   .media {
@@ -325,7 +273,6 @@
   .section.inView .eyebrow,
   .section.inView .headline,
   .section.inView .subtitle,
-  .section.inView .stats,
   .section.inView .mediaWrap,
   .section.inView .cta {
     animation: none;

@@ -3,9 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 import styles from "@/components/pageheader/pageheader.module.css";
-import navStyles from "@/components/navbar/navbar.module.css";
 
 export function Hero() {
   const router = useRouter();
@@ -26,22 +25,20 @@ export function Hero() {
       ref={containerRef}
       id="hero"
       className={styles.section}
-      aria-label="Welcome Hero"
       data-navbar="negative"
     >
       <div className={styles.background} aria-hidden>
-        <motion.div style={{ y: imageY }} className="relative h-full w-full">
-          <video
-            className={styles.backgroundVideo}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-          >
-            <source src="/videos/hero.mp4" type="video/mp4" />
-          </video>
-        </motion.div>
+        <motion.video
+          style={{ y: imageY }}
+          className={styles.backgroundVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/hero-1.webp"
+        >
+          <source src="/videos/hero.mp4" type="video/mp4" />
+        </motion.video>
       </div>
 
       <div className={styles.gridBackground}>
@@ -51,11 +48,7 @@ export function Hero() {
               <div
                 key={i}
                 className={styles.gridLine}
-                style={
-                  i === 12
-                    ? { gridColumn: "12 / -1" }
-                    : undefined
-                }
+                style={i === 12 ? { gridColumn: "12 / -1" } : undefined}
               />
             ))}
           </div>
@@ -76,10 +69,8 @@ export function Hero() {
               transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
               className={styles.headline}
             >
-              Elevating Global Beauty Through Advanced Science
+              Indonesia&apos;s First Specialized Biopharmaceutical Center
             </motion.h1>
-
-            
           </div>
 
           <motion.div
@@ -99,44 +90,23 @@ export function Hero() {
               </motion.p>
             </div>
             <div className={styles.ctaGroup}>
-              <button
-                type="button"
-                className={`${navStyles.navButton} ${styles.heroCta}`}
+              <Button
+                variant="blur"
+                tone="light"
+                showIcon
                 onClick={() => router.push("/products")}
               >
-                <span className={navStyles.textWrapper}>
-                  <span className={navStyles.textPrimary}>Explore Products</span>
-                  <span className={navStyles.textSecondary} aria-hidden>
-                    Explore Products
-                  </span>
-                </span>
-                <span className={navStyles.iconWrapper}>
-                  <ArrowRight size={16} className={navStyles.iconPrimary} aria-hidden />
-                  <ArrowRight size={16} className={navStyles.iconSecondary} aria-hidden />
-                </span>
-              </button>
-
-              <button
-                type="button"
-                className={`${navStyles.navButton} ${styles.heroCta}`}
+                Explore Products
+              </Button>
+              <Button
+                variant="blur"
+                tone="light"
+                showIcon
                 onClick={() => router.push("/about")}
               >
-                <span className={navStyles.textWrapper}>
-                  <span className={navStyles.textPrimary}>About Us</span>
-                  <span className={navStyles.textSecondary} aria-hidden>
-                    About Us
-                  </span>
-                </span>
-                <span className={navStyles.iconWrapper}>
-                  <ArrowRight size={16} className={navStyles.iconPrimary} aria-hidden />
-                  <ArrowRight size={16} className={navStyles.iconSecondary} aria-hidden />
-                </span>
-              </button>
+                About Us
+              </Button>
             </div>
-
-            {/* <span className={styles.scrollIndicator}>
-              Scroll to explore ↓
-            </span> */}
           </motion.div>
         </div>
       </motion.div>

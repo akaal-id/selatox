@@ -4,8 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import navStyles from "@/components/navbar/navbar.module.css";
+import { Button } from "@/components/ui/Button";
 import styles from "./business.module.css";
 
 const ease: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
@@ -97,32 +96,14 @@ export function Business() {
             </div>
 
             <div className={styles.ctaGroup}>
-              <button
-                type="button"
-                className={`${navStyles.navButton} ${styles.cta}`}
+              <Button
+                variant="blur"
+                tone="light"
+                showIcon
                 onClick={() => router.push("/our-business")}
               >
-                <span className={navStyles.textWrapper}>
-                  <span className={navStyles.textPrimary}>
-                    Explore Our Research
-                  </span>
-                  <span className={navStyles.textSecondary} aria-hidden>
-                    Explore Our Research
-                  </span>
-                </span>
-                <span className={navStyles.iconWrapper}>
-                  <ArrowRight
-                    size={16}
-                    className={navStyles.iconPrimary}
-                    aria-hidden
-                  />
-                  <ArrowRight
-                    size={16}
-                    className={navStyles.iconSecondary}
-                    aria-hidden
-                  />
-                </span>
-              </button>
+                Explore Our Research
+              </Button>
             </div>
           </motion.div>
         </div>

@@ -2,16 +2,12 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import styles from "./career.module.css";
 
-const teamStats = [
-  { value: "5+", label: "Disciplines" },
-  { value: "40+", label: "Global markets" },
-  { value: "2030", label: "Vision year" },
-];
-
 export function CareerSection() {
+  const router = useRouter();
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
 
@@ -37,35 +33,24 @@ export function CareerSection() {
       aria-labelledby="careers-heading"
     >
       <div className={styles.container}>
-        {/* ────────── HEADER ROW ────────── */}
-        <div className={styles.header}>
-          <span className={styles.eyebrow} aria-hidden>
-            Careers
-          </span>
-          <h2 id="careers-heading" className={styles.headline}>
-            Build what&apos;s next,
-            <br />
-            <span className={styles.headlineAccent}>with us.</span>
-          </h2>
-        </div>
-
-        {/* ────────── INTRO + STATS ROW ────────── */}
+        {/* ────────── INTRO ROW ────────── */}
         <div className={styles.introRow}>
+          <div className={styles.introPrimary}>
+            <span className={styles.eyebrow} aria-hidden>
+              Careers
+            </span>
+            <h2 id="careers-heading" className={styles.headline}>
+              Build what&apos;s next,
+              <br />
+              <span className={styles.headlineAccent}>with us.</span>
+            </h2>
+          </div>
           <p className={styles.subtitle}>
             We&apos;re assembling a team of scientists, strategists, and
             operators who believe the next era of bio-aesthetics will be
             engineered in Indonesia — and shared with the world. If you&apos;re
             looking for work that compounds, this is where it starts.
           </p>
-
-          <ul className={styles.stats} aria-label="Team at a glance">
-            {teamStats.map((stat) => (
-              <li key={stat.label} className={styles.stat}>
-                <span className={styles.statValue}>{stat.value}</span>
-                <span className={styles.statLabel}>{stat.label}</span>
-              </li>
-            ))}
-          </ul>
         </div>
 
         {/* ────────── FEATURE IMAGE ────────── */}
@@ -101,10 +86,10 @@ export function CareerSection() {
           </div>
           <div className={styles.ctaActions}>
             <Button
-              variant="border"
+              variant="blur"
+              tone="light"
               showIcon
-              color="var(--neutral-0)"
-              borderColor="var(--neutral-100)"
+              onClick={() => router.push("/careers")}
             >
               View Open Roles
             </Button>
