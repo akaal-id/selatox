@@ -29,26 +29,14 @@ export function Research() {
       ref={sectionRef}
       id="research-fields"
       className={`${styles.section} ${isInView ? styles.inView : ""}`.trim()}
-      aria-labelledby="research-heading"
+      aria-label="Research fields"
       data-navbar="default"
     >
       <div className={styles.container}>
         <div className={styles.intro}>
           <p className={styles.eyebrow} aria-hidden>
-            Research Fields
+            <span className={styles.eyebrowLabel}>Research Fields</span>
           </p>
-          <div className={styles.headerContainer}>
-            <h2 id="research-heading" className={styles.headline}>
-              Major Research
-              <br />
-              Disciplines.
-            </h2>
-            <p className={styles.sub}>
-              Our core research programs are anchored by the Halal-Toxin
-              Pipeline, prioritizing stringent ingredient control and ethical
-              consumption at every stage.
-            </p>
-          </div>
         </div>
 
         <div

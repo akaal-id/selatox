@@ -1,0 +1,143 @@
+.section {
+  position: relative;
+  padding: clamp(68px, 7vw, 106px) var(--section-px);
+  background: var(--neutral-10);
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: var(--section-max-width);
+  margin: 0 auto;
+}
+
+.gridGuide {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.gridLine {
+  border-left: 1px solid var(--neutral-60);
+}
+
+.gridLine:last-child {
+  border-right: 1px solid var(--neutral-60);
+}
+
+.layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  border-top: 1px solid var(--neutral-60);
+  border-bottom: 1px solid var(--neutral-60);
+}
+
+.copy {
+  grid-column: span 7;
+  border-left: 1px solid var(--neutral-60);
+  padding: clamp(28px, 3vw, 44px);
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--neutral-100);
+}
+
+.heading {
+  margin: 0;
+  max-width: 14ch;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.9vw, 52px);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  color: var(--neutral-180);
+}
+
+.body {
+  margin: 24px 0 0;
+  max-width: 62ch;
+  font-size: clamp(15px, 1.15vw, 18px);
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--neutral-140);
+}
+
+.points {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  grid-column: span 5;
+  border-left: 1px solid var(--neutral-60);
+  border-right: 1px solid var(--neutral-60);
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.pointItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 24px 24px 24px 20px;
+  border-bottom: 1px solid var(--neutral-60);
+  transition: background-color 260ms ease;
+}
+
+.pointItem:last-child {
+  border-bottom: none;
+}
+
+.pointItem:hover {
+  background: rgba(10, 14, 22, 0.025);
+}
+
+.pointIndex {
+  min-width: 40px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--neutral-100);
+}
+
+.pointText {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--neutral-160);
+}
+
+@media (max-width: 1024px) {
+  .copy,
+  .points {
+    grid-column: 1 / -1;
+  }
+
+  .points {
+    border-top: 1px solid var(--neutral-60);
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding-top: 62px;
+    padding-bottom: 72px;
+  }
+
+  .copy {
+    padding: 26px 20px;
+  }
+
+  .pointItem {
+    padding: 20px;
+  }
+}

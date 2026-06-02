@@ -79,6 +79,17 @@
   letter-spacing: 0.02em;
 }
 
+.navWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aboutActive {
+  isolation: auto;
+}
+
 .nav {
   display: none;
   align-items: center;
@@ -92,13 +103,11 @@
 
 }
 
-@media (min-width: 768px) {
-  .nav {
-    display: flex;
-  }
+.navOpen {
+  position: relative;
 }
 
-.navOpen {
+.navOpen .nav {
   display: flex;
   position: absolute;
   top: 100%;
@@ -109,6 +118,21 @@
   backdrop-filter: blur(20px);
   padding: 16px;
   border-bottom: 1px solid var(--color-border);
+}
+
+@media (min-width: 768px) {
+  .nav {
+    display: flex;
+  }
+
+  .navOpen .nav {
+    position: static;
+    flex-direction: row;
+    background: rgba(217, 217, 217, 0.4);
+    backdrop-filter: blur(12px);
+    border-bottom: none;
+    padding: 16px 32px;
+  }
 }
 
 .link {
@@ -124,7 +148,7 @@
   line-height: 1;
 }
 
-/* When any link is hovered, blur and dim the others so the hovered link acts as focus */
+/* Generic nav hover focus */
 .nav:has(.link:hover) .link:not(:hover) {
   filter: blur(2px);
   opacity: 0.5;
@@ -134,6 +158,91 @@
   color: var(--blue-100);
   filter: none;
   opacity: 1;
+}
+
+.dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dropdownTrigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.chevron {
+  transition: transform 0.2s ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translate(-50%, -8px);
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 32px;
+  padding: 17px 32px;
+  background: rgba(217, 217, 217, 0.4);
+  backdrop-filter: blur(12px);
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+}
+
+.dropdownMenuOpen {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+/* About active (click open or hover): blur non-About nav links */
+.navWrap.aboutActive .nav .link {
+  filter: none;
+  opacity: 1;
+}
+
+.navWrap.aboutActive .aboutTrigger {
+  filter: none;
+  opacity: 1;
+}
+
+/* In dropdown hover, keep only hovered dropdown item + About trigger clear */
+.navWrap.aboutActive .dropdownMenu:has(.dropdownLink:hover) .dropdownLink:not(:hover) {
+  filter: blur(2px);
+  opacity: 0.5;
+}
+
+.dropdownLink {
+  padding: 0;
+}
+
+.dropdownDisabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  color: var(--color-text);
+}
+
+.dropdownDisabled:hover {
+  color: var(--color-text);
+  opacity: 0.6;
 }
 
 /* Nav button: nav + link look with button behaviour; icon inline, no icon container */
@@ -250,5 +359,39 @@
 @media (min-width: 768px) {
   .toggle {
     display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .navWrap {
+    width: 100%;
+  }
+
+  .dropdown {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dropdownTrigger {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dropdownMenu {
+    position: static;
+    display: none;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: none;
+    width: 100%;
+    margin-top: 6px;
+    justify-content: flex-start;
+  }
+
+  .dropdownMenuOpen {
+    display: flex;
   }
 }

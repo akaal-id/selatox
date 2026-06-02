@@ -15,7 +15,7 @@ export default function OurBusinessPage() {
   return (
     <main>
       <PageHeader
-        title="Our Business"
+        title="Where advanced research meets global partnership"
         subtitle="Pioneering Botulinum Toxin Specialization & Research."
         backgroundImage="/images/hero-2.webp"
         backgroundAlt="Selatox Manufacturing Facility"

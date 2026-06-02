@@ -1,12 +1,3 @@
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
 .section {
   position: relative;
   padding: var(--section-py) var(--section-px);
@@ -43,208 +34,115 @@
   margin: 0 auto;
 }
 
-/* Header — 12-col editorial layout */
-.headerGrid {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 24px 32px;
-  margin-bottom: 72px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid var(--neutral-60);
+/* Header */
+.header {
+  margin-bottom: 56px;
+  text-align: center;
 }
 
-.eyebrow {
-  grid-column: 1 / -1;
-  margin: 0;
-  padding-bottom: 28px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--neutral-100);
-}
-
-.headlineCol {
-  grid-column: 1 / span 8;
-  align-self: end;
-}
-
-.headlineMask {
-  overflow: hidden;
-}
-
-.headline {
+.title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(40px, 5.5vw, 72px);
+  font-size: clamp(34px, 4.4vw, 52px);
   font-weight: 300;
-  line-height: 0.98;
-  letter-spacing: -0.04em;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
   color: var(--neutral-160);
 }
 
-.headlineAccent {
-  display: block;
-  margin-top: 0.06em;
-  color: var(--blue-100);
+/* Partner logos */
+.logoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
 }
 
-.headerAside {
-  grid-column: 9 / -1;
-  align-self: end;
-  padding-left: 32px;
-  border-left: 1px solid var(--neutral-60);
-}
-
-.sub {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.65;
-  font-weight: 300;
-  color: var(--neutral-120);
-}
-
-/* Infinite marquee track */
-.marqueeOuter {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  margin-left: -50vw;
-  overflow: hidden;
-  border-top: 1px solid var(--neutral-60);
-  border-bottom: 1px solid var(--neutral-60);
-  padding: 48px 0;
-}
-
-.marqueeTrack {
-  display: flex;
-  width: max-content;
-  animation: marquee 30s linear infinite;
-}
-
-.marqueeTrack:hover {
-  animation-play-state: paused;
-}
-
-.marqueeItem {
+.logoCard {
+  min-height: 148px;
+  padding: 28px 24px;
+  border-radius: 12px;
+  border: 1px solid var(--blue-20);
+  background: var(--neutral-0);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 56px;
-  flex-shrink: 0;
-  white-space: nowrap;
+  transition: background-color 320ms ease, border-color 320ms ease,
+    box-shadow 320ms ease;
+  aspect-ratio: 4 / 3;
+}
+
+.logoCard:hover {
+  background: var(--neutral-0);
+  border-color: var(--blue-80);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
 }
 
 .partnerLogo {
   display: block;
-  width: auto;
-  height: 52px;
-  max-width: 220px;
+  width: 100%;
+  max-width: 230px;
+  height: auto;
+  max-height: 72px;
   object-fit: contain;
-  opacity: 0.55;
-  transition: opacity 0.3s ease;
+  object-position: center;
+  opacity: 0.75;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.marqueeItem:hover .partnerLogo {
+.logoCard:hover .partnerLogo {
   opacity: 1;
+  transform: translateY(-1px);
 }
 
-/* Partnership highlights */
-.highlights {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 24px;
-  margin-top: 80px;
-}
-
-.highlightCard {
-  grid-column: span 12;
-  padding: 40px 32px;
-  border: 1px solid var(--neutral-60);
+/* CTA */
+.ctaWrap {
+  margin-top: 44px;
+  padding-top: 32px;
+  border-top: 1px solid var(--neutral-60);
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  transition: background-color 0.3s ease;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
 
-.highlightCard:hover {
-  background-color: var(--neutral-20);
-}
-
-.highlightLabel {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--blue-100);
-}
-
-.highlightTitle {
-  font-family: var(--font-display);
+.ctaText {
   margin: 0;
-  font-size: 22px;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  color: var(--neutral-160);
-  line-height: 1.3;
-}
-
-.highlightDescription {
-  margin: 0;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 300;
-  line-height: 1.7;
-  color: var(--neutral-120);
-  max-width: 560px;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--neutral-140);
 }
 
 @media (min-width: 768px) {
-  .highlightCard {
-    grid-column: span 6;
-  }
-}
-
-@media (max-width: 1024px) {
-  .headlineCol {
-    grid-column: 1 / -1;
-  }
-
-  .headerAside {
-    grid-column: 1 / -1;
-    padding-left: 0;
-    border-left: none;
-    padding-top: 8px;
-    max-width: 520px;
+  .logoGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 768px) {
-  .headerGrid {
-    margin-bottom: 48px;
-    padding-bottom: 28px;
-    gap: 20px;
+  .header {
+    margin-bottom: 40px;
   }
 
-  .eyebrow {
-    padding-bottom: 20px;
+  .logoCard {
+    min-height: 132px;
+    padding: 24px 20px;
   }
 
-  .sub {
-    font-size: 14px;
-    line-height: 1.6;
+  .partnerLogo {
+    max-width: 200px;
+    max-height: 62px;
   }
 
-  .marqueeItem {
-    padding: 0 32px;
+  .ctaWrap {
+    margin-top: 34px;
+    padding-top: 24px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .highlights {
-    margin-top: 56px;
-  }
-
-  .highlightCard {
-    padding: 28px 20px;
+  .ctaText {
+    font-size: 16px;
   }
 }

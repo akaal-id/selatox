@@ -13,8 +13,8 @@
 
 .section {
   position: relative;
-  padding: var(--section-py) var(--section-px);
-  background: var(--neutral-10);
+  padding: var(--section-px) var(--section-px) var(--section-py);
+  background: var(--neutral-0);
   font-family: var(--font-sans);
 }
 
@@ -26,62 +26,30 @@
 
 .intro {
   width: 100%;
-  margin-bottom: 72px;
-}
-
-.headerContainer {
-  margin-top: 20px;
-  width: 100%;
+  margin-bottom: 40px;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 32px;
+  justify-content: center;
 }
 
 .eyebrow {
   margin: 0;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
   color: var(--blue-100);
+  text-align: center;
   opacity: 0;
+}
+
+.eyebrowLabel {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1;
 }
 
 .section.inView .eyebrow {
   animation: blurIn 0.8s ease-out forwards;
   animation-delay: 0.08s;
-}
-
-.headline {
-  font-family: var(--font-display);
-  margin: 0;
-  font-size: clamp(34px, 4.4vw, 52px);
-  font-weight: 300;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  color: var(--neutral-160);
-  opacity: 0;
-}
-
-.section.inView .headline {
-  animation: blurIn 0.95s ease-out forwards;
-  animation-delay: 0.2s;
-}
-
-.sub {
-  margin: 0;
-  max-width: 460px;
-  font-size: 16px;
-  line-height: 1.7;
-  font-weight: 300;
-  color: var(--neutral-130);
-  opacity: 0;
-}
-
-.section.inView .sub {
-  animation: blurIn 0.95s ease-out forwards;
-  animation-delay: 0.28s;
 }
 
 .tableWrap {
@@ -182,16 +150,7 @@
 
 @media (max-width: 1024px) {
   .intro {
-    margin-bottom: 56px;
-  }
-
-  .headerContainer {
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .sub {
-    max-width: 100%;
+    margin-bottom: 32px;
   }
 
   .tableHead {
@@ -213,16 +172,7 @@
 
 @media (max-width: 768px) {
   .intro {
-    margin-bottom: 40px;
-  }
-
-  .headerContainer {
-    gap: 14px;
-  }
-
-  .sub {
-    font-size: 15px;
-    line-height: 1.6;
+    margin-bottom: 28px;
   }
 
   .programTitle {

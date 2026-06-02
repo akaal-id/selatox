@@ -3,18 +3,20 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLenis } from "@/components/lenis/LenisProvider";
 import styles from "./navbar.module.css";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/our-business", label: "Our Business" },
   { href: "/products", label: "Products" },
   { href: "/careers", label: "Careers" },
   { href: "/news", label: "News" },
+];
+
+const aboutDropdownLinks = [
+  { href: "/about", label: "About Selatox" },
+  { href: "/our-business", label: "Our Business" },
 ];
 
 export type NavbarVariant = "default" | "negative";
@@ -48,6 +50,7 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
   const router = useRouter();
   const lenis = useLenis();
   const [open, setOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const [scrollVariant, setScrollVariant] = useState<NavbarVariant | null>(null);
 
   useEffect(() => {
@@ -78,6 +81,7 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
   const effectiveVariant =
     variantProp ?? scrollVariant ?? "default";
   const isNegative = effectiveVariant === "negative";
+  const isAboutActive = aboutOpen;
 
   return (
     <header
@@ -94,18 +98,75 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
           />
 
         </Link>
-        <nav className={`${styles.nav} ${open ? styles.navOpen : ""}`}>
-          {navLinks.map(({ href, label }) => (
+        <div
+          className={`${styles.navWrap} ${open ? styles.navOpen : ""} ${isAboutActive ? styles.aboutActive : ""}`}
+        >
+          <nav className={styles.nav}>
             <Link
-              key={href}
-              href={href}
+              href="/"
               className={styles.link}
               onClick={() => setOpen(false)}
             >
-              {label}
+              Home
             </Link>
-          ))}
-        </nav>
+            <div className={styles.dropdown}>
+              <button
+                type="button"
+                className={`${styles.link} ${styles.dropdownTrigger} ${styles.aboutTrigger}`}
+                aria-expanded={isAboutActive}
+                aria-haspopup="menu"
+                onClick={() => setAboutOpen((prev) => !prev)}
+              >
+                <span>About</span>
+                <ChevronDown
+                  size={14}
+                  className={`${styles.chevron} ${aboutOpen ? styles.chevronOpen : ""}`}
+                  aria-hidden
+                />
+              </button>
+            </div>
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={styles.link}
+                onClick={() => setOpen(false)}
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+          <div
+            className={`${styles.dropdownMenu} ${isAboutActive ? styles.dropdownMenuOpen : ""}`}
+            role="menu"
+          >
+            {aboutDropdownLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`${styles.link} ${styles.dropdownLink}`}
+                role="menuitem"
+                onClick={() => {
+                  setOpen(false);
+                  setAboutOpen(false);
+                }}
+              >
+                {label}
+              </Link>
+            ))}
+            {/* <Link
+              href="/our-business/manufacturing"
+              className={`${styles.link} ${styles.dropdownLink}`}
+              role="menuitem"
+              onClick={() => {
+                setOpen(false);
+                setAboutOpen(false);
+              }}
+            >
+              Manufacturing
+            </Link> */}
+          </div>
+        </div>
         <div className={styles.right}>
           <button
             type="button"

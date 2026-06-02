@@ -8,6 +8,7 @@ import styles from "./pageheader.module.css";
 export type PageHeaderProps = {
   title: string;
   subtitle?: string;
+  lead?: string;
   backgroundImage?: string;
   backgroundAlt?: string;
   id?: string;
@@ -16,6 +17,7 @@ export type PageHeaderProps = {
 export function PageHeader({
   title,
   subtitle,
+  lead,
   backgroundImage,
   backgroundAlt = "",
   id = "page-header",
@@ -87,6 +89,16 @@ export function PageHeader({
             >
               {title}
             </motion.h1>
+            {lead ? (
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className={styles.lead}
+              >
+                {lead}
+              </motion.p>
+            ) : null}
           </div>
 
           <motion.div

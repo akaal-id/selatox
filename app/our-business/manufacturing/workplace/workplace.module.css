@@ -1,0 +1,120 @@
+.section {
+  position: relative;
+  padding: clamp(40px, 6vw, 96px) var(--section-px) clamp(80px, 9vw, 128px);
+  background: var(--neutral-0);
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: var(--section-max-width);
+  margin: 0 auto;
+}
+
+.gridGuide {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.gridLine {
+  border-left: 1px solid var(--neutral-60);
+}
+
+.gridLine:last-child {
+  border-right: 1px solid var(--neutral-60);
+}
+
+.panel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  border-top: 1px solid var(--neutral-60);
+  border-bottom: 1px solid var(--neutral-60);
+}
+
+.copy {
+  grid-column: span 7;
+  border-left: 1px solid var(--neutral-60);
+  border-right: 1px solid var(--neutral-60);
+  padding: clamp(30px, 3.4vw, 46px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 251, 0.82));
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--neutral-100);
+}
+
+.heading {
+  margin: 0;
+  max-width: 12ch;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  color: var(--neutral-180);
+}
+
+.body {
+  margin: 24px 0 0;
+  max-width: 56ch;
+  font-size: clamp(15px, 1.14vw, 18px);
+  font-weight: 300;
+  line-height: 1.72;
+  color: var(--neutral-140);
+}
+
+.media {
+  grid-column: span 5;
+  position: relative;
+  overflow: hidden;
+  min-height: 460px;
+  border-right: 1px solid var(--neutral-60);
+}
+
+.mediaInner {
+  position: absolute;
+  inset: -9% 0;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.88) contrast(1.04);
+}
+
+@media (max-width: 1024px) {
+  .copy,
+  .media {
+    grid-column: 1 / -1;
+  }
+
+  .copy {
+    border-right: 1px solid var(--neutral-60);
+  }
+
+  .media {
+    min-height: 320px;
+    border-left: 1px solid var(--neutral-60);
+    border-top: 1px solid var(--neutral-60);
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding-top: 34px;
+    padding-bottom: 72px;
+  }
+
+  .copy {
+    padding: 24px 20px;
+  }
+}

@@ -1,24 +1,16 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
+import { products } from "@/constants/products";
 import styles from "./featured-product.module.css";
 
-const FEATURED_PRODUCT = {
-  image: "/images/product.webp",
-  specs: [
-    { label: "Strain", value: "Hall A Hyper" },
-    { label: "Formulation", value: "Freeze-dried white powder" },
-    {
-      label: "Indication",
-      value:
-        "Temporary improvement in the appearance of moderate to severe lines.",
-    },
-  ] as const,
-} as const;
+const FEATURED_PRODUCT = products[0];
 
 export function FeaturedProduct() {
   const sectionRef = useRef<HTMLElement>(null);
+  const router = useRouter();
   const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
@@ -47,8 +39,8 @@ export function FeaturedProduct() {
         <div className={styles.visualWrap}>
           <div className={styles.productImageWrap}>
             <img
-              src={FEATURED_PRODUCT.image}
-              alt="SELATOX® 100 Units — Botulinum Toxin Type A vial"
+              src={FEATURED_PRODUCT.imageSrc}
+              alt={FEATURED_PRODUCT.imageAlt}
               className={styles.productImage}
             />
           </div>
@@ -60,13 +52,11 @@ export function FeaturedProduct() {
             Featured Innovation
           </p>
           <h2 id="featured-product-heading" className={styles.headline}>
-            Botulinum Toxin Type A
+            {FEATURED_PRODUCT.title}
           </h2>
-          <p className={styles.subheadline}>SELATOX®</p>
+          <p className={styles.subheadline}>{FEATURED_PRODUCT.brand}</p>
           <p className={styles.paragraph}>
-            A high-purity formulation engineered through advanced biotechnology.
-            Designed to deliver natural, precise, and highly reliable aesthetic
-            outcomes for global practitioners.
+            {FEATURED_PRODUCT.shortDescription} {FEATURED_PRODUCT.description}
           </p>
 
           <ul className={styles.specsList}>
@@ -83,7 +73,7 @@ export function FeaturedProduct() {
               variant="simple"
               showIcon={true}
               color="var(--green-100)"
-              onClick={() => { }}
+              onClick={() => router.push(`/products/${FEATURED_PRODUCT.slug}`)}
             >
               View Technical Specs
             </Button>
