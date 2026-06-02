@@ -16,8 +16,8 @@ const aboutDropdownLinks = [
 ];
 
 const careersDropdownLinks = [
-  { href: "/careers#culture", label: "Selatox Culture" },
-  { href: "/careers#opportunities", label: "Opportunities" },
+  { href: "/culture", label: "Selatox Culture" },
+  { href: "/opportunities", label: "Opportunities" },
 ];
 
 export type NavbarVariant = "default" | "negative";
@@ -269,36 +269,36 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
               />
             </nav>
             <div
-              className={`${styles.dropdownMenu} ${aboutOpen ? styles.dropdownMenuOpen : ""}`}
+              className={`${styles.dropdownMenu} ${aboutOpen || careersOpen ? styles.dropdownMenuOpen : ""}`}
               role="menu"
+              aria-hidden={!(aboutOpen || careersOpen)}
             >
-              {aboutDropdownLinks.map(({ href, label }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`${styles.link} ${styles.dropdownLink}`}
-                  role="menuitem"
-                  onClick={closeMobileMenu}
-                >
-                  {label}
-                </Link>
-              ))}
-            </div>
-            <div
-              className={`${styles.dropdownMenu} ${careersOpen ? styles.dropdownMenuOpen : ""}`}
-              role="menu"
-            >
-              {careersDropdownLinks.map(({ href, label }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`${styles.link} ${styles.dropdownLink}`}
-                  role="menuitem"
-                  onClick={closeMobileMenu}
-                >
-                  {label}
-                </Link>
-              ))}
+              {aboutOpen
+                ? aboutDropdownLinks.map(({ href, label }) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      className={`${styles.link} ${styles.dropdownLink}`}
+                      role="menuitem"
+                      onClick={closeMobileMenu}
+                    >
+                      {label}
+                    </Link>
+                  ))
+                : null}
+              {careersOpen
+                ? careersDropdownLinks.map(({ href, label }) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      className={`${styles.link} ${styles.dropdownLink}`}
+                      role="menuitem"
+                      onClick={closeMobileMenu}
+                    >
+                      {label}
+                    </Link>
+                  ))
+                : null}
             </div>
           </div>
 

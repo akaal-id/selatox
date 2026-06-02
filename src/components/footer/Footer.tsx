@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronDown, ArrowUp } from "lucide-react";
+import { ArrowUp } from "lucide-react";
+import { SelectForm } from "@/components/ui/selectform/selectform";
 import footerStyles from "./footer.module.css";
 
 // 1. Corporate Data Object
@@ -38,7 +38,6 @@ const familySiteData = [
 ];
 
 export const Footer = () => {
-    const [isFamilySiteOpen, setIsFamilySiteOpen] = useState(false);
     const scrollToTop = useScrollToTop();
 
     return (
@@ -111,38 +110,21 @@ export const Footer = () => {
                             </div>
                         </div>
 
-                        {/* Col 4: Family Site (Custom Dropdown) */}
+                        {/* Col 4: Family Site */}
                         <div>
                             <h3 className={footerStyles.colHeader}>Family Site</h3>
-                            <div className={`${footerStyles.dropdownWrapper} ${isFamilySiteOpen ? footerStyles.dropdownOpen : ""}`}>
-                                <button
-                                    type="button"
-                                    className={footerStyles.dropdownButton}
-                                    onClick={() => setIsFamilySiteOpen(!isFamilySiteOpen)}
-                                    aria-haspopup="listbox"
-                                    aria-expanded={isFamilySiteOpen}
-                                >
-                                    <span>Select Family Site</span>
-                                    <ChevronDown size={16} className={footerStyles.chevron} />
-                                </button>
-                                <ul
-                                    className={footerStyles.dropdownList}
-                                    role="listbox"
-                                >
-                                    {familySiteData.map((site, idx) => (
-                                        <li key={idx} className={footerStyles.dropdownItem} role="option">
-                                            <a
-                                                href={site.href}
-                                                target={site.target}
-                                                rel="noopener noreferrer"
-                                                className={footerStyles.dropdownLink}
-                                            >
-                                                {site.label}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                            <SelectForm
+                                placeholder="Select Family Site"
+                                value=""
+                                onChange={() => {}}
+                                options={familySiteData.map((site) => ({
+                                    label: site.label,
+                                    value: site.label,
+                                    href: site.href,
+                                    target: site.target as "_blank" | "_self",
+                                }))}
+                                variant="footer"
+                            />
                         </div>
 
                     </div>

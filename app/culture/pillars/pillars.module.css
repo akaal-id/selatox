@@ -1,0 +1,276 @@
+/* Culture pillars — editorial 2×2 grid (valuesection pattern) */
+
+@keyframes blurIn {
+  from {
+    filter: blur(12px);
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  position: relative;
+  padding:  var(--section-px) var(--section-px) var(--section-py);
+  background: var(--neutral-0);
+  font-family: var(--font-sans);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 40px;
+  width: 100%;
+  max-width: var(--section-max-width);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue-100);
+  text-align: center;
+  opacity: 0;
+}
+
+.section.inView .eyebrow {
+  animation: blurIn 0.8s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+/* ---------------------------------------------------------------------------
+   Grid — vertical hairlines, no card boxes
+   --------------------------------------------------------------------------- */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--neutral-60);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pillar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 36px 40px 40px 0;
+  border-right: 1px solid var(--neutral-60);
+  border-bottom: 1px solid var(--neutral-60);
+  opacity: 0;
+}
+
+.pillar:nth-child(2n) {
+  padding-left: 40px;
+  padding-right: 0;
+  border-right: none;
+}
+
+.pillar:nth-child(n + 3) {
+  border-bottom: none;
+  padding-top: 40px;
+}
+
+.section.inView .pillar {
+  animation: blurIn 0.85s ease-out forwards;
+  animation-delay: var(--delay, 0.28s);
+}
+
+/* ---------------------------------------------------------------------------
+   Head — icon + rule
+   --------------------------------------------------------------------------- */
+.pillarHead {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.pillarIconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  transition: transform 320ms ease, background-color 320ms ease;
+}
+
+.pillarIconWrap svg {
+  width: 22px;
+  height: 22px;
+}
+
+.iconBlue {
+  background-color: var(--blue-20);
+  color: var(--blue-100);
+}
+
+.iconGreen {
+  background-color: var(--green-20);
+  color: var(--green-100);
+}
+
+.pillarRule {
+  flex: 1;
+  height: 1px;
+  background: var(--neutral-60);
+  transition: background 320ms ease;
+}
+
+/* ---------------------------------------------------------------------------
+   Body — label, title, copy
+   --------------------------------------------------------------------------- */
+.pillarContent {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 42ch;
+}
+
+.pillarTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 400;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  color: var(--neutral-160);
+  text-wrap: balance;
+}
+
+.pillarBody {
+  margin: 0;
+  font-size: 15.5px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--neutral-120);
+  text-wrap: pretty;
+}
+
+/* ---------------------------------------------------------------------------
+   Hover
+   --------------------------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  .pillar:hover .pillarIconWrap {
+    transform: translateY(-2px);
+  }
+
+  .pillar:hover .iconBlue {
+    background-color: var(--blue-40);
+  }
+
+  .pillar:hover .iconGreen {
+    background-color: var(--green-40);
+  }
+
+  .pillar:hover .pillarRule {
+    background: var(--blue-60);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Tablet
+   --------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  .pillarIconWrap {
+    width: 52px;
+    height: 52px;
+  }
+
+  .pillarIconWrap svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    gap: 32px;
+  }
+
+  .pillar {
+    padding: 28px 24px 32px 0;
+  }
+
+  .pillar:nth-child(2n) {
+    padding-left: 24px;
+    padding-right: 0;
+  }
+
+  .pillar:nth-child(3) {
+    padding-top: 28px;
+  }
+
+  .pillarContent {
+    max-width: none;
+  }
+
+  .pillarTitle {
+    font-size: 24px;
+  }
+
+  .pillarBody {
+    font-size: 15px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Mobile — stacked rows
+   --------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .pillars {
+    grid-template-columns: 1fr;
+  }
+
+  .pillar,
+  .pillar:nth-child(2n),
+  .pillar:nth-child(n + 3) {
+    padding: 28px 0;
+    border-right: none;
+    border-bottom: 1px solid var(--neutral-60);
+    gap: 20px;
+  }
+
+  .pillar:nth-child(2n) {
+    padding-left: 0;
+  }
+
+  .pillar:last-child {
+    border-bottom: none;
+  }
+
+  .pillarTitle {
+    font-size: 22px;
+  }
+
+  .pillarBody {
+    font-size: 14.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section.inView .eyebrow,
+  .section.inView .pillar {
+    animation: none;
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
+  .pillar:hover .pillarIconWrap {
+    transform: none;
+  }
+}

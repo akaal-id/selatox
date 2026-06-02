@@ -21,7 +21,7 @@
 .section {
   position: relative;
   background: var(--neutral-0);
-  padding: 80px var(--section-px) var(--section-py);
+  padding: var(--section-px) var(--section-px) var(--section-py);
   font-family: var(--font-sans);
   overflow: visible;
 }

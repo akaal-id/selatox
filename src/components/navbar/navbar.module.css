@@ -85,7 +85,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 0;
+  transition: gap 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navWrap:has(> .dropdownMenuOpen) {
+  gap: 12px;
 }
 
 .aboutActive {
@@ -159,26 +164,41 @@
   transform: rotate(180deg);
 }
 
-/* Desktop: dropdown panels are direct children of navWrap (flex column below nav pill) */
+/* Desktop: dropdown panel below nav pill (navWrap flex column) */
 .navWrap > .dropdownMenu {
   position: relative;
-  display: none;
+  display: flex;
   flex-direction: row;
   align-items: center;
   flex-wrap: nowrap;
   justify-content: center;
   gap: 32px;
   width: auto;
-  padding: 17px 32px;
+  max-height: 0;
+  padding-block: 0;
+  padding-inline: 32px;
   background: rgba(217, 217, 217, 0.4);
   backdrop-filter: blur(12px);
   border-radius: 999px;
   white-space: nowrap;
-  transition: opacity 0.22s ease, visibility 0.22s ease;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-8px) scale(0.98);
+  transform-origin: top center;
+  pointer-events: none;
+  transition:
+    max-height 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.26s ease,
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .navWrap > .dropdownMenuOpen {
-  display: flex;
+  max-height: 64px;
+  padding-block: 17px;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
 }
 
 /* Mobile overlay: menus nested under each trigger */
@@ -402,14 +422,29 @@
   }
 
   .mobileDropdownMenu {
-    display: none;
+    display: flex;
     flex-direction: column;
     gap: 0;
-    padding: 0 0 8px 12px;
+    max-height: 0;
+    padding: 0 0 0 12px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transform-origin: top left;
+    pointer-events: none;
+    transition:
+      max-height 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.24s ease,
+      transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+      padding 0.28s ease;
   }
 
   .mobileDropdownMenu.dropdownMenuOpen {
-    display: flex;
+    max-height: 160px;
+    padding: 0 0 8px 12px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   .mobileDropdownLink {
@@ -434,6 +469,19 @@
 @media (min-width: 768px) {
   .mobileOverlay {
     display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navWrap > .dropdownMenu,
+  .mobileDropdownMenu {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .navWrap > .dropdownMenuOpen,
+  .mobileDropdownMenu.dropdownMenuOpen {
+    transform: none !important;
   }
 }
 

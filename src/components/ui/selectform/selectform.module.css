@@ -1,0 +1,236 @@
+.root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--neutral-100);
+}
+
+.control {
+  position: relative;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  cursor: pointer;
+  transition:
+    border-color 200ms ease,
+    background 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.placeholder {
+  color: var(--neutral-100);
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--neutral-100);
+  transition: transform 220ms ease, color 220ms ease;
+}
+
+.open .chevron {
+  transform: rotate(180deg);
+  color: var(--blue-100);
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  max-height: 280px;
+  overflow-y: auto;
+  border: 1px solid var(--neutral-60);
+  border-radius: 14px;
+  background: var(--neutral-0);
+  box-shadow:
+    0 4px 6px rgba(10, 14, 22, 0.04),
+    0 16px 40px rgba(10, 14, 22, 0.1);
+}
+
+.menu[hidden] {
+  display: none;
+}
+
+.option {
+  margin: 0;
+}
+
+.optionButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.optionLabel {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.optionActive .optionButton,
+.optionButton:hover {
+  background: var(--neutral-20);
+}
+
+.optionSelected .optionButton {
+  background: var(--blue-20);
+  color: var(--blue-120);
+}
+
+.optionSelected .optionButton svg {
+  color: var(--blue-100);
+}
+
+/* Pill — products & opportunities toolbars */
+.pill .trigger {
+  height: 48px;
+  padding: 0 18px;
+  border: 1px solid var(--neutral-60);
+  border-radius: 999px;
+  background: var(--neutral-0);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--neutral-140);
+}
+
+.pill .trigger:hover:not(:disabled) {
+  border-color: var(--blue-80);
+}
+
+.pill.open .trigger,
+.pill .trigger:focus-visible {
+  outline: none;
+  border-color: var(--blue-100);
+  box-shadow: 0 0 0 3px var(--blue-20);
+}
+
+.pill .trigger {
+  min-width: 210px;
+}
+
+/* Footer — family site */
+.footer .label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--neutral-120);
+}
+
+.footer .trigger {
+  height: auto;
+  min-height: 52px;
+  padding: 16px 20px;
+  border: 1px solid var(--neutral-60);
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--neutral-140);
+}
+
+.footer .trigger:hover:not(:disabled) {
+  border-color: var(--neutral-80);
+  background: var(--neutral-10);
+}
+
+.footer.open .trigger,
+.footer .trigger:focus-visible {
+  outline: none;
+  border-color: var(--neutral-80);
+  box-shadow: none;
+}
+
+.footer .value {
+  color: var(--neutral-140);
+}
+
+.footer .placeholder {
+  color: var(--neutral-100);
+}
+
+.footer .menu {
+  top: 100%;
+  border-radius: 0;
+  border-top: none;
+  padding: 0;
+  box-shadow: 0 12px 32px rgba(10, 14, 22, 0.08);
+}
+
+.footer .optionButton {
+  border-radius: 0;
+  padding: 16px 20px;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--neutral-120);
+}
+
+.footer .option + .option {
+  border-top: 1px solid var(--neutral-60);
+}
+
+.footer .optionActive .optionButton,
+.footer .optionButton:hover {
+  background: var(--neutral-10);
+  color: var(--neutral-160);
+}
+
+.footer .optionSelected .optionButton {
+  background: var(--neutral-20);
+  color: var(--neutral-160);
+}
+
+.disabled {
+  opacity: 0.55;
+  pointer-events: none;
+}

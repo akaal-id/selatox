@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { products } from "@/constants/products";
 import { ProductsCard } from "@/components/products-card/products-card";
+import { SelectForm } from "@/components/ui/selectform/selectform";
 import styles from "./products.module.css";
 
 const allCategories = ["All", ...Array.from(new Set(products.map((p) => p.category)))] as const;
@@ -46,25 +47,20 @@ export function ProductsBrowser() {
               className={styles.searchInput}
             />
           </label>
-          <div className={styles.filterWrap}>
-            <label htmlFor="products-category" className={styles.label}>
-              Category
-            </label>
-            <select
-              id="products-category"
-              value={activeCategory}
-              onChange={(event) =>
-                setActiveCategory(event.target.value as (typeof allCategories)[number])
-              }
-              className={styles.selectInput}
-            >
-              {allCategories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </div>
+          <SelectForm
+            id="products-category"
+            className={styles.filterWrap}
+            label="Category"
+            value={activeCategory}
+            onChange={(next) =>
+              setActiveCategory(next as (typeof allCategories)[number])
+            }
+            options={allCategories.map((category) => ({
+              label: category,
+              value: category,
+            }))}
+            variant="pill"
+          />
         </div>
 
         {filteredProducts.length > 0 ? (

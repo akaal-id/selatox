@@ -1,0 +1,81 @@
+@keyframes blurIn {
+  from {
+    filter: blur(12px);
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  padding: var(--section-py) var(--section-px);
+  background: var(--neutral-0);
+  border-bottom: 1px solid var(--neutral-60);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--section-max-width);
+  margin: 0 auto;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  
+  text-align: center;
+  opacity: 0;
+}
+
+.section.inView .inner {
+  animation: blurIn 0.9s ease-out forwards;
+  animation-delay: 0.15s;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 560px;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(26px, 2.8vw, 36px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--neutral-160);
+}
+
+.support {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  font-weight: 300;
+  color: var(--neutral-120);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section.inView .inner {
+    animation: none;
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}

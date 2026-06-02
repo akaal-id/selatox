@@ -75,26 +75,6 @@
   gap: 8px;
 }
 
-.selectInput {
-  min-width: 210px;
-  height: 48px;
-  border: 1px solid var(--neutral-60);
-  border-radius: 999px;
-  background: var(--neutral-0);
-  color: var(--neutral-130);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0 16px;
-  cursor: pointer;
-}
-
-.selectInput:focus {
-  outline: 1px solid var(--blue-80);
-  border-color: var(--blue-80);
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
