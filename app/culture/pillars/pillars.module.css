@@ -261,6 +261,12 @@
   }
 }
 
+@media (max-width: 640px) {
+  .pillarTitle {
+    font-size: 20px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .section.inView .eyebrow,
   .section.inView .pillar {

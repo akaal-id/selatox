@@ -213,3 +213,14 @@
     font-size: 18px;
   }
 }
+
+@media (max-width: 640px) {
+  .listItem {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .arrow {
+    display: none;
+  }
+}

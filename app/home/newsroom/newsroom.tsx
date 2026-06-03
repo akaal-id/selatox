@@ -6,44 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import styles from "./newsroom.module.css";
 import { useRouter } from "next/navigation";
-
-const NEWS_ITEMS = [
-  {
-    id: 1,
-    category: "Press Release",
-    date: "Mar 12, 2026",
-    title: "Selatox Announces Breakthrough in High-Purity Toxin Formulation.",
-    href: "/news/1",
-  },
-  {
-    id: 2,
-    category: "Notice",
-    date: "Feb 28, 2026",
-    title: "Successful Completion of Phase III Global Clinical Trials.",
-    href: "/news/2",
-  },
-  {
-    id: 3,
-    category: "Event",
-    date: "Feb 15, 2026",
-    title: "Participation in the 2026 International Aesthetics Congress.",
-    href: "/news/3",
-  },
-  {
-    id: 4,
-    category: "Press Release",
-    date: "Jan 30, 2026",
-    title: "Selatox Expands GMP Manufacturing Capacity in Cikarang Facility.",
-    href: "/news/4",
-  },
-  {
-    id: 5,
-    category: "Notice",
-    date: "Jan 08, 2026",
-    title: "New Halal-Certified Product Line Receives Regulatory Approval.",
-    href: "/news/5",
-  },
-];
+import { getNewsHref, newsArticles } from "@/constants/news";
 
 export function Newsroom() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -95,10 +58,10 @@ export function Newsroom() {
         </div>
 
         <ul className={styles.list} aria-label="Latest news">
-          {NEWS_ITEMS.map((article, index) => (
+          {newsArticles.slice(0, 5).map((article, index) => (
             <li key={article.id}>
               <Link
-                href={article.href}
+                href={getNewsHref(article.slug)}
                 className={styles.listItem}
                 style={{ animationDelay: `${0.38 + index * 0.08}s` }}
               >

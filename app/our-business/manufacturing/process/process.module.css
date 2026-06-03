@@ -125,6 +125,16 @@
   }
 
   .copyWrap {
-    padding: 28px 22px;
+    padding: 28px var(--section-px);
+  }
+}
+
+@media (max-width: 640px) {
+  .mediaFrame {
+    min-height: 240px;
+  }
+
+  .copyWrap {
+    padding: 24px var(--section-px);
   }
 }

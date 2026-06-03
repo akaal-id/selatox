@@ -146,12 +146,18 @@
   font-size: 13px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .card {
     min-height: 0;
     padding: 28px 24px 24px;
   }
 
+  .title {
+    font-size: clamp(20px, 5vw, 24px);
+  }
+}
+
+@media (max-width: 480px) {
   .actions {
     grid-template-columns: 1fr;
   }

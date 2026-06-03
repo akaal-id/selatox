@@ -67,3 +67,12 @@
 .iconUp svg {
   display: block;
 }
+
+@media (max-width: 640px) {
+  .floater {
+    bottom: max(16px, env(safe-area-inset-bottom, 0px));
+    right: max(16px, env(safe-area-inset-right, 0px));
+    width: 48px;
+    height: 48px;
+  }
+}

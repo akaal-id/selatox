@@ -1,14 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Briefcase,
   Calendar,
   ChevronLeft,
+  GraduationCap,
   MapPin,
 } from "lucide-react";
-import type { JobDescriptionHtml, JobListing } from "@/constants/opportunities";
+import {
+  getRecentJobOpenings,
+  type JobDescriptionHtml,
+  type JobListing,
+} from "@/constants/opportunities";
+import { JobCard } from "@/components/jobcard/jobcard";
 import { Button } from "@/components/ui/Button";
 import styles from "./job-detail.module.css";
 
@@ -32,11 +39,16 @@ function JobDescriptionContent({ html }: { html: JobDescriptionHtml }) {
 }
 
 export function JobDetail({ job }: JobDetailProps) {
+  const router = useRouter();
   const heroRef = useRef<HTMLElement>(null);
   const bodyRef = useRef<HTMLElement>(null);
   const [heroInView, setHeroInView] = useState(false);
   const [bodyInView, setBodyInView] = useState(false);
   const isClosed = job.status === "Closed";
+  const recentOpenings = useMemo(
+    () => getRecentJobOpenings(job.slug, 3),
+    [job.slug]
+  );
 
   useEffect(() => {
     const targets: [React.RefObject<HTMLElement | null>, (v: boolean) => void][] =
@@ -77,7 +89,6 @@ export function JobDetail({ job }: JobDetailProps) {
           </Link>
 
           <div className={styles.heroHead}>
-            
             <h1 id="job-title" className={styles.title}>
               {job.title}
             </h1>
@@ -103,7 +114,8 @@ export function JobDetail({ job }: JobDetailProps) {
             </div>
             <div className={styles.fact}>
               <dt className={styles.factLabel}>Experience</dt>
-              <dd className={`${styles.factValue} ${styles.factMono}`}>
+              <dd className={styles.factValue}>
+                <GraduationCap size={15} strokeWidth={1.5} aria-hidden />
                 {job.experienceLevel}
               </dd>
             </div>
@@ -125,7 +137,6 @@ export function JobDetail({ job }: JobDetailProps) {
       >
         <article className={styles.article}>
           <header className={styles.articleHeader}>
-            
             <h2 id="job-description-heading" className={styles.articleTitle}>
               About This Role
             </h2>
@@ -134,35 +145,79 @@ export function JobDetail({ job }: JobDetailProps) {
         </article>
 
         <div id="apply" className={styles.applyBanner}>
-          <h3 className={styles.applyTitle}>
-            {isClosed ? (
-              "Applications closed"
-            ) : (
-              <em className={styles.highlightGreen}>
-                Interested in joining Selatox?
-              </em>
-            )}
-          </h3>
-          <p className={styles.applySub}>
-            {isClosed
-              ? "This role is no longer accepting applications."
-              : "Submit your application before the deadline."}
-          </p>
-          <Button
-            type="button"
-            variant="primary"
-            showIcon
-            backgroundColor="var(--blue-100)"
-            color="var(--neutral-0)"
-            disabled={isClosed}
-            className={styles.applyButton}
-          >
-            {isClosed ? "Applications Closed" : "Apply for This Role"}
-          </Button>
-          <Link href="/opportunities" className={styles.applyBackLink}>
-            Back to opportunities
-          </Link>
+          <div className={styles.applyBannerLead}>
+            <h3 className={styles.applyTitle}>
+              {isClosed ? (
+                "Applications closed"
+              ) : (
+                <>
+                  Build what&apos;s next,
+                  <br />
+                  <span className={styles.applyTitleAccent}>with us.</span>
+                </>
+              )}
+            </h3>
+          </div>
+
+          <div className={styles.applyBannerDivider} aria-hidden />
+
+          <div className={styles.applyBannerActions}>
+            <div className={styles.applyActionsPanel}>
+              <div className={styles.applyActionsHeader}>
+                <p className={styles.applyActionsEyebrow}>Applying for</p>
+                <p className={styles.applyRoleTitle}>{job.title}</p>
+              </div>
+              <div className={styles.applyActionsCtas}>
+                <Button
+                  type="button"
+                  variant="primary"
+                  showIcon
+                  backgroundColor="var(--blue-100)"
+                  color="var(--neutral-0)"
+                  disabled={isClosed}
+                  className={styles.applyButton}
+                >
+                  {isClosed ? "Applications Closed" : "Apply"}
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <section
+          className={styles.applyOthers}
+          aria-labelledby="recent-openings-heading"
+        >
+          <p id="recent-openings-heading" className={styles.applyOthersEyebrow}>
+            Recent openings
+          </p>
+          <div className={styles.applyRecentGrid}>
+            {recentOpenings.map((opening) => (
+              <JobCard
+                key={opening.id}
+                job={opening}
+                onViewDetails={() =>
+                  router.push(`/opportunities/${opening.slug}`)
+                }
+                onApply={() =>
+                  router.push(`/opportunities/${opening.slug}#apply`)
+                }
+              />
+            ))}
+          </div>
+          <div className={styles.applyOthersFooter}>
+            <Button
+              type="button"
+              variant="simple"
+              showIcon
+              color="var(--green-100)"
+              className={styles.applyListingsLink}
+              onClick={() => router.push("/opportunities")}
+            >
+              Back to Opportunities
+            </Button>
+          </div>
+        </section>
       </section>
     </main>
   );

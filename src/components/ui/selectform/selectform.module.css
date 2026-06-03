@@ -234,3 +234,10 @@
   opacity: 0.55;
   pointer-events: none;
 }
+
+@media (max-width: 640px) {
+  .pill .trigger {
+    min-width: 0;
+    width: 100%;
+  }
+}

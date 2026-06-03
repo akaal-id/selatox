@@ -224,3 +224,18 @@
     gap: 16px;
   }
 }
+
+@media (max-width: 640px) {
+  .dossier {
+    padding: 40px var(--section-px) 48px;
+  }
+
+  .headline {
+    font-size: clamp(26px, 7vw, 32px);
+  }
+
+  .specRow {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}

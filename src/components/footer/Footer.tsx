@@ -18,10 +18,10 @@ const corporateData = {
 // 2. Sitemap Array
 const sitemapData = [
     { label: "About Us", href: "/about", target: "_self" },
-    { label: "Our Business", href: "/business", target: "_self" },
-    { label: "Product", href: "/product", target: "_self" },
-    { label: "Newsroom", href: "/newsroom", target: "_self" },
-    { label: "Career", href: "/career", target: "_self" },
+    { label: "Our Business", href: "/our-business", target: "_self" },
+    { label: "Product", href: "/products", target: "_self" },
+    { label: "Newsroom", href: "/news", target: "_self" },
+    { label: "Career", href: "/opportunities", target: "_self" },
 ];
 
 const legalData = [

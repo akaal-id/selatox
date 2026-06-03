@@ -203,3 +203,13 @@
   border: 0;
   filter: grayscale(100%) contrast(1.1) brightness(0.98);
 }
+
+@media (max-width: 640px) {
+  .leftPanel {
+    padding: 32px var(--section-px);
+  }
+
+  .rightPanel {
+    min-height: 320px;
+  }
+}

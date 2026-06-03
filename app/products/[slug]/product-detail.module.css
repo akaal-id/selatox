@@ -792,4 +792,13 @@
     width: 100%;
     justify-content: center;
   }
+
+  .otherRow {
+    grid-auto-columns: minmax(260px, 1fr);
+  }
+
+  .section {
+    padding-left: var(--section-px);
+    padding-right: var(--section-px);
+  }
 }

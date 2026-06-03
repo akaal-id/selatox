@@ -146,3 +146,13 @@
     font-size: 16px;
   }
 }
+
+@media (max-width: 640px) {
+  .logoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .logoCard {
+    min-height: 120px;
+  }
+}

@@ -256,6 +256,24 @@
   }
 }
 
+@media (max-width: 640px) {
+  .visualWrap {
+    min-height: 280px;
+  }
+
+  .dossier {
+    padding: 40px var(--section-px) 48px;
+  }
+
+  .headline {
+    font-size: clamp(26px, 7vw, 32px);
+  }
+
+  .synergyTitle {
+    font-size: clamp(18px, 5vw, 22px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .section.inView .dossierHeader,
   .section.inView .lead,

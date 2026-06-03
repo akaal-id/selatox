@@ -1,4 +1,5 @@
 .button {
+  --btn-text-slot: 1.4em;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -14,37 +15,41 @@
 }
 
 .textWrapper {
-  display: inline-grid;
+  display: inline-block;
+  height: var(--btn-text-slot);
   overflow: hidden;
-  align-items: center;
+  vertical-align: middle;
+}
+
+.textSlide {
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .textPrimary,
 .textSecondary {
-  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  height: var(--btn-text-slot);
+  line-height: 1;
   font-family: var(--font-display);
   font-weight: 500;
   letter-spacing: -0.04em;
-  line-height: 1;
-  /* text-transform: uppercase; */
   white-space: nowrap;
-  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.textPrimary {
-  transform: translateY(0);
+.button:not(:disabled):hover .textSlide {
+  transform: translateY(-50%);
 }
 
-.textSecondary {
-  transform: translateY(100%);
-}
+@media (prefers-reduced-motion: reduce) {
+  .textSlide {
+    transition: none;
+  }
 
-.button:not(:disabled):hover .textPrimary {
-  transform: translateY(-100%);
-}
-
-.button:not(:disabled):hover .textSecondary {
-  transform: translateY(0);
+  .button:not(:disabled):hover .textSlide {
+    transform: none;
+  }
 }
 
 .iconWrapper {
@@ -96,6 +101,7 @@
 
 .lg {
   font-size: 18px;
+  --btn-text-slot: 1.35em;
 }
 
 .primary {

@@ -1,12 +1,10 @@
 import { Hero } from "./home/hero/hero";
 import { Introsection } from "./home/introsection/introsection";
-import { Prodsection } from "./home/prodlist/prodsection/prodsection";
 import { Valuesection } from "./home/valuesection/valuesection";
 import { FeaturedProduct } from "./home/featured-product/featured-product";
 import { Business } from "./home/business/business";
 import { ManufacturingPlan } from "./home/manufacturing-plan/manufacturing-plan";
 import { RndCenter } from "./home/rnd-center/rnd-center";
-import { featuredProducts } from "@/lib/prod-data";
 import { Newsroom } from "./home/newsroom/newsroom";
 import { CareerSection } from "./home/career/career";
 import { Newsletter } from "@/components/newsletter/Newsletter";

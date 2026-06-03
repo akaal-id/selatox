@@ -249,6 +249,35 @@
   gap: 12px;
 }
 
+@media (max-width: 640px) {
+  .contentWrap {
+    padding-bottom: max(72px, env(safe-area-inset-bottom, 0px));
+  }
+
+  .bottomBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ctaGroup {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ctaGroup > * {
+    width: 100%;
+  }
+
+  .headline {
+    font-size: clamp(28px, 9vw, 40px);
+  }
+
+  .sub {
+    font-size: 16px;
+  }
+}
+
 .scrollIndicator {
   margin-left: auto;
   font-family: var(--font-mono);

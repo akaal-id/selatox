@@ -241,3 +241,9 @@
     font-size: 20px;
   }
 }
+
+@media (max-width: 640px) {
+  .pillar {
+    padding: 24px 0;
+  }
+}

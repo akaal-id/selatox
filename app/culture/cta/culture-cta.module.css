@@ -71,6 +71,16 @@
   justify-content: center;
 }
 
+@media (max-width: 640px) {
+  .actions {
+    width: 100%;
+  }
+
+  .actions > * {
+    width: 100%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .section.inView .inner {
     animation: none;

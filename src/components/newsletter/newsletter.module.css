@@ -163,3 +163,32 @@
         bottom: 0px;
     }
 }
+
+@media (max-width: 640px) {
+    .newsletterSection {
+        padding: 56px var(--section-px);
+    }
+
+    .leftPanel,
+    .rightPanel {
+        padding: 36px var(--section-px);
+    }
+
+    .headline {
+        font-size: clamp(28px, 8vw, 36px);
+    }
+
+    .description {
+        max-width: none;
+        font-size: 16px;
+    }
+
+    .input {
+        font-size: clamp(18px, 5vw, 22px);
+        padding-right: 72px;
+    }
+
+    .disclaimer {
+        margin-bottom: 40px;
+    }
+}

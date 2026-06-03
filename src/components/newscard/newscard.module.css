@@ -1,0 +1,125 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--neutral-60);
+  border-radius: 20px;
+  background: var(--neutral-0);
+  overflow: hidden;
+  transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--blue-80);
+  box-shadow: 0 12px 28px rgba(10, 14, 22, 0.08);
+}
+
+.media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: var(--neutral-20);
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 400ms ease;
+}
+
+.card:hover .image {
+  transform: scale(1.03);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  gap: 0;
+  padding: 24px 28px 28px;
+}
+
+.category {
+  align-self: flex-start;
+  margin-bottom: 16px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.categoryPress {
+  background: var(--blue-20);
+  color: var(--blue-120);
+}
+
+.categoryNotice {
+  background: var(--neutral-40);
+  color: var(--neutral-120);
+}
+
+.categoryEvent {
+  background: var(--green-20);
+  color: var(--green-120);
+}
+
+.title {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2vw, 24px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--neutral-160);
+  text-wrap: balance;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: var(--neutral-100);
+}
+
+.date svg {
+  flex-shrink: 0;
+  color: var(--blue-100);
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--neutral-60);
+}
+
+.actionButton {
+  width: 100% !important;
+  max-width: 100%;
+  justify-content: center;
+  height: 44px;
+}
+
+@media (max-width: 640px) {
+  .body {
+    padding: 22px 24px 26px;
+  }
+
+  .title {
+    font-size: clamp(18px, 5vw, 22px);
+  }
+}
+
+@media (max-width: 480px) {
+  .body {
+    padding: 20px 22px 24px;
+  }
+}

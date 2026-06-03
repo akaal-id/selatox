@@ -118,3 +118,16 @@
     flex: 0 0 calc((100% - 0px) / 3); /* 3 cards in view, 2×24px gap */
   }
 }
+
+@media (max-width: 640px) {
+  .topSection {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .carousel {
+    padding-left: var(--section-px);
+    padding-right: var(--section-px);
+  }
+}

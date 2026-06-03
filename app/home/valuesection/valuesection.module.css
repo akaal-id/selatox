@@ -259,3 +259,17 @@
     font-size: 14.5px;
   }
 }
+
+@media (max-width: 640px) {
+  .valueCard {
+    padding: 20px 0;
+  }
+
+  .cardNumber {
+    font-size: 30px;
+  }
+
+  .valueTitle {
+    font-size: 20px;
+  }
+}

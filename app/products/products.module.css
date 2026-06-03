@@ -101,3 +101,15 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 640px) {
+  .toolbar {
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .filterWrap {
+    width: 100%;
+    min-width: 0;
+  }
+}

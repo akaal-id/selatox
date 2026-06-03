@@ -171,6 +171,13 @@ html.lenis body {
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  @supports not (overflow: clip) {
+    html {
+      overflow-x: hidden;
+    }
   }
 
   body {
@@ -179,6 +186,19 @@ html.lenis body {
     line-height: var(--leading-normal);
     color: var(--color-text);
     background-color: var(--color-bg);
+    overflow-x: clip;
+  }
+
+  @supports not (overflow: clip) {
+    body {
+      overflow-x: hidden;
+    }
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
   }
 
   h1,

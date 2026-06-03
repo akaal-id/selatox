@@ -10,20 +10,33 @@
   margin: 0 auto;
 }
 
+.pageHeader {
+  margin-bottom: clamp(32px, 4vw, 48px);
+  text-align: center;
+}
+
 .title {
-  margin: 0 0 clamp(32px, 4vw, 48px);
+  margin: 0 0 16px;
   font-family: var(--font-display);
   font-size: clamp(36px, 4.5vw, 56px);
   font-weight: 300;
   line-height: 1.05;
   letter-spacing: -0.04em;
   color: var(--neutral-160);
-  text-align: center;
+}
+
+.subtitle {
+  margin: 0 auto;
+  max-width: 42rem;
+  font-size: clamp(15px, 1.6vw, 17px);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--neutral-120);
 }
 
 .toolbar {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) repeat(4, minmax(0, 1fr)) auto;
+  grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(0, 1fr)) auto;
   gap: 14px;
   align-items: end;
   margin-bottom: 20px;
@@ -96,7 +109,7 @@
   color: var(--neutral-100);
 }
 
-.jobGrid {
+.newsGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
@@ -105,13 +118,13 @@
   padding: 0;
 }
 
-.jobGridItem {
+.newsGridItem {
   display: flex;
   min-width: 0;
   width: 100%;
 }
 
-.jobGridItem > * {
+.newsGridItem > * {
   flex: 1 1 auto;
   width: 100%;
   min-width: 0;
@@ -241,6 +254,17 @@
   user-select: none;
 }
 
+.emptyState {
+  margin: 0;
+  padding: 28px;
+  border: 1px solid var(--neutral-60);
+  border-radius: 18px;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--neutral-120);
+}
+
 @media (max-width: 640px) {
   .paginationBar {
     flex-direction: column;
@@ -267,20 +291,9 @@
   }
 }
 
-.emptyState {
-  margin: 0;
-  padding: 28px;
-  border: 1px solid var(--neutral-60);
-  border-radius: 18px;
-  font-size: 15px;
-  font-weight: 300;
-  line-height: 1.6;
-  color: var(--neutral-120);
-}
-
 @media (max-width: 1200px) {
   .toolbar {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .field:first-child {
@@ -294,11 +307,7 @@
 }
 
 @media (max-width: 900px) {
-  .jobGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .toolbar {
+  .newsGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -310,7 +319,7 @@
     gap: 12px;
   }
 
-  .jobGrid {
+  .newsGrid {
     grid-template-columns: 1fr;
   }
 

@@ -210,6 +210,10 @@
 }
 
 @media (max-width: 640px) {
+    .container {
+        padding: 0 var(--section-px);
+    }
+
     .middleLayer {
         grid-template-columns: 1fr;
         gap: 48px;
@@ -218,6 +222,10 @@
 
     .topLayer {
         padding: 64px 0 32px;
+    }
+
+    .logoWrapper {
+        gap: 16px;
     }
 
     .bottomLayer {

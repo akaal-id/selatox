@@ -89,7 +89,7 @@ export function CareerSection() {
               variant="blur"
               tone="light"
               showIcon
-              onClick={() => router.push("/careers")}
+              onClick={() => router.push("/opportunities")}
             >
               View Open Roles
             </Button>

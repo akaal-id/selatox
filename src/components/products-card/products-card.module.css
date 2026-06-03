@@ -93,11 +93,26 @@
 @media (max-width: 768px) {
   .card {
     grid-template-columns: 1fr;
+    min-height: 0;
   }
 
   .imageWrap {
     min-height: 260px;
     border-right: none;
     border-bottom: 1px solid var(--neutral-60);
+  }
+}
+
+@media (max-width: 640px) {
+  .body {
+    padding: 18px;
+  }
+
+  .title {
+    font-size: clamp(18px, 5vw, 22px);
+  }
+
+  .imageWrap {
+    min-height: 220px;
   }
 }

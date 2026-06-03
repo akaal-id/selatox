@@ -275,6 +275,24 @@ export function getJobBySlug(slug: string) {
   return jobListings.find((job) => job.slug === slug);
 }
 
+const JOB_STATUS_SORT_ORDER: Record<JobStatus, number> = {
+  Open: 0,
+  "Closing Soon": 1,
+  Closed: 2,
+};
+
+export function getRecentJobOpenings(
+  excludeSlug: string,
+  limit = 4
+): JobListing[] {
+  return jobListings
+    .filter((job) => job.slug !== excludeSlug)
+    .sort(
+      (a, b) => JOB_STATUS_SORT_ORDER[a.status] - JOB_STATUS_SORT_ORDER[b.status]
+    )
+    .slice(0, limit);
+}
+
 export const opportunitiesPage = {
   title: "Open Opportunities",
 } as const;

@@ -172,3 +172,22 @@
   letter-spacing: 0.18em;
   color: var(--neutral-120);
 }
+
+@media (max-width: 640px) {
+  .quoteMark {
+    font-size: 72px;
+  }
+
+  .blockquote {
+    margin-top: -40px;
+  }
+
+  .quoteFooter {
+    margin-top: 32px;
+    padding-top: 24px;
+  }
+
+  .executiveName {
+    font-size: 20px;
+  }
+}
