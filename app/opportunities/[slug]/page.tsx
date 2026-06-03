@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getJobBySlug, jobListings } from "@/constants/opportunities";
+import {
+  getJobBySlug,
+  jobDescriptionToPlainText,
+  jobListings,
+} from "@/constants/opportunities";
 import { JobDetail } from "./job-detail";
 
 type JobDetailPageProps = {
@@ -21,11 +25,11 @@ export async function generateMetadata({
     return { title: "Role Not Found | Selatox Careers" };
   }
 
-  const summary = job.description.find((block) => block.type === "paragraph");
+  const summary = jobDescriptionToPlainText(job.description);
 
   return {
     title: `${job.title} | Selatox Careers`,
-    description: summary?.content.slice(0, 160) ?? job.title,
+    description: summary.slice(0, 160) || job.title,
   };
 }
 

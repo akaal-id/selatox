@@ -1,9 +1,15 @@
 export type JobStatus = "Open" | "Closing Soon" | "Closed";
 
-export type JobDescriptionBlock =
-  | { type: "paragraph"; content: string }
-  | { type: "heading"; content: string }
-  | { type: "list"; items: string[] };
+/**
+ * Single rich-text field (HTML). Supported markup:
+ * - <strong> / <b> — section titles (rendered at font-weight 500)
+ * - <p> — body copy
+ * - <em> / <i> — emphasis
+ * - <span> — inline styling hooks
+ * - <br> — line breaks
+ * - <ul>, <ol>, <li> — lists
+ */
+export type JobDescriptionHtml = string;
 
 export type JobListing = {
   id: string;
@@ -14,57 +20,47 @@ export type JobListing = {
   category: string;
   experienceLevel: string;
   applyDeadline: string;
-  description: JobDescriptionBlock[];
+  description: JobDescriptionHtml;
 };
 
 export const OPPORTUNITIES_PAGE_SIZE = 9;
+
+export function jobDescriptionToPlainText(html: JobDescriptionHtml): string {
+  return html
+    .replace(/<br\s*\/?>/gi, " ")
+    .replace(/<\/p>/gi, " ")
+    .replace(/<\/li>/gi, " ")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 function buildJobDescription(job: {
   title: string;
   category: string;
   location: string;
   experienceLevel: string;
-}): JobDescriptionBlock[] {
-  return [
-    {
-      type: "paragraph",
-      content: `Selatox is building Indonesia's first specialized biopharmaceutical center for modern beauty and wellness, and we are looking for a ${job.title} to strengthen our ${job.category} function at ${job.location}. In this ${job.experienceLevel} role, you will work inside a result-driven culture that values autonomy, open communication, and world-class standards across research, manufacturing, and commercial operations. You will collaborate with multidisciplinary teams who are translating advanced science into safe, precise, and scalable aesthetic solutions for Indonesia and more than 40 markets worldwide. Whether you are validating processes on the production floor, supporting regulatory submissions, or shaping the next phase of our pipeline, your work will directly influence how Selatox delivers trusted products to patients and partners. We invest heavily in talent development through structured mentoring, cross-site exposure between our Depok R&D Center and Cikarang manufacturing hub, and knowledge transfer from our global pharmaceutical partners. If you are motivated by rigorous quality, continuous improvement, and meaningful impact at the intersection of science and industry, this role offers the depth, pace, and ownership to grow with us.`,
-    },
-    {
-      type: "heading",
-      content: "Key Responsibilities",
-    },
-    {
-      type: "list",
-      items: [
-        `Execute core ${job.category.toLowerCase()} deliverables for the ${job.title} scope with adherence to GMP, internal SOPs, and global quality expectations.`,
-        "Partner with R&D, engineering, production, and quality teams to resolve technical issues, improve workflows, and support technology transfer activities.",
-        "Prepare, review, and maintain documentation required for operations, audits, batch release, and continuous improvement initiatives.",
-        "Contribute to risk assessments, deviation investigations, CAPA actions, and safety programs within your area of ownership.",
-        "Support training, onboarding, and knowledge sharing so best practices are consistent across shifts and departments.",
-        "Participate in cross-functional projects that align site priorities with Selatox's long-term biopharmaceutical roadmap.",
-      ],
-    },
-    {
-      type: "heading",
-      content: "Qualifications",
-    },
-    {
-      type: "list",
-      items: [
-        `Relevant degree or equivalent experience for a ${job.experienceLevel} ${job.category} role in pharmaceutical, biotechnology, or related manufacturing environments.`,
-        "Demonstrated ability to work accurately under pressure, communicate clearly, and manage multiple priorities in a regulated setting.",
-        "Working knowledge of GMP, GDP, or ISO-aligned quality systems; audit readiness experience is a plus.",
-        "Proficiency with common workplace tools, documentation systems, and collaborative digital platforms.",
-        "Professional fluency in Bahasa Indonesia and working English for technical communication.",
-        "Commitment to integrity, transparency, and Selatox's culture of agile, outcome-focused teamwork.",
-      ],
-    },
-    {
-      type: "paragraph",
-      content: `This position is based in ${job.location}. Selatox offers competitive compensation, comprehensive benefits, and clear pathways for career progression through our Global Talent Program and partnership with Daewoong. We welcome candidates who are ready to contribute to a high-performance environment where precision, safety, and innovation are non-negotiable. If your background aligns with this opportunity, we encourage you to apply before the published deadline.`,
-    },
-  ];
+}): JobDescriptionHtml {
+  return `<p>Selatox is building Indonesia's first specialized biopharmaceutical center for modern beauty and wellness, and we are looking for a ${job.title} to strengthen our ${job.category} function at ${job.location}. In this ${job.experienceLevel} role, you will work inside a result-driven culture that values autonomy, open communication, and world-class standards across research, manufacturing, and commercial operations. You will collaborate with multidisciplinary teams who are translating advanced science into safe, precise, and scalable aesthetic solutions for Indonesia and more than 40 markets worldwide. Whether you are validating processes on the production floor, supporting regulatory submissions, or shaping the next phase of our pipeline, your work will directly influence how Selatox delivers trusted products to patients and partners. We invest heavily in talent development through structured mentoring, cross-site exposure between our Depok R&amp;D Center and Cikarang manufacturing hub, and knowledge transfer from our global pharmaceutical partners. If you are motivated by rigorous quality, continuous improvement, and meaningful impact at the intersection of science and industry, this role offers the depth, pace, and ownership to grow with us.</p>
+<p><strong>Key Responsibilities</strong></p>
+<ul>
+<li>Execute core ${job.category.toLowerCase()} deliverables for the ${job.title} scope with adherence to GMP, internal SOPs, and global quality expectations.</li>
+<li>Partner with R&amp;D, engineering, production, and quality teams to resolve technical issues, improve workflows, and support technology transfer activities.</li>
+<li>Prepare, review, and maintain documentation required for operations, audits, batch release, and continuous improvement initiatives.</li>
+<li>Contribute to risk assessments, deviation investigations, CAPA actions, and safety programs within your area of ownership.</li>
+<li>Support training, onboarding, and knowledge sharing so best practices are consistent across shifts and departments.</li>
+<li>Participate in cross-functional projects that align site priorities with Selatox's long-term biopharmaceutical roadmap.</li>
+</ul>
+<p><strong>Qualifications</strong></p>
+<ul>
+<li>Relevant degree or equivalent experience for a ${job.experienceLevel} ${job.category} role in pharmaceutical, biotechnology, or related manufacturing environments.</li>
+<li>Demonstrated ability to work accurately under pressure, communicate clearly, and manage multiple priorities in a regulated setting.</li>
+<li>Working knowledge of GMP, GDP, or ISO-aligned quality systems; audit readiness experience is a plus.</li>
+<li>Proficiency with common workplace tools, documentation systems, and collaborative digital platforms.</li>
+<li>Professional fluency in Bahasa Indonesia and working English for technical communication.</li>
+<li>Commitment to integrity, transparency, and Selatox's culture of agile, outcome-focused teamwork.</li>
+</ul>
+<p>This position is based in ${job.location}. Selatox offers competitive compensation, comprehensive benefits, and clear pathways for career progression through our Global Talent Program and partnership with Daewoong. We welcome candidates who are ready to contribute to a high-performance environment where precision, safety, and innovation are non-negotiable. If your background aligns with this opportunity, we encourage you to apply before the published deadline.</p>`;
 }
 
 const jobListingBase = [

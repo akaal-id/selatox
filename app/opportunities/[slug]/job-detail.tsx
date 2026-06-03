@@ -6,10 +6,9 @@ import {
   Briefcase,
   Calendar,
   ChevronLeft,
-  Clock,
   MapPin,
 } from "lucide-react";
-import type { JobDescriptionBlock, JobListing } from "@/constants/opportunities";
+import type { JobDescriptionHtml, JobListing } from "@/constants/opportunities";
 import { Button } from "@/components/ui/Button";
 import styles from "./job-detail.module.css";
 
@@ -23,207 +22,148 @@ const STATUS_CLASS: Record<JobListing["status"], string> = {
   Closed: styles.statusClosed,
 };
 
-function JobDescriptionContent({ blocks }: { blocks: JobDescriptionBlock[] }) {
+function JobDescriptionContent({ html }: { html: JobDescriptionHtml }) {
   return (
-    <div className={styles.descriptionBody}>
-      {blocks.map((block, index) => {
-        if (block.type === "paragraph") {
-          return (
-            <p key={index} className={styles.paragraph}>
-              {block.content}
-            </p>
-          );
-        }
-
-        if (block.type === "heading") {
-          return (
-            <h3 key={index} className={styles.blockHeading}>
-              {block.content}
-            </h3>
-          );
-        }
-
-        return (
-          <ul key={index} className={styles.list}>
-            {block.items.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        );
-      })}
-    </div>
-  );
-}
-
-function ApplyActions({
-  isClosed,
-  className,
-}: {
-  isClosed: boolean;
-  className?: string;
-}) {
-  return (
-    <div className={className}>
-      <Button
-        type="button"
-        variant="primary"
-        showIcon
-        backgroundColor="var(--blue-100)"
-        color="var(--neutral-0)"
-        disabled={isClosed}
-        className={styles.applyButton}
-      >
-        {isClosed ? "Applications Closed" : "Apply for This Role"}
-      </Button>
-      <Link href="/opportunities" className={styles.viewAllLink}>
-        Browse all opportunities
-      </Link>
-    </div>
+    <div
+      className={styles.richText}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
   );
 }
 
 export function JobDetail({ job }: JobDetailProps) {
-  const pageRef = useRef<HTMLElement>(null);
-  const [isInView, setIsInView] = useState(false);
+  const heroRef = useRef<HTMLElement>(null);
+  const bodyRef = useRef<HTMLElement>(null);
+  const [heroInView, setHeroInView] = useState(false);
+  const [bodyInView, setBodyInView] = useState(false);
   const isClosed = job.status === "Closed";
 
   useEffect(() => {
-    const el = pageRef.current;
-    if (!el) return;
+    const targets: [React.RefObject<HTMLElement | null>, (v: boolean) => void][] =
+      [
+        [heroRef, setHeroInView],
+        [bodyRef, setBodyInView],
+      ];
+
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsInView(true);
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const match = targets.find(([ref]) => ref.current === entry.target);
+          if (match) match[1](true);
+        });
       },
-      { threshold: 0.08, rootMargin: "0px 0px -5% 0px" }
+      { threshold: 0, rootMargin: "0px 0px 0px 0px" }
     );
-    observer.observe(el);
+
+    targets.forEach(([ref]) => {
+      if (ref.current) observer.observe(ref.current);
+    });
+
     return () => observer.disconnect();
   }, []);
 
   return (
-    <main
-      ref={pageRef}
-      className={`${styles.page} ${isInView ? styles.inView : ""}`.trim()}
-      data-navbar="default"
-    >
-      <div className={styles.container}>
-        <Link href="/opportunities" className={styles.backLink}>
-          <ChevronLeft size={16} strokeWidth={1.5} aria-hidden />
-          Back to Opportunities
-        </Link>
+    <main className={styles.page} data-navbar="default">
+      <section
+        ref={heroRef}
+        className={`${styles.hero} ${heroInView ? styles.inView : ""}`.trim()}
+        aria-labelledby="job-title"
+      >
+        <div className={styles.heroInner}>
+          <Link href="/opportunities" className={styles.backLink}>
+            <ChevronLeft size={16} strokeWidth={1.5} aria-hidden />
+            Back to Opportunities
+          </Link>
 
-        <div className={styles.layout}>
-          <div className={styles.main}>
-            <header className={styles.hero}>
-              <div className={styles.heroTop}>
-                <span className={`${styles.status} ${STATUS_CLASS[job.status]}`}>
-                  {job.status}
-                </span>
-                <p className={styles.deadline}>
-                  <Calendar size={14} strokeWidth={1.5} aria-hidden />
-                  {job.applyDeadline}
-                </p>
-              </div>
-
-              <h1 className={styles.title}>{job.title}</h1>
-
-              <ul className={styles.facts}>
-                <li className={styles.fact}>
-                  <MapPin size={15} strokeWidth={1.5} aria-hidden />
-                  <span className={styles.factLabel}>Location</span>
-                  <span className={styles.factValue}>{job.location}</span>
-                </li>
-                <li className={styles.fact}>
-                  <Briefcase size={15} strokeWidth={1.5} aria-hidden />
-                  <span className={styles.factLabel}>Category</span>
-                  <span className={styles.factValue}>{job.category}</span>
-                </li>
-                <li className={styles.fact}>
-                  <Clock size={15} strokeWidth={1.5} aria-hidden />
-                  <span className={styles.factLabel}>Level</span>
-                  <span className={styles.factValue}>
-                    {job.experienceLevel}
-                  </span>
-                </li>
-              </ul>
-            </header>
-
-            <section
-              className={styles.article}
-              aria-labelledby="job-description-heading"
-            >
-              <div className={styles.articleHeader}>
-                <p
-                  id="job-description-heading"
-                  className={styles.articleEyebrow}
-                >
-                  Role Overview
-                </p>
-                <h2 className={styles.articleTitle}>Job Description</h2>
-              </div>
-              <div className={styles.articlePanel}>
-                <JobDescriptionContent blocks={job.description} />
-              </div>
-            </section>
-
-            <section
-              id="apply"
-              className={styles.applyMobile}
-              aria-label="Apply for this role"
-            >
-              <div className={styles.applyCard}>
-                <h2 className={styles.applyTitle}>Interested in this role?</h2>
-                <p className={styles.applyCopy}>
-                  Join Selatox and help shape the future of bio-aesthetics in
-                  Indonesia.
-                </p>
-                <ApplyActions isClosed={isClosed} className={styles.applyStack} />
-              </div>
-            </section>
+          <div className={styles.heroHead}>
+            
+            <h1 id="job-title" className={styles.title}>
+              {job.title}
+            </h1>
+            <span className={`${styles.status} ${STATUS_CLASS[job.status]}`}>
+              {job.status}
+            </span>
           </div>
 
-          <aside className={styles.aside} aria-label="Application summary">
-            <div className={styles.sideCard}>
-              <p className={styles.sideEyebrow}>At a Glance</p>
-              <p className={styles.sideTitle}>{job.title}</p>
-
-              <dl className={styles.sideMeta}>
-                <div className={styles.sideRow}>
-                  <dt>Status</dt>
-                  <dd>
-                    <span
-                      className={`${styles.status} ${styles.statusCompact} ${STATUS_CLASS[job.status]}`}
-                    >
-                      {job.status}
-                    </span>
-                  </dd>
-                </div>
-                <div className={styles.sideRow}>
-                  <dt>Location</dt>
-                  <dd>{job.location}</dd>
-                </div>
-                <div className={styles.sideRow}>
-                  <dt>Category</dt>
-                  <dd>{job.category}</dd>
-                </div>
-                <div className={styles.sideRow}>
-                  <dt>Experience</dt>
-                  <dd>{job.experienceLevel}</dd>
-                </div>
-                <div className={styles.sideRow}>
-                  <dt>Deadline</dt>
-                  <dd>{job.applyDeadline}</dd>
-                </div>
-              </dl>
-
-              <ApplyActions
-                isClosed={isClosed}
-                className={styles.applyStack}
-              />
+          <dl className={styles.facts}>
+            <div className={styles.fact}>
+              <dt className={styles.factLabel}>Location</dt>
+              <dd className={styles.factValue}>
+                <MapPin size={15} strokeWidth={1.5} aria-hidden />
+                {job.location}
+              </dd>
             </div>
-          </aside>
+            <div className={styles.fact}>
+              <dt className={styles.factLabel}>Function</dt>
+              <dd className={styles.factValue}>
+                <Briefcase size={15} strokeWidth={1.5} aria-hidden />
+                {job.category}
+              </dd>
+            </div>
+            <div className={styles.fact}>
+              <dt className={styles.factLabel}>Experience</dt>
+              <dd className={`${styles.factValue} ${styles.factMono}`}>
+                {job.experienceLevel}
+              </dd>
+            </div>
+            <div className={styles.fact}>
+              <dt className={styles.factLabel}>Apply by</dt>
+              <dd className={styles.factValue}>
+                <Calendar size={15} strokeWidth={1.5} aria-hidden />
+                {job.applyDeadline}
+              </dd>
+            </div>
+          </dl>
         </div>
-      </div>
+      </section>
+
+      <section
+        ref={bodyRef}
+        className={`${styles.body} ${bodyInView ? styles.inView : ""}`.trim()}
+        aria-labelledby="job-description-heading"
+      >
+        <article className={styles.article}>
+          <header className={styles.articleHeader}>
+            
+            <h2 id="job-description-heading" className={styles.articleTitle}>
+              About This Role
+            </h2>
+          </header>
+          <JobDescriptionContent html={job.description} />
+        </article>
+
+        <div id="apply" className={styles.applyBanner}>
+          <h3 className={styles.applyTitle}>
+            {isClosed ? (
+              "Applications closed"
+            ) : (
+              <em className={styles.highlightGreen}>
+                Interested in joining Selatox?
+              </em>
+            )}
+          </h3>
+          <p className={styles.applySub}>
+            {isClosed
+              ? "This role is no longer accepting applications."
+              : "Submit your application before the deadline."}
+          </p>
+          <Button
+            type="button"
+            variant="primary"
+            showIcon
+            backgroundColor="var(--blue-100)"
+            color="var(--neutral-0)"
+            disabled={isClosed}
+            className={styles.applyButton}
+          >
+            {isClosed ? "Applications Closed" : "Apply for This Role"}
+          </Button>
+          <Link href="/opportunities" className={styles.applyBackLink}>
+            Back to opportunities
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }
