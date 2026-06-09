@@ -19,8 +19,9 @@
 
 /* Top Layer: Massive Typographic Brand */
 .topLayer {
-    padding: 80px 0 40px;
-    border-bottom: 1px solid var(--neutral-40);
+    padding: 160px 0 80px;
+    border-top: 1px solid var(--neutral-40);
+    border-bottom: 1px solid var(--neutral-20);
     text-align: center;
 }
 
@@ -31,38 +32,35 @@
     gap: 32px;
 }
 
-.logoIcon {
-    width: clamp(3rem, 7vw, 9rem);
+.logo {
+    width: clamp(400px, 50vw, 800px);
     height: auto;
 }
 
-.brandText {
-    font-family: var(--font-display);
-    font-size: clamp(4rem, 10vw, 12rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--neutral-140);
-    line-height: 1;
-    margin: 0;
-}
-
-/* Middle Layer: The Grid */
+/* Middle Layer */
 .middleLayer {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1.5fr 1fr;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
     gap: 48px;
     padding: 80px 0;
     border-bottom: 1px solid var(--neutral-40);
 }
 
-.colHeader {
-    font-family: var(--font-display);
-    color: var(--blue-100);
-    font-size: 1rem;
+.middleLayer > div {
+    min-width: 0;
+}
+
+.eyebrow {
+    margin: 0 0 24px;
+    font-family: var(--font-mono);
+    font-size: 12px;
     font-weight: 600;
-    margin-bottom: 24px;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    color: var(--blue-100);
 }
 
 .colContent {
@@ -78,7 +76,7 @@
 }
 
 .corporateText p {
-    margin: 0 0 8px;
+    margin: 0;
 }
 
 .link {
@@ -204,8 +202,13 @@
 /* Media Queries for responsiveness */
 @media (max-width: 1024px) {
     .middleLayer {
-        grid-template-columns: 1fr 1fr;
+        flex-wrap: wrap;
+        justify-content: flex-start;
         gap: 64px 32px;
+    }
+
+    .middleLayer > div {
+        flex: 1 1 calc(50% - 16px);
     }
 }
 
@@ -215,9 +218,15 @@
     }
 
     .middleLayer {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+        flex-wrap: nowrap;
         gap: 48px;
         padding: 64px 0;
+    }
+
+    .middleLayer > div {
+        flex: 1 1 auto;
+        width: 100%;
     }
 
     .topLayer {

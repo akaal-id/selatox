@@ -5,6 +5,7 @@ import { GeistMono } from "geist/font/mono";
 import { Navbar } from "@/components/navbar/navbar";
 import { LenisProvider } from "@/components/lenis/LenisProvider";
 import { ScrollFloater } from "@/components/scrollfloater/ScrollFloater";
+import { PageLoader } from "@/components/loader/PageLoader";
 import { Footer } from "@/components/footer/Footer";
 import "@/styles/globals.css";
 
@@ -54,6 +55,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen antialiased font-sans">
         <LenisProvider>
+          <PageLoader />
           <Navbar />
           {children}
           <Footer />

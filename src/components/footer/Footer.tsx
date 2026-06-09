@@ -17,11 +17,12 @@ const corporateData = {
 
 // 2. Sitemap Array
 const sitemapData = [
-    { label: "About Us", href: "/about", target: "_self" },
+    { label: "About", href: "/about", target: "_self" },
     { label: "Our Business", href: "/our-business", target: "_self" },
-    { label: "Product", href: "/products", target: "_self" },
-    { label: "Newsroom", href: "/news", target: "_self" },
+    { label: "Products", href: "/products", target: "_self" },
+    { label: "Culture", href: "/culture", target: "_self" },
     { label: "Career", href: "/opportunities", target: "_self" },
+    { label: "News", href: "/news", target: "_self" },
 ];
 
 const legalData = [
@@ -47,13 +48,12 @@ export const Footer = () => {
                     <div className={footerStyles.container}>
                         <div className={footerStyles.logoWrapper}>
                             <Image
-                                src="/assets/icon.svg"
+                                src="/assets/Selatox Logo.svg"
                                 alt="Selatox Logo"
-                                width={100}
-                                height={100}
-                                className={footerStyles.logoIcon}
+                                width={602}
+                                height={101}
+                                className={footerStyles.logo}
                             />
-                            <h1 className={footerStyles.brandText}>SELATOX</h1>
                         </div>
                     </div>
                 </div>
@@ -64,11 +64,8 @@ export const Footer = () => {
 
                         {/* Col 1: Corporate Info */}
                         <div>
-                            <h3 className={footerStyles.colHeader}>Corporate Data</h3>
+                            <h3 className={footerStyles.eyebrow}>PT SELATOX BIO PHARMA</h3>
                             <div className={`${footerStyles.colContent} ${footerStyles.corporateText}`}>
-                                <p>
-                                    <strong>{corporateData.tradeName}</strong>
-                                </p>
                                 <p>Representative: {corporateData.representative}</p>
                                 <p>{corporateData.address}</p>
                                 <p>{corporateData.contact}</p>
@@ -77,7 +74,7 @@ export const Footer = () => {
 
                         {/* Col 2: Sitemap */}
                         <div>
-                            <h3 className={footerStyles.colHeader}>Sitemap</h3>
+                            <h3 className={footerStyles.eyebrow}>Sitemap</h3>
                             <div className={footerStyles.colContent}>
                                 {sitemapData.map((item, idx) => (
                                     <Link
@@ -94,7 +91,7 @@ export const Footer = () => {
 
                         {/* Col 3: Legal & Social */}
                         <div>
-                            <h3 className={footerStyles.colHeader}>Legal & Social</h3>
+                            <h3 className={footerStyles.eyebrow}>Legal & Social</h3>
                             <div className={footerStyles.colContent}>
                                 {legalData.map((item, idx) => (
                                     <Link
@@ -112,7 +109,7 @@ export const Footer = () => {
 
                         {/* Col 4: Family Site */}
                         <div>
-                            <h3 className={footerStyles.colHeader}>Family Site</h3>
+                            <h3 className={footerStyles.eyebrow}>Family Site</h3>
                             <SelectForm
                                 placeholder="Select Family Site"
                                 value=""
@@ -123,7 +120,7 @@ export const Footer = () => {
                                     href: site.href,
                                     target: site.target as "_blank" | "_self",
                                 }))}
-                                variant="footer"
+                                variant="pill"
                             />
                         </div>
 

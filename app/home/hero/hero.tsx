@@ -35,7 +35,6 @@ export function Hero() {
           muted
           loop
           playsInline
-          poster="/images/hero-1.webp"
         >
           <source src="/videos/hero.mp4" type="video/mp4" />
         </motion.video>
