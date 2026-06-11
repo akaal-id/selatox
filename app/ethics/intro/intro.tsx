@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ethicsIntro } from "@/constants/ethics";
-import styles from "./intro.module.css";
+import styles from "../../home/introsection/introsection.module.css";
 
 export function EthicsIntro() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -34,11 +34,22 @@ export function EthicsIntro() {
           <span className={styles.eyebrowLabel}>{ethicsIntro.eyebrow}</span>
         </p>
 
-        {ethicsIntro.paragraphs.map((paragraph, index) => (
-          <p key={index} className={styles.paragraph}>
-            {paragraph}
-          </p>
-        ))}
+        <h2 className={styles.headline}>
+          As an emerging global biopharmaceutical company, we are committed to conducting
+          business with{" "}
+          <em className={styles.highlightGreen}>
+            integrity, transparency, and accountability
+          </em>
+          . We believe that long-term success is built on trust, and that trust is earned
+          through responsible actions, ethical decision-making, and unwavering compliance
+          with the highest standards of business conduct. By fostering a culture of
+          integrity, we strive to create{" "}
+          <em className={styles.highlightGreen}>
+            lasting value for patients, healthcare professionals, business partners,
+            employees, shareholders, and society
+          </em>
+          .
+        </h2>
       </div>
     </section>
   );

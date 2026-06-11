@@ -15,10 +15,7 @@ export const ethicsIntro = {
 } as const;
 
 export const ethicsCommitment = {
-  eyebrow: "Our Commitment to Ethical Management",
-  intro:
-    "Selatox is dedicated to advancing biotechnology and healthcare while maintaining the highest standards of ethics, compliance, and corporate responsibility.",
-  commitmentsLabel: "We are committed to:",
+  eyebrow: "We Are Committed To",
   commitments: [
     {
       id: "honesty",
@@ -51,38 +48,6 @@ export const ethicsCommitment = {
   ],
   closing:
     "Ethical conduct is a shared responsibility across our organization. Every employee is expected to uphold these principles and contribute to a culture where integrity guides every decision.",
-  valuesEyebrow: "Our Ethical Values",
-  valuesTitle: "Principles That Guide Us",
-  valuesIntro:
-    "Five values that shape how we act, communicate, and build trust with every stakeholder.",
-  values: [
-    {
-      id: "integrity",
-      name: "Integrity",
-      description: "We do what is right, even when no one is watching.",
-    },
-    {
-      id: "transparency",
-      name: "Transparency",
-      description: "We communicate openly and conduct business honestly.",
-    },
-    {
-      id: "accountability",
-      name: "Accountability",
-      description: "We take responsibility for our actions and decisions.",
-    },
-    {
-      id: "respect",
-      name: "Respect",
-      description: "We value people, diversity, and professional conduct.",
-    },
-    {
-      id: "trust",
-      name: "Trust",
-      description:
-        "We build lasting relationships through ethical behavior and responsible business practices.",
-    },
-  ],
 } as const;
 
 export const ethicsLeadership = {

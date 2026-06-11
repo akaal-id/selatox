@@ -10,7 +10,6 @@ import {
   Scale,
   Shield,
   Users,
-  Handshake,
   type LucideIcon,
 } from "lucide-react";
 import { ethicsCommitment } from "@/constants/ethics";
@@ -31,6 +30,19 @@ const COMMITMENT_ICONS: Record<
   culture: Heart,
 };
 
+const COMMITMENT_TITLES: Record<
+  (typeof ethicsCommitment.commitments)[number]["id"],
+  string
+> = {
+  honesty: "Honest Conduct",
+  compliance: "Regulatory Compliance",
+  prevention: "Anti-Corruption",
+  protection: "Data Protection",
+  diversity: "Diversity & Inclusion",
+  accountability: "Accountability",
+  culture: "Trust & Culture",
+};
+
 const COMMITMENT_ACCENT: Record<
   (typeof ethicsCommitment.commitments)[number]["id"],
   "blue" | "green"
@@ -42,28 +54,6 @@ const COMMITMENT_ACCENT: Record<
   diversity: "blue",
   accountability: "green",
   culture: "blue",
-};
-
-const VALUE_ICONS: Record<
-  (typeof ethicsCommitment.values)[number]["id"],
-  LucideIcon
-> = {
-  integrity: Scale,
-  transparency: Eye,
-  accountability: CheckCircle2,
-  respect: Users,
-  trust: Handshake,
-};
-
-const VALUE_ACCENT: Record<
-  (typeof ethicsCommitment.values)[number]["id"],
-  "blue" | "green"
-> = {
-  integrity: "blue",
-  transparency: "green",
-  accountability: "blue",
-  respect: "green",
-  trust: "blue",
 };
 
 export function EthicsCommitment() {
@@ -85,16 +75,12 @@ export function EthicsCommitment() {
           transition={{ duration: 0.8, delay: 0.1, ease: EASE_OUT_EXPO }}
           className={styles.header}
         >
-          <p className={styles.eyebrow}>{ethicsCommitment.eyebrow}</p>
-          <h2 id="ethics-commitment-heading" className={styles.title}>
-            {ethicsCommitment.intro}
+          <h2 id="ethics-commitment-heading" className={styles.eyebrow}>
+            {ethicsCommitment.eyebrow}
           </h2>
-          <p className={styles.commitmentsLabel}>
-            {ethicsCommitment.commitmentsLabel}
-          </p>
         </motion.header>
 
-        <ul className={styles.commitmentsGrid}>
+        <ul className={styles.commitmentsList}>
           {ethicsCommitment.commitments.map((item, index) => {
             const Icon = COMMITMENT_ICONS[item.id];
             const accent = COMMITMENT_ACCENT[item.id];
@@ -109,17 +95,24 @@ export function EthicsCommitment() {
                   delay: 0.2 + index * 0.06,
                   ease: EASE_OUT_EXPO,
                 }}
-                className={styles.commitmentCard}
+                className={styles.commitmentItem}
               >
-                <div
-                  className={`${styles.iconWrap} ${
-                    accent === "green" ? styles.iconGreen : styles.iconBlue
-                  }`}
-                  aria-hidden
-                >
-                  {Icon ? <Icon strokeWidth={1.25} /> : null}
-                </div>
-                <p className={styles.commitmentText}>{item.text}</p>
+                <article className={styles.commitmentCard}>
+                  <div
+                    className={`${styles.iconWrap} ${
+                      accent === "green" ? styles.iconGreen : styles.iconBlue
+                    }`}
+                    aria-hidden
+                  >
+                    {Icon ? <Icon strokeWidth={1.25} /> : null}
+                  </div>
+                  <div className={styles.cardContent}>
+                    <h3 className={styles.cardTitle}>
+                      {COMMITMENT_TITLES[item.id]}
+                    </h3>
+                    <p className={styles.cardBody}>{item.text}</p>
+                  </div>
+                </article>
               </motion.li>
             );
           })}
@@ -133,74 +126,6 @@ export function EthicsCommitment() {
         >
           {ethicsCommitment.closing}
         </motion.p>
-
-        <div className={styles.valuesBlock}>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.72, ease: EASE_OUT_EXPO }}
-            className={styles.valuesHeader}
-          >
-            <p className={styles.valuesEyebrow}>
-              {ethicsCommitment.valuesEyebrow}
-            </p>
-            <h3 className={styles.valuesTitle}>{ethicsCommitment.valuesTitle}</h3>
-            <p className={styles.valuesIntro}>{ethicsCommitment.valuesIntro}</p>
-          </motion.div>
-
-          <ul className={styles.valuesGrid}>
-            <motion.li
-              initial={{ opacity: 0, y: 16 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.78 }}
-              className={`${styles.valueCard} ${styles.valuesIntroCard}`}
-            >
-              <p className={styles.valuesIntroLabel}>
-                {ethicsCommitment.valuesEyebrow}
-              </p>
-              <h4 className={styles.valuesIntroTitle}>
-                {ethicsCommitment.valuesTitle}
-              </h4>
-              <p className={styles.valuesIntroText}>
-                {ethicsCommitment.valuesIntro}
-              </p>
-            </motion.li>
-
-            {ethicsCommitment.values.map((value, index) => {
-              const Icon = VALUE_ICONS[value.id];
-              const accent = VALUE_ACCENT[value.id];
-
-              return (
-                <motion.li
-                  key={value.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{
-                    duration: 0.65,
-                    delay: 0.84 + (index + 1) * 0.08,
-                    ease: EASE_OUT_EXPO,
-                  }}
-                  className={styles.valueCard}
-                >
-                  <div
-                    className={`${styles.iconWrap} ${
-                      accent === "green" ? styles.iconGreen : styles.iconBlue
-                    }`}
-                    aria-hidden
-                  >
-                    {Icon ? <Icon strokeWidth={1.25} /> : null}
-                  </div>
-                  <div className={styles.valueContent}>
-                    <h4 className={styles.valueName}>{value.name}</h4>
-                    <p className={styles.valueDescription}>
-                      {value.description}
-                    </p>
-                  </div>
-                </motion.li>
-              );
-            })}
-          </ul>
-        </div>
       </div>
     </section>
   );

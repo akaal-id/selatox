@@ -136,11 +136,12 @@
 }
 
 .quoteText {
-  font-size: clamp(20px, 2.5vw, 32px);
+  font-size: clamp(20px, 2.5vw, 24px);
   font-weight: 300;
   line-height: 1.4;
   letter-spacing: -0.02em;
   color: var(--neutral-160);
+  text-wrap: pretty;
 }
 
 .quoteFooter {

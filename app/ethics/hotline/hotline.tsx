@@ -3,10 +3,19 @@
 import {
   AlertTriangle,
   BriefcaseBusiness,
+  CalendarDays,
   CheckCircle2,
+  EyeOff,
+  FileText,
   Lock,
+  MapPin,
   MessageSquareWarning,
+  Paperclip,
   Shield,
+  ShieldCheck,
+  User,
+  Workflow,
+  type LucideIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/Button";
@@ -35,7 +44,7 @@ type FormErrors = Partial<Record<keyof EthicsReportFormData | "supportingDocumen
 
 const REPORTABLE_ICONS: Record<
   (typeof ethicsHotline.reportableItems)[number]["id"],
-  typeof Shield
+  LucideIcon
 > = {
   "business-ethics": BriefcaseBusiness,
   corruption: AlertTriangle,
@@ -43,6 +52,29 @@ const REPORTABLE_ICONS: Record<
   "information-security": Lock,
   compliance: Shield,
 };
+
+const PROTECTION_ICONS: Record<
+  (typeof ethicsHotline.protectionCards)[number]["id"],
+  LucideIcon
+> = {
+  confidentiality: Lock,
+  retaliation: ShieldCheck,
+};
+
+const GUIDELINE_META: ReadonlyArray<{ label: string; icon: LucideIcon }> = [
+  { label: "Who", icon: User },
+  { label: "What", icon: FileText },
+  { label: "When", icon: CalendarDays },
+  { label: "Where", icon: MapPin },
+  { label: "How", icon: Workflow },
+  { label: "Evidence", icon: Paperclip },
+];
+
+const TRUST_CHIPS: ReadonlyArray<{ label: string; icon: LucideIcon }> = [
+  { label: "Strict confidentiality", icon: Lock },
+  { label: "Anonymous option", icon: EyeOff },
+  { label: "Non-retaliation", icon: ShieldCheck },
+];
 
 function validateForm(data: EthicsReportFormData): FormErrors {
   const errors: FormErrors = {};
@@ -151,27 +183,46 @@ export function EthicsHotline() {
     >
       <div className={styles.container}>
         <div className={styles.banner}>
+          <span className={styles.bannerGlow} aria-hidden />
           <header className={styles.bannerContent}>
             <p className={styles.eyebrow}>{ethicsHotline.eyebrow}</p>
             <h2 id="ethics-hotline-heading" className={styles.title}>
               {ethicsHotline.title}
             </h2>
             <p className={styles.intro}>{ethicsHotline.intro}</p>
-            <Button
-              type="button"
-              variant="primary"
-              backgroundColor="var(--blue-120)"
-              color="var(--neutral-0)"
-              showIcon
-              onClick={scrollToForm}
-            >
-              {ethicsHotline.ctaLabel}
-            </Button>
+            <div className={styles.bannerActions}>
+              <Button
+                type="button"
+                variant="primary"
+                backgroundColor="var(--blue-120)"
+                color="var(--neutral-0)"
+                showIcon
+                onClick={scrollToForm}
+              >
+                {ethicsHotline.ctaLabel}
+              </Button>
+            </div>
+            <ul className={styles.trustChips}>
+              {TRUST_CHIPS.map(({ label, icon: Icon }) => (
+                <li key={label} className={styles.trustChip}>
+                  <Icon size={15} strokeWidth={1.75} aria-hidden />
+                  <span>{label}</span>
+                </li>
+              ))}
+            </ul>
           </header>
+          <div className={styles.bannerEmblem} aria-hidden>
+            <span className={styles.emblemRing} />
+            <span className={styles.emblemRingInner} />
+            <ShieldCheck size={56} strokeWidth={1.1} />
+          </div>
         </div>
 
         <div className={styles.subsection}>
-          <h3 className={styles.subsectionTitle}>{ethicsHotline.reportableTitle}</h3>
+          <div className={styles.subsectionHead}>
+            <span className={styles.subEyebrow}>01 — Scope</span>
+            <h3 className={styles.subsectionTitle}>{ethicsHotline.reportableTitle}</h3>
+          </div>
           <ul className={styles.reportableGrid}>
             {ethicsHotline.reportableItems.map((item, index) => {
               const Icon = REPORTABLE_ICONS[item.id];
@@ -182,9 +233,14 @@ export function EthicsHotline() {
                   className={styles.reportableCard}
                   style={{ ["--delay" as string]: `${0.15 + index * 0.08}s` }}
                 >
-                  <span className={styles.reportableIcon} aria-hidden>
-                    <Icon size={20} strokeWidth={1.5} />
-                  </span>
+                  <div className={styles.reportableTop}>
+                    <span className={styles.reportableIcon} aria-hidden>
+                      <Icon size={20} strokeWidth={1.5} />
+                    </span>
+                    <span className={styles.reportableIndex} aria-hidden>
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
                   <h4 className={styles.reportableTitle}>{item.title}</h4>
                   <p className={styles.reportableBody}>{item.description}</p>
                 </li>
@@ -194,31 +250,50 @@ export function EthicsHotline() {
         </div>
 
         <div className={styles.subsection}>
-          <h3 className={styles.subsectionTitle}>{ethicsHotline.protectionTitle}</h3>
-          <p className={styles.subsectionIntro}>{ethicsHotline.protectionIntro}</p>
+          <div className={styles.subsectionHead}>
+            <span className={styles.subEyebrow}>02 — Safeguards</span>
+            <h3 className={styles.subsectionTitle}>{ethicsHotline.protectionTitle}</h3>
+            <p className={styles.subsectionIntro}>{ethicsHotline.protectionIntro}</p>
+          </div>
           <div className={styles.protectionGrid}>
-            {ethicsHotline.protectionCards.map((card) => (
-              <article key={card.id} className={styles.protectionCard}>
-                <h4 className={styles.protectionTitle}>{card.title}</h4>
-                <p className={styles.protectionBody}>{card.description}</p>
-              </article>
-            ))}
+            {ethicsHotline.protectionCards.map((card) => {
+              const Icon = PROTECTION_ICONS[card.id];
+
+              return (
+                <article key={card.id} className={styles.protectionCard}>
+                  <span className={styles.protectionIcon} aria-hidden>
+                    <Icon size={22} strokeWidth={1.5} />
+                  </span>
+                  <h4 className={styles.protectionTitle}>{card.title}</h4>
+                  <p className={styles.protectionBody}>{card.description}</p>
+                </article>
+              );
+            })}
           </div>
         </div>
 
         <div className={styles.subsection}>
-          <h3 className={styles.subsectionTitle}>{ethicsHotline.guidelinesTitle}</h3>
-          <p className={styles.subsectionIntro}>{ethicsHotline.guidelinesIntro}</p>
-          <ol className={styles.guidelinesList}>
-            {ethicsHotline.guidelines.map((item, index) => (
-              <li key={item} className={styles.guidelineItem}>
-                <span className={styles.guidelineStep} aria-hidden>
-                  {index + 1}
-                </span>
-                <span className={styles.guidelineText}>{item}</span>
-              </li>
-            ))}
-          </ol>
+          <div className={styles.subsectionHead}>
+            <span className={styles.subEyebrow}>03 — How to report</span>
+            <h3 className={styles.subsectionTitle}>{ethicsHotline.guidelinesTitle}</h3>
+            <p className={styles.subsectionIntro}>{ethicsHotline.guidelinesIntro}</p>
+          </div>
+          <ul className={styles.guidelinesGrid}>
+            {ethicsHotline.guidelines.map((item, index) => {
+              const meta = GUIDELINE_META[index] ?? GUIDELINE_META[0];
+              const Icon = meta.icon;
+
+              return (
+                <li key={item} className={styles.guidelineCard}>
+                  <span className={styles.guidelineIcon} aria-hidden>
+                    <Icon size={18} strokeWidth={1.5} />
+                  </span>
+                  <span className={styles.guidelineLabel}>{meta.label}</span>
+                  <span className={styles.guidelineText}>{item}</span>
+                </li>
+              );
+            })}
+          </ul>
           <p className={styles.guidelinesNote}>{ethicsHotline.guidelinesNote}</p>
         </div>
 
