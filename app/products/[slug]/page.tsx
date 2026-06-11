@@ -33,10 +33,5 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     notFound();
   }
 
-  const otherProducts = products
-    .filter((item) => item.slug !== product.slug)
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 4);
-
-  return <ProductDetailClient product={product} otherProducts={otherProducts} />;
+  return <ProductDetailClient product={product} />;
 }

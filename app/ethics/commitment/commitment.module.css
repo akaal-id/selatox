@@ -1,0 +1,308 @@
+.section {
+  position: relative;
+  background-color: var(--neutral-0);
+  padding-top: 0;
+  padding-bottom: var(--section-py);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--section-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--section-px);
+  padding-right: var(--section-px);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 760px;
+  margin-bottom: 40px;
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--blue-100);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: var(--neutral-160);
+  text-wrap: balance;
+}
+
+.commitmentsLabel {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--neutral-140);
+}
+
+.commitmentsGrid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .commitmentsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .commitmentsGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+.commitmentCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: var(--neutral-10);
+  border-radius: 12px;
+  border: 1px solid var(--neutral-40);
+  transition:
+    background-color 320ms ease,
+    border-color 320ms ease,
+    box-shadow 320ms ease;
+}
+
+@media (min-width: 768px) {
+  .commitmentCard {
+    padding: 28px;
+    gap: 18px;
+  }
+}
+
+.commitmentCard:hover {
+  background-color: var(--neutral-0);
+  border-color: var(--neutral-60);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+.iconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  transition: transform 320ms ease, background-color 320ms ease;
+}
+
+.iconWrap svg {
+  width: 20px;
+  height: 20px;
+}
+
+.iconBlue {
+  background-color: var(--blue-20);
+  color: var(--blue-100);
+}
+
+.iconGreen {
+  background-color: var(--green-20);
+  color: var(--green-100);
+}
+
+.commitmentCard:hover .iconWrap,
+.valueCard:hover .iconWrap {
+  transform: translateY(-2px);
+}
+
+.commitmentText {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--neutral-120);
+  text-wrap: pretty;
+}
+
+.closing {
+  margin: 40px 0 0;
+  max-width: 720px;
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--neutral-120);
+}
+
+.valuesBlock {
+  margin-top: 56px;
+  padding-top: 56px;
+  border-top: 1px solid var(--neutral-60);
+}
+
+@media (min-width: 768px) {
+  .valuesBlock {
+    margin-top: 72px;
+    padding-top: 72px;
+  }
+}
+
+.valuesHeader {
+  display: none;
+}
+
+.valuesGrid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .valuesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .valuesGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+.valueCard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px;
+  background: var(--neutral-10);
+  border-radius: 12px;
+  border: 1px solid var(--neutral-40);
+  transition:
+    background-color 320ms ease,
+    border-color 320ms ease,
+    box-shadow 320ms ease;
+}
+
+@media (min-width: 768px) {
+  .valueCard {
+    padding: 32px;
+    gap: 24px;
+  }
+}
+
+.valueCard:hover {
+  background-color: var(--neutral-0);
+  border-color: var(--neutral-60);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+.valuesIntroCard {
+  justify-content: space-between;
+  border-color: var(--neutral-60);
+  background:
+    radial-gradient(
+      circle at 12% 14%,
+      rgba(68, 144, 228, 0.1) 0%,
+      rgba(68, 144, 228, 0) 48%
+    ),
+    radial-gradient(
+      circle at 86% 88%,
+      rgba(80, 177, 55, 0.1) 0%,
+      rgba(80, 177, 55, 0) 44%
+    ),
+    var(--neutral-0);
+}
+
+.valuesIntroCard:hover {
+  border-color: var(--neutral-80);
+}
+
+.valuesIntroLabel {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--blue-100);
+}
+
+.valuesIntroTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.1vw, 30px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--neutral-160);
+  text-wrap: balance;
+}
+
+.valuesIntroText {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--neutral-120);
+  max-width: 34ch;
+}
+
+.valueContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.valueName {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--neutral-160);
+}
+
+@media (min-width: 768px) {
+  .valueName {
+    font-size: 20px;
+  }
+}
+
+.valueDescription {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--neutral-120);
+  text-wrap: pretty;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .commitmentCard,
+  .valueCard,
+  .iconWrap {
+    transition: none !important;
+  }
+}

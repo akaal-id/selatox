@@ -1,0 +1,142 @@
+@keyframes blurIn {
+  from {
+    filter: blur(12px);
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  padding: var(--section-py) var(--section-px);
+  background: var(--neutral-0);
+  font-family: var(--font-sans);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 5vw, 40px);
+  width: 100%;
+  max-width: var(--section-max-width);
+  margin: 0 auto;
+  min-width: 0;
+}
+
+.header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue-100);
+  opacity: 0;
+}
+
+.title {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--neutral-160);
+  opacity: 0;
+}
+
+.lead {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--neutral-120);
+  opacity: 0;
+}
+
+.section.inView .eyebrow {
+  animation: blurIn 0.8s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+.section.inView .title {
+  animation: blurIn 0.85s ease-out forwards;
+  animation-delay: 0.18s;
+}
+
+.section.inView .lead {
+  animation: blurIn 0.85s ease-out forwards;
+  animation-delay: 0.26s;
+}
+
+.jobGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.jobGridItem {
+  display: flex;
+  min-width: 0;
+  width: 100%;
+  opacity: 0;
+}
+
+.jobGridItem > * {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+}
+
+.section.inView .jobGridItem {
+  animation: blurIn 0.85s ease-out forwards;
+  animation-delay: var(--delay, 0.3s);
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+}
+
+.section.inView .actions {
+  animation: blurIn 0.85s ease-out forwards;
+  animation-delay: 0.6s;
+}
+
+@media (max-width: 1024px) {
+  .jobGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .jobGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .title {
+    font-size: clamp(28px, 7vw, 36px);
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .actions > * {
+    width: 100%;
+  }
+}

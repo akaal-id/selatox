@@ -7,9 +7,11 @@ import { JobCard } from "@/components/jobcard/jobcard";
 import { Button } from "@/components/ui/Button";
 import { SelectForm } from "@/components/ui/selectform/selectform";
 import {
+  JOB_CATEGORIES,
   jobListings,
   OPPORTUNITIES_PAGE_SIZE,
   opportunitiesPage,
+  type JobCategory,
   type JobStatus,
 } from "@/constants/opportunities";
 import styles from "./opportunities.module.css";
@@ -20,7 +22,7 @@ type FilterState = {
   query: string;
   status: JobStatus | typeof ALL;
   location: string;
-  category: string;
+  category: JobCategory | typeof ALL;
   experienceLevel: string;
 };
 
@@ -73,7 +75,7 @@ const statusOptions = uniqueValues(
 ) as (JobStatus | typeof ALL)[];
 
 const locationOptions = uniqueValues(jobListings.map((job) => job.location));
-const categoryOptions = uniqueValues(jobListings.map((job) => job.category));
+const categoryOptions = [ALL, ...JOB_CATEGORIES];
 const experienceOptions = uniqueValues(
   jobListings.map((job) => job.experienceLevel)
 );
@@ -211,7 +213,9 @@ export function OpportunitiesBrowser() {
             className={styles.field}
             label="Job Category"
             value={filters.category}
-            onChange={(next) => updateFilter("category", next)}
+            onChange={(next) =>
+              updateFilter("category", next as FilterState["category"])
+            }
             options={categoryOptions.map((option) => ({
               label: option,
               value: option,

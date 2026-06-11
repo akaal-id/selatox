@@ -1,12 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { products } from "@/constants/products";
+import { PRODUCT_CATEGORIES, products } from "@/constants/products";
 import { ProductsCard } from "@/components/products-card/products-card";
 import { SelectForm } from "@/components/ui/selectform/selectform";
 import styles from "./products.module.css";
 
-const allCategories = ["All", ...Array.from(new Set(products.map((p) => p.category)))] as const;
+const allCategories = ["All", ...PRODUCT_CATEGORIES] as const;
 
 export function ProductsBrowser() {
   const [query, setQuery] = useState("");

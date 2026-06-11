@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import { products } from "@/constants/products";
+import { PRIMARY_PRODUCT_SLUG, products } from "@/constants/products";
 import styles from "./featured-product.module.css";
 
 const FEATURED_PRODUCT = products[0];
@@ -73,7 +73,7 @@ export function FeaturedProduct() {
               variant="simple"
               showIcon={true}
               color="var(--green-100)"
-              onClick={() => router.push(`/products/${FEATURED_PRODUCT.slug}`)}
+              onClick={() => router.push(`/products/${PRIMARY_PRODUCT_SLUG}`)}
             >
               View Technical Specs
             </Button>

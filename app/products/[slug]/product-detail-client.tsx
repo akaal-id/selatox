@@ -1,31 +1,25 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import type { Product } from "@/constants/products";
-import { ProductsCard } from "@/components/products-card/products-card";
 import styles from "./product-detail.module.css";
 
 type ProductDetailClientProps = {
   product: Product;
-  otherProducts: Product[];
 };
 
-export function ProductDetailClient({ product, otherProducts }: ProductDetailClientProps) {
+export function ProductDetailClient({ product }: ProductDetailClientProps) {
   const heroRef = useRef<HTMLDivElement>(null);
   const specsRef = useRef<HTMLDivElement>(null);
-  const otherRef = useRef<HTMLDivElement>(null);
 
   const [heroInView, setHeroInView] = useState(false);
   const [specsInView, setSpecsInView] = useState(false);
-  const [otherInView, setOtherInView] = useState(false);
 
   useEffect(() => {
     const entries: [React.RefObject<HTMLDivElement | null>, (v: boolean) => void][] = [
       [heroRef, setHeroInView],
       [specsRef, setSpecsInView],
-      [otherRef, setOtherInView],
     ];
 
     const observer = new IntersectionObserver(
@@ -114,32 +108,6 @@ export function ProductDetailClient({ product, otherProducts }: ProductDetailCli
                   ))}
                 </ul>
               </div>
-            </div>
-          </div>
-
-          {/* ── Divider ── */}
-          <div className={styles.divider} />
-
-          {/* ── Other products ── */}
-          <div
-            ref={otherRef}
-            className={`${styles.otherSection} ${otherInView ? styles.inView : ""}`}
-          >
-            <div className={styles.otherHeader}>
-              <div>
-                <span className={styles.otherEyebrow}>Explore More</span>
-                <h2 className={styles.otherHeading}>Other Products</h2>
-              </div>
-              <Link href="/products" className={styles.backButton}>
-                Back to products
-              </Link>
-            </div>
-            <div className={styles.otherRow}>
-              {otherProducts.map((item) => (
-                <div key={item.slug} className={styles.otherCard}>
-                  <ProductsCard product={item} />
-                </div>
-              ))}
             </div>
           </div>
         </div>

@@ -11,25 +11,25 @@
    Color system (20 = brightest, 100 = default, 160 = darkest)
    --------------------------------------------------------------------------- */
 :root {
-  /* Blue */
-  --blue-20: #e8f2fc;
-  --blue-40: #c2dff8;
-  --blue-60: #8fc5f0;
-  --blue-80: #5ca8e8;
-  --blue-100: #4490e4;
-  --blue-120: #2d6fbd;
-  --blue-140: #1f4d85;
-  --blue-160: #132d4d;
+  /* Blue — anchored at #4AB3C6 (blue-100) */
+  --blue-20: #e9f6f8;
+  --blue-40: #cceaef;
+  --blue-60: #a8dbe4;
+  --blue-80: #7dc8d6;
+  --blue-100: #4ab3c6;
+  --blue-120: #3c8e9d;
+  --blue-140: #2f6c77;
+  --blue-160: #224a51;
 
-  /* Green */
-  --green-20: #e8f7ec;
-  --green-40: #c2ebce;
-  --green-60: #8fd9a8;
-  --green-80: #5cc77e;
-  --green-100: #50b137;
-  --green-120: #3d8a2b;
-  --green-140: #2a5f1e;
-  --green-160: #1a3a12;
+  /* Green — green-20…100 from #41BA7C; green-120…160 from #009A6E */
+  --green-20: #e8f7ef;
+  --green-40: #caecda;
+  --green-60: #a4dec0;
+  --green-80: #76cda1;
+  --green-100: #41ba7c;
+  --green-120: #009a6e;
+  --green-140: #037655;
+  --green-160: #055941;
 
   /* Neutral / Gray */
   --neutral-0: #ffffff;
@@ -63,7 +63,7 @@
   --color-bg: var(--neutral-40);
   --color-bg-elevated: var(--neutral-20);
   --color-border: var(--neutral-60);
-  --color-innovation-blue: #4490e4;
+  --color-innovation-blue: var(--blue-100);
   --color-selatox-dark: #101010;
   --color-selatox-light: #f5f5f5;
 
@@ -126,6 +126,15 @@
   --section-max-width: 1440px;
   --section-px: 24px;
   --section-py: 80px;
+
+  /* Background gradients */
+  --bg-gradient-1: linear-gradient(
+    135deg,
+    var(--blue-40) 0%,
+    var(--neutral-0) 42%,
+    var(--neutral-0) 58%,
+    var(--green-40) 100%
+  );
 }
 
 @media (min-width: 768px) {
@@ -250,5 +259,9 @@ html.lenis body {
 
   .font-display {
     font-family: var(--font-display);
+  }
+
+  .bg-gradient-1 {
+    background: var(--bg-gradient-1);
   }
 }

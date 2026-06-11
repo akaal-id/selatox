@@ -1,0 +1,409 @@
+@keyframes blurIn {
+  from {
+    filter: blur(12px);
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes connectorGrow {
+  from {
+    transform: translateX(-50%) scaleY(0);
+  }
+  to {
+    transform: translateX(-50%) scaleY(1);
+  }
+}
+
+.section {
+  padding: var(--section-py) var(--section-px);
+  background: var(--neutral-10);
+  font-family: var(--font-sans);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 48px);
+  width: 100%;
+  max-width: var(--section-max-width);
+  margin: 0 auto;
+  align-items: start;
+  min-width: 0;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 520px;
+  margin-inline: auto;
+  min-width: 0;
+}
+
+.headerVisual {
+  position: relative;
+  width: 100%;
+  height: 60svh;
+  min-height: 280px;
+  max-height: 520px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--neutral-20);
+  opacity: 0;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.9) contrast(1.03);
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(46, 34, 46, 0.08) 0%,
+    transparent 35%,
+    rgba(46, 34, 46, 0.42) 100%
+  );
+  pointer-events: none;
+}
+
+.eyebrow {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 1;
+  margin: 0;
+  padding: 7px 14px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue-120);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--neutral-60);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+
+.headerPanel {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: -36px 14px 0;
+  padding: 22px 22px 24px;
+  background: var(--neutral-0);
+  border: 1px solid var(--neutral-60);
+  border-radius: 14px;
+  box-shadow: var(--shadow-glass);
+  opacity: 0;
+}
+
+.title {
+  margin: 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--blue-100);
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.6vw, 28px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--neutral-160);
+  text-wrap: balance;
+}
+
+.lead {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--neutral-120);
+}
+
+.section.inView .headerVisual {
+  animation: blurIn 0.85s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+.section.inView .headerPanel {
+  animation: blurIn 0.85s ease-out forwards;
+  animation-delay: 0.22s;
+}
+
+.flow {
+  position: relative;
+  min-width: 0;
+}
+
+.stages {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stage {
+  --stage-col-gap: clamp(12px, 4vw, 48px);
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: var(--stage-col-gap);
+  align-items: start;
+  padding-bottom: 24px;
+  opacity: 0;
+}
+
+.stage:last-child {
+  padding-bottom: 0;
+}
+
+.section.inView .stage {
+  animation: blurIn 0.85s ease-out forwards;
+  animation-delay: var(--delay, 0.3s);
+}
+
+/* Connector — each node links down to the next node center */
+.stage:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 24px;
+  top: 36px;
+  bottom: -24px;
+  width: 1px;
+  background: var(--blue-60);
+  transform-origin: top center;
+  transform: translateX(-50%) scaleY(0);
+  z-index: 0;
+}
+
+.section.inView .stage:not(:last-child)::before {
+  animation: connectorGrow 0.6s ease-out forwards;
+  animation-delay: calc(var(--delay, 0.3s) + 0.15s);
+}
+
+/* Horizontal connector — spans the full grid gap to the card */
+.stage::after {
+  content: "";
+  position: absolute;
+  left: 48px;
+  top: 36px;
+  width: var(--stage-col-gap);
+  height: 1px;
+  background: var(--neutral-60);
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.3s ease;
+}
+
+.stage:hover::after {
+  background: var(--blue-80);
+}
+
+.stageNode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--blue-60);
+  background: var(--neutral-0);
+  position: relative;
+  margin-top: 12px;
+  z-index: 1;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.stage:hover .stageNode {
+  border-color: var(--blue-100);
+  background: var(--blue-20);
+  transform: scale(1.06);
+}
+
+.stageIndex {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--blue-120);
+}
+
+.stageContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 20px 24px 22px;
+  background: var(--neutral-0);
+  border: 1px solid var(--neutral-60);
+  border-radius: 14px;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.stage:hover .stageContent {
+  border-color: var(--blue-80);
+  box-shadow: var(--shadow-glass);
+  transform: translateY(-2px);
+}
+
+.stageTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(18px, 1.8vw, 22px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--neutral-160);
+}
+
+.stageDescription {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--neutral-120);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--blue-20);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue-140);
+}
+
+@media (min-width: 900px) {
+  .container {
+    grid-template-columns: minmax(0, 0.44fr) minmax(0, 0.56fr);
+    gap: clamp(40px, 4vw, 64px);
+  }
+
+  .header {
+    grid-column: 1;
+    position: sticky;
+    top: 100px;
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  .flow {
+    grid-column: 2;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 899px) {
+  .headerPanel {
+    margin-inline: 0;
+  }
+
+  .headerVisual {
+    height: clamp(240px, 52svh, 420px);
+  }
+
+  .stageContent {
+    padding: 18px 18px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .headerVisual {
+    min-height: 220px;
+    border-radius: 12px;
+  }
+
+  .headerPanel {
+    padding: 18px 18px 20px;
+    border-radius: 12px;
+  }
+
+  .eyebrow {
+    top: 14px;
+    left: 14px;
+    font-size: 9px;
+    padding: 6px 12px;
+  }
+
+  .stageContent {
+    padding: 16px 16px 18px;
+  }
+
+  .tag {
+    font-size: 8px;
+    padding: 4px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stage {
+    --stage-col-gap: 10px;
+    grid-template-columns: 40px 1fr;
+    padding-bottom: 20px;
+  }
+
+  .stage:not(:last-child)::before {
+    left: 20px;
+    top: 32px;
+    bottom: -20px;
+  }
+
+  .stage::after {
+    left: 40px;
+    top: 32px;
+  }
+
+  .stageNode {
+    width: 40px;
+    height: 40px;
+    margin-top: 8px;
+  }
+
+  .stageIndex {
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1100px) {
+  .stageContent {
+    padding: 18px 20px 20px;
+  }
+
+  .stageTitle {
+    font-size: clamp(17px, 1.6vw, 20px);
+  }
+}

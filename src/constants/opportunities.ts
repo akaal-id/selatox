@@ -1,5 +1,28 @@
 export type JobStatus = "Open" | "Closing Soon" | "Closed";
 
+export type JobCategory =
+  | "Sales & Marketing"
+  | "Business Development"
+  | "Research & Development"
+  | "Quality"
+  | "Manufacturing"
+  | "Manufacturing Support"
+  | "EPCV"
+  | "Supply Chain Management (SCM)"
+  | "Corporate Support";
+
+export const JOB_CATEGORIES: JobCategory[] = [
+  "Sales & Marketing",
+  "Business Development",
+  "Research & Development",
+  "Quality",
+  "Manufacturing",
+  "Manufacturing Support",
+  "EPCV",
+  "Supply Chain Management (SCM)",
+  "Corporate Support",
+];
+
 /**
  * Single rich-text field (HTML). Supported markup:
  * - <strong> / <b> — section titles (rendered at font-weight 500)
@@ -17,7 +40,7 @@ export type JobListing = {
   status: JobStatus;
   title: string;
   location: string;
-  category: string;
+  category: JobCategory;
   experienceLevel: string;
   applyDeadline: string;
   description: JobDescriptionHtml;
@@ -37,7 +60,7 @@ export function jobDescriptionToPlainText(html: JobDescriptionHtml): string {
 
 function buildJobDescription(job: {
   title: string;
-  category: string;
+  category: JobCategory;
   location: string;
   experienceLevel: string;
 }): JobDescriptionHtml {
@@ -70,7 +93,7 @@ const jobListingBase = [
     status: "Open" as const,
     title: "Quality Control Analyst",
     location: "Cikarang, West Java",
-    category: "Quality Assurance",
+    category: "Quality",
     experienceLevel: "Mid-Level",
     applyDeadline: "Apply by 28 Aug 2026",
   },
@@ -100,7 +123,7 @@ const jobListingBase = [
     status: "Open" as const,
     title: "Regulatory Affairs Specialist",
     location: "Depok, West Java",
-    category: "Regulatory",
+    category: "Quality",
     experienceLevel: "Mid-Level",
     applyDeadline: "Apply by 30 Sep 2026",
   },
@@ -110,7 +133,7 @@ const jobListingBase = [
     status: "Open" as const,
     title: "Process Engineer",
     location: "Cikarang, West Java",
-    category: "Engineering",
+    category: "Manufacturing Support",
     experienceLevel: "Entry-Level",
     applyDeadline: "Apply by 5 Oct 2026",
   },
@@ -130,7 +153,7 @@ const jobListingBase = [
     status: "Open" as const,
     title: "Supply Chain Coordinator",
     location: "Cikarang, West Java",
-    category: "Operations",
+    category: "Supply Chain Management (SCM)",
     experienceLevel: "Mid-Level",
     applyDeadline: "Apply by 18 Oct 2026",
   },
@@ -140,7 +163,7 @@ const jobListingBase = [
     status: "Closed" as const,
     title: "Maintenance Technician",
     location: "Cikarang, West Java",
-    category: "Engineering",
+    category: "Manufacturing Support",
     experienceLevel: "Entry-Level",
     applyDeadline: "Applications closed",
   },
@@ -150,7 +173,7 @@ const jobListingBase = [
     status: "Open" as const,
     title: "Commercial Strategy Analyst",
     location: "Jakarta",
-    category: "Commercial",
+    category: "Business Development",
     experienceLevel: "Mid-Level",
     applyDeadline: "Apply by 22 Nov 2026",
   },
@@ -160,7 +183,7 @@ const jobListingBase = [
     status: "Open" as const,
     title: "Microbiology Specialist",
     location: "Depok, West Java",
-    category: "Quality Assurance",
+    category: "Quality",
     experienceLevel: "Senior",
     applyDeadline: "Apply by 8 Sep 2026",
   },
@@ -170,7 +193,7 @@ const jobListingBase = [
     status: "Open" as const,
     title: "Validation Engineer",
     location: "Cikarang, West Java",
-    category: "Engineering",
+    category: "EPCV",
     experienceLevel: "Mid-Level",
     applyDeadline: "Apply by 14 Oct 2026",
   },
@@ -180,7 +203,7 @@ const jobListingBase = [
     status: "Open" as const,
     title: "Talent Development Partner",
     location: "Jakarta",
-    category: "Human Resources",
+    category: "Corporate Support",
     experienceLevel: "Mid-Level",
     applyDeadline: "Apply by 2 Dec 2026",
   },
@@ -200,7 +223,7 @@ const jobListingBase = [
     status: "Open" as const,
     title: "Environment, Health & Safety Officer",
     location: "Cikarang, West Java",
-    category: "Operations",
+    category: "Manufacturing Support",
     experienceLevel: "Mid-Level",
     applyDeadline: "Apply by 19 Nov 2026",
   },
@@ -210,7 +233,7 @@ const jobListingBase = [
     status: "Open" as const,
     title: "Automation Engineer",
     location: "Cikarang, West Java",
-    category: "Engineering",
+    category: "Manufacturing Support",
     experienceLevel: "Senior",
     applyDeadline: "Apply by 6 Jan 2027",
   },
@@ -220,7 +243,7 @@ const jobListingBase = [
     status: "Open" as const,
     title: "Medical Affairs Associate",
     location: "Depok, West Java",
-    category: "Commercial",
+    category: "Sales & Marketing",
     experienceLevel: "Entry-Level",
     applyDeadline: "Apply by 11 Dec 2026",
   },
@@ -230,7 +253,7 @@ const jobListingBase = [
     status: "Closed" as const,
     title: "Warehouse Team Lead",
     location: "Cikarang, West Java",
-    category: "Operations",
+    category: "Supply Chain Management (SCM)",
     experienceLevel: "Senior",
     applyDeadline: "Applications closed",
   },
@@ -250,7 +273,7 @@ const jobListingBase = [
     status: "Open" as const,
     title: "IT Systems Analyst",
     location: "Jakarta",
-    category: "Information Technology",
+    category: "Corporate Support",
     experienceLevel: "Mid-Level",
     applyDeadline: "Apply by 9 Jan 2027",
   },
@@ -260,7 +283,7 @@ const jobListingBase = [
     status: "Closing Soon" as const,
     title: "GMP Training Specialist",
     location: "Cikarang, West Java",
-    category: "Quality Assurance",
+    category: "Quality",
     experienceLevel: "Senior",
     applyDeadline: "Apply by 30 Jun 2026",
   },

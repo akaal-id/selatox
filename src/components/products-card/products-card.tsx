@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import type { Product } from "@/constants/products";
+import { PRIMARY_PRODUCT_SLUG, type Product } from "@/constants/products";
 import { Button } from "@/components/ui/Button";
 import styles from "./products-card.module.css";
 
@@ -36,7 +36,7 @@ export function ProductsCard({ product }: ProductsCardProps) {
             variant="simple"
             color="var(--green-100)"
             showIcon
-            onClick={() => router.push(`/products/${product.slug}`)}
+            onClick={() => router.push(`/products/${PRIMARY_PRODUCT_SLUG}`)}
           >
            Product Details
           </Button>

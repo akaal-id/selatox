@@ -13,10 +13,11 @@ const navLinks = [{ href: "/news", label: "News" }];
 const aboutDropdownLinks = [
   { href: "/about", label: "About Selatox" },
   { href: "/our-business", label: "Our Business" },
+  { href: "/ethics", label: "Ethics" },
 ];
 
 const careersDropdownLinks = [
-  { href: "/culture", label: "Selatox Culture" },
+  { href: "/career-journey", label: "Career Journey" },
   { href: "/opportunities", label: "Opportunities" },
 ];
 
