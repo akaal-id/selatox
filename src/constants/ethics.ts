@@ -55,7 +55,7 @@ export const ethicsLeadership = {
   heading: "Leading with Integrity",
   message:
     "At Selatox, we believe that scientific innovation and business success must be accompanied by strong ethical principles. As we continue to expand our global presence, we remain committed to conducting our business responsibly, transparently, and in full compliance with applicable laws and regulations. Our commitment extends beyond compliance—it reflects our responsibility to patients, healthcare professionals, partners, employees, and communities worldwide. We encourage all employees and stakeholders to speak up when they encounter concerns and to actively contribute to a culture built on trust, accountability, and mutual respect. By upholding these values, we will continue to strengthen Selatox as a trusted global biopharmaceutical company.",
-  name: "Joh younghoon",
+  name: "Joh Younghoon",
   title: "PT Selatox Bio Pharma",
   portrait: "/images/placeholder.jpg",
 } as const;
@@ -133,19 +133,63 @@ export const ethicsHotline = {
   formIntro:
     "Reports can be submitted directly through the online form below. All submissions will be delivered confidentially to the designated Ethics & Compliance contact.",
   submitLabel: "Submit Report",
+  submittingLabel: "Submitting report...",
+  submittingWithDocumentLabel: "Uploading document and submitting report...",
+  submitErrorMessage:
+    "Something went wrong while submitting your report. Please check your connection and try again.",
+  documentHint: "PDF, Word, Excel, or image files, max 20MB",
   successTitle: "Report Received",
   successMessage:
     "Thank you for speaking up. Your submission has been received and will be reviewed confidentially by our Ethics & Compliance team.",
+  refillFormLabel: "Submit another report",
+  anonymousSubmissionValue: "anonymous",
+  anonymousCheckboxHint:
+    "If checked, your name and email will be submitted as anonymous.",
   maxDescriptionChars: 2000,
-  acceptedDocumentExtensions: [".pdf", ".doc", ".docx", ".jpg", ".jpeg", ".png"] as const,
+  acceptedDocumentExtensions: [".pdf", ".doc", ".docx", ".xlsx", ".jpg", ".jpeg", ".png"] as const,
   acceptedDocumentTypes: [
     "application/pdf",
     "application/msword",
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     "image/jpeg",
     "image/png",
   ] as const,
-  maxDocumentBytes: 5 * 1024 * 1024,
+  maxDocumentBytes: 20 * 1024 * 1024,
+} as const;
+
+export const ethicsValues = [
+  {
+    id: "integrity",
+    title: "Integrity",
+    description: "We do what is right, even when no one is watching.",
+  },
+  {
+    id: "transparency",
+    title: "Transparency",
+    description: "We communicate openly and conduct business honestly.",
+  },
+  {
+    id: "accountability",
+    title: "Accountability",
+    description: "We take responsibility for our actions and decisions.",
+  },
+  {
+    id: "respect",
+    title: "Respect",
+    description: "We value people, diversity, and professional conduct.",
+  },
+  {
+    id: "trust",
+    title: "Trust",
+    description:
+      "We build lasting relationships through ethical behavior and responsible business practices.",
+  },
+] as const;
+
+export const ethicsValuesSection = {
+  eyebrow: "Our Ethical Values",
+  title: "The values that guide every decision.",
 } as const;
 
 export const ethicsReportTypes = [

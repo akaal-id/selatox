@@ -18,10 +18,9 @@ export default function CareerJourneyPage() {
   return (
     <main>
       <PageHeader
+        eyebrow="Journey"
         title={careerJourneyHero.title}
         subtitle={careerJourneyHero.subtitle}
-        backgroundImage={careerJourneyHero.backgroundImage}
-        backgroundAlt={careerJourneyHero.backgroundAlt}
       />
       <CareerJourneyIntro />
       <WhySelatox />

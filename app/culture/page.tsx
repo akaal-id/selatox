@@ -16,14 +16,13 @@ export default function CulturePage() {
   return (
     <main>
       <PageHeader
+        eyebrow="Culture"
         title={cultureHero.title}
         subtitle={cultureHero.subtitle}
-        backgroundImage={cultureHero.backgroundImage}
-        backgroundAlt={cultureHero.backgroundAlt}
       />
       <CultureIntro />
       <CulturePillars />
-      <CultureGtd />
+      {/* <CultureGtd /> */}
       <CultureCta />
     </main>
   );

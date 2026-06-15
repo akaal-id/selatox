@@ -146,6 +146,17 @@
   font-size: 13px;
 }
 
+@media (max-width: 768px) {
+  .card {
+    min-height: 0;
+    padding: 30px 28px 26px;
+  }
+
+  .title {
+    font-size: clamp(20px, 3vw, 24px);
+  }
+}
+
 @media (max-width: 640px) {
   .card {
     min-height: 0;

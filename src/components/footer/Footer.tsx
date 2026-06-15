@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUp } from "lucide-react";
 import { SelectForm } from "@/components/ui/selectform/selectform";
+import { PRIMARY_PRODUCT_SLUG } from "@/constants/products";
 import footerStyles from "./footer.module.css";
 
 // 1. Corporate Data Object
@@ -19,9 +20,9 @@ const corporateData = {
 const sitemapData = [
     { label: "About", href: "/about", target: "_self" },
     { label: "Our Business", href: "/our-business", target: "_self" },
-    { label: "Products", href: "/products", target: "_self" },
+    { label: "Products", href: `/products/${PRIMARY_PRODUCT_SLUG}`, target: "_self" },
     { label: "Culture", href: "/culture", target: "_self" },
-    { label: "Career", href: "/opportunities", target: "_self" },
+    { label: "Career", href: "/openings", target: "_self" },
     { label: "News", href: "/news", target: "_self" },
 ];
 
@@ -120,7 +121,7 @@ export const Footer = () => {
                                     href: site.href,
                                     target: site.target as "_blank" | "_self",
                                 }))}
-                                variant="pill"
+                                variant="footer"
                             />
                         </div>
 

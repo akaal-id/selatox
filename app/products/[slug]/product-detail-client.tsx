@@ -103,7 +103,12 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                       style={{ animationDelay: `${0.45 + i * 0.08}s` }}
                     >
                       <span className={styles.specLabel}>{spec.label}</span>
-                      <span className={styles.specValue}>{spec.value}</span>
+                      <span className={styles.specValue}>
+                        {spec.value}
+                        {spec.note && (
+                          <span className={styles.specNote}>{spec.note}</span>
+                        )}
+                      </span>
                     </li>
                   ))}
                 </ul>

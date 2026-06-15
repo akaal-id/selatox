@@ -13,7 +13,7 @@ export const aboutBrandIntro = {
 
 export const aboutExecutive = {
   eyebrow: "Leadership",
-  name: "Joh Young hoon",
+  name: "Joh Younghoon",
   title: "Chief Executive Officer",
   message:
     "At Selatox, our commitment goes beyond manufacturing; it is about establishing a sustainable, world-class bio-ecosystem in Indonesia. Through strategic partnerships, rigorous talent discovery, and an unwavering adherence to quality, we are not just entering the global market—we are preparing to lead it.",
@@ -61,11 +61,13 @@ export const aboutValues = {
 } as const;
 
 export const aboutRoadmap = {
-  title: "Strategy & Milestones",
+  historyTitle: "Company History",
+  milestonesTitle: "Milestones",
   milestones: [
     {
-      year: "2022",
-      title: "Establishment",
+      year: "2023",
+      title: "Establishment of Selatox",
+      section: "history" as const,
       status: "completed" as const,
       image: "/images/selatox-hero.webp",
       items: [
@@ -76,8 +78,9 @@ export const aboutRoadmap = {
       ],
     },
     {
-      year: "2023",
-      title: "Facility Foundation",
+      year: "2024",
+      title: "Completion of the Cikarang Manufacturing Facility",
+      section: "history" as const,
       status: "completed" as const,
       image: "/images/intro.webp",
       items: [
@@ -89,18 +92,6 @@ export const aboutRoadmap = {
           month: "April",
           text: "Main construction",
         },
-      ],
-    },
-    {
-      year: "2024",
-      title: "Facility Completion",
-      status: "completed" as const,
-      image: "/images/selatox-hero-2.webp",
-      items: [
-        {
-          month: "November",
-          text: "Technology development contract (w/ Daewoong)",
-        },
         {
           month: "December",
           text: "Construction completion (SLF application)",
@@ -108,8 +99,22 @@ export const aboutRoadmap = {
       ],
     },
     {
+      year: "2025",
+      title: "Execution of Global Botulinum Toxin Technology Transfer Agreement",
+      section: "history" as const,
+      status: "completed" as const,
+      image: "/images/selatox-hero-2.webp",
+      items: [
+        {
+          month: "November",
+          text: "Technology development contract",
+        },
+      ],
+    },
+    {
       year: "2026",
-      title: "GMP & Clinical Approval",
+      title: "GMP Approval",
+      section: "history" as const,
       status: "active" as const,
       image: "/images/product.webp",
       items: [
@@ -124,6 +129,7 @@ export const aboutRoadmap = {
     {
       year: "2028",
       title: "Domestic Launch",
+      section: "milestone" as const,
       status: "upcoming" as const,
       image: "/images/hero-1.webp",
       items: [
@@ -138,6 +144,7 @@ export const aboutRoadmap = {
     {
       year: "2030",
       title: "Global Scaling",
+      section: "milestone" as const,
       status: "vision" as const,
       image: "/images/hero-4.webp",
       items: [

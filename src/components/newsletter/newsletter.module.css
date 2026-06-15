@@ -4,7 +4,7 @@
 }
 
 .folioWrapper {
-    max-width: 1440px;
+    max-width: var(--section-max-width);
     margin: 0 auto;
     background-color: var(--neutral-0);
     border: 1px solid var(--neutral-40);
@@ -132,6 +132,14 @@
     .rightPanel {
         border-left: none;
         border-top: 1px solid var(--neutral-40);
+    }
+
+    .headline {
+        font-size: clamp(32px, 5vw, 42px);
+    }
+
+    .input {
+        font-size: clamp(22px, 3.5vw, 32px);
     }
 }
 

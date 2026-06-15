@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/pageheader/PageHeader";
 import { Vision } from "./vision/vision";
+import { Manufacturing } from "./manufacturing/manufacturing";
 import { Research } from "./research/research";
 import { OurBusinessFacilities } from "./facilities/facilities";
-import { Partners } from "./partners/partners";
 
 export const metadata: Metadata = {
   title: "Our Business | Selatox",
@@ -15,15 +15,15 @@ export default function OurBusinessPage() {
   return (
     <main>
       <PageHeader
+        eyebrow="Our Business"
         title="Where advanced research meets global partnership"
         subtitle="Pioneering Botulinum Toxin Specialization & Research."
-        backgroundImage="/images/hero-2.webp"
-        backgroundAlt="Selatox Manufacturing Facility"
       />
       <Vision />
+      <Manufacturing />
       <Research />
       {/* <OurBusinessFacilities /> */}
-      <Partners />
+      {/* <Partners /> */}
     </main>
   );
 }

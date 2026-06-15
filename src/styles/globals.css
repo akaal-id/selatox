@@ -127,6 +127,14 @@
   --section-px: 24px;
   --section-py: 80px;
 
+  /*
+   * Responsive breakpoints (reference tokens — use literal values in @media).
+   * Convention: mobile-first base (320–639), then min-width: 640 | 768 | 1024.
+   */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+
   /* Background gradients */
   --bg-gradient-1: linear-gradient(
     135deg,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import styles from "./brand-intro.module.css";
+import styles from "../../home/introsection/introsection.module.css";
 
 export function BrandIntro() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -35,13 +35,11 @@ export function BrandIntro() {
 
         <h2 className={styles.headline}>
           Established in September 2022, PT. Selatox Bio Pharma is Indonesia&rsquo;s first specialized
-          botulinum toxin manufacturer and research center. We were founded with a clear vision: <em className={styles.highlightGreen}>to
-          elevate the standard of global aesthetics through safe, ethical, and advanced science.</em> By
-          combining state-of-the-art research in Depok with world-class manufacturing in Cikarang, we
-          control every step of the creation process. Our pioneering Halal-certified pipeline ensures
-          that every product we make is backed by uncompromising purity and transparency. Today, Selatox is not just creating premium aesthetic solutions for Indonesia,
-          <em className={styles.highlightGreen}> but building a trusted
-          foundation for beauty and wellness across more than 40 countries worldwide.</em>
+          botulinum toxin manufacturer and research center. By uniting research in Depok with GMP
+          manufacturing in Cikarang, we uphold{" "}
+          <em className={styles.highlightGreen}>uncompromising purity and transparency</em> at every
+          stage. Our Halal-certified solutions are trusted by partners in{" "}
+          <em className={styles.highlightGreen}>more than 40 countries worldwide</em>.
         </h2>
       </div>
     </section>

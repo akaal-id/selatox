@@ -83,9 +83,9 @@ export function JobDetail({ job }: JobDetailProps) {
         aria-labelledby="job-title"
       >
         <div className={styles.heroInner}>
-          <Link href="/opportunities" className={styles.backLink}>
+          <Link href="/openings" className={styles.backLink}>
             <ChevronLeft size={16} strokeWidth={1.5} aria-hidden />
-            Back to Opportunities
+            Back to Openings
           </Link>
 
           <div className={styles.heroHead}>
@@ -197,10 +197,10 @@ export function JobDetail({ job }: JobDetailProps) {
                 key={opening.id}
                 job={opening}
                 onViewDetails={() =>
-                  router.push(`/opportunities/${opening.slug}`)
+                  router.push(`/openings/${opening.slug}`)
                 }
                 onApply={() =>
-                  router.push(`/opportunities/${opening.slug}#apply`)
+                  router.push(`/openings/${opening.slug}#apply`)
                 }
               />
             ))}
@@ -212,9 +212,9 @@ export function JobDetail({ job }: JobDetailProps) {
               showIcon
               color="var(--green-100)"
               className={styles.applyListingsLink}
-              onClick={() => router.push("/opportunities")}
+              onClick={() => router.push("/openings")}
             >
-              Back to Opportunities
+              Back to Openings
             </Button>
           </div>
         </section>

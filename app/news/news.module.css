@@ -291,7 +291,7 @@
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
   .toolbar {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -306,7 +306,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .newsGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

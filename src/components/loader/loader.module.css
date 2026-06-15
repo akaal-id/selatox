@@ -74,3 +74,26 @@
     transform: translateX(320%);
   }
 }
+
+@media (max-width: 640px) {
+  .logoWrap {
+    width: 48px;
+    height: 48px;
+  }
+
+  .logo {
+    width: 20px;
+    height: 20px;
+  }
+
+  .overlay {
+    gap: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoWrap,
+  .bar {
+    animation: none;
+  }
+}

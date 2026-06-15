@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import styles from "./business.module.css";
+import styles from "../../../src/components/pageheader/pageheader.module.css";
 
 const ease: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
 
@@ -23,7 +23,7 @@ export function Business() {
       data-navbar="negative"
     >
       <div className={styles.background} aria-hidden>
-        <div className={styles.backgroundInner}>
+        <div className="relative h-full w-full">
           <Image
             src="/images/hero-4.webp"
             alt=""

@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import styles from "./pageheader.module.css";
 
 export type PageHeaderProps = {
+  eyebrow: string;
   title: string;
   subtitle?: string;
   lead?: string;
@@ -15,6 +16,7 @@ export type PageHeaderProps = {
 };
 
 export function PageHeader({
+  eyebrow,
   title,
   subtitle,
   lead,
@@ -40,7 +42,7 @@ export function PageHeader({
       className={styles.section}
       data-navbar="negative"
     >
-      {backgroundImage && (
+      {backgroundImage ? (
         <div className={styles.background} aria-hidden>
           <motion.div style={{ y: imageY }} className="relative h-full w-full">
             <Image
@@ -52,6 +54,10 @@ export function PageHeader({
               className={styles.backgroundImage}
             />
           </motion.div>
+        </div>
+      ) : (
+        <div className={styles.gradientBackground} aria-hidden>
+          <div className={styles.gradientGlow} />
         </div>
       )}
 
@@ -81,6 +87,14 @@ export function PageHeader({
       >
         <div className={styles.container}>
           <div className={styles.titleWrap}>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className={styles.eyebrow}
+            >
+              {eyebrow}
+            </motion.p>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

@@ -190,6 +190,12 @@ export const talentNetwork = {
   subtitle:
     "Register your profile and we'll reach out when a fitting role opens up.",
   submitLabel: "Submit My Profile",
+  submittingLabel: "Submitting profile...",
+  submittingWithResumeLabel: "Uploading resume and submitting profile...",
+  submitErrorMessage:
+    "Something went wrong while submitting your profile. Please check your connection and try again.",
+  resumeHint: "PDF or Word, max 5MB",
+  refillFormLabel: "Submit another profile",
   successTitle: "Profile submitted",
   successMessage:
     "Thank you for registering. Our talent team will review your profile and contact you when a matching opportunity opens.",
@@ -203,12 +209,28 @@ export const talentNetwork = {
   acceptedResumeExtensions: [".pdf", ".doc", ".docx"],
 } as const;
 
+export const talentNetworkGoogleForm = {
+  actionUrl:
+    "https://docs.google.com/forms/d/e/1FAIpQLSfLxBIbGC8XeFi6pcIgfhSphA0JK_B446HcFP-_jgxXgKaImg/formResponse",
+  entryIds: {
+    fullName: "entry.606296478",
+    email: "entry.1107662153",
+    phone: "entry.282330640",
+    nationality: "entry.1823151433",
+    areaOfInterest: "entry.504950594",
+    yearsOfExperience: "entry.950828144",
+    resume: "entry.1574354302",
+    linkedIn: "entry.1738982222",
+    message: "entry.1123237604",
+  },
+} as const;
+
 export type TalentNetworkFormData = {
   fullName: string;
   email: string;
   phone: string;
   nationality: string;
-  areasOfInterest: TalentNetworkArea[];
+  areaOfInterest: TalentNetworkArea | "";
   yearsOfExperience: TalentNetworkExperience | "";
   resume: File | null;
   linkedIn: string;

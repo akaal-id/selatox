@@ -90,7 +90,7 @@
   color: var(--neutral-130);
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1024px) {
   .toolbar {
     grid-template-columns: 1fr;
   }

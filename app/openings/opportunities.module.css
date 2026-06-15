@@ -241,6 +241,12 @@
   user-select: none;
 }
 
+@media (max-width: 768px) {
+  .paginationNav {
+    min-width: 0;
+  }
+}
+
 @media (max-width: 640px) {
   .paginationBar {
     flex-direction: column;
@@ -278,7 +284,7 @@
   color: var(--neutral-120);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
   .toolbar {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -293,7 +299,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .jobGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

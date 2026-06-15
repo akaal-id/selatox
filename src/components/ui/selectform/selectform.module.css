@@ -148,7 +148,13 @@
 }
 
 .pill .trigger {
-  min-width: 210px;
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .pill .trigger {
+    min-width: 210px;
+  }
 }
 
 /* Footer — family site */

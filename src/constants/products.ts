@@ -20,28 +20,30 @@ export type Product = {
   imageSrc: string;
   imageAlt: string;
   category: ProductCategory;
-  specs: Array<{ label: string; value: string }>;
+  specs: Array<{ label: string; value: string; note?: string }>;
 };
 
 export const products: Product[] = [
   {
     slug: PRIMARY_PRODUCT_SLUG,
-    title: "Botulinum Toxin Type A",
+    title: "SELATOXIN",
     brand: "Selatox",
     shortDescription:
       "A high-purity formulation engineered through advanced biotechnology.",
     description:
       "Designed to deliver natural, precise, and highly reliable aesthetic outcomes for global practitioners through pharmaceutical-grade process control.",
-    imageSrc: "/images/product.webp",
-    imageAlt: "SELATOX 100 Units Botulinum Toxin Type A vial",
+    imageSrc: "/images/products/selatoxin.png",
+    imageAlt: "SELATOXIN 100 Units Botulinum Toxin Type A vial",
     category: "Prescription Medicines",
     specs: [
-      { label: "Strain", value: "Hall A Hyper" },
-      { label: "Formulation", value: "Freeze-dried white powder" },
+      { label: "Active Ingredient", value: "Botulinum Toxin Type A" },
+      { label: "Strength", value: "100 Units" },
+      { label: "Presentation", value: "Lyophilized Powder" },
+      { label: "Category", value: "Prescription Medicines" },
       {
         label: "Indication",
-        value:
-          "Temporary improvement in the appearance of moderate to severe lines.",
+        value: "Moderate to Severe Glabellar Lines",
+        note: "Approval status may vary by product and by country/regulatory authority.",
       },
     ],
   },

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import styles from "./vision.module.css";
+import styles from "../../home/introsection/introsection.module.css";
 
 export function Vision() {
   const sectionRef = useRef<HTMLElement>(null);

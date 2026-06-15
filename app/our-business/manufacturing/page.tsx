@@ -15,11 +15,10 @@ export default function ManufacturingPage() {
   return (
     <main>
       <PageHeader
+        eyebrow="Manufacturing"
         title="Engineered for Global Scale"
         subtitle="World-class biopharmaceutical manufacturing."
         lead="Located in Cikarang, our expansive facility represents the pinnacle of modern production. As Indonesia’s first specialized botulinum toxin manufacturer, we combine state-of-the-art automation with uncompromising quality controls to deliver premium aesthetic solutions to the world."
-        backgroundImage="/images/hero-2.webp"
-        backgroundAlt="Selatox manufacturing operations in Cikarang"
       />
       <ManufacturingScale />
       <ManufacturingProcess />

@@ -267,10 +267,10 @@ export function OpportunitiesBrowser() {
                   <JobCard
                     job={job}
                     onViewDetails={() =>
-                      router.push(`/opportunities/${job.slug}`)
+                      router.push(`/openings/${job.slug}`)
                     }
                     onApply={() =>
-                      router.push(`/opportunities/${job.slug}#apply`)
+                      router.push(`/openings/${job.slug}#apply`)
                     }
                   />
                 </li>

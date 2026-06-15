@@ -75,9 +75,9 @@ export function OpenPositions() {
             >
               <JobCard
                 job={job}
-                onViewDetails={() => router.push(`/opportunities/${job.slug}`)}
+                onViewDetails={() => router.push(`/openings/${job.slug}`)}
                 onApply={() =>
-                  router.push(`/opportunities/${job.slug}#apply`)
+                  router.push(`/openings/${job.slug}#apply`)
                 }
               />
             </li>
@@ -90,7 +90,7 @@ export function OpenPositions() {
             showIcon
             backgroundColor="var(--blue-100)"
             color="var(--neutral-0)"
-            onClick={() => router.push("/opportunities")}
+            onClick={() => router.push("/openings")}
           >
             {openPositionsSection.moreLabel}
           </Button>

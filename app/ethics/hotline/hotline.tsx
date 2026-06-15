@@ -1,24 +1,16 @@
 "use client";
 
 import {
-  AlertTriangle,
-  BriefcaseBusiness,
-  CalendarDays,
   CheckCircle2,
+  ChevronDown,
   EyeOff,
-  FileText,
   Lock,
-  MapPin,
-  MessageSquareWarning,
-  Paperclip,
-  Shield,
   ShieldCheck,
-  User,
-  Workflow,
   type LucideIcon,
 } from "lucide-react";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { Button } from "@/components/ui/Button";
+import { DateForm } from "@/components/ui/dateform/dateform";
 import { SelectForm } from "@/components/ui/selectform/selectform";
 import {
   ethicsHotline,
@@ -26,6 +18,7 @@ import {
   type EthicsReportFormData,
   type EthicsReportType,
 } from "@/constants/ethics";
+import { submitEthicsReport } from "@/lib/submit-ethics-report";
 import styles from "./hotline.module.css";
 
 const INITIAL_FORM: EthicsReportFormData = {
@@ -41,34 +34,6 @@ const INITIAL_FORM: EthicsReportFormData = {
 };
 
 type FormErrors = Partial<Record<keyof EthicsReportFormData | "supportingDocument", string>>;
-
-const REPORTABLE_ICONS: Record<
-  (typeof ethicsHotline.reportableItems)[number]["id"],
-  LucideIcon
-> = {
-  "business-ethics": BriefcaseBusiness,
-  corruption: AlertTriangle,
-  workplace: MessageSquareWarning,
-  "information-security": Lock,
-  compliance: Shield,
-};
-
-const PROTECTION_ICONS: Record<
-  (typeof ethicsHotline.protectionCards)[number]["id"],
-  LucideIcon
-> = {
-  confidentiality: Lock,
-  retaliation: ShieldCheck,
-};
-
-const GUIDELINE_META: ReadonlyArray<{ label: string; icon: LucideIcon }> = [
-  { label: "Who", icon: User },
-  { label: "What", icon: FileText },
-  { label: "When", icon: CalendarDays },
-  { label: "Where", icon: MapPin },
-  { label: "How", icon: Workflow },
-  { label: "Evidence", icon: Paperclip },
-];
 
 const TRUST_CHIPS: ReadonlyArray<{ label: string; icon: LucideIcon }> = [
   { label: "Strict confidentiality", icon: Lock },
@@ -114,13 +79,64 @@ function validateForm(data: EthicsReportFormData): FormErrors {
       );
 
     if (!validType) {
-      errors.supportingDocument = "Upload a PDF, Word document, or image file.";
+      errors.supportingDocument = "Upload a PDF, Word, Excel, or image file.";
     } else if (data.supportingDocument.size > ethicsHotline.maxDocumentBytes) {
-      errors.supportingDocument = "File must be 5MB or smaller.";
+      errors.supportingDocument = "File must be 20MB or smaller.";
     }
   }
 
   return errors;
+}
+
+type AccordionSectionProps = {
+  id: string;
+  index: string;
+  title: string;
+  children: ReactNode;
+  defaultOpen?: boolean;
+};
+
+function AccordionSection({
+  id,
+  index,
+  title,
+  children,
+  defaultOpen = false,
+}: AccordionSectionProps) {
+  const [open, setOpen] = useState(defaultOpen);
+  const panelId = `hotline-panel-${id}`;
+  const buttonId = `hotline-trigger-${id}`;
+
+  return (
+    <div
+      className={`${styles.accordionItem} ${open ? styles.accordionItemOpen : ""}`.trim()}
+    >
+      <button
+        id={buttonId}
+        type="button"
+        className={styles.accordionTrigger}
+        aria-expanded={open}
+        aria-controls={panelId}
+        onClick={() => setOpen((prev) => !prev)}
+      >
+        <span className={styles.accordionIndex}>{index}</span>
+        <span className={styles.accordionTitle}>{title}</span>
+        <span className={styles.accordionToggle} aria-hidden>
+          <ChevronDown size={18} strokeWidth={1.75} className={styles.accordionIcon} />
+        </span>
+      </button>
+      <div
+        id={panelId}
+        role="region"
+        aria-labelledby={buttonId}
+        className={styles.accordionPanel}
+      >
+        <div className={styles.accordionPanelInner}>
+          <div className={styles.accordionContent}>{children}</div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export function EthicsHotline() {
@@ -129,6 +145,10 @@ export function EthicsHotline() {
   const [form, setForm] = useState<EthicsReportFormData>(INITIAL_FORM);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [fileInputKey, setFileInputKey] = useState(0);
+  const maxIncidentDate = useMemo(() => new Date().toISOString().slice(0, 10), []);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -156,21 +176,33 @@ export function EthicsHotline() {
     });
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const nextErrors = validateForm(form);
     if (Object.keys(nextErrors).length > 0) {
       setErrors(nextErrors);
       return;
     }
-    setSubmitted(true);
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      await submitEthicsReport(form);
+      setSubmitted(true);
+    } catch {
+      setSubmitError(ethicsHotline.submitErrorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const scrollToForm = () => {
-    document.getElementById("submit-report")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+  const handleRefillForm = () => {
+    setForm(INITIAL_FORM);
+    setSubmitted(false);
+    setSubmitError(null);
+    setErrors({});
+    setFileInputKey((prev) => prev + 1);
   };
 
   return (
@@ -183,25 +215,12 @@ export function EthicsHotline() {
     >
       <div className={styles.container}>
         <div className={styles.banner}>
-          <span className={styles.bannerGlow} aria-hidden />
           <header className={styles.bannerContent}>
             <p className={styles.eyebrow}>{ethicsHotline.eyebrow}</p>
             <h2 id="ethics-hotline-heading" className={styles.title}>
               {ethicsHotline.title}
             </h2>
             <p className={styles.intro}>{ethicsHotline.intro}</p>
-            <div className={styles.bannerActions}>
-              <Button
-                type="button"
-                variant="primary"
-                backgroundColor="var(--blue-120)"
-                color="var(--neutral-0)"
-                showIcon
-                onClick={scrollToForm}
-              >
-                {ethicsHotline.ctaLabel}
-              </Button>
-            </div>
             <ul className={styles.trustChips}>
               {TRUST_CHIPS.map(({ label, icon: Icon }) => (
                 <li key={label} className={styles.trustChip}>
@@ -218,102 +237,68 @@ export function EthicsHotline() {
           </div>
         </div>
 
-        <div className={styles.subsection}>
-          <div className={styles.subsectionHead}>
-            <span className={styles.subEyebrow}>01 — Scope</span>
-            <h3 className={styles.subsectionTitle}>{ethicsHotline.reportableTitle}</h3>
-          </div>
-          <ul className={styles.reportableGrid}>
-            {ethicsHotline.reportableItems.map((item, index) => {
-              const Icon = REPORTABLE_ICONS[item.id];
-
-              return (
-                <li
-                  key={item.id}
-                  className={styles.reportableCard}
-                  style={{ ["--delay" as string]: `${0.15 + index * 0.08}s` }}
-                >
-                  <div className={styles.reportableTop}>
-                    <span className={styles.reportableIcon} aria-hidden>
-                      <Icon size={20} strokeWidth={1.5} />
-                    </span>
-                    <span className={styles.reportableIndex} aria-hidden>
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
+        <div className={styles.infoPanel}>
+          <AccordionSection
+            id="reportable"
+            index="01"
+            title={ethicsHotline.reportableTitle}
+            defaultOpen
+          >
+            <ul className={styles.contentList}>
+              {ethicsHotline.reportableItems.map((item, itemIndex) => (
+                <li key={item.id} className={styles.contentItem}>
+                  <span className={styles.contentItemIndex} aria-hidden>
+                    {String(itemIndex + 1).padStart(2, "0")}
+                  </span>
+                  <div className={styles.contentItemBodyWrap}>
+                    <h4 className={styles.contentItemTitle}>{item.title}</h4>
+                    <p className={styles.contentItemText}>{item.description}</p>
                   </div>
-                  <h4 className={styles.reportableTitle}>{item.title}</h4>
-                  <p className={styles.reportableBody}>{item.description}</p>
                 </li>
-              );
-            })}
-          </ul>
-        </div>
+              ))}
+            </ul>
+          </AccordionSection>
 
-        <div className={styles.subsection}>
-          <div className={styles.subsectionHead}>
-            <span className={styles.subEyebrow}>02 — Safeguards</span>
-            <h3 className={styles.subsectionTitle}>{ethicsHotline.protectionTitle}</h3>
-            <p className={styles.subsectionIntro}>{ethicsHotline.protectionIntro}</p>
-          </div>
-          <div className={styles.protectionGrid}>
-            {ethicsHotline.protectionCards.map((card) => {
-              const Icon = PROTECTION_ICONS[card.id];
-
-              return (
-                <article key={card.id} className={styles.protectionCard}>
-                  <span className={styles.protectionIcon} aria-hidden>
-                    <Icon size={22} strokeWidth={1.5} />
-                  </span>
-                  <h4 className={styles.protectionTitle}>{card.title}</h4>
-                  <p className={styles.protectionBody}>{card.description}</p>
+          <AccordionSection
+            id="protection"
+            index="02"
+            title={ethicsHotline.protectionTitle}
+          >
+            <p className={styles.contentIntro}>{ethicsHotline.protectionIntro}</p>
+            <div className={styles.contentGrid}>
+              {ethicsHotline.protectionCards.map((card) => (
+                <article key={card.id} className={styles.contentCard}>
+                  <h4 className={styles.contentCardTitle}>{card.title}</h4>
+                  <p className={styles.contentCardText}>{card.description}</p>
                 </article>
-              );
-            })}
-          </div>
-        </div>
+              ))}
+            </div>
+          </AccordionSection>
 
-        <div className={styles.subsection}>
-          <div className={styles.subsectionHead}>
-            <span className={styles.subEyebrow}>03 — How to report</span>
-            <h3 className={styles.subsectionTitle}>{ethicsHotline.guidelinesTitle}</h3>
-            <p className={styles.subsectionIntro}>{ethicsHotline.guidelinesIntro}</p>
-          </div>
-          <ul className={styles.guidelinesGrid}>
-            {ethicsHotline.guidelines.map((item, index) => {
-              const meta = GUIDELINE_META[index] ?? GUIDELINE_META[0];
-              const Icon = meta.icon;
-
-              return (
-                <li key={item} className={styles.guidelineCard}>
-                  <span className={styles.guidelineIcon} aria-hidden>
-                    <Icon size={18} strokeWidth={1.5} />
+          <AccordionSection
+            id="guidelines"
+            index="03"
+            title={ethicsHotline.guidelinesTitle}
+          >
+            <p className={styles.contentIntro}>{ethicsHotline.guidelinesIntro}</p>
+            <ul className={styles.guidelineList}>
+              {ethicsHotline.guidelines.map((item, itemIndex) => (
+                <li key={item} className={styles.guidelineItem}>
+                  <span className={styles.guidelineStep} aria-hidden>
+                    {String(itemIndex + 1).padStart(2, "0")}
                   </span>
-                  <span className={styles.guidelineLabel}>{meta.label}</span>
                   <span className={styles.guidelineText}>{item}</span>
                 </li>
-              );
-            })}
-          </ul>
-          <p className={styles.guidelinesNote}>{ethicsHotline.guidelinesNote}</p>
+              ))}
+            </ul>
+            <p className={styles.contentNote}>{ethicsHotline.guidelinesNote}</p>
+          </AccordionSection>
         </div>
 
         <div id="submit-report" className={styles.formSection}>
-          <header className={styles.formHeader}>
-            <h3 className={styles.formTitle}>{ethicsHotline.formTitle}</h3>
-            <p className={styles.formIntro}>{ethicsHotline.formIntro}</p>
-          </header>
-
           <div className={styles.formShell}>
-            {submitted ? (
-              <div className={styles.success} role="status">
-                <span className={styles.successIcon} aria-hidden>
-                  <CheckCircle2 size={32} strokeWidth={1.5} />
-                </span>
-                <h4 className={styles.successTitle}>{ethicsHotline.successTitle}</h4>
-                <p className={styles.successMessage}>{ethicsHotline.successMessage}</p>
-              </div>
-            ) : (
-              <form className={styles.form} onSubmit={handleSubmit} noValidate>
+            <h3 className={styles.formShellTitle}>{ethicsHotline.formTitle}</h3>
+            <form className={styles.form} onSubmit={handleSubmit} noValidate>
                 <div className={styles.field}>
                   <SelectForm
                     id="ethics-report-type"
@@ -373,17 +358,16 @@ export function EthicsHotline() {
 
                 <div className={styles.fieldRow}>
                   <div className={styles.field}>
-                    <label className={styles.label} htmlFor="ethics-incident-date">
-                      Date of Incident
-                    </label>
-                    <input
+                    <DateForm
                       id="ethics-incident-date"
-                      type="date"
-                      className={styles.input}
+                      label="Date of Incident"
                       value={form.incidentDate}
-                      onChange={(e) =>
-                        updateField("incidentDate", e.target.value)
-                      }
+                      onChange={(value) => updateField("incidentDate", value)}
+                      placeholder="Select date"
+                      variant="footer"
+                      className={styles.selectField}
+                      clearable
+                      max={maxIncidentDate}
                     />
                   </div>
 
@@ -412,22 +396,24 @@ export function EthicsHotline() {
                   </label>
                   <input
                     id="ethics-document"
+                    key={fileInputKey}
                     type="file"
                     className={styles.fileInput}
-                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/png"
+                    accept=".pdf,.doc,.docx,.xlsx,.jpg,.jpeg,.png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,image/jpeg,image/png"
                     onChange={(e) =>
                       updateField("supportingDocument", e.target.files?.[0] ?? null)
                     }
                   />
-                  <p className={styles.hint}>PDF, Word, or image files, max 5MB</p>
+                  <p className={styles.hint}>{ethicsHotline.documentHint}</p>
                   {errors.supportingDocument ? (
                     <p className={styles.error}>{errors.supportingDocument}</p>
                   ) : null}
                 </div>
 
-                <fieldset className={styles.reporterFieldset}>
-                  <legend className={styles.fieldsetLegend}>Reporter Information</legend>
-
+                <fieldset
+                  className={styles.reporterFieldset}
+                  aria-label="Reporter information"
+                >
                   <div className={styles.fieldRow}>
                     <div className={styles.field}>
                       <label className={styles.label} htmlFor="ethics-reporter-name">
@@ -438,7 +424,6 @@ export function EthicsHotline() {
                         type="text"
                         className={styles.input}
                         value={form.reporterName}
-                        disabled={form.anonymous}
                         onChange={(e) =>
                           updateField("reporterName", e.target.value)
                         }
@@ -455,7 +440,6 @@ export function EthicsHotline() {
                         type="email"
                         className={styles.input}
                         value={form.reporterEmail}
-                        disabled={form.anonymous}
                         onChange={(e) =>
                           updateField("reporterEmail", e.target.value)
                         }
@@ -470,41 +454,66 @@ export function EthicsHotline() {
                   <label className={styles.checkboxLabel}>
                     <input
                       type="checkbox"
-                      className={styles.checkbox}
+                      className={styles.checkboxInput}
                       checked={form.anonymous}
-                      onChange={(e) => {
-                        const checked = e.target.checked;
-                        setForm((prev) => ({
-                          ...prev,
-                          anonymous: checked,
-                          reporterName: checked ? "" : prev.reporterName,
-                          reporterEmail: checked ? "" : prev.reporterEmail,
-                        }));
-                        setErrors((prev) => {
-                          const next = { ...prev };
-                          delete next.reporterName;
-                          delete next.reporterEmail;
-                          return next;
-                        });
-                      }}
+                      onChange={(e) => updateField("anonymous", e.target.checked)}
                     />
-                    <span>Anonymous Submission</span>
+                    <span className={styles.checkboxMark} aria-hidden />
+                    <span className={styles.checkboxText}>
+                      <span className={styles.checkboxTitle}>Anonymous Submission</span>
+                      <span className={styles.checkboxHint}>
+                        {ethicsHotline.anonymousCheckboxHint}
+                      </span>
+                    </span>
                   </label>
                 </fieldset>
 
                 <div className={styles.submitWrap}>
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    backgroundColor="var(--green-120)"
-                    color="var(--neutral-0)"
-                    showIcon
-                  >
-                    {ethicsHotline.submitLabel}
-                  </Button>
+                  {submitted ? (
+                    <div className={styles.successInline} role="status">
+                      <span className={styles.successIcon} aria-hidden>
+                        <CheckCircle2 size={28} strokeWidth={1.5} />
+                      </span>
+                      <div className={styles.successInlineBody}>
+                        <h4 className={styles.successTitle}>{ethicsHotline.successTitle}</h4>
+                        <p className={styles.successMessage}>{ethicsHotline.successMessage}</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {submitError ? (
+                        <p className={styles.error}>{submitError}</p>
+                      ) : null}
+                      <Button
+                        type="submit"
+                        variant="primary"
+                        backgroundColor="var(--green-120)"
+                        color="var(--neutral-0)"
+                        showIcon
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting
+                          ? form.supportingDocument
+                            ? ethicsHotline.submittingWithDocumentLabel
+                            : ethicsHotline.submittingLabel
+                          : ethicsHotline.submitLabel}
+                      </Button>
+                    </>
+                  )}
                 </div>
+
+                {submitted ? (
+                  <div className={styles.refillWrap}>
+                    <button
+                      type="button"
+                      className={styles.refillButton}
+                      onClick={handleRefillForm}
+                    >
+                      {ethicsHotline.refillFormLabel}
+                    </button>
+                  </div>
+                ) : null}
               </form>
-            )}
           </div>
         </div>
       </div>

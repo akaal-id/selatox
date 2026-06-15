@@ -233,7 +233,7 @@
 .imageWrap {
   position: relative;
   width: 100%;
-  min-height: clamp(360px, 48vw, 640px);
+  min-height: clamp(480px, 48vw, 800px);
   border: 1px solid var(--neutral-60);
   border-radius: 28px;
   overflow: hidden;
@@ -521,11 +521,23 @@
 }
 
 .specValue {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   font-size: 16px;
   font-weight: 400;
   color: var(--neutral-160);
   line-height: 1.65;
   letter-spacing: -0.005em;
+}
+
+.specNote {
+  font-size: 12px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: var(--neutral-120);
 }
 
 /* ═══════════════════════════════════════════════════
@@ -701,7 +713,7 @@
 /* ═══════════════════════════════════════════════════
    Responsive
    ═══════════════════════════════════════════════════ */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .specGrid {
     grid-template-columns: 1fr;
     gap: 48px;
@@ -756,7 +768,9 @@
   }
 
   .otherRow {
-    grid-auto-columns: minmax(285px, 1fr);
+    grid-template-columns: 1fr;
+    overflow-x: visible;
+    grid-auto-columns: unset;
   }
 }
 

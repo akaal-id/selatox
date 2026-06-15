@@ -14,160 +14,73 @@
   padding-right: var(--section-px);
 }
 
-.eyebrow {
-  margin-bottom: 64px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  color: var(--blue-120);
-}
-
-.splitLayout {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 24px;
-}
-
-@media (min-width: 1024px) {
-  .splitLayout {
-    gap: 0;
-  }
-}
-
-.portraitCol {
-  grid-column: span 12 / span 12;
-}
-
-@media (min-width: 1024px) {
-  .portraitCol {
-    grid-column: span 5 / span 5;
-  }
-}
-
-.imageWrapper {
-  position: relative;
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
-  background-color: var(--neutral-40);
-  border: 1px solid var(--neutral-60);
-  border-radius: 8px;
-}
-
-.parallaxImage {
-  position: absolute;
-  inset: -15%;
-}
-
-.imageLabelWrap {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(255, 255, 255, 0.92), transparent);
-  padding: 32px;
-}
-
-.imageLabel {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--neutral-120);
-}
-
-.dividerCol {
-  grid-column: span 12 / span 12;
-  display: none;
-}
-
-@media (min-width: 1024px) {
-  .dividerCol {
-    grid-column: span 1 / span 1;
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
-  }
-}
-
-.dividerLine {
-  width: 1px;
-  transform-origin: top;
-  background-color: var(--neutral-60);
-}
-
-.quoteCol {
-  grid-column: span 12 / span 12;
+.quoteLayout {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-@media (min-width: 1024px) {
-  .quoteCol {
-    grid-column: span 6 / span 6;
-  }
+  flex-direction: row;
+  align-items: flex-start;
+  gap: clamp(12px, 2.5vw, 28px);
+  margin: 0;
+  width: 100%;
+  min-width: 0;
 }
 
 .quoteMark {
-  display: block;
-  font-size: 120px;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.5vw, 72px);
+  line-height: 0.85;
   font-weight: 300;
-  line-height: 1;
-  color: var(--neutral-60);
+  color: var(--blue-100);
+  opacity: 0.4;
 }
 
-@media (min-width: 768px) {
-  .quoteMark {
-    font-size: 160px;
-  }
+.quoteContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(24px, 3vw, 40px);
+  min-width: 0;
 }
 
 .blockquote {
-  margin-top: -64px;
-}
-
-@media (min-width: 768px) {
-  .blockquote {
-    margin-top: -80px;
-  }
+  margin: 0;
+  width: 100%;
 }
 
 .quoteText {
-  font-size: clamp(20px, 2.5vw, 24px);
-  font-weight: 300;
-  line-height: 1.4;
-  letter-spacing: -0.02em;
-  color: var(--neutral-160);
-  text-wrap: pretty;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(14px, 2.2vw, 20px);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  color: var(--neutral-140);
+  text-align: left;
 }
 
-.quoteFooter {
-  margin-top: 48px;
+.identityCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  padding-top: clamp(20px, 2.5vw, 28px);
   border-top: 1px solid var(--neutral-60);
-  padding-top: 32px;
 }
 
 .executiveName {
   font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  color: var(--neutral-160);
-}
-
-@media (min-width: 768px) {
-  .executiveName {
-    font-size: 30px;
-  }
+  font-size: clamp(16px, 1.5vw, 19px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--green-120);
+  line-height: 1.2;
 }
 
 .executiveTitle {
-  margin-top: 8px;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.18em;
@@ -175,20 +88,43 @@
 }
 
 @media (max-width: 640px) {
+  .section {
+    padding-top: 56px;
+    padding-bottom: 56px;
+  }
+
+  .quoteLayout {
+    gap: 10px;
+  }
+
   .quoteMark {
-    font-size: 72px;
+    font-size: clamp(32px, 9vw, 44px);
   }
 
-  .blockquote {
-    margin-top: -40px;
+  .quoteContent {
+    gap: 20px;
   }
 
-  .quoteFooter {
-    margin-top: 32px;
-    padding-top: 24px;
+  .quoteText {
+    font-size: clamp(14px, 3.8vw, 16px);
+    line-height: 1.5;
+  }
+
+  .identityCol {
+    padding-top: 16px;
   }
 
   .executiveName {
-    font-size: 20px;
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: min(var(--section-max-width), 1200px);
+  }
+
+  .quoteText {
+    max-width: 68ch;
   }
 }

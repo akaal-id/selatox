@@ -109,7 +109,7 @@
   color: var(--neutral-140);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
   .metricCard {
     grid-column: span 6;
     min-height: 220px;

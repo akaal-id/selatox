@@ -112,7 +112,7 @@
 
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .nav {
     display: flex;
   }
@@ -196,7 +196,7 @@
 }
 
 .navWrap > .dropdownMenuOpen {
-  max-height: 64px;
+  max-height: 120px;
   padding-block: 17px;
   opacity: 1;
   transform: translateY(0) scale(1);
@@ -320,7 +320,7 @@
   display: none;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .navbar {
     --navbar-pill-padding: 12px;
     z-index: 60;
@@ -444,7 +444,7 @@
   }
 
   .mobileDropdownMenu.dropdownMenuOpen {
-    max-height: 160px;
+    max-height: 240px;
     padding: 0 0 8px 12px;
     opacity: 1;
     transform: translateY(0);
@@ -470,7 +470,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .mobileOverlay {
     display: none !important;
   }
@@ -489,7 +489,7 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .navWrap > .dropdownMenu {
     display: none !important;
   }

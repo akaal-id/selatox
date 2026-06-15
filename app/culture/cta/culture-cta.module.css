@@ -71,6 +71,16 @@
   justify-content: center;
 }
 
+@media (max-width: 768px) {
+  .inner {
+    gap: 24px;
+  }
+
+  .copy {
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 640px) {
   .actions {
     width: 100%;

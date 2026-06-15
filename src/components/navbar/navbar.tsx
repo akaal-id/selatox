@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, PhoneOutgoing, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLenis } from "@/components/lenis/LenisProvider";
+import { PRIMARY_PRODUCT_SLUG } from "@/constants/products";
 import styles from "./navbar.module.css";
 
 const navLinks = [{ href: "/news", label: "News" }];
@@ -17,8 +18,8 @@ const aboutDropdownLinks = [
 ];
 
 const careersDropdownLinks = [
-  { href: "/career-journey", label: "Career Journey" },
-  { href: "/opportunities", label: "Opportunities" },
+  { href: "/journey", label: "Journey" },
+  { href: "/openings", label: "Openings" },
 ];
 
 export type NavbarVariant = "default" | "negative";
@@ -121,7 +122,11 @@ function NavMenu({
           </div>
         ) : null}
       </div>
-      <Link href="/products" className={linkClassName} onClick={closeAll}>
+      <Link
+        href={`/products/${PRIMARY_PRODUCT_SLUG}`}
+        className={linkClassName}
+        onClick={closeAll}
+      >
         Products
       </Link>
       <div className={dropdownClassName}>

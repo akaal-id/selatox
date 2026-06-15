@@ -54,7 +54,6 @@ export function FeaturedProduct() {
           <h2 id="featured-product-heading" className={styles.headline}>
             {FEATURED_PRODUCT.title}
           </h2>
-          <p className={styles.subheadline}>{FEATURED_PRODUCT.brand}</p>
           <p className={styles.paragraph}>
             {FEATURED_PRODUCT.shortDescription} {FEATURED_PRODUCT.description}
           </p>

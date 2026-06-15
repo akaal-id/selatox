@@ -56,4 +56,4 @@ export const cultureGtd = {
   imageAlt: "Selatox global talent development and training",
 } as const;
 
-export const cultureCareersHref = "/opportunities";
+export const cultureCareersHref = "/openings";

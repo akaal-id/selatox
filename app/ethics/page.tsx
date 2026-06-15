@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/pageheader/PageHeader";
 import { ethicsHero } from "@/constants/ethics";
 import { EthicsIntro } from "./intro/intro";
 import { EthicsCommitment } from "./commitment/commitment";
+import { EthicsValues } from "./values/values";
 import { EthicsLeadership } from "./leadership/leadership";
 import { EthicsHotline } from "./hotline/hotline";
 
@@ -16,13 +17,13 @@ export default function EthicsPage() {
   return (
     <main>
       <PageHeader
+        eyebrow="Ethics"
         title={ethicsHero.headline}
         subtitle={ethicsHero.subheadline}
-        backgroundImage={ethicsHero.backgroundImage}
-        backgroundAlt={ethicsHero.backgroundAlt}
       />
       <EthicsIntro />
       <EthicsCommitment />
+      {/* <EthicsValues /> */}
       <EthicsLeadership />
       <EthicsHotline />
     </main>

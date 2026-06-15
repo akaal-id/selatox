@@ -279,6 +279,12 @@
   color: var(--neutral-100) !important;
 }
 
+.selectField [role="dialog"] {
+  top: calc(100% + 8px) !important;
+  border-radius: 12px !important;
+  border-top: 1px solid var(--neutral-60) !important;
+}
+
 .error {
   margin: 0;
   font-size: 12px;
@@ -286,7 +292,62 @@
 }
 
 .submitWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
   padding-top: 4px;
+}
+
+.successInline {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+  max-width: 520px;
+  padding: 18px 20px;
+  border: 1px solid var(--green-40);
+  border-radius: 16px;
+  background: var(--green-20);
+  text-align: left;
+}
+
+.successInlineBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.refillWrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 2px;
+}
+
+.refillButton {
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green-120);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.refillButton:hover {
+  color: var(--green-140);
+}
+
+.refillButton:focus-visible {
+  outline: 2px solid var(--green-120);
+  outline-offset: 3px;
 }
 
 .success {
@@ -313,7 +374,7 @@
 .successTitle {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(24px, 3vw, 32px);
+  font-size: clamp(20px, 2.5vw, 24px);
   font-weight: 400;
   letter-spacing: -0.02em;
   color: var(--neutral-160);
@@ -321,13 +382,14 @@
 
 .successMessage {
   margin: 0;
-  font-size: 15px;
-  line-height: 1.65;
+  font-size: 14px;
+  line-height: 1.6;
   color: var(--neutral-120);
-  max-width: 420px;
+  max-width: none;
+  text-align: left;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .layout {
     grid-template-columns: 1fr;
     gap: 36px;

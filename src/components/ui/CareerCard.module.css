@@ -79,6 +79,21 @@
 @media (max-width: 768px) {
   .card {
     padding: 32px 24px;
-    min-height: 240px;
+    min-height: 200px;
+  }
+
+  .title {
+    font-size: clamp(20px, 3vw, 26px);
+  }
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 28px 20px;
+    min-height: 0;
+  }
+
+  .title {
+    font-size: clamp(18px, 5vw, 22px);
   }
 }

@@ -20,7 +20,8 @@
 .statementGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 8px;
+  gap: 24px;
+  padding-top: 24px;
 }
 
 @media (min-width: 1024px) {
@@ -34,7 +35,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 32px 0;
+  padding: 0px 0;
 }
 
 @media (min-width: 768px) {
@@ -306,5 +307,83 @@
   .principleCard,
   .principleIconWrap {
     transition: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .statementGrid {
+    gap: 20px;
+    padding-top: 16px;
+  }
+
+  .statementCard {
+    padding: 24px 0;
+    gap: 16px;
+  }
+
+  .principlesBlock {
+    margin-top: 48px;
+    padding-top: 48px;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-bottom: 56px;
+  }
+
+  .statementGrid {
+    gap: 16px;
+    padding-top: 12px;
+  }
+
+  .statementCard {
+    padding: 16px 0;
+    gap: 14px;
+  }
+
+  .statementText {
+    font-size: clamp(20px, 5.5vw, 24px);
+  }
+
+  .principlesBlock {
+    margin-top: 40px;
+    padding-top: 40px;
+  }
+
+  .principlesGrid {
+    gap: 10px;
+  }
+
+  .principleCard {
+    padding: 22px;
+    gap: 16px;
+  }
+
+  .principleIconWrap {
+    width: 44px;
+    height: 44px;
+  }
+
+  .principleIconWrap svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .principlesIntroTitle {
+    font-size: clamp(20px, 5.5vw, 24px);
+  }
+
+  .principlesIntroText {
+    max-width: none;
+    font-size: 13px;
+  }
+
+  .principleTitle {
+    font-size: 17px;
+  }
+
+  .principleDescription {
+    font-size: 13px;
   }
 }

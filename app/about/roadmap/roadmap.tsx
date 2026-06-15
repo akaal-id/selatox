@@ -1,10 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useLayoutEffect, useState } from "react";
+import { Fragment, useRef, useLayoutEffect, useState } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { aboutRoadmap } from "@/constants/about";
 import styles from "./roadmap.module.css";
+
+const SECTION_META = {
+  history: { label: "01", title: aboutRoadmap.historyTitle },
+  milestone: { label: "02", title: aboutRoadmap.milestonesTitle },
+} as const;
 
 function MilestoneItem({
   item,
@@ -172,36 +177,48 @@ export function Roadmap() {
       ref={sectionRef}
       id="roadmap"
       className={styles.section}
-      aria-labelledby="roadmap-heading"
+      aria-label="Company roadmap"
       data-navbar="default"
     >
       <div className={styles.container}>
-        <div className={styles.headerGrid}>
-          <div className={styles.titleCol}>
-            <div className={styles.textWrap}>
-              <motion.h2
-                id="roadmap-heading"
-                initial={{ y: "100%" }}
-                animate={isInView ? { y: "0%" } : {}}
-                transition={{ duration: 0.8, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className={styles.title}
-              >
-                {aboutRoadmap.title}
-              </motion.h2>
-            </div>
-          </div>
-        </div>
-
-        {/* Timeline */}
+        {/* Single timeline: two labeled sections share one continuous line */}
         <ol ref={timelineRef} className={styles.timelineList}>
-          {aboutRoadmap.milestones.map((item, index) => (
-            <MilestoneItem
-              key={item.year}
-              item={item}
-              index={index}
-              isInView={isInView}
-            />
-          ))}
+          {aboutRoadmap.milestones.map((item, index) => {
+            const prev = aboutRoadmap.milestones[index - 1];
+            const isSectionStart = !prev || prev.section !== item.section;
+            const meta = SECTION_META[item.section];
+
+            return (
+              <Fragment key={item.year}>
+                {isSectionStart && (
+                  <li className={styles.sectionHeaderRow}>
+                    <div className={styles.sectionSpacer} aria-hidden />
+                    <motion.div
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={isInView ? { opacity: 1, y: 0 } : {}}
+                      transition={{
+                        duration: 0.7,
+                        delay: 0.1,
+                        ease: [0.25, 0.46, 0.45, 0.94],
+                      }}
+                      className={`${styles.sectionHeaderContent} ${
+                        index === 0 ? "" : styles.sectionHeaderContentSpaced
+                      }`.trim()}
+                    >
+                      <span className={styles.sectionEyebrow}>
+                        {meta.label} &mdash;{" "}
+                        {item.section === "history"
+                          ? "Where we started"
+                          : "Where we're headed"}
+                      </span>
+                      <h3 className={styles.sectionHeaderTitle}>{meta.title}</h3>
+                    </motion.div>
+                  </li>
+                )}
+                <MilestoneItem item={item} index={index} isInView={isInView} />
+              </Fragment>
+            );
+          })}
 
           <div
             className={`${styles.progressLineWrap} ${linePosition ? styles.progressLineReady : ""}`}

@@ -108,6 +108,12 @@
   height: 44px;
 }
 
+@media (max-width: 768px) {
+  .body {
+    padding: 22px 26px 26px;
+  }
+}
+
 @media (max-width: 640px) {
   .body {
     padding: 22px 24px 26px;

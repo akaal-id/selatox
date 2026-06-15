@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback } from "react";
 import { Button } from "@/components/ui/Button";
+import { PRIMARY_PRODUCT_SLUG } from "@/constants/products";
 import { Prodcard } from "../prodcard/prodcard";
 import styles from "./prodsection.module.css";
 
@@ -63,7 +64,7 @@ export function Prodsection({
                 iconColor="var(--blue-100)"
                 borderColor="var(--neutral-60)"
                 size="md"
-                onClick={() => router.push("/products")}
+                onClick={() => router.push(`/products/${PRIMARY_PRODUCT_SLUG}`)}
               >
                 All products
               </Button>

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { PRIMARY_PRODUCT_SLUG } from "@/constants/products";
 import styles from "@/components/pageheader/pageheader.module.css";
 
 export function Hero() {
@@ -93,7 +94,7 @@ export function Hero() {
                 variant="blur"
                 tone="light"
                 showIcon
-                onClick={() => router.push("/products")}
+                onClick={() => router.push(`/products/${PRIMARY_PRODUCT_SLUG}`)}
               >
                 Explore Products
               </Button>

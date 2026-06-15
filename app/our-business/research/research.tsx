@@ -37,6 +37,9 @@ export function Research() {
           <p className={styles.eyebrow} aria-hidden>
             <span className={styles.eyebrowLabel}>Research Fields</span>
           </p>
+          <h2 className={styles.headline}>
+            Created by Science. Inspired by Beauty.
+          </h2>
         </div>
 
         <div

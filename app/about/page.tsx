@@ -18,9 +18,9 @@ export default function AboutPage() {
   return (
     <main>
       <PageHeader
+        eyebrow="About"
         title={aboutHero.headline}
         subtitle={aboutHero.subheadline}
-        backgroundImage={aboutHero.backgroundImage}
       />
       <BrandIntro />
       <AboutValues />

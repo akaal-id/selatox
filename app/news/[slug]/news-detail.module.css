@@ -35,7 +35,7 @@
 .article,
 .mediaContact {
   width: 100%;
-  max-width: 1080px;
+  max-width: var(--section-max-width);
   margin-inline: auto;
 }
 
@@ -449,7 +449,7 @@
   justify-content: center;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .heroHead {
     flex-direction: column;
     align-items: flex-start;
