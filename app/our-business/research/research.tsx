@@ -40,19 +40,18 @@ export function Research() {
       data-navbar="default"
     >
       <div className={styles.container}>
-        <div className={styles.intro}>
-          {/* Top — eyebrow + headline (left), description (right) */}
-          <div className={styles.headerTop}>
-            <div className={styles.headerLeft}>
-              <p className={styles.eyebrow}>
-                <span className={styles.eyebrowLabel}>Research and Innovation</span>
-              </p>
-              <h2 id="research-heading" className={styles.headline}>
-                Creating the Science Behind Tomorrow&apos;s Aesthetics
-              </h2>
-            </div>
+        <div className={styles.lead}>
+          <div className={styles.leadHero}>
+            <p className={styles.leadEyebrow}>
+              <span className={styles.leadEyebrowLabel}>Research and Innovation</span>
+            </p>
+            <h2 id="research-heading" className={styles.leadHeadline}>
+              Creating the Science Behind Tomorrow&apos;s Aesthetics
+            </h2>
+          </div>
 
-            <div className={styles.description}>
+          <div className={styles.leadBand}>
+            <div className={styles.leadDescription}>
               <p>
                 At Selatox, innovation begins with research. Our dedicated R&amp;D
                 capabilities support the development of next-generation aesthetic
@@ -64,18 +63,17 @@ export function Research() {
                 viable solutions.
               </p>
             </div>
-          </div>
 
-          {/* Key Focus — horizontal strip below a rule */}
-          <div className={styles.focusRow} aria-label="Key focus areas">
-            <p className={styles.focusLabel}>Key Focus</p>
-            <ul className={styles.focusTags}>
-              {KEY_FOCUS.map((item) => (
-                <li key={item} className={styles.focusTag}>
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <div className={styles.leadFocus} aria-label="Key focus areas">
+              <p className={styles.focusLabel}>Key Focus</p>
+              <ul className={styles.focusTags}>
+                {KEY_FOCUS.map((item) => (
+                  <li key={item} className={styles.focusTag}>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -104,7 +102,7 @@ export function Research() {
               <p className={styles.phase} role="cell">
                 {field.phase}
               </p>
-              <p className={styles.phase} role="cell">
+              <p className={styles.targetLaunch} role="cell">
                 {field.targetLaunch}
               </p>
             </div>

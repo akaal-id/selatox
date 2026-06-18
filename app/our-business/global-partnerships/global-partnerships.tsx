@@ -38,35 +38,36 @@ export function GlobalPartnerships() {
       aria-labelledby="gp-heading"
     >
       <div className={styles.container}>
-        {/* Asymmetric header — headline left, description right, focus strip below */}
-        <div className={styles.intro}>
-          <div className={styles.introMain}>
-            <p className={styles.eyebrow}>
-              <span className={styles.eyebrowLabel}>Global Partnerships</span>
+        <div className={styles.lead}>
+          <div className={styles.leadHero}>
+            <p className={styles.leadEyebrow}>
+              <span className={styles.leadEyebrowLabel}>Global Partnerships</span>
             </p>
-            <h2 id="gp-heading" className={styles.headline}>
+            <h2 id="gp-heading" className={styles.leadHeadline}>
               Expanding Innovation Beyond Borders
             </h2>
           </div>
 
-          <div className={styles.introAside}>
-            <p className={styles.description}>
-              We collaborate with partners worldwide to accelerate market access,
-              create new business opportunities, and deliver innovative aesthetic
-              solutions to healthcare professionals and patients across global
-              markets.
-            </p>
-          </div>
+          <div className={styles.leadBand}>
+            <div className={styles.leadDescription}>
+              <p>
+                We collaborate with partners worldwide to accelerate market access,
+                create new business opportunities, and deliver innovative aesthetic
+                solutions to healthcare professionals and patients across global
+                markets.
+              </p>
+            </div>
 
-          <div className={styles.focus} aria-label="Key focus areas">
-            <p className={styles.focusLabel}>Key Focus</p>
-            <ul className={styles.focusTags}>
-              {KEY_FOCUS.map((item) => (
-                <li key={item} className={styles.focusTag}>
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <div className={styles.leadFocus} aria-label="Key focus areas">
+              <p className={styles.focusLabel}>Key Focus</p>
+              <ul className={styles.focusTags}>
+                {KEY_FOCUS.map((item) => (
+                  <li key={item} className={styles.focusTag}>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 

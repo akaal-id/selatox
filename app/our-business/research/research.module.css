@@ -25,42 +25,35 @@
 }
 
 /* ============================================================
-   INTRO — split baseline: headline left, description right,
-   key-focus hairline strip below
+   LEAD HEADER — stacked hero, then description + focus band
    ============================================================ */
-.intro {
+.lead {
   display: flex;
   flex-direction: column;
   margin-bottom: clamp(56px, 7vw, 96px);
   opacity: 0;
 }
 
-.section.inView .intro {
+.section.inView .lead {
   animation: blurIn 0.85s ease-out forwards;
   animation-delay: 0.08s;
 }
 
-.headerTop {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: clamp(32px, 5vw, 72px);
-  align-items: end;
-}
-
-.headerLeft {
+.leadHero {
   display: flex;
   flex-direction: column;
   gap: clamp(20px, 2.5vw, 28px);
-  padding-bottom: clamp(4px, 0.6vw, 8px);
+  max-width: min(100%, 72rem);
+  margin-bottom: clamp(36px, 4.5vw, 56px);
 }
 
-.eyebrow {
+.leadEyebrow {
   margin: 0;
   display: inline-flex;
   align-items: center;
 }
 
-.eyebrowLabel {
+.leadEyebrowLabel {
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 600;
@@ -70,28 +63,35 @@
   line-height: 1;
 }
 
-.headline {
+.leadHeadline {
   margin: 0;
-  max-width: 14ch;
   font-family: var(--font-display);
-  font-size: clamp(32px, 3.8vw, 52px);
+  font-size: clamp(36px, 4.8vw, 64px);
   font-weight: 300;
-  line-height: 1.1;
+  line-height: 1.06;
   letter-spacing: -0.035em;
   color: var(--neutral-160);
   text-wrap: balance;
 }
 
-.description {
+.leadBand {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.6fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+  padding-top: clamp(32px, 3.5vw, 44px);
+  border-top: 1px solid var(--neutral-60);
+}
+
+.leadDescription {
   display: flex;
   flex-direction: column;
   gap: 18px;
-  padding-left: clamp(0px, 2vw, 32px);
-  border-left: 1px solid var(--neutral-60);
 }
 
-.description p {
+.leadDescription p {
   margin: 0;
+  max-width: 56ch;
   font-size: clamp(15px, 1.15vw, 17px);
   line-height: 1.75;
   font-weight: 300;
@@ -99,15 +99,15 @@
   text-wrap: pretty;
 }
 
-/* Key Focus — horizontal strip */
-.focusRow {
-  margin-top: clamp(40px, 4.5vw, 56px);
-  padding-top: clamp(28px, 3vw, 36px);
-  border-top: 1px solid var(--neutral-60);
+.leadFocus {
   display: flex;
-  align-items: center;
-  gap: clamp(20px, 3vw, 40px);
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 16px;
+  align-self: start;
+  padding: clamp(20px, 2.5vw, 28px);
+  background: var(--neutral-10);
+  border: 1px solid var(--neutral-60);
+  border-radius: 12px;
 }
 
 .focusLabel {
@@ -170,11 +170,21 @@
 .tableHead,
 .row {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 560px) max-content max-content;
-  gap: 32px;
-  align-items: center;
+  grid-template-columns:
+    minmax(240px, 420px)
+    minmax(0, 560px)
+    minmax(88px, auto)
+    minmax(72px, auto)
+    minmax(0, 1fr);
+  gap: clamp(20px, 2.5vw, 40px);
+  align-items: start;
   padding: 18px 0;
   border-bottom: 1px solid var(--neutral-60);
+}
+
+.tableHead > span:nth-child(3),
+.tableHead > span:nth-child(4) {
+  white-space: nowrap;
 }
 
 .tableHead > span {
@@ -197,7 +207,7 @@
 
 .programCell {
   min-width: 0;
-  max-width: 600px;
+  max-width: 420px;
 }
 
 .programTitle {
@@ -228,40 +238,41 @@
   font-weight: 300;
 }
 
-.phase {
+.phase,
+.targetLaunch {
   margin: 0;
   font-family: var(--font-mono);
   font-size: 13px;
   letter-spacing: 0.04em;
   color: var(--neutral-140);
+  white-space: nowrap;
+}
+
+.targetLaunch {
+  font-weight: 600;
+  color: var(--neutral-160);
 }
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1024px) {
-  .intro {
+  .lead {
     margin-bottom: 48px;
   }
 
-  .headerTop {
+  .leadHero {
+    max-width: none;
+    margin-bottom: clamp(28px, 4vw, 40px);
+  }
+
+  .leadBand {
     grid-template-columns: 1fr;
     gap: clamp(24px, 4vw, 32px);
-    align-items: start;
   }
 
-  .headerLeft {
-    padding-bottom: 0;
-  }
-
-  .headline {
-    max-width: none;
-  }
-
-  .description {
-    padding-left: 0;
-    border-left: none;
-    padding-top: 0;
+  .leadFocus {
+    padding: 20px;
   }
 
   .tableHead {
@@ -274,9 +285,18 @@
     padding: 28px 0;
   }
 
+  .phase,
+  .targetLaunch {
+    white-space: normal;
+  }
+
   .phase {
     order: -1;
     color: var(--green-100);
+    font-weight: 600;
+  }
+
+  .targetLaunch {
     font-weight: 600;
   }
 }
