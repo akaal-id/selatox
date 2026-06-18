@@ -67,6 +67,10 @@
   --color-selatox-dark: #101010;
   --color-selatox-light: #f5f5f5;
 
+  /* Frosted pills on dark imagery (navbar negative, hero CTAs, etc.) */
+  --pill-glass-on-dark-bg: rgba(5, 5, 5, 0.25);
+  --pill-glass-on-dark-border: rgba(255, 255, 255, 0.01);
+
   /* Typography */
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;

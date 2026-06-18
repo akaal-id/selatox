@@ -124,11 +124,16 @@
 .blur {
   background: rgba(217, 217, 217, 0.4);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: none;
   color: var(--green-100);
 }
 
 .blurLight {
+  background: var(--pill-glass-on-dark-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--pill-glass-on-dark-border);
   color: var(--neutral-20);
 }
 
@@ -138,6 +143,8 @@
 }
 
 .button.blurLight:not(:disabled):hover {
+  background: var(--pill-glass-on-dark-bg);
+  border-color: var(--pill-glass-on-dark-border);
   color: var(--neutral-20);
 }
 

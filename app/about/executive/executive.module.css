@@ -1,11 +1,38 @@
 .section {
   position: relative;
+  overflow: hidden;
   background: var(--bg-gradient-1);
   padding-top: var(--section-py);
   padding-bottom: var(--section-py);
 }
 
+/* Subtle scientific motif — faint dot-grid fading toward the center */
+.pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    var(--neutral-160) 1px,
+    transparent 1.6px
+  );
+  background-size: 26px 26px;
+  opacity: 0.06;
+  mask-image: radial-gradient(
+    ellipse 70% 70% at 50% 50%,
+    transparent 38%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 70% at 50% 50%,
+    transparent 38%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
 .container {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: var(--section-max-width);
   margin-left: auto;
@@ -16,65 +43,95 @@
 
 .quoteLayout {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: clamp(12px, 2.5vw, 28px);
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(24px, 3vw, 40px);
+  margin: 0 auto;
+  width: 100%;
+  max-width: 960px;
+}
+
+.eyebrow {
   margin: 0;
   width: 100%;
-  min-width: 0;
-}
-
-.quoteMark {
-  flex-shrink: 0;
-  font-family: var(--font-display);
-  font-size: clamp(40px, 5.5vw, 72px);
-  line-height: 0.85;
-  font-weight: 300;
-  color: var(--blue-100);
-  opacity: 0.4;
-}
-
-.quoteContent {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: clamp(24px, 3vw, 40px);
-  min-width: 0;
+  max-width: 720px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  color: var(--blue-120);
+  text-align: left;
+  padding-left: clamp(28px, 4vw, 48px);
 }
 
 .blockquote {
   margin: 0;
   width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vw, 24px);
 }
 
-.quoteText {
-  margin: 0;
+.quoteMark {
+  position: absolute;
+  left: 0;
+  top: -0.12em;
   font-family: var(--font-display);
-  font-size: clamp(14px, 2.2vw, 20px);
+  font-size: clamp(52px, 6.5vw, 80px);
+  line-height: 1;
   font-weight: 400;
-  line-height: 1.55;
-  letter-spacing: 0.01em;
+  font-style: normal;
+  color: var(--blue-100);
+  opacity: 0.35;
+}
+
+.quoteBody {
+  position: relative;
+  margin: 0;
+  padding-left: clamp(28px, 4vw, 48px);
+  font-family: var(--font-display);
+  font-size: clamp(17px, 1.5vw, 21px);
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
   color: var(--neutral-140);
-  text-align: left;
+  text-wrap: pretty;
+}
+
+.quoteEm {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--green-120);
+  letter-spacing: -0.01em;
 }
 
 .identityCol {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
+  gap: 8px;
   width: 100%;
-  padding-top: clamp(20px, 2.5vw, 28px);
-  border-top: 1px solid var(--neutral-60);
+  max-width: 720px;
+  padding-left: clamp(28px, 4vw, 48px);
+}
+
+.identityRule {
+  display: block;
+  width: 40px;
+  height: 2px;
+  border-radius: 2px;
+  margin-bottom: 8px;
+  background: linear-gradient(90deg, var(--blue-100), var(--green-100));
 }
 
 .executiveName {
   font-family: var(--font-display);
-  font-size: clamp(16px, 1.5vw, 19px);
-  font-weight: 500;
+  font-size: clamp(17px, 1.6vw, 20px);
+  font-weight: 600;
   letter-spacing: -0.01em;
-  color: var(--green-120);
+  color: var(--neutral-160);
   line-height: 1.2;
 }
 
@@ -83,7 +140,7 @@
   font-size: 11px;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   color: var(--neutral-120);
 }
 
@@ -94,37 +151,15 @@
   }
 
   .quoteLayout {
-    gap: 10px;
-  }
-
-  .quoteMark {
-    font-size: clamp(32px, 9vw, 44px);
-  }
-
-  .quoteContent {
     gap: 20px;
   }
 
-  .quoteText {
-    font-size: clamp(14px, 3.8vw, 16px);
-    line-height: 1.5;
+  .blockquote {
+    gap: 14px;
   }
 
-  .identityCol {
-    padding-top: 16px;
-  }
-
-  .executiveName {
-    font-size: 15px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    max-width: min(var(--section-max-width), 1200px);
-  }
-
-  .quoteText {
-    max-width: 68ch;
+  .quoteBody {
+    font-size: clamp(16px, 4.2vw, 18px);
+    line-height: 1.6;
   }
 }

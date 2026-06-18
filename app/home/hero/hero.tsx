@@ -27,6 +27,7 @@ export function Hero() {
       id="hero"
       className={styles.section}
       data-navbar="negative"
+      data-background="media"
     >
       <div className={styles.background} aria-hidden>
         <motion.video
@@ -69,7 +70,9 @@ export function Hero() {
               transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
               className={styles.headline}
             >
-              Indonesia&apos;s First Specialized Biopharmaceutical Center
+              Created by Science.
+              <br />
+              Inspired by Beauty.
             </motion.h1>
           </div>
 
@@ -86,7 +89,7 @@ export function Hero() {
                 transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className={styles.sub}
               >
-                The New Standard in Premium Bio-Aesthetics, Developed in Indonesia for the World.
+                Advancing the future of aesthetic medicine through innovative biotechnology, world-class manufacturing, and global partnerships.
               </motion.p>
             </div>
             <div className={styles.ctaGroup}>

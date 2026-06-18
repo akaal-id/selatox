@@ -21,11 +21,12 @@ export function Business() {
       className={styles.section}
       aria-labelledby="our-business-heading"
       data-navbar="negative"
+      data-background="media"
     >
       <div className={styles.background} aria-hidden>
         <div className="relative h-full w-full">
           <Image
-            src="/images/hero-4.webp"
+            src="/images/hero-3.webp"
             alt=""
             fill
             sizes="100vw"
@@ -71,18 +72,18 @@ export function Business() {
               className={styles.headline}
             >
               Clinical Science,
-              
+              <br />
               Built For Global Aesthetics.
             </motion.h2>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.45 }}
-            className={styles.bottomBar}
-          >
-            <div className={styles.subWrap}>
+          <div className={styles.bottomBar}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.45 }}
+              className={styles.subWrap}
+            >
               <motion.p
                 initial={{ y: "100%" }}
                 animate={isInView ? { y: "0%" } : {}}
@@ -93,7 +94,7 @@ export function Business() {
                 clinics worldwide to bring trusted, scalable aesthetic solutions
                 to every market we serve.
               </motion.p>
-            </div>
+            </motion.div>
 
             <div className={styles.ctaGroup}>
               <Button
@@ -105,7 +106,7 @@ export function Business() {
                 Explore Our Research
               </Button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

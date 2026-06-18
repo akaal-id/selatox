@@ -1,7 +1,7 @@
 import type { JobCategory } from "@/constants/opportunities";
 
 export const careerJourneyHero = {
-  title: "From Research to Reality",
+  title: "From Research\nto Reality",
   subtitle: "Every breakthrough begins with people who choose to build it.",
   backgroundImage: "/images/hero-1.webp",
   backgroundAlt: "Selatox team advancing research to reality",
@@ -194,13 +194,13 @@ export const talentNetwork = {
   submittingWithResumeLabel: "Uploading resume and submitting profile...",
   submitErrorMessage:
     "Something went wrong while submitting your profile. Please check your connection and try again.",
-  resumeHint: "PDF or Word, max 5MB",
+  resumeHint: "PDF or Word, max 4MB",
   refillFormLabel: "Submit another profile",
   successTitle: "Profile submitted",
   successMessage:
     "Thank you for registering. Our talent team will review your profile and contact you when a matching opportunity opens.",
   maxNoteChars: 500,
-  maxResumeBytes: 5 * 1024 * 1024,
+  maxResumeBytes: 4 * 1024 * 1024,
   acceptedResumeTypes: [
     "application/pdf",
     "application/msword",

@@ -87,7 +87,7 @@
   border-right: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-/* Gradient overlays */
+/* Darkening overlay — use only over photo/video backgrounds (see PageHeader, Hero, Business). */
 .gradientOverlay {
   pointer-events: none;
   position: absolute;
@@ -96,7 +96,7 @@
   background: linear-gradient(to bottom,
       rgba(10, 10, 10, 0.1) 0%,
       transparent 50%,
-      rgba(10, 10, 10, 0.2) 100%);
+      rgba(10, 10, 10, 0.4) 100%);
 }
 
 /* Content */
@@ -135,27 +135,25 @@
 }
 
 .eyebrow {
-  margin: 0;
-  width: 100%;
+  margin-bottom: 16px;
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.25em;
   color: var(--neutral-40);
+  width: 100%;
   text-align: left;
 }
 
 .headline {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(40px, 7.5vw, 64px);
+  font-size: clamp(48px, 7.5vw, 56px);
   font-weight: 500;
   line-height: 1.05;
   letter-spacing: -0.04em;
   color: var(--neutral-20);
-  max-width: 20ch;
-  text-align: left;
 }
 
 .titleWrap {
@@ -177,7 +175,6 @@
   line-height: 1.7;
   letter-spacing: -0.01em;
   color: rgba(244, 246, 250, 0.88);
-  text-align: left;
 }
 
 @media (max-width: 1023px) {
@@ -203,7 +200,6 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    align-items: flex-start;
   }
 
   .bottomBar {
@@ -256,7 +252,6 @@
   color: var(--neutral-20);
   display: block;
   opacity: 1;
-  text-align: left;
 }
 
 @media (min-width: 768px) {
@@ -305,7 +300,7 @@
 
 @media (max-width: 640px) {
   .contentWrap {
-    align-items: flex-start;
+    align-items: center;
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: max(48px, calc(env(safe-area-inset-bottom, 0px) + 16px));
@@ -318,17 +313,13 @@
 
   .container {
     gap: 16px;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .titleWrap {
-    align-items: flex-start;
+    align-items: center;
     gap: 12px;
     padding-bottom: 0;
-  }
-
-  .eyebrow {
-    text-align: left;
   }
 
   .headline {
@@ -362,13 +353,13 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 8px;
   }
 
   .scrollIndicator {
     margin-left: 0;
-    align-self: flex-start;
+    align-self: center;
     margin-top: 0;
   }
 }

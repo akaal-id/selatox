@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
-   Introsection — Company Overview. Centered editorial statement.
+   Introsection — editorial content: eyebrow → headline → sub → stats.
    --------------------------------------------------------------------------- */
 
 @keyframes blurIn {
@@ -15,43 +15,57 @@
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Section
+   --------------------------------------------------------------------------- */
 .section {
   position: relative;
   background: var(--neutral-0);
-  padding: var(--section-py) var(--section-px) 0;
+  padding: var(--section-py) var(--section-px) var(--section-px);
   font-family: var(--font-sans);
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------------------
+   Container
+   --------------------------------------------------------------------------- */
+.container {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: var(--section-max-width);
   display: flex;
   justify-content: center;
 }
 
-.container {
-  position: relative;
+.content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
-  margin: 0 auto;
-  width: 100%;
-  max-width: var(--section-max-width);
+  gap: 32px;
+  max-width: 720px;
   text-align: center;
 }
 
-/* ---------------------------------------------------------------------------
-   Eyebrow — mono label
-   --------------------------------------------------------------------------- */
+/* ── Eyebrow ── */
 .eyebrow {
   margin: 0;
-  color: var(--blue-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
   opacity: 0;
-}
-
-.eyebrowLabel {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  line-height: 1;
 }
 
 .section.inView .eyebrow {
@@ -59,52 +73,149 @@
   animation-delay: 0.1s;
 }
 
-/* ---------------------------------------------------------------------------
-   Headline — medium-weight editorial lead statement (between sub and headline)
-   --------------------------------------------------------------------------- */
+.eyebrowLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--blue-100);
+}
+
+/* ── Headline ── */
 .headline {
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: clamp(32px, 3.4vw, 48px);
   font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: -0.005em;
-  color: var(--neutral-140);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--neutral-160);
   margin: 0;
-  max-width: 820px;
-  text-align: justify;
-  text-align-last: center;
   opacity: 0;
 }
 
 .section.inView .headline {
   animation: blurIn 0.9s ease-out forwards;
-  animation-delay: 0.2s;
+  animation-delay: 0.18s;
 }
 
-.headline em {
+.headlineAccent {
+  color: var(--green-100);
+  font-style: italic;
+}
+
+/* ── Sub — body text with em styling ── */
+.sub {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 350;
+  line-height: 1.7;
+  color: var(--neutral-120);
+  margin: 0;
+  opacity: 0;
+}
+
+.sub em {
   font-style: normal;
   font-weight: 500;
+  color: var(--green-100);
 }
 
-.highlightGreen {
-  color: var(--green-80);
+.section.inView .sub {
+  animation: fadeIn 0.8s ease-out forwards;
+  animation-delay: 0.3s;
 }
 
-.highlightBlue {
+/* ── Stats bar — flex row of stat items ── */
+.statsBar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 720px;
+  margin-top: 8px;
+  padding: 8px 0;
+  border-top: 1px solid var(--neutral-60);
+  border-bottom: 1px solid var(--neutral-60);
+  opacity: 0;
+}
+
+.section.inView .statsBar {
+  animation: fadeIn 0.7s ease-out forwards;
+  animation-delay: 0.45s;
+}
+
+.statCell {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+}
+
+.statIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.stat_blue .statIcon {
   color: var(--blue-100);
+}
+
+.stat_green .statIcon {
+  color: var(--green-100);
+}
+
+.statText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  min-width: 0;
+}
+
+.statTitle {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--neutral-160);
+  line-height: 1.1;
+}
+
+.statLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--neutral-120);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.statDivider {
+  width: 1px;
+  height: 36px;
+  flex-shrink: 0;
+  background: var(--neutral-60);
 }
 
 /* ---------------------------------------------------------------------------
    Tablet
    --------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
-  .container {
-    gap: 32px;
+  .content {
+    gap: 24px;
+    max-width: 640px;
   }
 
   .headline {
-    font-size: 24px;
-    max-width: 680px;
+    font-size: clamp(28px, 5vw, 40px);
   }
 }
 
@@ -112,20 +223,69 @@
    Mobile
    --------------------------------------------------------------------------- */
 @media (max-width: 768px) {
-  .container {
-    gap: 24px;
+  .content {
+    gap: 20px;
   }
 
   .headline {
-    font-size: 19px;
-    line-height: 1.55;
+    font-size: clamp(26px, 6.5vw, 36px);
+  }
+
+  .sub {
+    font-size: 15px;
+  }
+
+  .statsBar {
+    gap: 8px 0;
+    max-width: 100%;
+  }
+
+  .statCell {
+    padding: 10px 16px;
+  }
+
+  .statDivider {
+    display: none;
+  }
+
+  .statTitle {
+    font-size: 17px;
   }
 }
 
 @media (max-width: 480px) {
+  .sub {
+    font-size: 14.5px;
+  }
+
   .headline {
+    font-size: clamp(24px, 7vw, 32px);
+  }
+
+  .statCell {
+    padding: 8px 12px;
+  }
+
+  .statTitle {
     font-size: 16px;
-    text-align: left;
-    text-align-last: left;
+  }
+
+  .statLabel {
+    font-size: 9px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow,
+  .headline,
+  .sub,
+  .statsBar {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
   }
 }

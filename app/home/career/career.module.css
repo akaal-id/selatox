@@ -1,18 +1,16 @@
-@keyframes blurIn {
+@keyframes fadeUp {
   from {
-    filter: blur(10px);
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(20px);
   }
   to {
-    filter: blur(0);
     opacity: 1;
     transform: translateY(0);
   }
 }
 
 /* ============================================================
-   SECTION SHELL — dark, editorial
+   SECTION SHELL — light, clean
    ============================================================ */
 .section {
   position: relative;
@@ -20,8 +18,7 @@
   padding-bottom: var(--section-py);
   padding-left: var(--section-px);
   padding-right: var(--section-px);
-  background-color: var(--color-selatox-dark);
-  color: var(--neutral-0);
+  background-color: var(--green-20);
   font-family: var(--font-sans);
   overflow: hidden;
 }
@@ -33,257 +30,156 @@
 }
 
 /* ============================================================
-  Intro
-  ============================================================ */
-.introPrimary {
+   HEADER
+   ============================================================ */
+.header {
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  max-width: 740px;
+  gap: 24px;
+  width: 100%;
+  margin-bottom: 56px;
+  opacity: 0;
+}
+
+.section.inView .header {
+  animation: fadeUp 0.8s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+.headerRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(24px, 4vw, 48px);
 }
 
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--blue-80);
-  opacity: 0;
-}
-
-.section.inView .eyebrow {
-  animation: blurIn 0.8s ease-out forwards;
-  animation-delay: 0.08s;
+  color: var(--green-120);
 }
 
 .headline {
   font-family: var(--font-display);
   margin: 0;
-  font-size: clamp(40px, 6vw, 84px);
-  font-weight: 300;
-  line-height: 1.02;
-  letter-spacing: -0.035em;
-  color: var(--neutral-0);
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 16ch;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--neutral-160);
   text-wrap: balance;
-  opacity: 0;
-}
-
-.section.inView .headline {
-  animation: blurIn 1s ease-out forwards;
-  animation-delay: 0.18s;
 }
 
 .headlineAccent {
   font-style: italic;
-  font-weight: 300;
-  color: var(--neutral-80);
-}
-
-/* ============================================================
-   INTRO + STATS
-   ============================================================ */
-.introRow {
-  margin-top: 0;
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  gap: 48px;
-  align-items: flex-end;
-  padding-bottom: 56px;
-  border-bottom: 1px solid var(--neutral-140);
+  color: var(--green-100);
 }
 
 .subtitle {
   margin: 0;
-  max-width: 620px;
-  font-size: clamp(16px, 1.4vw, 19px);
-  line-height: 1.6;
+  flex: 0 1 420px;
+  max-width: 420px;
+  font-size: clamp(16px, 1.3vw, 18px);
+  line-height: 1.65;
   font-weight: 300;
-  color: var(--neutral-80);
-  opacity: 0;
-}
-
-.section.inView .subtitle {
-  animation: blurIn 0.85s ease-out forwards;
-  animation-delay: 0.28s;
+  color: var(--neutral-120);
+  text-align: left;
 }
 
 /* ============================================================
-   FEATURE IMAGE — wide landscape, full-bleed inside container
+   JOB GRID
    ============================================================ */
-.mediaWrap {
-  margin-top: 56px;
-  opacity: 0;
-  
-}
-
-.section.inView .mediaWrap {
-  animation: blurIn 1.1s ease-out forwards;
-  animation-delay: 0.42s;
-}
-
-.media {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 21 / 9;
-  overflow: hidden;
-  background-color: var(--neutral-160);
-  border-radius: 16px;
-}
-
-.mediaImage {
-  object-fit: cover;
-  filter: grayscale(0.2) brightness(0.95);
-}
-
-.mediaOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(16, 16, 16, 0) 40%,
-    rgba(16, 16, 16, 0.85) 100%
-  );
-}
-
-.mediaCaption {
-  position: absolute;
-  left: 32px;
-  right: 32px;
-  bottom: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 520px;
-}
-
-.mediaCaptionLabel {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--blue-60);
-}
-
-.mediaCaptionText {
+.jobGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  list-style: none;
   margin: 0;
-  font-size: 15px;
-  line-height: 1.55;
-  font-weight: 300;
-  color: var(--neutral-40);
+  padding: 0;
+}
+
+.jobGridItem {
+  display: flex;
+  min-width: 0;
+  width: 100%;
+  opacity: 0;
+}
+
+.jobGridItem > * {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+}
+
+.section.inView .jobGridItem {
+  animation: fadeUp 0.85s ease-out forwards;
+  animation-delay: var(--delay, 0.25s);
 }
 
 /* ============================================================
-   CTA
+   VIEW ALL CTA
    ============================================================ */
 .cta {
-  margin-top: 56px;
-  padding-top: 48px;
-  border-top: 1px solid var(--neutral-140);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 32px;
-  align-items: end;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
   opacity: 0;
 }
 
 .section.inView .cta {
-  animation: blurIn 0.95s ease-out forwards;
-  animation-delay: 0.9s;
-}
-
-.ctaCopy {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-width: 560px;
-}
-
-.ctaLead {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(24px, 2.4vw, 32px);
-  font-weight: 300;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: var(--neutral-0);
-}
-
-.ctaSupport {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.6;
-  font-weight: 300;
-  color: var(--neutral-100);
-}
-
-.ctaActions {
-  display: inline-flex;
-  align-items: center;
-  gap: 24px;
-  flex-wrap: wrap;
+  animation: fadeUp 0.8s ease-out forwards;
+  animation-delay: 0.45s;
 }
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1024px) {
-  .introRow {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    align-items: flex-end;
+  .jobGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .mediaCaption {
-    left: 24px;
-    right: 24px;
-    bottom: 24px;
-  }
-
-  .cta {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    align-items: start;
-  }
-}
-
-@media (max-width: 768px) {
-  .introPrimary {
+  .headerRow {
+    flex-direction: column;
+    align-items: flex-start;
     gap: 20px;
   }
 
-  .introRow {
-    padding-bottom: 40px;
-    gap: 20px;
+  .headline {
+    max-width: none;
   }
 
-  .media {
-    aspect-ratio: 4 / 5;
-  }
-
-  .cta {
-    margin-top: 56px;
-    padding-top: 36px;
+  .subtitle {
+    flex: none;
+    max-width: 56ch;
+    text-align: left;
   }
 }
 
 @media (max-width: 640px) {
-  .headline {
-    font-size: clamp(28px, 8vw, 40px);
+  .jobGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .header {
+    margin-bottom: 40px;
   }
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .section.inView .eyebrow,
-  .section.inView .headline,
-  .section.inView .subtitle,
-  .section.inView .mediaWrap,
+  .section.inView .header,
+  .section.inView .jobGridItem,
   .section.inView .cta {
     animation: none;
     opacity: 1;
-    filter: none;
     transform: none;
   }
 }

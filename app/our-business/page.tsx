@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/pageheader/PageHeader";
-import { Vision } from "./vision/vision";
-import { Manufacturing } from "./manufacturing/manufacturing";
 import { Research } from "./research/research";
-import { OurBusinessFacilities } from "./facilities/facilities";
+import { Manufacturing } from "./manufacturing/manufacturing";
+import { GlobalPartnerships } from "./global-partnerships/global-partnerships";
 
 export const metadata: Metadata = {
   title: "Our Business | Selatox",
   description:
-    "Discover PT. Selatox Bio Pharma's world-class biopharmaceutical pipeline, global GMP manufacturing facilities, and localized R&D innovations.",
+    "From research and innovation to global-standard manufacturing and international partnerships — discover how Selatox brings science-backed aesthetic solutions to the world.",
 };
 
 export default function OurBusinessPage() {
@@ -16,14 +15,12 @@ export default function OurBusinessPage() {
     <main>
       <PageHeader
         eyebrow="Our Business"
-        title="Where advanced research meets global partnership"
-        subtitle="Pioneering Botulinum Toxin Specialization & Research."
+        title="From Discovery to Delivery"
+        subtitle="Selatox integrates research, innovation, manufacturing, and global business development to create sustainable value across the aesthetic biotechnology industry."
       />
-      <Vision />
-      <Manufacturing />
       <Research />
-      {/* <OurBusinessFacilities /> */}
-      {/* <Partners /> */}
+      <Manufacturing />
+      <GlobalPartnerships />
     </main>
   );
 }

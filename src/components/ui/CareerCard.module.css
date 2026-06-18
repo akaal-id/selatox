@@ -97,3 +97,50 @@
     font-size: clamp(18px, 5vw, 22px);
   }
 }
+
+/* ── Light theme variant ── */
+.cardLight {
+  border: 1px solid var(--neutral-60);
+  background: var(--neutral-0);
+  backdrop-filter: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cardLight:hover {
+    background: var(--neutral-10);
+    border-color: var(--neutral-80);
+    transform: translateY(-2px);
+  }
+}
+
+.topRowLight {
+  color: var(--neutral-100);
+}
+
+.cardLight:hover .topRowLight {
+  color: var(--neutral-120);
+}
+
+.titleLight {
+  color: var(--neutral-160);
+}
+
+.cardLight:hover .titleLight {
+  color: var(--neutral-160);
+}
+
+.departmentLight {
+  color: var(--neutral-120);
+}
+
+.cardLight:hover .departmentLight {
+  color: var(--neutral-140);
+}
+
+.iconLight {
+  color: var(--green-100);
+}
+
+.cardLight:hover .iconLight {
+  color: var(--green-120);
+}

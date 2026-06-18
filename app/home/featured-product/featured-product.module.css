@@ -1,40 +1,9 @@
-/**
- * Featured Product — Single-product spotlight. Asymmetrical split-screen:
- * left = macro vial image on matte background; right = clinical dossier on high-key white.
- * Pure CSS Modules; no Tailwind. float + blurIn animations.
- */
-
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-12px);
-  }
-}
-
-@keyframes blurIn {
-  from {
-    filter: blur(12px);
-    opacity: 0;
-    transform: translateY(16px);
-  }
-
-  to {
-    filter: blur(0);
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .section {
   position: relative;
   font-family: var(--font-sans);
   overflow: hidden;
-  background-color: var(--neutral-20);
+  background-color: var(--neutral-10);
+  border-top: 1px solid var(--neutral-60);
 }
 
 .split {
@@ -42,18 +11,17 @@
   grid-template-columns: 1fr 1fr;
   min-height: 100svh;
   width: 100%;
-  margin: 0 auto;
-  border: 1px solid var(--blue-20);
 }
 
 /* ---------------------------------------------------------------------------
-   Left — The Visual. Full-bleed image in left column, blurred.
+   Left — product image
    --------------------------------------------------------------------------- */
 .visualWrap {
-  background: var(--neutral-10);
   position: relative;
-  min-height: 560px;
   overflow: hidden;
+  min-height: 100%;
+  align-self: stretch;
+  background: var(--neutral-20);
 }
 
 .productImageWrap {
@@ -63,123 +31,109 @@
   height: 100%;
 }
 
-/* Full-res image, same approach as value card — no Next/Image optimization */
 .productImage {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   display: block;
 }
 
 /* ---------------------------------------------------------------------------
-   Right — The Dossier. High-key white, grid typography, structural lines.
+   Right — dossier
    --------------------------------------------------------------------------- */
 .dossier {
-  background: var(--neutral-20);
-  padding: 80px 72px 80px 64px;
+  position: relative;
+  background: var(--bg-gradient-1);
+  border-left: 1px solid var(--neutral-60);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-left: 1px solid var(--blue-20);
+  padding: clamp(48px, 6vw, 88px) clamp(40px, 5.5vw, 72px);
+  gap: 28px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s;
+}
+
+.section.inView .dossier {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--blue-100);
-  margin: 0 0 20px 0;
-  opacity: 0;
-}
-
-.section.inView .eyebrow {
-  animation: blurIn 0.8s ease-out forwards;
-  animation-delay: 0.1s;
+  color: var(--green-120);
 }
 
 .headline {
+  margin: 0;
   font-family: var(--font-display);
-  font-size: 42px;
-  font-weight: 300;
-  line-height: 1.12;
-  letter-spacing: -0.02em;
-  color: var(--neutral-140);
-  margin: 0 0 12px 0;
-  opacity: 0;
-}
-
-.section.inView .headline {
-  animation: blurIn 0.9s ease-out forwards;
-  animation-delay: 0.2s;
+  font-size: clamp(40px, 5.5vw, 42px);
+  font-weight: 500;
+  line-height: 0.97;
+  letter-spacing: -0.04em;
+  color: var(--blue-120);
 }
 
 .paragraph {
-  font-size: 15px;
+  margin: 0;
+  font-size: clamp(15px, 1.4vw, 17px);
   line-height: 1.65;
-  color: var(--neutral-140);
-  margin: 0 0 40px 0;
-  max-width: 420px;
-  opacity: 0;
+  color: var(--neutral-120);
+  max-width: 42ch;
 }
 
-.section.inView .paragraph {
-  animation: blurIn 0.85s ease-out forwards;
-  animation-delay: 0.35s;
-}
-
-/* Specs: clinical table with border-bottom lines */
+/* Specs list */
 .specsList {
   list-style: none;
-  margin: 0 0 40px 0;
+  margin: 0;
   padding: 0;
-  border-top: 1px solid var(--neutral-40);
-  opacity: 0;
-}
-
-.section.inView .specsList {
-  animation: blurIn 0.85s ease-out forwards;
-  animation-delay: 0.42s;
+  border-top: 1px solid var(--neutral-60);
 }
 
 .specRow {
   display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 24px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--neutral-40);
+  grid-template-columns: 140px 1fr;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--neutral-60);
   align-items: baseline;
 }
 
 .specLabel {
-  font-size: 11px;
+  font-family: var(--font-mono);
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--neutral-80);
+  color: var(--neutral-100);
 }
 
 .specValue {
   font-size: 14px;
   font-weight: 400;
+  line-height: 1.5;
   color: var(--neutral-140);
 }
 
 .ctaWrap {
-  opacity: 0;
+  padding-top: 4px;
 }
 
-.section.inView .ctaWrap {
-  animation: blurIn 0.85s ease-out forwards;
-  animation-delay: 0.5s;
-}
-
-/* Responsive: stack on narrow viewports */
+/* ---------------------------------------------------------------------------
+   Responsive
+   --------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
-  .section {
-    padding: var(--section-py) 0;
+  .split {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -190,34 +144,32 @@
   }
 
   .visualWrap {
-    min-height: 360px;
+    min-height: 50svh;
   }
 
   .dossier {
-    padding: 56px 40px 64px;
-  }
-
-  .headline {
-    font-size: 32px;
-  }
-
-  .specRow {
-    grid-template-columns: 100px 1fr;
-    gap: 16px;
-  }
-}
-
-@media (max-width: 640px) {
-  .dossier {
-    padding: 40px var(--section-px) 48px;
-  }
-
-  .headline {
-    font-size: clamp(26px, 7vw, 32px);
+    border-left: none;
+    border-top: 1px solid var(--neutral-60);
+    padding: 48px var(--section-px) 56px;
+    gap: 24px;
   }
 
   .specRow {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 640px) {
+  .visualWrap {
+    min-height: 44svh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dossier {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

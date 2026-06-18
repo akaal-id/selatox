@@ -1,7 +1,7 @@
 .section {
   position: relative;
   background-color: var(--neutral-0);
-  padding-top: 0;
+  padding-top: var(--section-py);
   padding-bottom: var(--section-py);
 }
 
@@ -15,93 +15,199 @@
 }
 
 /* ============================================================
-   VISION / MISSION
+   VISION / MISSION — home values pattern, contained cards
    ============================================================ */
 .statementGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
-  padding-top: 24px;
+  gap: 16px;
 }
 
 @media (min-width: 1024px) {
   .statementGrid {
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }
 
 .statementCard {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 0px 0;
+  gap: 0;
+  padding: 32px;
+  border: 1px solid var(--neutral-60);
+  border-radius: 12px;
+  background: var(--neutral-0);
+  overflow: hidden;
+  isolation: isolate;
+  transition: background-color 0.4s ease, border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+/* Decorative background — blurred Lucide icon */
+.statementIllustration {
+  position: absolute;
+  top: 50%;
+  right: -10%;
+  width: min(320px, 52%);
+  aspect-ratio: 1;
+  pointer-events: none;
+  z-index: 0;
+  color: var(--green-100);
+  opacity: 0.08;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.statementIllustrationIcon {
+  width: 100%;
+  height: 100%;
+  filter: blur(5px);
+}
+
+.card_green .statementIllustration {
+  color: var(--green-100);
+}
+
+.card_blue .statementIllustration {
+  color: var(--blue-100);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .statementCard:hover .statementIllustration {
+    transform: translateY(-50%) scale(1.02);
+    opacity: 0.06;
+  }
+}
+
+.statementTop,
+.statementBody {
+  position: relative;
+  z-index: 1;
 }
 
 @media (min-width: 768px) {
   .statementCard {
-    padding: 40px 0;
-    gap: 24px;
+    padding: 36px 40px;
   }
 }
 
-@media (min-width: 1024px) {
-  .statementCard {
-    padding: 48px 0;
+@media (hover: hover) and (pointer: fine) {
+  .statementCard:hover {
+    background-color: rgba(10, 14, 22, 0.015);
+    border-color: var(--neutral-80);
+    box-shadow: 0 8px 32px rgba(46, 34, 46, 0.04);
   }
 }
 
-.statementLabelWrap {
+.statementTop {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 36px;
 }
 
-.statementAccent {
-  display: block;
-  width: 3px;
-  height: 18px;
-  border-radius: 2px;
+.statementIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   flex-shrink: 0;
+  transition: transform 0.35s ease, background-color 0.35s ease,
+    border-color 0.35s ease;
 }
 
-.accentGreen {
-  background-color: var(--green-100);
+.statementIconWrap svg {
+  width: 22px;
+  height: 22px;
 }
 
-.accentBlue {
-  background-color: var(--blue-100);
-}
-
-.statementLabel {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.28em;
-}
-
-.statementLabelVision {
+.card_green .statementIconWrap {
+  background-color: var(--green-20);
+  border: 1px solid var(--green-40);
   color: var(--green-100);
 }
 
-.statementLabelMission {
+.card_blue .statementIconWrap {
+  background-color: var(--blue-20);
+  border: 1px solid var(--blue-40);
   color: var(--blue-100);
 }
 
-.statementText {
-  font-family: var(--font-display);
-  font-size: clamp(22px, 2.4vw, 36px);
-  font-weight: 300;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
-  color: var(--neutral-160);
-  text-wrap: balance;
-  margin: 0;
+.statementIndex {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--neutral-100);
+  line-height: 1;
+  transition: color 0.35s ease;
 }
 
-.statementTextMission {
+@media (hover: hover) and (pointer: fine) {
+  .statementCard:hover .statementIconWrap {
+    transform: translateY(-2px);
+  }
+
+  .card_green:hover .statementIconWrap {
+    background-color: var(--green-40);
+    border-color: var(--green-60);
+  }
+
+  .card_blue:hover .statementIconWrap {
+    background-color: var(--blue-40);
+    border-color: var(--blue-60);
+  }
+
+  .statementCard:hover .statementIndex {
+    color: var(--blue-100);
+  }
+}
+
+.statementBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.statementCategory {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--blue-100);
+  margin: 0 0 12px 0;
+  transition: color 0.35s ease;
+}
+
+.statementCard:hover .statementCategory {
+  color: var(--green-100);
+}
+
+.statementTitle {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 400;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  color: var(--neutral-160);
+  margin: 0 0 12px 0;
+  text-wrap: balance;
+}
+
+.statementDescription {
+  font-size: 15.5px;
+  font-weight: 300;
+  line-height: 1.65;
   color: var(--neutral-120);
+  margin: 0;
+  text-wrap: pretty;
 }
 
 /* ============================================================
@@ -134,12 +240,24 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 14px;
   }
+
+  /* Intro card spans the full top row, 4 value cards form a 2×2 below */
+  .principlesIntroCard {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (min-width: 1024px) {
   .principlesGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
     gap: 16px;
+  }
+
+  /* Intro card occupies the left column across both rows; values fill 2×2 */
+  .principlesIntroCard {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
   }
 }
 
@@ -150,7 +268,7 @@
   padding: 28px;
   background: var(--neutral-10);
   border-radius: 12px;
-  border: 1px solid var(--neutral-40);
+  border: 1px solid var(--neutral-60);
   transition: background-color 320ms ease, border-color 320ms ease,
     box-shadow 320ms ease;
 }
@@ -164,7 +282,7 @@
 
 .principleCard:hover {
   background-color: var(--neutral-0);
-  border-color: var(--neutral-60);
+  border-color: var(--neutral-80);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
 }
 
@@ -281,16 +399,24 @@
 
 .principleTitle {
   font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 21px;
+  font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--neutral-160);
 }
 
+.cardAccentGreen .principleTitle {
+  color: var(--green-120);
+}
+
+.cardAccentBlue .principleTitle {
+  color: var(--blue-120);
+}
+
 @media (min-width: 768px) {
   .principleTitle {
-    font-size: 20px;
+    font-size: 23px;
   }
 }
 
@@ -304,21 +430,44 @@
 
 /* Reduced-motion safety */
 @media (prefers-reduced-motion: reduce) {
+  .statementCard,
+  .statementIllustration {
+    transition: none !important;
+  }
+
+  .statementIllustration {
+    transform: translateY(-50%);
+  }
+
+  .statementCard:hover .statementIllustration {
+    opacity: 0.05;
+    transform: translateY(-50%);
+  }
+
   .principleCard,
-  .principleIconWrap {
+  .principleIconWrap,
+  .statementIconWrap,
+  .statementCategory,
+  .statementIndex {
     transition: none !important;
   }
 }
 
 @media (max-width: 768px) {
   .statementGrid {
-    gap: 20px;
-    padding-top: 16px;
+    gap: 12px;
   }
 
-  .statementCard {
-    padding: 24px 0;
-    gap: 16px;
+  .statementTop {
+    margin-bottom: 28px;
+  }
+
+  .statementTitle {
+    font-size: 22px;
+  }
+
+  .statementDescription {
+    font-size: 15px;
   }
 
   .principlesBlock {
@@ -332,18 +481,40 @@
     padding-bottom: 56px;
   }
 
-  .statementGrid {
-    gap: 16px;
-    padding-top: 12px;
+  .statementIllustration {
+    width: min(200px, 46%);
+    right: 4%;
+    
+  }
+
+  .statementIllustrationIcon {
+    filter: blur(4px);
   }
 
   .statementCard {
-    padding: 16px 0;
-    gap: 14px;
+    padding: 24px;
   }
 
-  .statementText {
-    font-size: clamp(20px, 5.5vw, 24px);
+  .statementTop {
+    margin-bottom: 24px;
+  }
+
+  .statementIconWrap {
+    width: 44px;
+    height: 44px;
+  }
+
+  .statementIconWrap svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .statementTitle {
+    font-size: 20px;
+  }
+
+  .statementDescription {
+    font-size: 14.5px;
   }
 
   .principlesBlock {
@@ -380,7 +551,7 @@
   }
 
   .principleTitle {
-    font-size: 17px;
+    font-size: 19px;
   }
 
   .principleDescription {

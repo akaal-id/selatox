@@ -1,5 +1,5 @@
 export const ethicsHero = {
-  headline: "Integrity in Every Action. Trust in Every Partnership.",
+  headline: "Integrity in Every Action.\nTrust in Every Partnership.",
   subheadline:
     "At Selatox, ethical management is more than a corporate principle—it is the foundation of how we operate, innovate, and grow.",
   backgroundImage: "/images/hero-2.webp",

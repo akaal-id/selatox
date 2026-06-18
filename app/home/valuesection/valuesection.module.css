@@ -1,16 +1,15 @@
 /**
- * Valuesection — The Selatox Standard.
- * Editorial column layout: large numeral + long rule, then category, title, body.
- * No card boxes; columns separated by vertical hairlines.
+ * Valuesection — Vision / Mission / Core Value.
+ * No padding-top: flows seamlessly from the intro section above.
+ * Clean editorial cards matching the codebase's restrained aesthetic.
  */
 
 @keyframes blurIn {
   from {
-    filter: blur(12px);
+    filter: blur(10px);
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(14px);
   }
-
   to {
     filter: blur(0);
     opacity: 1;
@@ -18,14 +17,32 @@
   }
 }
 
+/* ---------------------------------------------------------------------------
+   Section — flush top, padded bottom
+   --------------------------------------------------------------------------- */
 .section {
   position: relative;
   background: var(--neutral-0);
-  padding: var(--section-px) var(--section-px) var(--section-py);
+  padding: 0 var(--section-px) var(--section-py);
   font-family: var(--font-sans);
   overflow: visible;
 }
 
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Container
+   --------------------------------------------------------------------------- */
 .container {
   display: flex;
   flex-direction: column;
@@ -36,7 +53,7 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Card grid — vertical hairline dividers between columns, no card boxes
+   Card grid — three columns separated by hairline borders
    --------------------------------------------------------------------------- */
 .cardGrid {
   display: grid;
@@ -45,64 +62,110 @@
   border-top: 1px solid var(--neutral-60);
 }
 
-.valueCard {
-  position: relative;
+/* ---------------------------------------------------------------------------
+   Card — editorial column with structural hairlines
+   --------------------------------------------------------------------------- */
+.card {
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  padding: 32px 36px 8px 0;
+  gap: 0;
+  padding: 36px 40px 36px 0;
   border-right: 1px solid var(--neutral-60);
   opacity: 0;
+  transition: background-color 0.4s ease;
 }
 
-.valueCard:last-child {
+.card:last-child {
   border-right: none;
   padding-right: 0;
 }
 
-.valueCard:not(:first-child) {
-  padding-left: 36px;
+.card:not(:first-child) {
+  padding-left: 40px;
 }
 
-.section.inView .valueCard {
+.section.inView .card {
   animation: blurIn 0.85s ease-out forwards;
-  animation-delay: var(--delay, 0.3s);
+  animation-delay: calc(0.18s + var(--i) * 0.12s);
 }
 
-/* ---------------------------------------------------------------------------
-   Card head — large numeral + long rule extending to right
-   --------------------------------------------------------------------------- */
-.cardHead {
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    background-color: rgba(10, 14, 22, 0.015);
+  }
+}
+
+/* ── Top row — icon container + index ── */
+.cardTop {
   display: flex;
   align-items: center;
-  gap: 16px;
-  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 40px;
 }
 
-.cardNumber {
-  font-family: var(--font-display);
-  font-size: 44px;
-  font-weight: 300;
+.cardIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  transition: transform 0.35s ease, background-color 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.cardIconWrap svg {
+  width: 22px;
+  height: 22px;
+}
+
+.card_green .cardIconWrap {
+  background-color: var(--green-20);
+  border: 1px solid var(--green-40);
+  color: var(--green-100);
+}
+
+.card_blue .cardIconWrap {
+  background-color: var(--blue-20);
+  border: 1px solid var(--blue-40);
+  color: var(--blue-100);
+}
+
+.cardIndex {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--neutral-100);
   line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--neutral-160);
-  transition: color 320ms ease;
+  transition: color 0.35s ease;
 }
 
-.cardRule {
-  flex: 1;
-  height: 1px;
-  background: var(--neutral-60);
-  transition: background 320ms ease;
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .cardIconWrap {
+    transform: translateY(-2px);
+  }
+
+  .card_green:hover .cardIconWrap {
+    background-color: var(--green-40);
+    border-color: var(--green-60);
+  }
+
+  .card_blue:hover .cardIconWrap {
+    background-color: var(--blue-40);
+    border-color: var(--blue-60);
+  }
+
+  .card:hover .cardIndex {
+    color: var(--blue-100);
+  }
 }
 
-/* ---------------------------------------------------------------------------
-   Card body — category, title, description
-   --------------------------------------------------------------------------- */
+/* ── Card body — eyebrow, title, description ── */
 .cardBody {
   display: flex;
   flex-direction: column;
-  gap: 14px;
 }
 
 .cardCategory {
@@ -112,22 +175,26 @@
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--blue-100);
-  margin: 0;
-  transition: color 320ms ease;
+  margin: 0 0 12px 0;
+  transition: color 0.35s ease;
 }
 
-.valueTitle {
+.card:hover .cardCategory {
+  color: var(--green-100);
+}
+
+.cardTitle {
   font-family: var(--font-display);
   font-size: 28px;
   font-weight: 400;
   line-height: 1.18;
   letter-spacing: -0.015em;
   color: var(--neutral-160);
-  margin: 0;
+  margin: 0 0 12px 0;
   text-wrap: balance;
 }
 
-.valueDescription {
+.cardDescription {
   font-size: 15.5px;
   font-weight: 300;
   line-height: 1.65;
@@ -138,7 +205,7 @@
 }
 
 /* ---------------------------------------------------------------------------
-   CTA — below card grid
+   CTA
    --------------------------------------------------------------------------- */
 .ctaWrap {
   display: flex;
@@ -153,24 +220,7 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Hover — numeral and rule pick up brand accent
-   --------------------------------------------------------------------------- */
-@media (hover: hover) and (pointer: fine) {
-  .valueCard:hover .cardNumber {
-    color: var(--blue-100);
-  }
-
-  .valueCard:hover .cardRule {
-    background: var(--blue-60);
-  }
-
-  .valueCard:hover .cardCategory {
-    color: var(--green-100);
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   Tablet — 2 columns, divider on first card only
+   Tablet — two columns
    --------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
   .container {
@@ -179,49 +229,50 @@
 
   .cardGrid {
     grid-template-columns: repeat(2, 1fr);
-    border-top: 1px solid var(--neutral-60);
   }
 
-  .valueCard {
-    padding: 28px 24px 8px 0;
-    border-right: 1px solid var(--neutral-60);
+  .card {
+    padding: 28px 28px 28px 0;
   }
 
-  .valueCard:nth-child(2n) {
+  .card:not(:first-child) {
+    padding-left: 28px;
+  }
+
+  .card:nth-child(2n) {
     border-right: none;
     padding-right: 0;
   }
 
-  .valueCard:nth-child(2n + 1) {
+  .card:nth-child(2n + 1) {
     padding-left: 0;
   }
 
-  .valueCard:nth-child(2n) {
-    padding-left: 24px;
+  .card:nth-child(2n) {
+    padding-left: 28px;
   }
 
-  .valueCard:nth-child(3) {
+  .card:nth-child(3) {
     border-top: 1px solid var(--neutral-60);
     padding-top: 28px;
-    margin-top: 0;
   }
 
-  .cardNumber {
-    font-size: 38px;
+  .cardTop {
+    margin-bottom: 32px;
   }
 
-  .valueTitle {
+  .cardTitle {
     font-size: 24px;
   }
 
-  .valueDescription {
+  .cardDescription {
     font-size: 15px;
     max-width: none;
   }
 }
 
 /* ---------------------------------------------------------------------------
-   Mobile — stacked, horizontal dividers
+   Mobile — single column, horizontal dividers
    --------------------------------------------------------------------------- */
 @media (max-width: 768px) {
   .container {
@@ -232,44 +283,78 @@
     grid-template-columns: 1fr;
   }
 
-  .valueCard {
-    padding: 24px 0 24px 0;
+  .card {
+    padding: 24px 0;
     border-right: none;
     border-bottom: 1px solid var(--neutral-60);
-    gap: 20px;
   }
 
-  .valueCard:not(:first-child) {
+  .card:not(:first-child) {
     padding-left: 0;
   }
 
-  .valueCard:last-child {
+  .card:last-child {
     border-bottom: none;
   }
 
-  .cardNumber {
-    font-size: 34px;
+  .card:nth-child(3) {
+    border-top: none;
+    padding-top: 24px;
   }
 
-  .valueTitle {
+  .cardTop {
+    margin-bottom: 28px;
+  }
+
+  .cardTitle {
     font-size: 22px;
   }
 
-  .valueDescription {
+  .cardDescription {
     font-size: 14.5px;
   }
 }
 
 @media (max-width: 640px) {
-  .valueCard {
+  .card {
     padding: 20px 0;
   }
 
-  .cardNumber {
-    font-size: 30px;
+  .cardTop {
+    margin-bottom: 24px;
   }
 
-  .valueTitle {
+  .cardIconWrap {
+    width: 44px;
+    height: 44px;
+  }
+
+  .cardIconWrap svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cardTitle {
     font-size: 20px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .ctaWrap {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .card,
+  .cardIndex,
+  .cardCategory,
+  .cardIconWrap {
+    transition: none !important;
   }
 }

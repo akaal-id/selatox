@@ -35,12 +35,16 @@ export function PageHeader({
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
 
+  const hasMediaBackground = Boolean(backgroundImage);
+  const headlineParts = title.split("\n");
+
   return (
     <section
       ref={containerRef}
       id={id}
       className={styles.section}
       data-navbar="negative"
+      data-background={hasMediaBackground ? "media" : "gradient"}
     >
       {backgroundImage ? (
         <div className={styles.background} aria-hidden>
@@ -79,7 +83,7 @@ export function PageHeader({
         </div>
       </div>
 
-      <div className={styles.gradientOverlay} />
+      {hasMediaBackground ? <div className={styles.gradientOverlay} /> : null}
 
       <motion.div
         style={{ y: textY, opacity, scale }}
@@ -101,7 +105,12 @@ export function PageHeader({
               transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
               className={styles.headline}
             >
-              {title}
+              {headlineParts.map((part, index) => (
+                <span key={index}>
+                  {part}
+                  {index < headlineParts.length - 1 && <br />}
+                </span>
+              ))}
             </motion.h1>
             {lead ? (
               <motion.p

@@ -1,0 +1,252 @@
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   SECTION SHELL
+   ============================================================ */
+.section {
+  position: relative;
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+  padding-left: var(--section-px);
+  padding-right: var(--section-px);
+  background-color: var(--neutral-0, #ffffff);
+  font-family: var(--font-sans);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--section-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 72px;
+}
+
+/* ============================================================
+   INTRO
+   ============================================================ */
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 760px;
+  opacity: 0;
+}
+
+.section.inView .intro {
+  animation: fadeUp 0.8s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--green-100, #2d7a45);
+}
+
+.headline {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--neutral-160, #111);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.subheadline {
+  margin: 0;
+  font-size: clamp(16px, 1.3vw, 18px);
+  line-height: 1.7;
+  font-weight: 400;
+  color: rgba(20, 40, 25, 0.6);
+  max-width: 640px;
+}
+
+/* ============================================================
+   THREE PILLARS
+   ============================================================ */
+.pillars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  opacity: 0;
+}
+
+.section.inView .pillars {
+  animation: fadeUp 0.85s ease-out forwards;
+  animation-delay: 0.25s;
+}
+
+.pillar {
+  padding: 40px 32px 40px 0;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pillar:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.pillar:not(:first-child) {
+  padding-left: 32px;
+}
+
+.pillarNumber {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--green-100, #2d7a45);
+}
+
+.pillarBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pillarTitle {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--neutral-160, #111);
+  margin: 0;
+}
+
+.pillarText {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 400;
+  color: rgba(20, 40, 25, 0.6);
+}
+
+/* ============================================================
+   CTA
+   ============================================================ */
+.cta {
+  padding-top: 56px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: end;
+  opacity: 0;
+}
+
+.section.inView .cta {
+  animation: fadeUp 0.8s ease-out forwards;
+  animation-delay: 0.4s;
+}
+
+.ctaCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 560px;
+}
+
+.ctaTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.5vw, 34px);
+  font-weight: 300;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--neutral-160, #111);
+}
+
+.ctaBody {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(20, 40, 25, 0.6);
+}
+
+.ctaLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--green-100, #2d7a45);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: gap 0.3s ease, color 0.2s ease;
+}
+
+.ctaLink:hover {
+  color: #1d5c33;
+  gap: 12px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .pillars {
+    grid-template-columns: 1fr;
+  }
+
+  .pillar {
+    padding: 36px 0;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .pillar:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .pillar:not(:first-child) {
+    padding-left: 0;
+  }
+
+  .cta {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    gap: 48px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .section.inView .intro,
+  .section.inView .pillars,
+  .section.inView .cta {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

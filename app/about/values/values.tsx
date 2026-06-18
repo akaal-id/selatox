@@ -3,11 +3,12 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
-  Brain,
-  Equal,
-  HandHeart,
+  Globe,
+  Target,
+  Star,
+  Lightbulb,
+  ShieldCheck,
   Handshake,
-  Scale,
   type LucideIcon,
 } from "lucide-react";
 import { aboutValues } from "@/constants/about";
@@ -16,20 +17,27 @@ import styles from "./values.module.css";
 const EASE_OUT_EXPO = [0.25, 0.46, 0.45, 0.94] as const;
 
 const CORE_VALUE_ICONS: Record<string, LucideIcon> = {
-  justice: Scale,
-  stewardship: HandHeart,
-  fairness: Equal,
-  "open-mind": Brain,
-  "win-win": Handshake,
+  excellence: Star,
+  innovation: Lightbulb,
+  integrity: ShieldCheck,
+  partnership: Handshake,
 };
 
 const CORE_VALUE_ACCENT: Record<string, "blue" | "green"> = {
-  justice: "blue",
-  stewardship: "green",
-  fairness: "blue",
-  "open-mind": "green",
-  "win-win": "blue",
+  excellence: "green",
+  innovation: "blue",
+  integrity: "green",
+  partnership: "blue",
 };
+
+/** Split "Lead phrase — supporting copy" into a prominent lead + body. */
+function splitStatement(text: string): { lead: string; body: string } {
+  const [lead, ...rest] = text.split("—");
+  return { lead: lead.trim(), body: rest.join("—").trim() };
+}
+
+const vision = splitStatement(aboutValues.vision);
+const mission = splitStatement(aboutValues.mission);
 
 export function AboutValues() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -45,44 +53,55 @@ export function AboutValues() {
     >
       <div className={styles.container}>
         {/* ────────── VISION / MISSION ────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2, ease: EASE_OUT_EXPO }}
-          className={styles.statementGrid}
-        >
-          <article className={styles.statementCard}>
-            <div className={styles.statementLabelWrap}>
-              <span
-                className={`${styles.statementAccent} ${styles.accentGreen}`}
-              />
-              <span
-                className={`${styles.statementLabel} ${styles.statementLabelVision}`}
-              >
-                Vision
-              </span>
+        <div className={styles.statementGrid}>
+          <motion.article
+            initial={{ opacity: 0, y: 16 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.75, delay: 0.2, ease: EASE_OUT_EXPO }}
+            className={`${styles.statementCard} ${styles.card_green}`}
+          >
+            <div className={styles.statementIllustration} aria-hidden>
+              <Globe className={styles.statementIllustrationIcon} strokeWidth={1.25} />
             </div>
-            <p className={styles.statementText}>{aboutValues.vision}</p>
-          </article>
+            <div className={styles.statementTop}>
+              <div className={styles.statementIconWrap} aria-hidden>
+                <Globe strokeWidth={1.3} />
+              </div>
+              <span className={styles.statementIndex}>01</span>
+            </div>
+            <div className={styles.statementBody}>
+              <span className={styles.statementCategory}>Vision</span>
+              <h3 className={styles.statementTitle}>{vision.lead}</h3>
+              {vision.body ? (
+                <p className={styles.statementDescription}>{vision.body}</p>
+              ) : null}
+            </div>
+          </motion.article>
 
-          <article className={styles.statementCard}>
-            <div className={styles.statementLabelWrap}>
-              <span
-                className={`${styles.statementAccent} ${styles.accentBlue}`}
-              />
-              <span
-                className={`${styles.statementLabel} ${styles.statementLabelMission}`}
-              >
-                Mission
-              </span>
+          <motion.article
+            initial={{ opacity: 0, y: 16 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.75, delay: 0.32, ease: EASE_OUT_EXPO }}
+            className={`${styles.statementCard} ${styles.card_blue}`}
+          >
+            <div className={styles.statementIllustration} aria-hidden>
+              <Target className={styles.statementIllustrationIcon} strokeWidth={1.25} />
             </div>
-            <p
-              className={`${styles.statementText} ${styles.statementTextMission}`}
-            >
-              {aboutValues.mission}
-            </p>
-          </article>
-        </motion.div>
+            <div className={styles.statementTop}>
+              <div className={styles.statementIconWrap} aria-hidden>
+                <Target strokeWidth={1.3} />
+              </div>
+              <span className={styles.statementIndex}>02</span>
+            </div>
+            <div className={styles.statementBody}>
+              <span className={styles.statementCategory}>Mission</span>
+              <h3 className={styles.statementTitle}>{mission.lead}</h3>
+              {mission.body ? (
+                <p className={styles.statementDescription}>{mission.body}</p>
+              ) : null}
+            </div>
+          </motion.article>
+        </div>
 
         {/* ────────── CORE VALUES ────────── */}
         <div className={styles.principlesBlock}>
@@ -115,7 +134,9 @@ export function AboutValues() {
                     delay: 0.46 + (index + 1) * 0.08,
                     ease: EASE_OUT_EXPO,
                   }}
-                  className={styles.principleCard}
+                  className={`${styles.principleCard} ${
+                    accent === "green" ? styles.cardAccentGreen : styles.cardAccentBlue
+                  }`}
                 >
                   <div
                     className={`${styles.principleIconWrap} ${

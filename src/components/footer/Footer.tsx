@@ -4,7 +4,6 @@ import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUp } from "lucide-react";
-import { SelectForm } from "@/components/ui/selectform/selectform";
 import { PRIMARY_PRODUCT_SLUG } from "@/constants/products";
 import footerStyles from "./footer.module.css";
 
@@ -30,13 +29,6 @@ const legalData = [
     { label: "Privacy Policy", href: "/privacy", target: "_self" },
     { label: "Terms of Service", href: "/terms", target: "_self" },
     { label: "LinkedIn", href: "https://linkedin.com", target: "_blank" },
-    { label: "Instagram", href: "https://instagram.com", target: "_blank" },
-];
-
-// 3. Family Site Array
-const familySiteData = [
-    { label: "Selatox Global", href: "https://selatox.com", target: "_blank" },
-    { label: "Selatox R&D Center", href: "https://rd.selatox.com", target: "_blank" },
 ];
 
 export const Footer = () => {
@@ -108,22 +100,6 @@ export const Footer = () => {
                             </div>
                         </div>
 
-                        {/* Col 4: Family Site */}
-                        <div>
-                            <h3 className={footerStyles.eyebrow}>Family Site</h3>
-                            <SelectForm
-                                placeholder="Select Family Site"
-                                value=""
-                                onChange={() => {}}
-                                options={familySiteData.map((site) => ({
-                                    label: site.label,
-                                    value: site.label,
-                                    href: site.href,
-                                    target: site.target as "_blank" | "_self",
-                                }))}
-                                variant="footer"
-                            />
-                        </div>
 
                     </div>
                 </div>

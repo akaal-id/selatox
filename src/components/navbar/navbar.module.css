@@ -3,8 +3,13 @@
  */
 
 .navbar {
+  --navbar-pill-height: 50px;
+  --navbar-pill-padding-inline: 34px;
   --navbar-pill-padding: 16px;
-  --navbar-pill-icon-size: 20px;
+  --navbar-pill-icon-size: 22px;
+  --navbar-pill-logo-icon-size: 20px;
+  --navbar-pill-bg: rgba(255, 255, 255, 0.78);
+  --navbar-pill-border: 1px solid rgba(46, 34, 46, 0.09);
 
   position: fixed;
   top: 0;
@@ -25,10 +30,18 @@
   gap: 12px;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 24px;
+  padding-top: 22px;
 }
 
 /* Negative: no bg, border bottom, text/button/icon use neutral-20 */
+.navbarNegative {
+  /* Keep translucent pills on dark sections so the light text stays readable. */
+  --navbar-pill-bg: var(--pill-glass-on-dark-bg);
+  --navbar-pill-border: 1px solid var(--pill-glass-on-dark-border);
+  /* Lift greens toward mint + white (reference negative mark) */
+  --navbar-logo-filter: invert(1) brightness(2.5) contrast(1.18) saturate(0.12) hue-rotate(180deg);
+}
+
 .navbarNegative .container {
   background: none;
 }
@@ -36,11 +49,13 @@
 .navbarNegative .logo,
 .navbarNegative .logoSub,
 .navbarNegative .link,
-.navbarNegative .toggle {
+.navbarNegative .toggle,
+.navbarNegative .navButton {
   color: var(--neutral-20);
 }
 
-.navbarNegative .link:hover {
+.navbarNegative .link:hover,
+.navbarNegative .navButton:hover {
   color: var(--neutral-20);
 }
 
@@ -61,13 +76,24 @@
   text-decoration: none;
   color: var(--color-text);
   line-height: 1;
-  padding: var(--navbar-pill-padding);
-  height: 48px;
-  width: 48px;
+  height: var(--navbar-pill-height);
+  width: var(--navbar-pill-height);
   box-sizing: border-box;
-  background: rgba(217, 217, 217, 0.4);
+  background: var(--navbar-pill-bg);
   backdrop-filter: blur(12px);
+  border: var(--navbar-pill-border);
   border-radius: 999px;
+}
+
+.logoIcon {
+  width: var(--navbar-pill-logo-icon-size);
+  height: var(--navbar-pill-logo-icon-size);
+  transition: filter 0.25s ease;
+}
+
+.navbarNegative .logoIcon {
+  filter: var(--navbar-logo-filter);
+  -webkit-filter: var(--navbar-logo-filter);
 }
 
 .logoText {
@@ -102,13 +128,15 @@
 .nav {
   display: none;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
   justify-content: center;
-  background: rgba(217, 217, 217, 0.4);
+  background: var(--navbar-pill-bg);
   backdrop-filter: blur(12px);
+  border: var(--navbar-pill-border);
   border-radius: 999px;
-  height: 48px;
-  padding: 16px 32px;
+  min-height: var(--navbar-pill-height);
+  padding: 0 var(--navbar-pill-padding-inline);
+  box-sizing: border-box;
 
 }
 
@@ -120,13 +148,12 @@
 
 .link {
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: 16px;
   text-decoration: none;
   font-weight: 500;
   color: var(--color-text);
-  padding: 8px 0 8px;
+  padding: 0;
   transition: color 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
-  /* text-transform: uppercase; */
   letter-spacing: -0.04em;
   line-height: 1;
 }
@@ -178,9 +205,10 @@
   width: auto;
   max-height: 0;
   padding-block: 0;
-  padding-inline: 32px;
-  background: rgba(217, 217, 217, 0.4);
+  padding-inline: var(--navbar-pill-padding-inline);
+  background: var(--navbar-pill-bg);
   backdrop-filter: blur(12px);
+  border: var(--navbar-pill-border);
   border-radius: 999px;
   white-space: nowrap;
   overflow: hidden;
@@ -196,8 +224,8 @@
 }
 
 .navWrap > .dropdownMenuOpen {
-  max-height: 120px;
-  padding-block: 17px;
+  max-height: 128px;
+  padding-block: 18px;
   opacity: 1;
   transform: translateY(0) scale(1);
   pointer-events: auto;
@@ -245,50 +273,43 @@
   opacity: 0.6;
 }
 
-/* Nav button: nav + link look with button behaviour; icon inline, no icon container */
+/* Contact button — same pill treatment as logo / nav links */
 .navButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   flex-shrink: 0;
   box-sizing: border-box;
-  padding: 16.5px 17px 15.5px 15px;
-  height: 48px;
-  width: 48px;
+  padding: 0 calc(var(--navbar-pill-padding-inline) - 6px);
+  min-height: var(--navbar-pill-height);
   border-radius: 999px;
   cursor: pointer;
-  background: rgba(217, 217, 217, 0.4);
+  background: var(--navbar-pill-bg);
   backdrop-filter: blur(12px);
+  border: var(--navbar-pill-border);
   color: var(--green-100);
-  border: none;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  white-space: nowrap;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.navButton:hover {
+  color: var(--green-120);
+}
+
+.navButtonLabel {
+  display: inline-block;
 }
 
 .navButton svg {
-  width: var(--navbar-pill-icon-size);
-  height: var(--navbar-pill-icon-size);
+  width: 17px;
+  height: 17px;
   flex-shrink: 0;
-}
-
-.navbarNegative .navButton {
-  color: var(--neutral-20);
-}
-
-.contactTooltip {
-  position: fixed;
-  z-index: 80;
-  pointer-events: none;
-  padding: 6px 10px;
-  border-radius: 8px;
-  border: 1px solid var(--neutral-60);
-  background: rgba(252, 252, 252, 0.95);
-  backdrop-filter: blur(8px);
-  color: var(--neutral-160);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  box-shadow: 0 8px 24px rgba(46, 34, 46, 0.14);
 }
 
 .toggle {
@@ -298,13 +319,13 @@
   flex-shrink: 0;
   box-sizing: border-box;
   padding: var(--navbar-pill-padding);
-  min-width: calc(var(--navbar-pill-icon-size) + 2 * var(--navbar-pill-padding));
-  min-height: calc(var(--navbar-pill-icon-size) + 2 * var(--navbar-pill-padding));
+  min-width: var(--navbar-pill-height);
+  min-height: var(--navbar-pill-height);
   border-radius: 999px;
-  border: none;
+  border: var(--navbar-pill-border);
   cursor: pointer;
   color: var(--color-text);
-  background: rgba(217, 217, 217, 0.4);
+  background: var(--navbar-pill-bg);
   backdrop-filter: blur(12px);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
@@ -364,7 +385,8 @@
   }
 
   .navbarNegative.navbarMenuOpen .navButton {
-    color: var(--green-100);
+    color: var(--neutral-160);
+    background: var(--neutral-40);
   }
 
   .mobileOverlay {

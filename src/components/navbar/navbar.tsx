@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X, PhoneOutgoing, ChevronDown } from "lucide-react";
+import { Menu, X, ArrowUpRight, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLenis } from "@/components/lenis/LenisProvider";
 import { PRIMARY_PRODUCT_SLUG } from "@/constants/products";
@@ -183,8 +183,6 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
   const [aboutOpen, setAboutOpen] = useState(false);
   const [careersOpen, setCareersOpen] = useState(false);
   const [scrollVariant, setScrollVariant] = useState<NavbarVariant | null>(null);
-  const [contactTipVisible, setContactTipVisible] = useState(false);
-  const [contactTipPos, setContactTipPos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const update = () => setScrollVariant(getVariantFromScroll());
@@ -253,8 +251,8 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
             <Image
               src="/assets/icon.svg"
               alt="Selatox"
-              width={20}
-              height={20}
+              width={26}
+              height={26}
               className={styles.logoIcon}
             />
           </Link>
@@ -312,31 +310,14 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
             <button
               type="button"
               className={styles.navButton}
-              aria-label="Contact Us"
               onClick={() => {
                 closeMobileMenu();
                 router.push("/contact");
               }}
-              onMouseEnter={(event) => {
-                setContactTipVisible(true);
-                setContactTipPos({ x: event.clientX + 14, y: event.clientY + 14 });
-              }}
-              onMouseMove={(event) => {
-                setContactTipPos({ x: event.clientX + 14, y: event.clientY + 14 });
-              }}
-              onMouseLeave={() => setContactTipVisible(false)}
             >
-              <PhoneOutgoing aria-hidden />
+              <span className={styles.navButtonLabel}>Contact Us</span>
+              <ArrowUpRight size={17} aria-hidden />
             </button>
-            {contactTipVisible ? (
-              <span
-                className={styles.contactTooltip}
-                style={{ left: `${contactTipPos.x}px`, top: `${contactTipPos.y}px` }}
-                role="tooltip"
-              >
-                Contact Us
-              </span>
-            ) : null}
             <button
               type="button"
               className={styles.toggle}

@@ -7,6 +7,13 @@ import {
 } from "@/constants/researchfields";
 import styles from "./research.module.css";
 
+const KEY_FOCUS = [
+  "Product and formulation development",
+  "Process optimization",
+  "Analytical and quality innovation",
+  "Future pipeline development",
+];
+
 export function Research() {
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
@@ -18,7 +25,7 @@ export function Research() {
       ([entry]) => {
         if (entry.isIntersecting) setIsInView(true);
       },
-      { threshold: 0.15, rootMargin: "0px 0px -5% 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -5% 0px" }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -29,17 +36,47 @@ export function Research() {
       ref={sectionRef}
       id="research-fields"
       className={`${styles.section} ${isInView ? styles.inView : ""}`.trim()}
-      aria-label="Research fields"
+      aria-labelledby="research-heading"
       data-navbar="default"
     >
       <div className={styles.container}>
         <div className={styles.intro}>
-          <p className={styles.eyebrow} aria-hidden>
-            <span className={styles.eyebrowLabel}>Research Fields</span>
-          </p>
-          <h2 className={styles.headline}>
-            Created by Science. Inspired by Beauty.
-          </h2>
+          {/* Top — eyebrow + headline (left), description (right) */}
+          <div className={styles.headerTop}>
+            <div className={styles.headerLeft}>
+              <p className={styles.eyebrow}>
+                <span className={styles.eyebrowLabel}>Research and Innovation</span>
+              </p>
+              <h2 id="research-heading" className={styles.headline}>
+                Creating the Science Behind Tomorrow&apos;s Aesthetics
+              </h2>
+            </div>
+
+            <div className={styles.description}>
+              <p>
+                At Selatox, innovation begins with research. Our dedicated R&amp;D
+                capabilities support the development of next-generation aesthetic
+                solutions, process optimization, and future pipeline opportunities.
+              </p>
+              <p>
+                By combining scientific expertise with practical manufacturing
+                knowledge, we transform ideas into scalable and commercially
+                viable solutions.
+              </p>
+            </div>
+          </div>
+
+          {/* Key Focus — horizontal strip below a rule */}
+          <div className={styles.focusRow} aria-label="Key focus areas">
+            <p className={styles.focusLabel}>Key Focus</p>
+            <ul className={styles.focusTags}>
+              {KEY_FOCUS.map((item) => (
+                <li key={item} className={styles.focusTag}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div
@@ -67,14 +104,9 @@ export function Research() {
               <p className={styles.phase} role="cell">
                 {field.phase}
               </p>
-              <div className={styles.progressCell} role="cell">
-                <div className={styles.progressTrack} aria-hidden>
-                  <div
-                    className={styles.progressFill}
-                    style={{ width: `${field.progressPercent}%` }}
-                  />
-                </div>
-              </div>
+              <p className={styles.phase} role="cell">
+                {field.targetLaunch}
+              </p>
             </div>
           ))}
         </div>

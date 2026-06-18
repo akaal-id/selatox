@@ -7,9 +7,8 @@ import { ManufacturingPlan } from "./home/manufacturing-plan/manufacturing-plan"
 import { RndCenter } from "./home/rnd-center/rnd-center";
 import { Newsroom } from "./home/newsroom/newsroom";
 import { CareerSection } from "./home/career/career";
-import { Newsletter } from "@/components/newsletter/Newsletter";
 
-/** Single home page at "/". Section order: Hero → Intro → Values → Featured Product → Business → Career → Newsroom → Prodsection. */
+/** Single home page at "/". Section order: Hero → Intro → Values → Featured Product → Business → Manufacturing → R&D → Career → Newsroom. */
 export default function HomePage() {
   return (
     <main>
@@ -18,12 +17,10 @@ export default function HomePage() {
       <Valuesection />
       <FeaturedProduct />
       <Business />
-      <RndCenter />
       <ManufacturingPlan />
-      
+      <RndCenter />
       <CareerSection />
       <Newsroom />
-      <Newsletter />
     </main>
   );
 }

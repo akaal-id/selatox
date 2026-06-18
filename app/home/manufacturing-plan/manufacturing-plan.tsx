@@ -1,8 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Building2, Factory, Layers, type LucideIcon } from "lucide-react";
 import { facilities } from "@/constants/facilities";
 import styles from "./manufacturing-plan.module.css";
+
+const PILLAR_ICONS: LucideIcon[] = [Building2, Factory, Layers];
+const PILLAR_ACCENTS = ["green", "blue", "green"] as const;
 
 export function ManufacturingPlan() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -21,7 +25,6 @@ export function ManufacturingPlan() {
     return () => observer.disconnect();
   }, []);
 
-  /* Split the headline on \n so we can insert <br /> */
   const headlineParts = facilities.headline.split("\n");
 
   return (
@@ -60,21 +63,36 @@ export function ManufacturingPlan() {
                 </span>
               ))}
             </h2>
-            <p className={styles.sub}>
-              {facilities.sub}
-            </p>
+            <p className={styles.sub}>{facilities.sub}</p>
           </div>
         </div>
 
-        <ul className={styles.pillars}>
-          {facilities.pillars.map((pillar) => (
-            <li key={pillar.title} className={styles.pillar}>
-              <div className={styles.pillarHead} />
-              <h3 className={styles.pillarTitle}>{pillar.title}</h3>
-              <p className={styles.pillarBody}>{pillar.body}</p>
-              <span className={styles.pillarMeta}>{pillar.meta}</span>
-            </li>
-          ))}
+        <ul className={styles.cardGrid}>
+          {facilities.pillars.map((pillar, index) => {
+            const Icon = PILLAR_ICONS[index];
+            const accent = PILLAR_ACCENTS[index];
+            return (
+              <li
+                key={pillar.title}
+                className={`${styles.card} ${styles[`card_${accent}`]}`}
+                style={{ "--i": index } as React.CSSProperties}
+              >
+                <div className={styles.cardTop}>
+                  <div className={styles.cardIconWrap} aria-hidden>
+                    {Icon && <Icon strokeWidth={1.3} />}
+                  </div>
+                  <span className={styles.cardIndex}>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <div className={styles.cardBody}>
+                  <span className={styles.cardCategory}>{pillar.meta}</span>
+                  <h3 className={styles.cardTitle}>{pillar.title}</h3>
+                  <p className={styles.cardDescription}>{pillar.body}</p>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>

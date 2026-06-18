@@ -1,5 +1,5 @@
 export const cultureHero = {
-  title: "Redefining Work in Bio-Aesthetics",
+  title: "Redefining Work\nin Bio-Aesthetics",
   subtitle: "Where global expertise meets agile innovation.",
   backgroundImage: "/images/hero-1.webp",
   backgroundAlt: "Selatox team and workplace culture",

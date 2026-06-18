@@ -1,6 +1,7 @@
 export const aboutHero = {
-  headline: "Engineering the Future of Bio-Aesthetics.",
-  subheadline: "Indonesia's Pioneer in Biopharmaceutical Specialization.",
+  headline: "Pioneering Excellence,\nWhere Quality Meets Value",
+  subheadline:
+    "Selatox is a biotechnology company dedicated to developing and manufacturing innovative aesthetic solutions, combining scientific expertise, precision manufacturing, and global quality standards.",
   backgroundImage: "/images/hero-4.webp",
 } as const;
 
@@ -15,47 +16,59 @@ export const aboutExecutive = {
   eyebrow: "Leadership",
   name: "Joh Younghoon",
   title: "Chief Executive Officer",
-  message:
-    "At Selatox, our commitment goes beyond manufacturing; it is about establishing a sustainable, world-class bio-ecosystem in Indonesia. Through strategic partnerships, rigorous talent discovery, and an unwavering adherence to quality, we are not just entering the global market—we are preparing to lead it.",
+  quote: {
+    blocks: [
+      {
+        segments: [
+          {
+            t: "At Selatox, our commitment goes beyond manufacturing; it is about establishing a sustainable, world-class bio-ecosystem in Indonesia.",
+          },
+        ],
+      },
+      {
+        segments: [
+          {
+            t: "Through strategic partnerships, rigorous talent discovery, and an unwavering adherence to quality, we are not just entering the global market—we are ",
+          },
+          { t: "preparing to lead it.", emphasis: "em" as const },
+        ],
+      },
+    ],
+  },
   portrait: "/images/placeholder.jpg",
 } as const;
 
 export const aboutValues = {
   eyebrow: "Purpose",
   title: "Vision, Mission & Core Values",
-  vision: "2030 Global Leading Biopharmaceutical Company",
+  vision:
+    "Advancing Beauty Through Science — To become a globally trusted biotechnology company that transforms aesthetic medicine through innovation, quality, and scientific excellence.",
   mission:
-    "To be a world-class leader in toxin production and distribution excellence.",
+    "Delivering Innovative Solutions for Global Aesthetic Healthcare — We develop and manufacture high-quality aesthetic therapies through advanced biotechnology and pharmaceutical-grade manufacturing, creating lasting value for patients, healthcare professionals, and partners worldwide.",
   coreValues: [
     {
-      id: "justice",
-      name: "Justice",
+      id: "excellence",
+      name: "Excellence",
       description:
-        "Never take an unrighteous path even if it can bring profits.",
+        "We pursue excellence in every process, product, and decision to achieve the highest standards of quality and reliability.",
     },
     {
-      id: "stewardship",
-      name: "Stewardship",
+      id: "innovation",
+      name: "Innovation",
       description:
-        "Think in the shoes of others and never lean too much to one side.",
+        "We challenge conventions and embrace innovation to advance science and create meaningful solutions.",
     },
     {
-      id: "fairness",
-      name: "Fairness",
+      id: "integrity",
+      name: "Integrity",
       description:
-        "Unite work and fate and work hard until being successful.",
+        "We act with transparency, ethics, and accountability in everything we do.",
     },
     {
-      id: "open-mind",
-      name: "Open Mind",
+      id: "partnership",
+      name: "Partnership",
       description:
-        "Always speak the truth and listen to other opinions with an open mind.",
-    },
-    {
-      id: "win-win",
-      name: "Win-Win",
-      description:
-        "Only do work that is in the interest of us, our counterparts, and society (Win-Win-Win).",
+        "We build long-term partnerships based on trust, respect, and shared success.",
     },
   ],
 } as const;
@@ -159,19 +172,22 @@ export const aboutRoadmap = {
 export const aboutContact = {
   eyebrow: "Contact",
   title: "Get in Touch",
-  generalInquiry: "info@selatox.com",
-  phone: "+62 21 0000 0000",
+  channels: [
+    { label: "Business & General Inquiries", email: "contact@selatox.com" },
+    { label: "HR & Careers", email: "careers@selatox.com" },
+    { label: "Public Relations", email: "pr@selatox.com" },
+  ],
   locations: [
     {
       id: "depok",
-      name: "R&D Center (Headquarters)",
+      name: "R&D Center",
       location: "Depok, West Java, Indonesia",
       role: "Innovation Hub & Corporate Operations",
       mapQuery: "Depok, West Java, Indonesia",
     },
     {
       id: "cikarang",
-      name: "Manufacturing Facility",
+      name: "Manufacturing Site",
       location: "Cikarang, Bekasi Regency, West Java, Indonesia",
       role: "Global Production & Export Hub",
       mapQuery: "Cikarang, Bekasi Regency, West Java, Indonesia",

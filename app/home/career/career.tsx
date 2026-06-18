@@ -1,15 +1,34 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { JobCard } from "@/components/jobcard/jobcard";
 import { Button } from "@/components/ui/Button";
+import { jobListings } from "@/constants/opportunities";
 import styles from "./career.module.css";
+
+const JOB_STATUS_SORT_ORDER = {
+  Open: 0,
+  "Closing Soon": 1,
+  Closed: 2,
+} as const;
 
 export function CareerSection() {
   const router = useRouter();
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
+
+  const featuredJobs = useMemo(
+    () =>
+      jobListings
+        .filter((job) => job.status !== "Closed")
+        .sort(
+          (a, b) =>
+            JOB_STATUS_SORT_ORDER[a.status] - JOB_STATUS_SORT_ORDER[b.status]
+        )
+        .slice(0, 3),
+    []
+  );
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -18,7 +37,7 @@ export function CareerSection() {
       ([entry]) => {
         if (entry.isIntersecting) setIsInView(true);
       },
-      { threshold: 0.15, rootMargin: "0px 0px -5% 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -5% 0px" }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -29,71 +48,52 @@ export function CareerSection() {
       ref={sectionRef}
       className={`${styles.section} ${isInView ? styles.inView : ""}`.trim()}
       id="careers"
-      data-navbar="negative"
+      data-navbar="default"
       aria-labelledby="careers-heading"
     >
       <div className={styles.container}>
-        {/* ────────── INTRO ROW ────────── */}
-        <div className={styles.introRow}>
-          <div className={styles.introPrimary}>
-            <span className={styles.eyebrow} aria-hidden>
-              Careers
-            </span>
+        <header className={styles.header}>
+          <span className={styles.eyebrow} aria-hidden>
+            Careers
+          </span>
+          <div className={styles.headerRow}>
             <h2 id="careers-heading" className={styles.headline}>
-              Build what&apos;s next,
-              <br />
-              <span className={styles.headlineAccent}>with us.</span>
+              Build what&apos;s next,{" "}
+              <em className={styles.headlineAccent}>with us.</em>
             </h2>
-          </div>
-          <p className={styles.subtitle}>
-            We&apos;re assembling a team of scientists, strategists, and
-            operators who believe the next era of bio-aesthetics will be
-            engineered in Indonesia — and shared with the world. If you&apos;re
-            looking for work that compounds, this is where it starts.
-          </p>
-        </div>
-
-        {/* ────────── FEATURE IMAGE ────────── */}
-        <div className={styles.mediaWrap}>
-          <div className={styles.media}>
-            <Image
-              src="/images/hero-1.webp"
-              alt="Selatox team at work"
-              fill
-              sizes="(max-width: 1024px) 100vw, 1280px"
-              className={styles.mediaImage}
-              priority={false}
-            />
-            <div className={styles.mediaOverlay} aria-hidden />
-            <div className={styles.mediaCaption}>
-              <span className={styles.mediaCaptionLabel}>The Team</span>
-              <p className={styles.mediaCaptionText}>
-                A multidisciplinary group working across research, manufacturing,
-                regulatory, and global partnerships.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* ────────── CTA ────────── */}
-        <div className={styles.cta}>
-          <div className={styles.ctaCopy}>
-            <p className={styles.ctaLead}>Ready to make your mark?</p>
-            <p className={styles.ctaSupport}>
-              See current openings across research, operations, and
-              commercial.
+            <p className={styles.subtitle}>
+              We&apos;re assembling a team of scientists, strategists, and operators
+              who believe the next era of bio-aesthetics will be engineered in
+              Indonesia — and shared with the world.
             </p>
           </div>
-          <div className={styles.ctaActions}>
-            <Button
-              variant="blur"
-              tone="light"
-              showIcon
-              onClick={() => router.push("/openings")}
+        </header>
+
+        <ul className={styles.jobGrid}>
+          {featuredJobs.map((job, index) => (
+            <li
+              key={job.id}
+              className={styles.jobGridItem}
+              style={{ "--delay": `${0.2 + index * 0.06}s` } as React.CSSProperties}
             >
-              View Open Roles
-            </Button>
-          </div>
+              <JobCard
+                job={job}
+                onViewDetails={() => router.push(`/openings/${job.slug}`)}
+                onApply={() => router.push(`/openings/${job.slug}#apply`)}
+              />
+            </li>
+          ))}
+        </ul>
+
+        <div className={styles.cta}>
+          <Button
+            variant="simple"
+            showIcon
+            color="var(--green-120)"
+            onClick={() => router.push("/openings")}
+          >
+            View all open roles
+          </Button>
         </div>
       </div>
     </section>

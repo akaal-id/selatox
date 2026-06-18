@@ -9,7 +9,7 @@ function mapEmbedUrl(query: string) {
   return `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
 }
 
-export function AboutContact() {
+export function ContactPageContent() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-8%" });
   const [activeMap, setActiveMap] = useState<string>(
@@ -25,7 +25,7 @@ export function AboutContact() {
       ref={sectionRef}
       id="contact"
       className={styles.section}
-      aria-labelledby="about-contact-heading"
+      aria-labelledby="contact-page-heading"
       data-navbar="default"
     >
       <div className={styles.splitGrid}>
@@ -35,47 +35,61 @@ export function AboutContact() {
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
+            className={styles.leftInner}
           >
-            {/* Eyebrow */}
             <p className={styles.eyebrow} aria-hidden>
               {aboutContact.eyebrow}
             </p>
 
-            {/* Title */}
             <div className={styles.titleWrap}>
-              <motion.h2
-                id="about-contact-heading"
+              <motion.h1
+                id="contact-page-heading"
                 initial={{ y: "100%" }}
                 animate={isInView ? { y: "0%" } : {}}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.2,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
                 className={styles.title}
               >
                 {aboutContact.title}
-              </motion.h2>
+              </motion.h1>
             </div>
 
-            {/* Contact channels */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className={styles.lead}
+            >
+              Reach the right team directly, or visit us at one of our two sites
+              across West Java, Indonesia.
+            </motion.p>
+
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.35 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
               className={styles.channelsWrap}
             >
               {aboutContact.channels.map((channel) => (
                 <div key={channel.email}>
                   <p className={styles.channelLabel}>{channel.label}</p>
-                  <a href={`mailto:${channel.email}`} className={styles.channelLink}>
+                  <a
+                    href={`mailto:${channel.email}`}
+                    className={styles.channelLink}
+                  >
                     {channel.email}
                   </a>
                 </div>
               ))}
             </motion.div>
 
-            {/* Location switcher */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.45 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
               className={styles.switcherWrap}
             >
               {aboutContact.locations.map((loc) => {
@@ -85,17 +99,13 @@ export function AboutContact() {
                     key={loc.id}
                     type="button"
                     onClick={() => setActiveMap(loc.id)}
-                    className={`${styles.switcherBtn} ${isActive ? styles.switcherBtnActive : ""}`}
+                    className={`${styles.switcherBtn} ${
+                      isActive ? styles.switcherBtnActive : ""
+                    }`}
                   >
-                    <span className={styles.btnName}>
-                      {loc.name}
-                    </span>
-                    <span className={styles.btnLocation}>
-                      {loc.location}
-                    </span>
-                    <span className={styles.btnRole}>
-                      {loc.role}
-                    </span>
+                    <span className={styles.btnName}>{loc.name}</span>
+                    <span className={styles.btnLocation}>{loc.location}</span>
+                    <span className={styles.btnRole}>{loc.role}</span>
                   </button>
                 );
               })}

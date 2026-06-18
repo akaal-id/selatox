@@ -6,118 +6,162 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { aboutRoadmap } from "@/constants/about";
 import styles from "./roadmap.module.css";
 
+const EASE = [0.25, 0.46, 0.45, 0.94] as const;
+
 const SECTION_META = {
   history: { label: "01", title: aboutRoadmap.historyTitle },
   milestone: { label: "02", title: aboutRoadmap.milestonesTitle },
 } as const;
 
+function SectionHeader({
+  label,
+  title,
+  spaced,
+}: {
+  label: string;
+  title: string;
+  spaced: boolean;
+}) {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const headerInView = useInView(headerRef, { margin: "-12%" });
+
+  return (
+    <li className={styles.sectionHeaderRow}>
+      <motion.div
+        ref={headerRef}
+        initial={{ opacity: 0, y: 16 }}
+        animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+        transition={{ duration: 0.7, delay: headerInView ? 0.1 : 0, ease: EASE }}
+        className={`${styles.sectionHeaderContent} ${
+          spaced ? styles.sectionHeaderContentSpaced : ""
+        }`.trim()}
+      >
+        <span className={styles.sectionEyebrow}>{label}</span>
+        <h3 className={styles.sectionHeaderTitle}>{title}</h3>
+      </motion.div>
+    </li>
+  );
+}
+
 function MilestoneItem({
   item,
   index,
-  isInView,
 }: {
   item: (typeof aboutRoadmap.milestones)[number];
   index: number;
-  isInView: boolean;
 }) {
   const itemRef = useRef<HTMLLIElement>(null);
-  const itemInView = useInView(itemRef, { once: true, margin: "-15%" });
-  const shouldAnimate = isInView && itemInView;
+  const itemInView = useInView(itemRef, { margin: "-12%" });
 
-  const dotStatusClass = {
-    completed: styles.dotCompleted,
-    active: styles.dotActive,
-    upcoming: styles.dotUpcoming,
-    vision: styles.dotVision,
-  }[item.status] ?? styles.dotUpcoming;
-  const rowStatusClass = {
-    completed: styles.rowCompleted,
-    active: styles.rowActive,
-    upcoming: styles.rowUpcoming,
-    vision: styles.rowVision,
-  }[item.status] ?? styles.rowUpcoming;
+  // Row 1 (index 0): image right / info left, then alternate.
+  const imageRight = index % 2 === 0;
+
+  const { scrollYProgress } = useScroll({
+    target: itemRef,
+    offset: ["start end", "end start"],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-7%", "7%"]);
+
+  const dotStatusClass =
+    {
+      completed: styles.dotCompleted,
+      active: styles.dotActive,
+      upcoming: styles.dotUpcoming,
+      vision: styles.dotVision,
+    }[item.status] ?? styles.dotUpcoming;
+  const rowStatusClass =
+    {
+      completed: styles.rowCompleted,
+      active: styles.rowActive,
+      upcoming: styles.rowUpcoming,
+      vision: styles.rowVision,
+    }[item.status] ?? styles.rowUpcoming;
 
   return (
-    <motion.li
+    <li
       ref={itemRef}
-      initial={{ opacity: 0, x: -20 }}
-      animate={shouldAnimate ? { opacity: 1, x: 0 } : {}}
-      transition={{
-        duration: 0.7,
-        delay: 0.1 + index * 0.08,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }}
-      className={`${styles.milestoneRow} ${rowStatusClass}`}
+      className={`${styles.milestoneRow} ${
+        imageRight ? styles.rowImageRight : styles.rowImageLeft
+      } ${rowStatusClass}`}
     >
-      {/* Year column */}
-      <div className={styles.yearCol}>
-        <span className={styles.yearText}>
-          {item.year}
-        </span>
+      {/* Info side — year + title + items */}
+      <motion.div
+        initial={{ opacity: 0, x: imageRight ? -44 : 44 }}
+        animate={
+          itemInView
+            ? { opacity: 1, x: 0 }
+            : { opacity: 0, x: imageRight ? -44 : 44 }
+        }
+        transition={{ duration: 0.8, delay: itemInView ? 0.05 : 0, ease: EASE }}
+        className={styles.infoSide}
+      >
+        <div className={styles.infoTopGroup}>
+          <span className={styles.yearText}>{item.year}</span>
+          <p className={styles.milestoneTitle}>{item.title}</p>
+        </div>
+
+        <div className={styles.milestoneItemsList}>
+          {item.items.map((subItem, idx) => (
+            <div key={idx} className={styles.milestoneItem}>
+              {"month" in subItem && subItem.month ? (
+                <span className={styles.itemMonth}>{subItem.month}</span>
+              ) : null}
+              <span className={styles.itemText}>{subItem.text}</span>
+            </div>
+          ))}
+        </div>
+
+        {item.status === "active" ? (
+          <span className={styles.badgeActive}>Current Phase</span>
+        ) : null}
+        {item.status === "vision" ? (
+          <span className={styles.badgeVision}>Vision {item.year}</span>
+        ) : null}
+      </motion.div>
+
+      {/* Center spine — dot sits on the continuous progress line */}
+      <div className={styles.centerCol}>
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={
+            itemInView
+              ? { scale: 1, opacity: 1 }
+              : { scale: 0, opacity: 0 }
+          }
+          transition={{ duration: 0.5, delay: itemInView ? 0.18 : 0, ease: EASE }}
+          className={`${styles.dot} ${dotStatusClass}`}
+        />
       </div>
 
-      {/* Timeline line + dot */}
-      <div className={styles.dotCol}>
-        <div className={`${styles.dot} ${dotStatusClass}`} />
-      </div>
-
-      {/* Content */}
-      <div className={styles.contentCol}>
-        {/* Left: Image */}
-        <div className={styles.imageCol}>
-          <div className={styles.imageWrapper}>
+      {/* Image side */}
+      <motion.div
+        initial={{ opacity: 0, x: imageRight ? 44 : -44 }}
+        animate={
+          itemInView
+            ? { opacity: 1, x: 0 }
+            : { opacity: 0, x: imageRight ? 44 : -44 }
+        }
+        transition={{ duration: 0.85, delay: itemInView ? 0.05 : 0, ease: EASE }}
+        className={styles.imageSide}
+      >
+        <div className={styles.imageWrapper}>
+          <motion.div className={styles.imageInner} style={{ y: imageY }}>
             <Image
               src={item.image}
               alt={item.title}
               fill
-              sizes="(max-width: 768px) 100vw, 25vw"
+              sizes="(max-width: 768px) 100vw, 40vw"
               className="object-cover"
             />
-          </div>
+          </motion.div>
         </div>
-
-        {/* Right: flex column -> milestone title and sub */}
-        <div className={styles.infoCol}>
-          <div className={styles.infoTopGroup}>
-            <span className={styles.mobileYear}>
-              {item.year}
-            </span>
-            <p className={styles.milestoneTitle}>
-              {item.title}
-            </p>
-            <div className={styles.milestoneItemsList}>
-              {item.items.map((subItem, idx) => (
-                <div key={idx} className={styles.milestoneItem}>
-                  {"month" in subItem && subItem.month && (
-                    <span className={styles.itemMonth}>
-                      {subItem.month}
-                    </span>
-                  )}
-                  <span className={styles.itemText}>
-                    {subItem.text}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-          {item.status === "active" && (
-            <span className={styles.badgeActive}>
-              Current Phase
-            </span>
-          )}
-          {item.status === "vision" && (
-            <span className={styles.badgeVision}>
-              Vision {item.year}
-            </span>
-          )}
-        </div>
-      </div>
-    </motion.li>
+      </motion.div>
+    </li>
   );
 }
 
 function useTimelineLinePosition(
-  timelineRef: React.RefObject<HTMLOListElement | null>,
+  timelineRef: React.RefObject<HTMLOListElement | null>
 ) {
   const [linePosition, setLinePosition] = useState<{
     left: number;
@@ -160,28 +204,23 @@ function useTimelineLinePosition(
 }
 
 export function Roadmap() {
-  const sectionRef = useRef<HTMLElement>(null);
   const timelineRef = useRef<HTMLOListElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-5%" });
   const linePosition = useTimelineLinePosition(timelineRef);
 
   const { scrollYProgress } = useScroll({
     target: timelineRef,
-    offset: ["start 80%", "end 50%"],
+    offset: ["start 78%", "end 55%"],
   });
-
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <section
-      ref={sectionRef}
       id="roadmap"
       className={styles.section}
       aria-label="Company roadmap"
       data-navbar="default"
     >
       <div className={styles.container}>
-        {/* Single timeline: two labeled sections share one continuous line */}
         <ol ref={timelineRef} className={styles.timelineList}>
           {aboutRoadmap.milestones.map((item, index) => {
             const prev = aboutRoadmap.milestones[index - 1];
@@ -190,38 +229,26 @@ export function Roadmap() {
 
             return (
               <Fragment key={item.year}>
-                {isSectionStart && (
-                  <li className={styles.sectionHeaderRow}>
-                    <div className={styles.sectionSpacer} aria-hidden />
-                    <motion.div
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={isInView ? { opacity: 1, y: 0 } : {}}
-                      transition={{
-                        duration: 0.7,
-                        delay: 0.1,
-                        ease: [0.25, 0.46, 0.45, 0.94],
-                      }}
-                      className={`${styles.sectionHeaderContent} ${
-                        index === 0 ? "" : styles.sectionHeaderContentSpaced
-                      }`.trim()}
-                    >
-                      <span className={styles.sectionEyebrow}>
-                        {meta.label} &mdash;{" "}
-                        {item.section === "history"
-                          ? "Where we started"
-                          : "Where we're headed"}
-                      </span>
-                      <h3 className={styles.sectionHeaderTitle}>{meta.title}</h3>
-                    </motion.div>
-                  </li>
-                )}
-                <MilestoneItem item={item} index={index} isInView={isInView} />
+                {isSectionStart ? (
+                  <SectionHeader
+                    label={`${meta.label} — ${
+                      item.section === "history"
+                        ? "Where we started"
+                        : "Where we're headed"
+                    }`}
+                    title={meta.title}
+                    spaced={index > 0}
+                  />
+                ) : null}
+                <MilestoneItem item={item} index={index} />
               </Fragment>
             );
           })}
 
           <div
-            className={`${styles.progressLineWrap} ${linePosition ? styles.progressLineReady : ""}`}
+            className={`${styles.progressLineWrap} ${
+              linePosition ? styles.progressLineReady : ""
+            }`}
             aria-hidden
             style={
               linePosition
@@ -234,7 +261,10 @@ export function Roadmap() {
             }
           >
             <div className={styles.progressTrack} />
-            <motion.div style={{ height: lineHeight }} className={styles.progressFill} />
+            <motion.div
+              style={{ height: lineHeight }}
+              className={styles.progressFill}
+            />
           </div>
         </ol>
       </div>

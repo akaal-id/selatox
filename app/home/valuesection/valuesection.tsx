@@ -2,8 +2,21 @@
 
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Eye, Target, Heart, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import styles from "./valuesection.module.css";
+
+const CARD_ICONS: Record<string, LucideIcon> = {
+  vision: Eye,
+  mission: Target,
+  "core-value": Heart,
+};
+
+const CARD_ACCENT: Record<string, "green" | "blue"> = {
+  vision: "green",
+  mission: "blue",
+  "core-value": "green",
+};
 
 const values = [
   {
@@ -44,7 +57,7 @@ export function Valuesection() {
       ([entry]) => {
         if (entry.isIntersecting) setIsInView(true);
       },
-      { threshold: 0.15, rootMargin: "0px 0px -5% 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -5% 0px" }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -58,28 +71,36 @@ export function Valuesection() {
       aria-labelledby="values-heading"
       data-navbar="default"
     >
+      <h2 id="values-heading" className={styles.srOnly}>
+        Vision, Mission &amp; Values
+      </h2>
+
       <div className={styles.container}>
         <div className={styles.cardGrid}>
-          {values.map((item, index) => (
-            <article
-              key={item.id}
-              className={styles.valueCard}
-              style={{ ["--delay" as string]: `${0.25 + index * 0.15}s` }}
-            >
-              {/* <div className={styles.cardHead}>
-                <span className={styles.cardNumber} aria-hidden>
-                  {item.index}
-                </span>
-                <span className={styles.cardRule} aria-hidden />
-              </div> */}
+          {values.map((item, index) => {
+            const Icon = CARD_ICONS[item.id];
+            const accent = CARD_ACCENT[item.id];
+            return (
+              <article
+                key={item.id}
+                className={`${styles.card} ${styles[`card_${accent}`]}`}
+                style={{ ["--i" as string]: index }}
+              >
+                <div className={styles.cardTop}>
+                  <div className={styles.cardIconWrap} aria-hidden>
+                    {Icon && <Icon strokeWidth={1.3} />}
+                  </div>
+                  <span className={styles.cardIndex}>{item.index}</span>
+                </div>
 
-              <div className={styles.cardBody}>
-                <p className={styles.cardCategory}>{item.category}</p>
-                <h3 className={styles.valueTitle}>{item.title}</h3>
-                <p className={styles.valueDescription}>{item.description}</p>
-              </div>
-            </article>
-          ))}
+                <div className={styles.cardBody}>
+                  <span className={styles.cardCategory}>{item.category}</span>
+                  <h3 className={styles.cardTitle}>{item.title}</h3>
+                  <p className={styles.cardDescription}>{item.description}</p>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
         <div className={styles.ctaWrap}>
