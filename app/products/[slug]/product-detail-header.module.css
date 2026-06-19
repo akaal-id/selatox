@@ -1,5 +1,5 @@
 /**
- * Featured product — mirrors product detail header layout.
+ * Product detail page header — full-bleed image background.
  */
 
 @keyframes fadeIn {
@@ -14,39 +14,77 @@
   }
 }
 
-.section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  height: 100svh;
+.header {
+  position: relative;
+  z-index: 1;
+  height: 90svh;
   width: 100%;
   overflow: hidden;
   background-color: var(--neutral-0);
-  border-top: 1px solid var(--neutral-60);
 }
 
-.media {
-  position: relative;
-  min-width: 0;
-  min-height: 0;
-}
-
-.mediaImage {
+.bg {
   position: absolute;
   inset: 0;
-  width: 100%;
+  z-index: 0;
+}
+
+.bgImage {
+  object-fit: contain;
+  object-position: center right;
+}
+
+.bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to right,
+      var(--neutral-0) 0%,
+      rgba(255, 255, 255, 0.96) 24%,
+      rgba(255, 255, 255, 0.72) 42%,
+      transparent 58%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 88%,
+      var(--neutral-0) 100%
+    );
+}
+
+.contentWrap {
+  position: relative;
+  z-index: 2;
   height: 100%;
-  object-fit: cover;
-  object-position: center center;
-  display: block;
+  padding-inline: var(--section-px);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--section-max-width);
+  height: 100%;
+  margin-inline: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.95fr);
+  align-items: center;
+  height: 100%;
 }
 
 .panel {
+  grid-column: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-width: 0;
-  padding: clamp(28px, 4vw, 56px);
-  background: var(--bg-gradient-1);
+  /* max-width: min(100%, 36rem); */
+  padding-block: clamp(48px, 8vh, 96px);
 }
 
 .titleGroup > *,
@@ -55,37 +93,41 @@
   opacity: 0;
 }
 
-.section.inView .eyebrow {
+.header.inView .eyebrow {
   animation: fadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 0.05s;
 }
 
-.section.inView .title {
+.header.inView .title {
   animation: fadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 0.14s;
 }
 
-.section.inView .tagline {
+.header.inView .tagline {
   animation: fadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 0.22s;
 }
 
-.section.inView .subtitle {
+.header.inView .subtitle {
   animation: fadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 0.3s;
 }
 
-.section.inView .valueChips {
+.header.inView .valueChips {
   animation: fadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 0.38s;
+}
+
+.header.inView .cta {
+  animation: fadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.46s;
 }
 
 .titleGroup {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: clamp(12px, 1.6vw, 20px);
-  max-width: min(100%, 44rem);
+  gap: clamp(14px, 1.8vw, 22px);
 }
 
 .eyebrow {
@@ -101,7 +143,7 @@
 .title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(48px, 7vw, 64px);
+  font-size: clamp(32px, 7vw, 48px);
   font-weight: 500;
   line-height: 0.92;
   letter-spacing: -0.05em;
@@ -111,9 +153,9 @@
 .tagline {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(42px, 6.2vw, 64px);
+  font-size: clamp(32px, 5.4vw, 48px);
   font-weight: 300;
-  line-height: 0.95;
+  line-height: 0.98;
   letter-spacing: -0.04em;
   color: var(--neutral-100);
   text-wrap: balance;
@@ -124,10 +166,10 @@
   flex-direction: column;
   align-items: stretch;
   gap: clamp(20px, 2.5vw, 28px);
-  margin-top: clamp(20px, 2.5vw, 28px);
-  padding-top: clamp(20px, 2.5vw, 28px);
+  margin-top: clamp(24px, 3vw, 36px);
+  padding-top: clamp(24px, 3vw, 36px);
   border-top: 1px solid var(--neutral-60);
-  max-width: min(100%, 52rem);
+  max-width: min(100%, 32rem);
 }
 
 .subtitle {
@@ -142,14 +184,13 @@
 
 .valueChips {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   align-items: center;
   gap: 0;
   width: fit-content;
   max-width: 100%;
   margin: 0;
-  padding-block: clamp(14px, 1.6vw, 18px);
-  padding-inline: 0 clamp(16px, 2vw, 24px);
+  padding-block: clamp(4px, 0.6vw, 8px);
   list-style: none;
 }
 
@@ -195,71 +236,66 @@
 }
 
 .cta {
-  padding-top: 2px;
+  padding-top: 4px;
 }
 
-@media (max-width: 768px) {
-  .section {
-    grid-template-columns: 1fr;
+@media (max-width: 1024px) {
+  .header {
+    display: grid;
     grid-template-rows: auto auto;
+    grid-template-columns: minmax(0, 1fr);
     height: auto;
     min-height: 0;
   }
 
-  .media {
-    width: 100%;
-    max-width: 100%;
-    aspect-ratio: 4 / 3;
-    max-height: none;
-    height: auto;
-  }
-
-  .mediaImage {
+  .bg {
     position: relative;
     inset: auto;
-    width: 100%;
-    height: 100%;
+    grid-row: 1;
+    grid-column: 1;
+    aspect-ratio: 4 / 3;
+    max-height: min(48svh, 440px);
+  }
+
+  .bgImage {
     object-fit: cover;
     object-position: center center;
   }
 
+  .bg::after {
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 72%,
+      rgba(255, 255, 255, 0.55) 88%,
+      var(--neutral-0) 100%
+    );
+  }
+
+  .contentWrap {
+    grid-row: 2;
+    grid-column: 1;
+    height: auto;
+    padding: 32px var(--section-px) max(44px, calc(env(safe-area-inset-bottom, 0px) + 32px));
+  }
+
+  .container {
+    height: auto;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
   .panel {
-    justify-content: flex-start;
-    padding: 32px var(--section-px) max(40px, calc(env(safe-area-inset-bottom, 0px) + 28px));
-  }
-
-  .titleGroup {
-    gap: 10px;
+    grid-column: auto;
     max-width: 100%;
-  }
-
-  .eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.18em;
-  }
-
-  .title {
-    font-size: clamp(34px, 10vw, 48px);
-    line-height: 0.94;
-  }
-
-  .tagline {
-    font-size: clamp(22px, 6.2vw, 30px);
-    line-height: 1.05;
-    letter-spacing: -0.03em;
+    padding-block: 0;
   }
 
   .details {
-    margin-top: 20px;
-    padding-top: 20px;
-    gap: 18px;
     max-width: 100%;
-  }
-
-  .subtitle {
-    max-width: none;
-    font-size: 15px;
-    line-height: 1.6;
   }
 
   .valueChips {
@@ -267,7 +303,6 @@
     align-items: stretch;
     width: 100%;
     padding-block: 8px 0;
-    padding-inline: 0;
   }
 
   .valueChip {
@@ -287,20 +322,13 @@
     padding-top: 14px;
   }
 
-  .chipIcon {
-    width: 40px;
-    height: 40px;
-  }
-
   .chipText {
     max-width: none;
-    font-size: 13px;
-    line-height: 1.4;
   }
 
   .cta {
-    padding-top: 4px;
     width: 100%;
+    padding-top: 4px;
   }
 
   .cta button {
@@ -309,26 +337,78 @@
   }
 }
 
+@media (max-width: 768px) {
+  .bg {
+    aspect-ratio: 4 / 3;
+    max-height: min(52svh, 420px);
+  }
+
+  .contentWrap {
+    padding: 28px var(--section-px) max(40px, calc(env(safe-area-inset-bottom, 0px) + 28px));
+  }
+
+  .titleGroup {
+    gap: 10px;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+  }
+
+  .title {
+    font-size: clamp(34px, 10vw, 48px);
+    line-height: 0.98;
+  }
+
+  .tagline {
+    font-size: clamp(22px, 6.2vw, 30px);
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+  }
+
+  .details {
+    margin-top: 20px;
+    padding-top: 20px;
+    gap: 18px;
+    max-width: 100%;
+  }
+
+  .subtitle {
+    max-width: none;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .chipIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .chipText {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+}
+
 @media (max-width: 480px) {
-  .media {
+  .bg {
     aspect-ratio: 1 / 1;
-    max-height: none;
+    max-height: min(44svh, 360px);
   }
 
-  .mediaImage {
-    object-fit: contain;
-  }
-
-  .panel {
-    padding: 28px var(--section-px) max(36px, calc(env(safe-area-inset-bottom, 0px) + 24px));
+  .contentWrap {
+    padding: 24px var(--section-px) max(36px, calc(env(safe-area-inset-bottom, 0px) + 24px));
   }
 
   .title {
     font-size: clamp(30px, 9.5vw, 40px);
+    line-height: 1;
   }
 
   .tagline {
     font-size: clamp(20px, 5.8vw, 26px);
+    line-height: 1.14;
   }
 
   .details {
@@ -339,6 +419,7 @@
 
   .subtitle {
     font-size: 14.5px;
+    line-height: 1.6;
   }
 
   .valueChip {
@@ -353,7 +434,8 @@
 @media (prefers-reduced-motion: reduce) {
   .titleGroup > *,
   .details > .subtitle,
-  .details > .valueChips {
+  .details > .valueChips,
+  .details > .cta {
     opacity: 1 !important;
     animation: none !important;
     transform: none !important;

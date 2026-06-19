@@ -53,11 +53,31 @@ export const ethicsCommitment = {
 export const ethicsLeadership = {
   eyebrow: "Message from Leadership",
   heading: "Leading with Integrity",
-  message:
-    "At Selatox, we believe that scientific innovation and business success must be accompanied by strong ethical principles. As we continue to expand our global presence, we remain committed to conducting our business responsibly, transparently, and in full compliance with applicable laws and regulations. Our commitment extends beyond compliance—it reflects our responsibility to patients, healthcare professionals, partners, employees, and communities worldwide. We encourage all employees and stakeholders to speak up when they encounter concerns and to actively contribute to a culture built on trust, accountability, and mutual respect. By upholding these values, we will continue to strengthen Selatox as a trusted global biopharmaceutical company.",
   name: "Joh Younghoon",
-  title: "PT Selatox Bio Pharma",
+  title: "Chief Executive Officer",
   portrait: "/images/placeholder.jpg",
+  quote: {
+    blocks: [
+      {
+        segments: [
+          {
+            t: "At Selatox, we believe that scientific innovation and business success must be accompanied by strong ethical principles. As we continue to expand our global presence, we remain committed to conducting our business responsibly, transparently, and in full compliance with applicable laws and regulations.",
+          },
+        ],
+      },
+      {
+        segments: [
+          {
+            t: "Our commitment extends beyond compliance—it reflects our responsibility to patients, healthcare professionals, partners, employees, and communities worldwide. We encourage all employees and stakeholders to speak up when they encounter concerns and to actively contribute to a culture built on trust, accountability, and mutual respect. By upholding these values, we will continue to strengthen Selatox as a ",
+          },
+          {
+            t: "trusted global biopharmaceutical company.",
+            emphasis: "em" as const,
+          },
+        ],
+      },
+    ],
+  },
 } as const;
 
 export const ethicsHotline = {
@@ -65,6 +85,8 @@ export const ethicsHotline = {
   title: "Speak Up with Confidence",
   intro:
     "Selatox encourages employees, customers, suppliers, distributors, healthcare professionals, and other stakeholders to report concerns regarding unethical, illegal, or inappropriate conduct. Reports submitted through the Ethics & Compliance Hotline are reviewed confidentially and handled with fairness, objectivity, and professionalism.",
+  contactLabel: "Ethics & Compliance",
+  contactEmail: "compliance@selatox.com",
   ctaLabel: "Submit a Report",
   reportableTitle: "What Can Be Reported?",
   reportableItems: [

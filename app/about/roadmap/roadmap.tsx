@@ -8,6 +8,10 @@ import styles from "./roadmap.module.css";
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
+function isRoadmapVectorImage(src: string) {
+  return /\.png(?:\?.*)?$/i.test(src);
+}
+
 const SECTION_META = {
   history: { label: "01", title: aboutRoadmap.historyTitle },
   milestone: { label: "02", title: aboutRoadmap.milestonesTitle },
@@ -61,6 +65,7 @@ function MilestoneItem({
     offset: ["start end", "end start"],
   });
   const imageY = useTransform(scrollYProgress, [0, 1], ["-7%", "7%"]);
+  const isVectorImage = isRoadmapVectorImage(item.image);
 
   const dotStatusClass =
     {
@@ -146,12 +151,24 @@ function MilestoneItem({
       >
         <div className={styles.imageWrapper}>
           <motion.div className={styles.imageInner} style={{ y: imageY }}>
+            {isVectorImage && item.imageBg ? (
+              <Image
+                src={item.imageBg}
+                alt=""
+                fill
+                sizes="(max-width: 768px) 100vw, 40vw"
+                className={styles.imageBg}
+                aria-hidden
+              />
+            ) : null}
             <Image
               src={item.image}
               alt={item.title}
               fill
               sizes="(max-width: 768px) 100vw, 40vw"
-              className="object-cover"
+              className={
+                isVectorImage ? styles.imageVector : styles.imageFull
+              }
             />
           </motion.div>
         </div>

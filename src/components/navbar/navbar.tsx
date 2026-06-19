@@ -3,9 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X, ArrowUpRight, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLenis } from "@/components/lenis/LenisProvider";
+import { Button } from "@/components/ui/Button";
 import { PRIMARY_PRODUCT_SLUG } from "@/constants/products";
 import styles from "./navbar.module.css";
 
@@ -224,7 +225,7 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
   }, [open]);
 
   const effectiveVariant = variantProp ?? scrollVariant ?? "default";
-  const isNegative = effectiveVariant === "negative";
+  const isNegative = effectiveVariant === "negative" && !open;
   const isDropdownActive = aboutOpen || careersOpen;
 
   const closeMobileMenu = () => {
@@ -307,17 +308,17 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
           </div>
 
           <div className={styles.right}>
-            <button
-              type="button"
+            <Button
+              variant="blur"
+              showIcon
               className={styles.navButton}
               onClick={() => {
                 closeMobileMenu();
                 router.push("/contact");
               }}
             >
-              <span className={styles.navButtonLabel}>Contact Us</span>
-              <ArrowUpRight size={17} aria-hidden />
-            </button>
+              Contact Us
+            </Button>
             <button
               type="button"
               className={styles.toggle}
@@ -348,15 +349,29 @@ export function Navbar({ variant: variantProp }: { variant?: NavbarVariant }) {
         aria-label="Site navigation"
       >
         <nav className={styles.mobileNav} aria-label="Mobile navigation">
-          <NavMenu
-            {...navMenuProps}
-            linkClassName={styles.mobileLink}
-            dropdownClassName={styles.mobileDropdown}
-            aboutTriggerClassName={`${styles.mobileLink} ${styles.mobileDropdownTrigger}`}
-            careersTriggerClassName={`${styles.mobileLink} ${styles.mobileDropdownTrigger}`}
-            dropdownMenuClassName={styles.mobileDropdownMenu}
-            dropdownLinkClassName={styles.mobileDropdownLink}
-          />
+          <div className={styles.mobileNavLinks}>
+            <NavMenu
+              {...navMenuProps}
+              linkClassName={styles.mobileLink}
+              dropdownClassName={styles.mobileDropdown}
+              aboutTriggerClassName={`${styles.mobileLink} ${styles.mobileDropdownTrigger}`}
+              careersTriggerClassName={`${styles.mobileLink} ${styles.mobileDropdownTrigger}`}
+              dropdownMenuClassName={styles.mobileDropdownMenu}
+              dropdownLinkClassName={styles.mobileDropdownLink}
+            />
+          </div>
+          <Button
+            variant="blur"
+            size="lg"
+            showIcon
+            className={`${styles.navButton} ${styles.mobileNavContact}`}
+            onClick={() => {
+              closeMobileMenu();
+              router.push("/contact");
+            }}
+          >
+            Contact Us
+          </Button>
         </nav>
       </div>
     </>

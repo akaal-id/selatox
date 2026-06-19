@@ -9,8 +9,8 @@ export const careerJourneyHero = {
 
 export const careerJourneyIntro = {
   eyebrow: "Your Journey",
-  headline:
-    "Great visions become reality through the dedication, expertise, and courage of individuals. Join exceptional colleagues, take ownership without limits, and experience the excitement of growing alongside a company shaping the future of bio-aesthetics.",
+  headlineLead: "Great Visions Become",
+  headlineAccent: "Reality Through People",
 } as const;
 
 export const whySelatox = {

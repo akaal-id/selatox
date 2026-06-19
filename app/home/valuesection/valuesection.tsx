@@ -4,7 +4,17 @@ import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, Target, Heart, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { homeValues } from "@/constants/home";
 import styles from "./valuesection.module.css";
+
+/** Split "Lead phrase — supporting copy" into a prominent lead + body. */
+function splitStatement(text: string): { lead: string; body: string } {
+  const [lead, ...rest] = text.split("—");
+  return { lead: lead.trim(), body: rest.join("—").trim() };
+}
+
+const vision = splitStatement(homeValues.vision);
+const mission = splitStatement(homeValues.mission);
 
 const CARD_ICONS: Record<string, LucideIcon> = {
   vision: Eye,
@@ -23,17 +33,15 @@ const values = [
     id: "vision",
     index: "01",
     category: "Vision",
-    title: "2030 Global Leadership",
-    description:
-      "We aim to set a new standard in aesthetics—combining safe science with mindful innovation, including Halal-certified products, for over 40 countries.",
+    title: vision.lead,
+    description: vision.body,
   },
   {
     id: "mission",
     index: "02",
     category: "Mission",
-    title: "World-Class Production",
-    description:
-      "Manufacturing excellence is at our core. Advanced, certified facilities deliver pharmaceutical-grade solutions with international safety and purity.",
+    title: mission.lead,
+    description: mission.body,
   },
   {
     id: "core-value",

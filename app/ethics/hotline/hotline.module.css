@@ -102,6 +102,34 @@
   color: var(--neutral-120);
 }
 
+.contactWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contactLabel {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--neutral-120);
+}
+
+.contactLink {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--neutral-160);
+  text-decoration: none;
+  transition: color 250ms ease;
+}
+
+.contactLink:hover {
+  color: var(--blue-100);
+}
+
 .trustChips {
   display: flex;
   flex-wrap: wrap;

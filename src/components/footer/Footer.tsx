@@ -4,7 +4,6 @@ import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUp } from "lucide-react";
-import { PRIMARY_PRODUCT_SLUG } from "@/constants/products";
 import footerStyles from "./footer.module.css";
 
 // 1. Corporate Data Object
@@ -15,20 +14,27 @@ const corporateData = {
     contact: "contact@selatox.com | +62 21 1234 5678",
 };
 
-// 2. Sitemap Array
 const sitemapData = [
-    { label: "About", href: "/about", target: "_self" },
-    { label: "Our Business", href: "/our-business", target: "_self" },
-    { label: "Products", href: `/products/${PRIMARY_PRODUCT_SLUG}`, target: "_self" },
-    { label: "Culture", href: "/culture", target: "_self" },
-    { label: "Career", href: "/openings", target: "_self" },
-    { label: "News", href: "/news", target: "_self" },
+    { label: "Home", href: "/" },
+    { label: "Products", href: "/products" },
+    { label: "News", href: "/news" },
+];
+
+const aboutData = [
+    { label: "About Selatox", href: "/about" },
+    { label: "Our Business", href: "/our-business" },
+    { label: "Ethics", href: "/ethics" },
+];
+
+const careerData = [
+    { label: "Journey", href: "/journey" },
+    { label: "Openings", href: "/openings" },
 ];
 
 const legalData = [
-    { label: "Privacy Policy", href: "/privacy", target: "_self" },
-    { label: "Terms of Service", href: "/terms", target: "_self" },
-    { label: "LinkedIn", href: "https://linkedin.com", target: "_blank" },
+    { label: "Privacy Policy", href: "/privacy", target: "_self" as const },
+    { label: "Terms of Service", href: "/terms", target: "_self" as const },
+    { label: "LinkedIn", href: "https://linkedin.com", target: "_blank" as const },
 ];
 
 export const Footer = () => {
@@ -54,9 +60,7 @@ export const Footer = () => {
                 {/* Middle Layer: The Grid */}
                 <div className={footerStyles.container}>
                     <div className={footerStyles.middleLayer}>
-
-                        {/* Col 1: Corporate Info */}
-                        <div>
+                        <div className={footerStyles.corporateColumn}>
                             <h3 className={footerStyles.eyebrow}>PT SELATOX BIO PHARMA</h3>
                             <div className={`${footerStyles.colContent} ${footerStyles.corporateText}`}>
                                 <p>Representative: {corporateData.representative}</p>
@@ -65,42 +69,69 @@ export const Footer = () => {
                             </div>
                         </div>
 
-                        {/* Col 2: Sitemap */}
-                        <div>
-                            <h3 className={footerStyles.eyebrow}>Sitemap</h3>
-                            <div className={footerStyles.colContent}>
-                                {sitemapData.map((item, idx) => (
-                                    <Link
-                                        key={idx}
-                                        href={item.href}
-                                        target={item.target}
-                                        className={footerStyles.link}
-                                    >
-                                        {item.label}
-                                    </Link>
-                                ))}
+                        <div className={footerStyles.menuColumns}>
+                            <div className={footerStyles.menuColumn}>
+                                <h3 className={footerStyles.eyebrow}>Sitemap</h3>
+                                <nav className={footerStyles.colContent} aria-label="Sitemap">
+                                    {sitemapData.map((item) => (
+                                        <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            className={footerStyles.link}
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    ))}
+                                </nav>
+                            </div>
+
+                            <div className={footerStyles.menuColumn}>
+                                <h3 className={footerStyles.eyebrow}>About</h3>
+                                <nav className={footerStyles.colContent} aria-label="About">
+                                    {aboutData.map((item) => (
+                                        <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            className={footerStyles.link}
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    ))}
+                                </nav>
+                            </div>
+
+                            <div className={footerStyles.menuColumn}>
+                                <h3 className={footerStyles.eyebrow}>Career</h3>
+                                <nav className={footerStyles.colContent} aria-label="Career">
+                                    {careerData.map((item) => (
+                                        <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            className={footerStyles.link}
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    ))}
+                                </nav>
+                            </div>
+
+                            <div className={footerStyles.menuColumn}>
+                                <h3 className={footerStyles.eyebrow}>Legal & Social</h3>
+                                <nav className={footerStyles.colContent} aria-label="Legal and social links">
+                                    {legalData.map((item, idx) => (
+                                        <Link
+                                            key={idx}
+                                            href={item.href}
+                                            target={item.target}
+                                            className={footerStyles.link}
+                                            rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    ))}
+                                </nav>
                             </div>
                         </div>
-
-                        {/* Col 3: Legal & Social */}
-                        <div>
-                            <h3 className={footerStyles.eyebrow}>Legal & Social</h3>
-                            <div className={footerStyles.colContent}>
-                                {legalData.map((item, idx) => (
-                                    <Link
-                                        key={idx}
-                                        href={item.href}
-                                        target={item.target}
-                                        className={footerStyles.link}
-                                        rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-                                    >
-                                        {item.label}
-                                    </Link>
-                                ))}
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
 

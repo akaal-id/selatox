@@ -221,6 +221,15 @@ export function EthicsHotline() {
               {ethicsHotline.title}
             </h2>
             <p className={styles.intro}>{ethicsHotline.intro}</p>
+            <div className={styles.contactWrap}>
+              <p className={styles.contactLabel}>{ethicsHotline.contactLabel}</p>
+              <a
+                href={`mailto:${ethicsHotline.contactEmail}`}
+                className={styles.contactLink}
+              >
+                {ethicsHotline.contactEmail}
+              </a>
+            </div>
             <ul className={styles.trustChips}>
               {TRUST_CHIPS.map(({ label, icon: Icon }) => (
                 <li key={label} className={styles.trustChip}>

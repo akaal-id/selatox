@@ -168,7 +168,7 @@
   aspect-ratio: 16 / 10;
   border-radius: 14px;
   overflow: hidden;
-  background-color: var(--neutral-20);
+  background: var(--bg-gradient-1);
 }
 
 .imageInner {
@@ -180,11 +180,25 @@
   will-change: transform;
 }
 
-.imageInner img {
+.imageFull,
+.imageVector,
+.imageBg {
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.milestoneRow:hover .imageInner img {
+.imageFull,
+.imageBg {
+  object-fit: cover;
+  object-position: center center;
+}
+
+.imageVector {
+  object-fit: contain;
+  object-position: center center;
+}
+
+.milestoneRow:hover .imageFull,
+.milestoneRow:hover .imageVector {
   transform: scale(1.05);
 }
 
@@ -434,8 +448,11 @@
 
 /* Reduced-motion safety */
 @media (prefers-reduced-motion: reduce) {
-  .imageInner img,
-  .milestoneRow:hover .imageInner img {
+  .imageFull,
+  .imageVector,
+  .imageBg,
+  .milestoneRow:hover .imageFull,
+  .milestoneRow:hover .imageVector {
     transition: none;
     transform: none;
   }

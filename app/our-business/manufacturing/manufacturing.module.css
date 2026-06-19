@@ -320,6 +320,10 @@
     margin-bottom: clamp(28px, 4vw, 40px);
   }
 
+  .leadHeadline {
+    line-height: 1.18;
+  }
+
   .leadBand {
     grid-template-columns: 1fr;
     gap: clamp(24px, 4vw, 32px);
@@ -333,6 +337,12 @@
 @media (max-width: 768px) {
   .pillars {
     grid-template-columns: 1fr;
+  }
+
+  .leadHeadline {
+    font-size: clamp(32px, 8vw, 40px);
+    line-height: 1.22;
+    letter-spacing: -0.03em;
   }
 }
 

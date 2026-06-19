@@ -25,7 +25,7 @@ export function Hero() {
     <section
       ref={containerRef}
       id="hero"
-      className={styles.section}
+      className={`${styles.section} ${styles.homeHero}`}
       data-navbar="negative"
       data-background="media"
     >

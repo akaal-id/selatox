@@ -25,31 +25,39 @@ export function EthicsIntro() {
     <section
       ref={sectionRef}
       id="ethics-intro"
-      className={`${styles.section} ${isInView ? styles.inView : ""}`.trim()}
+      className={`${styles.section} ${styles.alignStart} ${isInView ? styles.inView : ""}`.trim()}
       aria-label="Ethics introduction"
       data-navbar="default"
     >
       <div className={styles.container}>
-        <p className={styles.eyebrow}>
-          <span className={styles.eyebrowLabel}>{ethicsIntro.eyebrow}</span>
-        </p>
+        <div className={styles.content}>
+          <p className={styles.eyebrow}>
+            <span className={styles.eyebrowLabel}>{ethicsIntro.eyebrow}</span>
+          </p>
 
-        <h2 className={styles.headline}>
-          As an emerging global biopharmaceutical company, we are committed to conducting
-          business with{" "}
-          <em className={styles.highlightGreen}>
-            integrity, transparency, and accountability
-          </em>
-          . We believe that long-term success is built on trust, and that trust is earned
-          through responsible actions, ethical decision-making, and unwavering compliance
-          with the highest standards of business conduct. By fostering a culture of
-          integrity, we strive to create{" "}
-          <em className={styles.highlightGreen}>
-            lasting value for patients, healthcare professionals, business partners,
-            employees, shareholders, and society
-          </em>
-          .
-        </h2>
+          <h2 className={styles.headline}>
+            Conducting Business with
+            <br />
+            <span className={styles.headlineAccent}>
+              Integrity &amp; Accountability
+            </span>
+          </h2>
+
+          <p className={styles.sub}>
+            As an emerging global biopharmaceutical company, we are committed to
+            conducting business with{" "}
+            <em>integrity, transparency, and accountability</em>. We believe that
+            long-term success is built on trust, and that trust is earned through
+            responsible actions, ethical decision-making, and unwavering
+            compliance with the highest standards of business conduct. By fostering
+            a culture of integrity, we strive to create{" "}
+            <em>
+              lasting value for patients, healthcare professionals, business
+              partners, employees, shareholders, and society
+            </em>
+            .
+          </p>
+        </div>
       </div>
     </section>
   );

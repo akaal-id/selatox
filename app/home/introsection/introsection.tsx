@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState, useEffect, Fragment } from "react";
 import { Globe, ShieldCheck, BadgeCheck, Shield, type LucideIcon } from "lucide-react";
 import styles from "./introsection.module.css";
@@ -37,7 +38,7 @@ export function Introsection() {
     <section
       ref={sectionRef}
       id="intro"
-      className={`${styles.section} ${isInView ? styles.inView : ""}`.trim()}
+      className={`${styles.section} ${styles.withMedia} ${isInView ? styles.inView : ""}`.trim()}
       aria-label="Company Overview"
       data-navbar="default"
     >
@@ -87,6 +88,16 @@ export function Introsection() {
               );
             })}
           </div>
+        </div>
+
+        <div className={styles.media}>
+          <Image
+            src="/images/products/selatoxin.png"
+            alt="SELATOXIN 100 Units Botulinum Toxin Type A vial"
+            fill
+            sizes="(max-width: 768px) 100vw, 42vw"
+            className={styles.mediaImage}
+          />
         </div>
       </div>
     </section>

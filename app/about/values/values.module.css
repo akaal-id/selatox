@@ -36,8 +36,8 @@
   flex-direction: column;
   gap: 0;
   padding: 32px;
-  border: 1px solid var(--neutral-60);
-  border-radius: 12px;
+  border-left: 1px solid var(--neutral-60);
+  /* border-radius: 12px; */
   background: var(--neutral-0);
   overflow: hidden;
   isolation: isolate;
@@ -49,7 +49,7 @@
 .statementIllustration {
   position: absolute;
   top: 50%;
-  right: -10%;
+  right: 5%;
   width: min(320px, 52%);
   aspect-ratio: 1;
   pointer-events: none;

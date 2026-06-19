@@ -11,6 +11,9 @@ function QuoteSegmentText({ segment }: { segment: QuoteSegment }) {
   if ("emphasis" in segment && segment.emphasis === "em") {
     return <em className={styles.quoteEm}>{segment.t}</em>;
   }
+  if ("emphasis" in segment && segment.emphasis === "lead") {
+    return <span className={styles.quoteLead}>{segment.t}</span>;
+  }
   return <>{segment.t}</>;
 }
 

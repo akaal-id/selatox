@@ -21,7 +21,15 @@ export const aboutExecutive = {
       {
         segments: [
           {
-            t: "At Selatox, our commitment goes beyond manufacturing; it is about establishing a sustainable, world-class bio-ecosystem in Indonesia.",
+            t: "At Selatox, our commitment goes beyond manufacturing;",
+          },
+        ],
+      },
+      {
+        segments: [
+          {
+            t: "it is about establishing a sustainable, world-class bio-ecosystem in Indonesia.",
+            emphasis: "lead" as const,
           },
         ],
       },
@@ -73,6 +81,17 @@ export const aboutValues = {
   ],
 } as const;
 
+export type RoadmapMilestone = {
+  year: string;
+  title: string;
+  section: "history" | "milestone";
+  status: "completed" | "active" | "upcoming" | "vision";
+  image: string;
+  /** Optional background image for .png milestones; gradient-1 is used when omitted. */
+  imageBg?: string;
+  items: Array<{ month?: string; text: string }>;
+};
+
 export const aboutRoadmap = {
   historyTitle: "Company History",
   milestonesTitle: "Milestones",
@@ -82,7 +101,7 @@ export const aboutRoadmap = {
       title: "Establishment of Selatox",
       section: "history" as const,
       status: "completed" as const,
-      image: "/images/selatox-hero.webp",
+      image: "/images/roadmap/1.png",
       items: [
         {
           month: "September",
@@ -95,7 +114,7 @@ export const aboutRoadmap = {
       title: "Completion of the Cikarang Manufacturing Facility",
       section: "history" as const,
       status: "completed" as const,
-      image: "/images/intro.webp",
+      image: "/images/roadmap/2.webp",
       items: [
         {
           month: "March",
@@ -116,7 +135,7 @@ export const aboutRoadmap = {
       title: "Execution of Global Botulinum Toxin Technology Transfer Agreement",
       section: "history" as const,
       status: "completed" as const,
-      image: "/images/selatox-hero-2.webp",
+      image: "/images/roadmap/3.webp",
       items: [
         {
           month: "November",
@@ -129,7 +148,7 @@ export const aboutRoadmap = {
       title: "GMP Approval",
       section: "history" as const,
       status: "active" as const,
-      image: "/images/product.webp",
+      image: "/images/roadmap/44.webp",
       items: [
         {
           text: "GMP certification and Expert approval",
@@ -144,7 +163,7 @@ export const aboutRoadmap = {
       title: "Domestic Launch",
       section: "milestone" as const,
       status: "upcoming" as const,
-      image: "/images/hero-1.webp",
+      image: "/images/roadmap/5.webp",
       items: [
         {
           text: "Product registration (Indonesia)",
@@ -159,7 +178,7 @@ export const aboutRoadmap = {
       title: "Global Scaling",
       section: "milestone" as const,
       status: "vision" as const,
-      image: "/images/hero-4.webp",
+      image: "/images/roadmap/6.webp",
       items: [
         {
           text: "Global Launching and commercialization",
@@ -176,21 +195,26 @@ export const aboutContact = {
     { label: "Business & General Inquiries", email: "contact@selatox.com" },
     { label: "HR & Careers", email: "careers@selatox.com" },
     { label: "Public Relations", email: "pr@selatox.com" },
+    { label: "Ethics & Compliance", email: "compliance@selatox.com" },
   ],
   locations: [
     {
       id: "depok",
       name: "R&D Center",
-      location: "Depok, West Java, Indonesia",
+      location:
+        "Integrated Laboratory and Research Center (ILRC), UI Campus Depok, Beji, Depok City, West Java 16424, Indonesia",
       role: "Innovation Hub & Corporate Operations",
-      mapQuery: "Depok, West Java, Indonesia",
+      mapQuery:
+        "Integrated Laboratory and Research Center, Universitas Indonesia, Depok, West Java 16424, Indonesia",
     },
     {
       id: "cikarang",
       name: "Manufacturing Site",
-      location: "Cikarang, Bekasi Regency, West Java, Indonesia",
+      location:
+        "Jl. Science Timur 1 Blok A5D No. 7, Kawasan Industri Jababeka, Sertajaya, Cikarang Timur, Bekasi Regency, West Java 17530, Indonesia",
       role: "Global Production & Export Hub",
-      mapQuery: "Cikarang, Bekasi Regency, West Java, Indonesia",
+      mapQuery:
+        "Jl. Science Timur 1 Blok A5D No. 7, Kawasan Industri Jababeka, Sertajaya, Cikarang Timur, Bekasi Regency, West Java 17530, Indonesia",
     },
   ],
 } as const;

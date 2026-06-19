@@ -40,17 +40,27 @@
 
 /* Middle Layer */
 .middleLayer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 48px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: clamp(40px, 6vw, 96px);
     padding: 80px 0;
     border-bottom: 1px solid var(--neutral-40);
 }
 
-.middleLayer > div {
+.corporateColumn {
+    max-width: 38ch;
+    min-width: 0;
+}
+
+.menuColumns {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(120px, 160px));
+    gap: clamp(24px, 4vw, 56px);
+    justify-content: end;
+}
+
+.menuColumn {
     min-width: 0;
 }
 
@@ -207,13 +217,18 @@
     }
 
     .middleLayer {
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 64px 32px;
+        grid-template-columns: 1fr;
+        gap: 56px;
     }
 
-    .middleLayer > div {
-        flex: 1 1 calc(50% - 16px);
+    .corporateColumn {
+        max-width: none;
+    }
+
+    .menuColumns {
+        justify-content: start;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 520px;
     }
 }
 
@@ -233,15 +248,14 @@
     }
 
     .middleLayer {
-        flex-direction: column;
-        flex-wrap: nowrap;
         gap: 48px;
         padding: 64px 0;
     }
 
-    .middleLayer > div {
-        flex: 1 1 auto;
-        width: 100%;
+    .menuColumns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: none;
+        gap: 32px 24px;
     }
 
     .topLayer {
