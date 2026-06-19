@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Fragment, useRef, useLayoutEffect, useState } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { aboutRoadmap } from "@/constants/about";
+import { aboutRoadmap, type RoadmapMilestone } from "@/constants/about";
 import styles from "./roadmap.module.css";
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
@@ -51,7 +51,7 @@ function MilestoneItem({
   item,
   index,
 }: {
-  item: (typeof aboutRoadmap.milestones)[number];
+  item: RoadmapMilestone;
   index: number;
 }) {
   const itemRef = useRef<HTMLLIElement>(null);

@@ -89,7 +89,7 @@ export type RoadmapMilestone = {
   image: string;
   /** Optional background image for .png milestones; gradient-1 is used when omitted. */
   imageBg?: string;
-  items: Array<{ month?: string; text: string }>;
+  items: ReadonlyArray<{ month?: string; text: string }>;
 };
 
 export const aboutRoadmap = {
