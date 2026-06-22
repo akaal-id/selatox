@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Fragment, useRef, useLayoutEffect, useState } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { aboutRoadmap, type RoadmapMilestone } from "@/constants/about";
@@ -152,20 +151,16 @@ function MilestoneItem({
         <div className={styles.imageWrapper}>
           <motion.div className={styles.imageInner} style={{ y: imageY }}>
             {isVectorImage && item.imageBg ? (
-              <Image
+              <img
                 src={item.imageBg}
                 alt=""
-                fill
-                sizes="(max-width: 768px) 100vw, 40vw"
                 className={styles.imageBg}
                 aria-hidden
               />
             ) : null}
-            <Image
+            <img
               src={item.image}
               alt={item.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 40vw"
               className={
                 isVectorImage ? styles.imageVector : styles.imageFull
               }

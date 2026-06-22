@@ -82,17 +82,25 @@
 
 /* Home intro — content + image split */
 .withMedia .container {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  gap: clamp(32px, 4vw, 72px);
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  gap: clamp(32px, 4vw, 72px);
 }
 
 .withMedia .content {
+  flex: 0 1 auto;
   align-items: flex-start;
   text-align: left;
-  max-width: none;
-  width: 100%;
+  max-width: min(720px, 58%);
+  width: auto;
+  min-width: 0;
+}
+
+.withMedia .media {
+  flex: 1 1 0;
+  min-width: clamp(260px, 34vw, 480px);
+  width: auto;
 }
 
 .withMedia .eyebrow {
@@ -108,7 +116,6 @@
   position: relative;
   width: 100%;
   min-width: 0;
-  aspect-ratio: 4 / 3;
   border-radius: 16px;
   overflow: hidden;
   background: var(--neutral-20);
@@ -119,6 +126,12 @@
   transition:
     box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 1201px) {
+  .withMedia .media {
+    aspect-ratio: 4 / 3;
+  }
 }
 
 .media:hover {
@@ -134,9 +147,22 @@
 }
 
 .mediaImage {
-  object-fit: cover;
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
   object-position: center center;
   transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 1201px) {
+  .withMedia .mediaImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .media:hover .mediaImage {
@@ -216,7 +242,7 @@
 .statsBar {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
   width: fit-content;
@@ -295,6 +321,33 @@
 }
 
 /* ---------------------------------------------------------------------------
+   Stacked layout — image above content (≤1200px)
+   --------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .withMedia .container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(28px, 4vw, 40px);
+  }
+
+  .withMedia .media {
+    order: -1;
+    width: 100%;
+    min-width: 0;
+    flex: none;
+    max-width: 720px;
+    align-self: center;
+    aspect-ratio: unset;
+    height: auto;
+  }
+
+  .withMedia .content {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
    Tablet
    --------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
@@ -316,13 +369,7 @@
    Mobile
    --------------------------------------------------------------------------- */
 @media (max-width: 768px) {
-  .withMedia .container {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .media {
-    aspect-ratio: 16 / 10;
+  .withMedia .media {
     border-radius: 14px;
   }
 
@@ -340,7 +387,6 @@
   }
 
   .statsBar {
-    gap: 8px 0;
     max-width: 100%;
   }
 

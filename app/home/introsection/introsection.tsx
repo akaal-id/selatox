@@ -94,8 +94,9 @@ export function Introsection() {
           <Image
             src="/images/products/selatoxin.png"
             alt="SELATOXIN 100 Units Botulinum Toxin Type A vial"
-            fill
-            sizes="(max-width: 768px) 100vw, 42vw"
+            width={1024}
+            height={1024}
+            sizes="(max-width: 1200px) 100vw, 42vw"
             className={styles.mediaImage}
           />
         </div>
