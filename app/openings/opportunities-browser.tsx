@@ -8,10 +8,9 @@ import { Button } from "@/components/ui/Button";
 import { SelectForm } from "@/components/ui/selectform/selectform";
 import {
   JOB_CATEGORIES,
-  jobListings,
   OPPORTUNITIES_PAGE_SIZE,
-  opportunitiesPage,
   type JobCategory,
+  type JobListing,
   type JobStatus,
 } from "@/constants/opportunities";
 import styles from "./opportunities.module.css";
@@ -70,25 +69,44 @@ function getPaginationItems(
   return items;
 }
 
-const statusOptions = uniqueValues(
-  jobListings.map((job) => job.status) as string[]
-) as (JobStatus | typeof ALL)[];
+type OpportunitiesBrowserProps = {
+  pageTitle: string;
+  jobs: JobListing[];
+};
 
-const locationOptions = uniqueValues(jobListings.map((job) => job.location));
-const categoryOptions = [ALL, ...JOB_CATEGORIES];
-const experienceOptions = uniqueValues(
-  jobListings.map((job) => job.experienceLevel)
-);
-
-export function OpportunitiesBrowser() {
+export function OpportunitiesBrowser({
+  pageTitle,
+  jobs,
+}: OpportunitiesBrowserProps) {
   const router = useRouter();
   const [filters, setFilters] = useState<FilterState>(INITIAL_FILTERS);
   const [page, setPage] = useState(1);
 
+  const statusOptions = useMemo(
+    () =>
+      uniqueValues(jobs.map((job) => job.status) as string[]) as (
+        | JobStatus
+        | typeof ALL
+      )[],
+    [jobs]
+  );
+
+  const locationOptions = useMemo(
+    () => uniqueValues(jobs.map((job) => job.location)),
+    [jobs]
+  );
+
+  const categoryOptions = [ALL, ...JOB_CATEGORIES];
+
+  const experienceOptions = useMemo(
+    () => uniqueValues(jobs.map((job) => job.experienceLevel)),
+    [jobs]
+  );
+
   const filteredJobs = useMemo(() => {
     const normalized = filters.query.trim().toLowerCase();
 
-    return jobListings.filter((job) => {
+    return jobs.filter((job) => {
       const matchesStatus =
         filters.status === ALL || job.status === filters.status;
       const matchesLocation =
@@ -119,7 +137,7 @@ export function OpportunitiesBrowser() {
         matchesQuery
       );
     });
-  }, [filters]);
+  }, [jobs, filters]);
 
   const totalPages = Math.max(
     1,
@@ -168,7 +186,7 @@ export function OpportunitiesBrowser() {
     >
       <div className={styles.container}>
         <h1 id="opportunities-heading" className={styles.title}>
-          {opportunitiesPage.title}
+          {pageTitle}
         </h1>
 
         <div className={styles.toolbar} role="search">

@@ -4,10 +4,15 @@ import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import { PRIMARY_PRODUCT_SLUG } from "@/constants/products";
+import { RichHeadline } from "@/components/cms/rich-text";
+import type { HeroContent } from "@/lib/cms/home-page-data";
 import styles from "@/components/pageheader/pageheader.module.css";
 
-export function Hero() {
+type HeroProps = {
+  content: HeroContent;
+};
+
+export function Hero({ content }: HeroProps) {
   const router = useRouter();
   const containerRef = useRef<HTMLElement>(null);
 
@@ -38,7 +43,7 @@ export function Hero() {
           loop
           playsInline
         >
-          <source src="/videos/hero.mp4" type="video/mp4" />
+          <source src={content.video} type="video/mp4" />
         </motion.video>
       </div>
 
@@ -70,9 +75,7 @@ export function Hero() {
               transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
               className={styles.headline}
             >
-              Created by Science.
-              <br />
-              Inspired by Beauty.
+              <RichHeadline content={content.headline} />
             </motion.h1>
           </div>
 
@@ -89,7 +92,7 @@ export function Hero() {
                 transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className={styles.sub}
               >
-                Advancing the future of aesthetic medicine through innovative biotechnology, world-class manufacturing, and global partnerships.
+                {content.sub}
               </motion.p>
             </div>
             <div className={styles.ctaGroup}>
@@ -97,17 +100,17 @@ export function Hero() {
                 variant="blur"
                 tone="light"
                 showIcon
-                onClick={() => router.push(`/products/${PRIMARY_PRODUCT_SLUG}`)}
+                onClick={() => router.push(content.button1.href)}
               >
-                Explore Products
+                {content.button1.label}
               </Button>
               <Button
                 variant="blur"
                 tone="light"
                 showIcon
-                onClick={() => router.push("/about")}
+                onClick={() => router.push(content.button2.href)}
               >
-                About Us
+                {content.button2.label}
               </Button>
             </div>
           </motion.div>

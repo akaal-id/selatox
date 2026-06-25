@@ -2,10 +2,14 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { valueChain } from "@/constants/career-journey";
+import type { JourneyPageContent } from "@/lib/cms/public-content";
 import styles from "./value-chain.module.css";
 
-export function ValueChain() {
+type ValueChainProps = {
+  content: JourneyPageContent["valueChain"];
+};
+
+export function ValueChain({ content }: ValueChainProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
 
@@ -34,29 +38,29 @@ export function ValueChain() {
         <header className={styles.header}>
           <div className={styles.headerVisual}>
             <Image
-              src={valueChain.image}
-              alt={valueChain.imageAlt}
+              src={content.image}
+              alt={content.imageAlt}
               fill
               sizes="(max-width: 900px) 100vw, 50vw"
               className={styles.image}
             />
             <div className={styles.imageOverlay} aria-hidden />
             <p className={styles.eyebrow} aria-hidden>
-              {valueChain.eyebrow}
+              {content.eyebrow}
             </p>
           </div>
 
           <div className={styles.headerPanel}>
             <h2 id="value-chain-heading" className={styles.title}>
-              {valueChain.title}
+              {content.headline}
             </h2>
-            <p className={styles.lead}>{valueChain.lead}</p>
+            <p className={styles.lead}>{content.sub}</p>
           </div>
         </header>
 
         <div className={styles.flow}>
           <ol className={styles.stages}>
-            {valueChain.stages.map((stage, index) => (
+            {content.stages.map((stage, index) => (
               <li
                 key={stage.id}
                 className={styles.stage}

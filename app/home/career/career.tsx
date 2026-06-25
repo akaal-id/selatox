@@ -1,34 +1,21 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { JobCard } from "@/components/jobcard/jobcard";
 import { Button } from "@/components/ui/Button";
-import { jobListings } from "@/constants/opportunities";
+import { RichHeadline, RichText } from "@/components/cms/rich-text";
+import type { CareersContent } from "@/lib/cms/home-page-data";
 import styles from "./career.module.css";
 
-const JOB_STATUS_SORT_ORDER = {
-  Open: 0,
-  "Closing Soon": 1,
-  Closed: 2,
-} as const;
+type CareerSectionProps = {
+  content: CareersContent;
+};
 
-export function CareerSection() {
+export function CareerSection({ content }: CareerSectionProps) {
   const router = useRouter();
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
-
-  const featuredJobs = useMemo(
-    () =>
-      jobListings
-        .filter((job) => job.status !== "Closed")
-        .sort(
-          (a, b) =>
-            JOB_STATUS_SORT_ORDER[a.status] - JOB_STATUS_SORT_ORDER[b.status]
-        )
-        .slice(0, 3),
-    []
-  );
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -54,23 +41,20 @@ export function CareerSection() {
       <div className={styles.container}>
         <header className={styles.header}>
           <span className={styles.eyebrow} aria-hidden>
-            Careers
+            {content.eyebrow}
           </span>
           <div className={styles.headerRow}>
             <h2 id="careers-heading" className={styles.headline}>
-              Build what&apos;s next,{" "}
-              <em className={styles.headlineAccent}>with us.</em>
+              <RichHeadline content={content.headline} />
             </h2>
-            <p className={styles.subtitle}>
-              We&apos;re assembling a team of scientists, strategists, and operators
-              who believe the next era of bio-aesthetics will be engineered in
-              Indonesia — and shared with the world.
-            </p>
+            <div className={styles.subtitle}>
+              <RichText html={content.sub} />
+            </div>
           </div>
         </header>
 
         <ul className={styles.jobGrid}>
-          {featuredJobs.map((job, index) => (
+          {content.jobs.map((job, index) => (
             <li
               key={job.id}
               className={styles.jobGridItem}

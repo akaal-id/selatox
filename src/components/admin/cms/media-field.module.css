@@ -1,0 +1,128 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 2rem 1rem;
+  border-bottom: 1px solid var(--neutral-40);
+  background: transparent;
+}
+
+.fieldWide {
+  /* full width in single-column layout */
+}
+
+.label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--neutral-140);
+}
+
+.hint {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--neutral-100);
+}
+
+.urlField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.urlLabel {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--neutral-100);
+}
+
+.urlInput {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--neutral-60);
+  border-radius: 0.5rem;
+  background: var(--neutral-0);
+  color: var(--neutral-160);
+  font: inherit;
+  font-size: 0.92rem;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.urlInput:focus {
+  outline: none;
+  border-color: var(--blue-80);
+  background: var(--neutral-0);
+}
+
+.dropzone {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem;
+  border: 1px dashed var(--neutral-60);
+  border-radius: 0.5rem;
+  background: var(--neutral-10);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.dropzoneActive {
+  border-color: var(--blue-80);
+  background: var(--blue-20);
+}
+
+.dropzoneIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  color: var(--neutral-100);
+}
+
+.dropzoneTitle {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--neutral-160);
+}
+
+.dropzoneHint {
+  margin-top: 0.1rem;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--neutral-100);
+}
+
+.uploadButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: auto;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--neutral-60);
+  border-radius: 0.45rem;
+  background: var(--neutral-0);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--neutral-140);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.uploadButton:hover:not(:disabled) {
+  border-color: var(--neutral-80);
+  background: var(--neutral-10);
+}
+
+.uploadButton:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.error {
+  font-size: 0.78rem;
+  color: var(--red-120);
+}

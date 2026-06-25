@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/pageheader/PageHeader";
-import { aboutHero } from "@/constants/about";
+import { getAboutPageContent } from "@/lib/cms/public-content";
 import { ExecutiveSection } from "./executive/executive";
 import { AboutValues } from "./values/values";
 import { Roadmap } from "./roadmap/roadmap";
-import { Facilities } from "./facilities/facilities";
 import { AboutContact } from "./contact/contact";
 
 export const metadata: Metadata = {
@@ -13,19 +12,22 @@ export const metadata: Metadata = {
     "PT. Selatox Bio Pharma — Indonesia's pioneer in biopharmaceutical specialization, GMP manufacturing, and bio-aesthetic research.",
 };
 
-export default function AboutPage() {
+export const revalidate = 30;
+
+export default async function AboutPage() {
+  const content = await getAboutPageContent();
+
   return (
     <main>
       <PageHeader
         eyebrow="About"
-        title={aboutHero.headline}
-        subtitle={aboutHero.subheadline}
+        title={content.header.headline}
+        subtitle={content.header.sub}
       />
-      <AboutValues />
-      <ExecutiveSection />
-      <Roadmap />
-      {/* <Facilities /> */}
-      <AboutContact />
+      <AboutValues content={content.values} />
+      <ExecutiveSection content={content.executive} />
+      <Roadmap content={content.roadmap} />
+      <AboutContact content={content.contact} />
     </main>
   );
 }

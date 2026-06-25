@@ -68,7 +68,8 @@
   animation-delay: 0.18s;
 }
 
-.headlineAccent {
+.headlineAccent,
+.headline em {
   font-style: italic;
   color: var(--green-100);
 }

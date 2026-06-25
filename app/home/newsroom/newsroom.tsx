@@ -6,9 +6,15 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import styles from "./newsroom.module.css";
 import { useRouter } from "next/navigation";
-import { getNewsHref, newsArticles } from "@/constants/news";
+import { getNewsHref } from "@/constants/news";
+import { RichHeadline } from "@/components/cms/rich-text";
+import type { NewsroomContent } from "@/lib/cms/home-page-data";
 
-export function Newsroom() {
+type NewsroomProps = {
+  content: NewsroomContent;
+};
+
+export function Newsroom({ content }: NewsroomProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
   const router = useRouter();
@@ -41,7 +47,7 @@ export function Newsroom() {
               Newsroom
             </span>
             <h2 id="newsroom-heading" className={styles.headline}>
-              Latest Updates &amp; Insights.
+              <RichHeadline content={content.headline} />
             </h2>
           </div>
           <div className={styles.actionColumn}>
@@ -58,8 +64,8 @@ export function Newsroom() {
         </div>
 
         <ul className={styles.list} aria-label="Latest news">
-          {newsArticles.slice(0, 5).map((article, index) => (
-            <li key={article.id}>
+          {content.articles.map((article, index) => (
+            <li key={article.slug}>
               <Link
                 href={getNewsHref(article.slug)}
                 className={styles.listItem}

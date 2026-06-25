@@ -1,0 +1,233 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+.shellHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--neutral-60);
+}
+
+.shellHeaderText {
+  min-width: 0;
+}
+
+.shellActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.eyebrow {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-120);
+}
+
+.title {
+  margin-top: 0.35rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 2.4vw, 2.15rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--neutral-160);
+}
+
+.lead {
+  margin-top: 0.5rem;
+  max-width: 36rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--neutral-120);
+}
+
+.navLink {
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--neutral-120);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.navLink:hover {
+  color: var(--blue-140);
+}
+
+.navLinkActive {
+  color: var(--green-120);
+  font-weight: 600;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.badgeDefault {
+  background: var(--neutral-40);
+  color: var(--neutral-140);
+}
+
+.badgeSuccess {
+  background: var(--green-20);
+  color: var(--green-140);
+}
+
+.badgeWarning {
+  background: #fff7e6;
+  color: #9a6700;
+}
+
+.badgeError {
+  background: var(--red-20);
+  color: var(--red-120);
+}
+
+.card {
+  border: none;
+  border-top: 1px solid var(--neutral-60);
+  border-radius: 0;
+  background: transparent;
+}
+
+.sectionLabel {
+  margin-bottom: 1rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--neutral-100);
+}
+
+.cardLink {
+  display: block;
+  text-decoration: none;
+}
+
+.cardLinkInner {
+  height: 100%;
+  padding: 1.15rem 0;
+  border-top: 1px solid var(--neutral-60);
+  transition: border-color 0.15s ease;
+}
+
+.cardLink:hover .cardLinkInner,
+.cardLink:focus-visible .cardLinkInner {
+  border-top-color: var(--blue-80);
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--neutral-160);
+  transition: color 0.15s ease;
+}
+
+.cardLink:hover .cardTitle,
+.cardLink:focus-visible .cardTitle {
+  color: var(--blue-140);
+}
+
+.cardDescription {
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--neutral-120);
+}
+
+.cardSlug {
+  margin-top: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--neutral-100);
+}
+
+.cardMeta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.cardError {
+  margin-top: 0.75rem;
+  font-size: 0.78rem;
+  color: var(--red-120);
+}
+
+.alertCard {
+  padding: 1.15rem 0;
+  border-top: 1px solid #f5d0a8;
+  background: transparent;
+  font-size: 0.875rem;
+  color: #7a4a00;
+}
+
+.alertTitle {
+  font-weight: 600;
+}
+
+.alertBody {
+  margin-top: 0.5rem;
+  color: #8f5a12;
+}
+
+.alertCode {
+  border-radius: 0.35rem;
+  background: var(--neutral-40);
+  padding: 0.1rem 0.35rem;
+}
+
+.alertPre {
+  margin-top: 0.75rem;
+  overflow-x: auto;
+  border-radius: 0.65rem;
+  background: var(--neutral-40);
+  padding: 0.75rem;
+  font-size: 0.75rem;
+}
+
+.errorCard {
+  padding: 1.15rem 0;
+  border-top: 1px solid var(--red-40);
+  background: transparent;
+  font-size: 0.875rem;
+  color: var(--red-120);
+}
+
+.errorTitle {
+  font-weight: 600;
+}
+
+.errorLink {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--red-140);
+  text-decoration: underline;
+}
+
+.emptyText {
+  font-size: 0.875rem;
+  color: var(--neutral-120);
+}

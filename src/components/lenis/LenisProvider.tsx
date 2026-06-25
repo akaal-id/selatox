@@ -19,12 +19,16 @@ export function useLenis() {
 export function LenisProvider({ children }: { children: ReactNode }) {
   const [lenis, setLenis] = useState<Lenis | null>(null);
   const pathname = usePathname();
+  const isAdminRoute = pathname?.startsWith("/admin") ?? false;
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    if (prefersReducedMotion) return;
+
+    if (prefersReducedMotion || isAdminRoute) {
+      return;
+    }
 
     const instance = new Lenis({
       autoRaf: true,
@@ -40,12 +44,12 @@ export function LenisProvider({ children }: { children: ReactNode }) {
       instance.destroy();
       setLenis(null);
     };
-  }, []);
+  }, [isAdminRoute]);
 
   useEffect(() => {
-    if (!lenis) return;
+    if (!lenis || isAdminRoute) return;
     lenis.scrollTo(0, { immediate: true });
-  }, [pathname, lenis]);
+  }, [pathname, lenis, isAdminRoute]);
 
   return (
     <LenisContext.Provider value={lenis}>{children}</LenisContext.Provider>

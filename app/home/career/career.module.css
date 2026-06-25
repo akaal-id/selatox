@@ -76,7 +76,8 @@
   text-wrap: balance;
 }
 
-.headlineAccent {
+.headlineAccent,
+.headline em {
   font-style: italic;
   color: var(--green-100);
 }

@@ -1,10 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ethicsIntro } from "@/constants/ethics";
+import { RichHeadline, RichText } from "@/components/cms/rich-text";
+import type { EthicsIntroContent } from "@/lib/cms/public-content";
 import styles from "../../home/introsection/introsection.module.css";
 
-export function EthicsIntro() {
+type EthicsIntroProps = {
+  content: EthicsIntroContent;
+};
+
+export function EthicsIntro({ content }: EthicsIntroProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
 
@@ -32,31 +37,16 @@ export function EthicsIntro() {
       <div className={styles.container}>
         <div className={styles.content}>
           <p className={styles.eyebrow}>
-            <span className={styles.eyebrowLabel}>{ethicsIntro.eyebrow}</span>
+            <span className={styles.eyebrowLabel}>{content.eyebrow}</span>
           </p>
 
           <h2 className={styles.headline}>
-            Conducting Business with
-            <br />
-            <span className={styles.headlineAccent}>
-              Integrity &amp; Accountability
-            </span>
+            <RichHeadline content={content.headline} />
           </h2>
 
-          <p className={styles.sub}>
-            As an emerging global biopharmaceutical company, we are committed to
-            conducting business with{" "}
-            <em>integrity, transparency, and accountability</em>. We believe that
-            long-term success is built on trust, and that trust is earned through
-            responsible actions, ethical decision-making, and unwavering
-            compliance with the highest standards of business conduct. By fostering
-            a culture of integrity, we strive to create{" "}
-            <em>
-              lasting value for patients, healthcare professionals, business
-              partners, employees, shareholders, and society
-            </em>
-            .
-          </p>
+          <div className={styles.sub}>
+            <RichText html={content.sub} />
+          </div>
         </div>
       </div>
     </section>

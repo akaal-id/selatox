@@ -1,16 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ourBusinessManufacturing } from "@/constants/our-business";
+import type { OurBusinessManufacturingSectionContent } from "@/lib/cms/public-content";
 import styles from "./manufacturing.module.css";
 
-const KEY_FOCUS = [
-  "Pharmaceutical manufacturing",
-  "Quality assurance",
-  "Commercial production",
-];
-
-export function Manufacturing() {
+export function Manufacturing({
+  content,
+}: {
+  content: OurBusinessManufacturingSectionContent;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
 
@@ -27,7 +25,7 @@ export function Manufacturing() {
     return () => observer.disconnect();
   }, []);
 
-  const catchphraseParts = ourBusinessManufacturing.catchphrase.split("\n");
+  const catchphraseParts = content.catchphrase.split("\n");
 
   return (
     <section
@@ -38,7 +36,6 @@ export function Manufacturing() {
       aria-labelledby="manufacturing-heading"
     >
       <div className={styles.container}>
-        {/* ────────── LEAD HEADER ────────── */}
         <div className={styles.lead}>
           <div className={styles.leadHero}>
             <p className={styles.leadEyebrow}>
@@ -47,28 +44,20 @@ export function Manufacturing() {
               </span>
             </p>
             <h2 id="manufacturing-heading" className={styles.leadHeadline}>
-              Bringing Innovation to Life
+              {content.headline}
             </h2>
           </div>
 
           <div className={styles.leadBand}>
             <div className={styles.leadDescription}>
-              <p>
-                From development to commercial production, Selatox integrates
-                scientific expertise with advanced GMP manufacturing capabilities
-                to deliver safe, reliable, and high-quality aesthetic products.
-              </p>
-              <p>
-                Led by SELATOXIN, our manufacturing platform is designed to meet
-                the highest international standards while supporting future
-                portfolio expansion.
-              </p>
+              <p>{content.subParagraphs[0]}</p>
+              <p>{content.subParagraphs[1]}</p>
             </div>
 
             <div className={styles.leadFocus} aria-label="Key focus areas">
               <p className={styles.focusLabel}>Key Focus</p>
               <ul className={styles.focusTags}>
-                {KEY_FOCUS.map((item) => (
+                {content.focusAreas.map((item) => (
                   <li key={item} className={styles.focusTag}>
                     {item}
                   </li>
@@ -87,7 +76,7 @@ export function Manufacturing() {
             preload="metadata"
             aria-label="Selatox manufacturing facility overview"
           >
-            <source src={ourBusinessManufacturing.video} type="video/mp4" />
+            <source src={content.video} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
@@ -104,7 +93,7 @@ export function Manufacturing() {
         </header>
 
         <ol className={styles.pillars}>
-          {ourBusinessManufacturing.pillars.map((pillar, i) => (
+          {content.pillars.map((pillar, i) => (
             <li
               key={pillar.title}
               className={styles.pillar}

@@ -1,13 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-  researchFields,
-  rndCenterPipelineColumns,
-} from "@/constants/researchfields";
+import { rndCenterPipelineColumns } from "@/constants/researchfields";
+import { RichHeadline, RichText } from "@/components/cms/rich-text";
+import type { RndContent } from "@/lib/cms/home-page-data";
 import styles from "./rnd-center.module.css";
 
-export function RndCenter() {
+type RndCenterProps = {
+  content: RndContent;
+};
+
+export function RndCenter({ content }: RndCenterProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
 
@@ -35,16 +38,14 @@ export function RndCenter() {
       <div className={styles.container}>
         <header className={styles.intro}>
           <p className={styles.eyebrow} aria-hidden>
-            R&amp;D Center
+            {content.eyebrow}
           </p>
           <h2 id="rnd-center-heading" className={styles.headline}>
-            Advancing our{" "}
-            <em className={styles.headlineAccent}>clinical pipeline.</em>
+            <RichHeadline content={content.headline} />
           </h2>
-          <p className={styles.sub}>
-            Core research programs across formulation, process development, and
-            clinical readiness.
-          </p>
+          <div className={styles.sub}>
+            <RichText html={content.sub} />
+          </div>
         </header>
 
         <div className={styles.tableWrap} role="table" aria-label="RND pipeline">
@@ -56,7 +57,7 @@ export function RndCenter() {
             ))}
           </div>
 
-          {researchFields.map((field) => (
+          {content.programs.map((field) => (
             <div key={field.title} className={styles.row} role="row">
               <div className={styles.programCell} role="cell">
                 <p className={styles.programTitle}>{field.title}</p>

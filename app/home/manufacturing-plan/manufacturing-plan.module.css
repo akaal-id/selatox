@@ -97,6 +97,11 @@
   animation-delay: 0.32s;
 }
 
+.headline em {
+  font-style: italic;
+  color: var(--green-100);
+}
+
 .sub {
   margin: 0;
   max-width: 420px;

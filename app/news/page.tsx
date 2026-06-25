@@ -1,16 +1,27 @@
 import type { Metadata } from "next";
+import { getNewsArticles, getNewsPageMeta } from "@/lib/cms/public-content";
 import { NewsBrowser } from "./news-browser";
-import { newsPage } from "@/constants/news";
 
-export const metadata: Metadata = {
-  title: "Newsroom | Selatox",
-  description: newsPage.subtitle,
-};
+export const revalidate = 30;
 
-export default function NewsPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const pageMeta = await getNewsPageMeta();
+
+  return {
+    title: "Newsroom | Selatox",
+    description: pageMeta.subtitle,
+  };
+}
+
+export default async function NewsPage() {
+  const [pageMeta, articles] = await Promise.all([
+    getNewsPageMeta(),
+    getNewsArticles(),
+  ]);
+
   return (
     <main>
-      <NewsBrowser />
+      <NewsBrowser articles={articles} pageMeta={pageMeta} />
     </main>
   );
 }

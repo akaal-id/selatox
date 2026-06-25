@@ -9,10 +9,10 @@ import { SelectForm } from "@/components/ui/selectform/selectform";
 import {
   NEWS_PAGE_SIZE,
   getNewsHref,
-  newsArticles,
-  newsPage,
+  type NewsArticle,
   type NewsCategory,
 } from "@/constants/news";
+import type { NewsPageMeta } from "@/lib/cms/public-content";
 import styles from "./news.module.css";
 
 const ALL = "All";
@@ -68,23 +68,34 @@ function getPaginationItems(
   return items;
 }
 
-const categoryOptions = uniqueValues(
-  newsArticles.map((article) => article.category) as string[]
-) as (NewsCategory | typeof ALL)[];
+type NewsBrowserProps = {
+  articles: NewsArticle[];
+  pageMeta: NewsPageMeta;
+};
 
-const yearOptions = uniqueValues(
-  newsArticles.map((article) => String(article.publishedYear))
-);
-
-export function NewsBrowser() {
+export function NewsBrowser({ articles, pageMeta }: NewsBrowserProps) {
   const router = useRouter();
   const [filters, setFilters] = useState<FilterState>(INITIAL_FILTERS);
   const [page, setPage] = useState(1);
 
+  const categoryOptions = useMemo(
+    () =>
+      uniqueValues(articles.map((article) => article.category) as string[]) as (
+        | NewsCategory
+        | typeof ALL
+      )[],
+    [articles]
+  );
+
+  const yearOptions = useMemo(
+    () => uniqueValues(articles.map((article) => String(article.publishedYear))),
+    [articles]
+  );
+
   const filteredArticles = useMemo(() => {
     const normalized = filters.query.trim().toLowerCase();
 
-    return newsArticles.filter((article) => {
+    return articles.filter((article) => {
       const matchesCategory =
         filters.category === ALL || article.category === filters.category;
       const matchesYear =
@@ -105,7 +116,7 @@ export function NewsBrowser() {
 
       return matchesCategory && matchesYear && matchesQuery;
     });
-  }, [filters]);
+  }, [articles, filters]);
 
   const totalPages = Math.max(
     1,
@@ -160,9 +171,9 @@ export function NewsBrowser() {
       <div className={styles.container}>
         <header className={styles.pageHeader}>
           <h1 id="news-heading" className={styles.title}>
-            {newsPage.title}
+            {pageMeta.title}
           </h1>
-          <p className={styles.subtitle}>{newsPage.subtitle}</p>
+          <p className={styles.subtitle}>{pageMeta.subtitle}</p>
         </header>
 
         <div className={styles.toolbar} role="search">

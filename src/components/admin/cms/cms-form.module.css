@@ -1,0 +1,518 @@
+/* ── Editor shell ── */
+
+.editor,
+.editorLoading {
+  --cms-max-width: 48rem;
+  --cms-pad-x: 1rem;
+  --cms-pad-y: 0.875rem;
+  --cms-field-pad-y: 2rem;
+  --cms-gap: 0.75rem;
+}
+
+.editor {
+  width: 100%;
+  max-width: var(--cms-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cms-gap);
+  padding-bottom: 5rem;
+}
+
+/* ── Header ── */
+
+.pageHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pageHeaderCompact {
+  gap: 0;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  width: fit-content;
+  margin-bottom: 0.15rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--neutral-100);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.backLink:hover {
+  color: var(--neutral-160);
+}
+
+.title {
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--neutral-160);
+}
+
+.lead,
+.pageIntro {
+  max-width: 38rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--neutral-100);
+}
+
+.lead {
+  margin-top: 0.15rem;
+}
+
+.pageIntro {
+  margin: 0;
+  padding-inline: var(--cms-pad-x);
+}
+
+/* ── Sections ── */
+
+.formBody,
+.sectionCard {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--neutral-50);
+  border-radius: 0.625rem;
+  background: var(--neutral-0);
+  overflow: hidden;
+}
+
+.sectionHead {
+  padding: 0.75rem var(--cms-pad-x);
+  border-bottom: 1px solid var(--neutral-40);
+  background: var(--neutral-10);
+}
+
+.sectionTitle {
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--neutral-160);
+}
+
+.sectionDescription {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--neutral-100);
+}
+
+/* ── Fields (single column) ── */
+
+.fieldGrid {
+  display: flex;
+  flex-direction: column;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: var(--cms-field-pad-y) var(--cms-pad-x);
+  border-bottom: 1px solid var(--neutral-40);
+  background: transparent;
+}
+
+.field:last-child {
+  border-bottom: none;
+}
+
+.fieldGridWide {
+  /* legacy — all fields are full width now */
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--neutral-140);
+}
+
+.hint {
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--neutral-100);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  border: 1px solid var(--neutral-60);
+  border-radius: 0.5rem;
+  background: var(--neutral-0);
+  color: var(--neutral-160);
+  font: inherit;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.input {
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+.textarea {
+  min-height: 5rem;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  resize: vertical;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--blue-80);
+  background: var(--neutral-20);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--neutral-90);
+}
+
+.fieldPair {
+  padding: var(--cms-field-pad-y) var(--cms-pad-x);
+  border-bottom: 1px solid var(--neutral-40);
+}
+
+.fieldPair:last-child {
+  border-bottom: none;
+}
+
+.fieldPairTitle {
+  margin: 0 0 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neutral-100);
+}
+
+.fieldPairRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.fieldPairRow .field {
+  padding: 0;
+  border-bottom: none;
+}
+
+@media (max-width: 640px) {
+  .fieldPairRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Stats & pillars ── */
+
+.statGrid,
+.pillarGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.statCard,
+.pillarCard {
+  padding: 0;
+  border: none;
+  border-bottom: 1px solid var(--neutral-40);
+  border-radius: 0;
+  background: transparent;
+}
+
+.statCard:last-child,
+.pillarCard:last-child {
+  border-bottom: none;
+}
+
+.statCardTitle,
+.pillarCardTitle {
+  margin: 0;
+  margin-bottom: -1rem;
+  padding: 2rem var(--cms-pad-x) 0;
+  border-bottom: none;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neutral-100);
+}
+
+/* ── Publish ── */
+
+.publishCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: var(--cms-pad-y) var(--cms-pad-x);
+  border: 1px solid var(--neutral-50);
+  border-radius: 0.625rem;
+  background: var(--neutral-0);
+}
+
+.toggle {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--neutral-140);
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--green-120);
+}
+
+/* ── Save bar ── */
+
+.saveBar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: var(--dashboard-sidebar-width);
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 2rem;
+  border-top: 1px solid var(--neutral-60);
+  background: color-mix(in srgb, var(--neutral-0) 92%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.status {
+  font-size: 0.82rem;
+  color: var(--neutral-100);
+}
+
+.statusError {
+  color: var(--red-120);
+}
+
+.statusSuccess {
+  color: var(--green-120);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.58rem 1rem;
+  border: 1px solid var(--neutral-60);
+  border-radius: 0.5rem;
+  background: var(--neutral-0);
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--neutral-120);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.secondaryButton:hover:not(:disabled) {
+  border-color: var(--neutral-80);
+  color: var(--neutral-160);
+  background: var(--neutral-10);
+}
+
+.secondaryButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── Empty state ── */
+
+.emptyState {
+  padding: 1.75rem var(--cms-pad-x);
+  border: 1px dashed var(--neutral-70);
+  border-radius: 0.625rem;
+  background: var(--neutral-0);
+  text-align: center;
+  color: var(--neutral-100);
+}
+
+.emptyState .title {
+  font-size: 1rem;
+}
+
+.emptyState .lead {
+  margin: 0.35rem auto 0;
+}
+
+/* ── Collection list ── */
+
+.collectionList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.collectionItem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 0.8rem var(--cms-pad-x);
+  border: 1px solid var(--neutral-50);
+  border-radius: 0.5rem;
+  background: var(--neutral-0);
+  transition: border-color 0.15s ease;
+}
+
+.collectionItem:hover {
+  border-color: var(--neutral-70);
+}
+
+.collectionItemMain {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.85rem;
+  min-width: 0;
+}
+
+.collectionItemText {
+  flex: 1;
+  min-width: 10rem;
+}
+
+.collectionItemTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--neutral-160);
+}
+
+.collectionItemMeta {
+  margin-top: 0.1rem;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--neutral-100);
+}
+
+.collectionItemActions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.35rem;
+}
+
+.collectionEditButton,
+.collectionDeleteButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.collectionEditButton {
+  border: none;
+  background: var(--neutral-20);
+  color: var(--neutral-160);
+  text-decoration: none;
+}
+
+.collectionEditButton:hover {
+  background: var(--blue-20);
+  color: var(--blue-140);
+}
+
+.collectionDeleteButton {
+  border: none;
+  background: transparent;
+  color: var(--neutral-100);
+}
+
+.collectionDeleteButton:hover {
+  background: var(--red-20);
+  color: var(--red-120);
+}
+
+@media (max-width: 1023px) {
+  .saveBar {
+    left: 0;
+    padding: 0.75rem 1.25rem;
+  }
+}
+
+/* ── Loading skeleton ── */
+
+.editorLoading {
+  width: 100%;
+  max-width: var(--cms-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cms-gap);
+  padding: 0 0 5rem;
+}
+
+.editorLoadingBar {
+  height: 1.5rem;
+  width: 38%;
+  border-radius: 0.5rem;
+  background: linear-gradient(
+    90deg,
+    var(--neutral-30) 0%,
+    var(--neutral-20) 50%,
+    var(--neutral-30) 100%
+  );
+  background-size: 200% 100%;
+  animation: editorShimmer 1.1s ease-in-out infinite;
+}
+
+.editorLoadingBlock {
+  height: 6.5rem;
+  border-radius: 0.625rem;
+  border: 1px solid var(--neutral-40);
+  background: linear-gradient(
+    90deg,
+    var(--neutral-20) 0%,
+    var(--neutral-10) 50%,
+    var(--neutral-20) 100%
+  );
+  background-size: 200% 100%;
+  animation: editorShimmer 1.1s ease-in-out infinite;
+}
+
+@keyframes editorShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

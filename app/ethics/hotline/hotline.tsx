@@ -18,6 +18,7 @@ import {
   type EthicsReportFormData,
   type EthicsReportType,
 } from "@/constants/ethics";
+import type { EthicsHotlineCmsContent } from "@/lib/cms/public-content";
 import { submitEthicsReport } from "@/lib/submit-ethics-report";
 import styles from "./hotline.module.css";
 
@@ -139,7 +140,11 @@ function AccordionSection({
   );
 }
 
-export function EthicsHotline() {
+type EthicsHotlineProps = {
+  content: EthicsHotlineCmsContent;
+};
+
+export function EthicsHotline({ content }: EthicsHotlineProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
   const [form, setForm] = useState<EthicsReportFormData>(INITIAL_FORM);
@@ -218,16 +223,16 @@ export function EthicsHotline() {
           <header className={styles.bannerContent}>
             <p className={styles.eyebrow}>{ethicsHotline.eyebrow}</p>
             <h2 id="ethics-hotline-heading" className={styles.title}>
-              {ethicsHotline.title}
+              {content.title}
             </h2>
-            <p className={styles.intro}>{ethicsHotline.intro}</p>
+            <p className={styles.intro}>{content.intro}</p>
             <div className={styles.contactWrap}>
               <p className={styles.contactLabel}>{ethicsHotline.contactLabel}</p>
               <a
-                href={`mailto:${ethicsHotline.contactEmail}`}
+                href={`mailto:${content.contactEmail}`}
                 className={styles.contactLink}
               >
-                {ethicsHotline.contactEmail}
+                {content.contactEmail}
               </a>
             </div>
             <ul className={styles.trustChips}>
@@ -250,12 +255,12 @@ export function EthicsHotline() {
           <AccordionSection
             id="reportable"
             index="01"
-            title={ethicsHotline.reportableTitle}
+            title={content.reportableTitle}
             defaultOpen
           >
             <ul className={styles.contentList}>
-              {ethicsHotline.reportableItems.map((item, itemIndex) => (
-                <li key={item.id} className={styles.contentItem}>
+              {content.reportableItems.map((item, itemIndex) => (
+                <li key={item.title} className={styles.contentItem}>
                   <span className={styles.contentItemIndex} aria-hidden>
                     {String(itemIndex + 1).padStart(2, "0")}
                   </span>
@@ -271,12 +276,12 @@ export function EthicsHotline() {
           <AccordionSection
             id="protection"
             index="02"
-            title={ethicsHotline.protectionTitle}
+            title={content.protectionTitle}
           >
-            <p className={styles.contentIntro}>{ethicsHotline.protectionIntro}</p>
+            <p className={styles.contentIntro}>{content.protectionIntro}</p>
             <div className={styles.contentGrid}>
-              {ethicsHotline.protectionCards.map((card) => (
-                <article key={card.id} className={styles.contentCard}>
+              {content.protectionCards.map((card) => (
+                <article key={card.title} className={styles.contentCard}>
                   <h4 className={styles.contentCardTitle}>{card.title}</h4>
                   <p className={styles.contentCardText}>{card.description}</p>
                 </article>
@@ -287,11 +292,11 @@ export function EthicsHotline() {
           <AccordionSection
             id="guidelines"
             index="03"
-            title={ethicsHotline.guidelinesTitle}
+            title={content.guidelinesTitle}
           >
-            <p className={styles.contentIntro}>{ethicsHotline.guidelinesIntro}</p>
+            <p className={styles.contentIntro}>{content.guidelinesIntro}</p>
             <ul className={styles.guidelineList}>
-              {ethicsHotline.guidelines.map((item, itemIndex) => (
+              {content.guidelines.map((item, itemIndex) => (
                 <li key={item} className={styles.guidelineItem}>
                   <span className={styles.guidelineStep} aria-hidden>
                     {String(itemIndex + 1).padStart(2, "0")}
@@ -300,13 +305,13 @@ export function EthicsHotline() {
                 </li>
               ))}
             </ul>
-            <p className={styles.contentNote}>{ethicsHotline.guidelinesNote}</p>
+            <p className={styles.contentNote}>{content.guidelinesNote}</p>
           </AccordionSection>
         </div>
 
         <div id="submit-report" className={styles.formSection}>
           <div className={styles.formShell}>
-            <h3 className={styles.formShellTitle}>{ethicsHotline.formTitle}</h3>
+            <h3 className={styles.formShellTitle}>{content.formTitle}</h3>
             <form className={styles.form} onSubmit={handleSubmit} noValidate>
                 <div className={styles.field}>
                   <SelectForm
@@ -484,8 +489,8 @@ export function EthicsHotline() {
                         <CheckCircle2 size={28} strokeWidth={1.5} />
                       </span>
                       <div className={styles.successInlineBody}>
-                        <h4 className={styles.successTitle}>{ethicsHotline.successTitle}</h4>
-                        <p className={styles.successMessage}>{ethicsHotline.successMessage}</p>
+                        <h4 className={styles.successTitle}>{content.successTitle}</h4>
+                        <p className={styles.successMessage}>{content.successMessage}</p>
                       </div>
                     </div>
                   ) : (

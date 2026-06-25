@@ -4,17 +4,9 @@ import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, Target, Heart, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { homeValues } from "@/constants/home";
+import { RichHeadline, RichText } from "@/components/cms/rich-text";
+import type { ValuesContent } from "@/lib/cms/home-page-data";
 import styles from "./valuesection.module.css";
-
-/** Split "Lead phrase — supporting copy" into a prominent lead + body. */
-function splitStatement(text: string): { lead: string; body: string } {
-  const [lead, ...rest] = text.split("—");
-  return { lead: lead.trim(), body: rest.join("—").trim() };
-}
-
-const vision = splitStatement(homeValues.vision);
-const mission = splitStatement(homeValues.mission);
 
 const CARD_ICONS: Record<string, LucideIcon> = {
   vision: Eye,
@@ -28,32 +20,11 @@ const CARD_ACCENT: Record<string, "green" | "blue"> = {
   "core-value": "green",
 };
 
-const values = [
-  {
-    id: "vision",
-    index: "01",
-    category: "Vision",
-    title: vision.lead,
-    description: vision.body,
-  },
-  {
-    id: "mission",
-    index: "02",
-    category: "Mission",
-    title: mission.lead,
-    description: mission.body,
-  },
-  {
-    id: "core-value",
-    index: "03",
-    category: "Core Value",
-    title: "Uncompromising Integrity",
-    description:
-      "True innovation requires honesty—complete transparency, strict clinical safety, and absolute trust in every vial we produce.",
-  },
-];
+type ValuesectionProps = {
+  content: ValuesContent;
+};
 
-export function Valuesection() {
+export function Valuesection({ content }: ValuesectionProps) {
   const router = useRouter();
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
@@ -85,7 +56,7 @@ export function Valuesection() {
 
       <div className={styles.container}>
         <div className={styles.cardGrid}>
-          {values.map((item, index) => {
+          {content.cards.map((item, index) => {
             const Icon = CARD_ICONS[item.id];
             const accent = CARD_ACCENT[item.id];
             return (
@@ -103,8 +74,12 @@ export function Valuesection() {
 
                 <div className={styles.cardBody}>
                   <span className={styles.cardCategory}>{item.category}</span>
-                  <h3 className={styles.cardTitle}>{item.title}</h3>
-                  <p className={styles.cardDescription}>{item.description}</p>
+                  <h3 className={styles.cardTitle}>
+                    <RichHeadline content={item.title} />
+                  </h3>
+                  <div className={styles.cardDescription}>
+                    <RichText html={item.description} />
+                  </div>
                 </div>
               </article>
             );
@@ -116,9 +91,9 @@ export function Valuesection() {
             variant="primary"
             showIcon={true}
             color="var(--blue-100)"
-            onClick={() => router.push("/about")}
+            onClick={() => router.push(content.cta.href)}
           >
-            More About Selatox
+            {content.cta.label}
           </Button>
         </div>
       </div>

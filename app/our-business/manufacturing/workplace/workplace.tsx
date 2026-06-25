@@ -3,9 +3,14 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import type { ManufacturingPageContent } from "@/lib/cms/public-content";
 import styles from "./workplace.module.css";
 
-export function ManufacturingWorkplace() {
+export function ManufacturingWorkplace({
+  content,
+}: {
+  content: ManufacturingPageContent["workplace"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-8% 0px" });
@@ -39,23 +44,16 @@ export function ManufacturingWorkplace() {
           >
             <p className={styles.eyebrow}>Workplace Innovation</p>
             <h2 id="manufacturing-workplace-heading" className={styles.heading}>
-              A Culture of Agility
+              {content.headline}
             </h2>
-            <p className={styles.body}>
-              Behind our advanced machinery is a team of dedicated experts. The
-              Cikarang facility features a modern &quot;Smart Office&quot;
-              designed to enhance autonomy and efficiency. By fostering an
-              agile, result-only work environment, we encourage open
-              communication and seamless collaboration across all our engineering
-              and quality control departments.
-            </p>
+            <p className={styles.body}>{content.sub}</p>
           </motion.div>
 
           <div ref={imageRef} className={styles.media}>
             <motion.div style={{ y: imageY }} className={styles.mediaInner}>
               <Image
-                src="/images/our-business/about-main.webp"
-                alt="Selatox team collaboration and workplace innovation"
+                src={content.imageSrc}
+                alt={content.imageAlt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className={styles.image}

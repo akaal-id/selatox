@@ -1,15 +1,21 @@
 "use client";
 
-import Image from "next/image";
+import { CmsImage } from "@/components/cms/cms-image";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { RichHeadline, RichText } from "@/components/cms/rich-text";
+import type { BusinessContent } from "@/lib/cms/home-page-data";
 import styles from "../../../src/components/pageheader/pageheader.module.css";
 
 const ease: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
 
-export function Business() {
+type BusinessProps = {
+  content: BusinessContent;
+};
+
+export function Business({ content }: BusinessProps) {
   const router = useRouter();
   const containerRef = useRef<HTMLElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
@@ -25,8 +31,8 @@ export function Business() {
     >
       <div className={styles.background} aria-hidden>
         <div className="relative h-full w-full">
-          <Image
-            src="/images/hero-3.webp"
+          <CmsImage
+            src={content.backgroundImage}
             alt=""
             fill
             sizes="100vw"
@@ -62,7 +68,7 @@ export function Business() {
               transition={{ duration: 0.7, delay: 0.08, ease: "easeOut" }}
               className={styles.eyebrow}
             >
-              Our Business
+              {content.eyebrow}
             </motion.p>
             <motion.h2
               id="our-business-heading"
@@ -71,9 +77,7 @@ export function Business() {
               transition={{ duration: 0.8, delay: 0.2, ease }}
               className={styles.headline}
             >
-              Clinical Science,
-              <br />
-              Built For Global Aesthetics.
+              <RichHeadline content={content.headline} />
             </motion.h2>
           </div>
 
@@ -84,16 +88,14 @@ export function Business() {
               transition={{ duration: 0.6, delay: 0.45 }}
               className={styles.subWrap}
             >
-              <motion.p
+              <motion.div
                 initial={{ y: "100%" }}
                 animate={isInView ? { y: "0%" } : {}}
                 transition={{ duration: 1, delay: 0.35, ease }}
                 className={styles.sub}
               >
-                We develop precision toxin formulations and partner with leading
-                clinics worldwide to bring trusted, scalable aesthetic solutions
-                to every market we serve.
-              </motion.p>
+                <RichText html={content.sub} />
+              </motion.div>
             </motion.div>
 
             <div className={styles.ctaGroup}>
@@ -101,9 +103,9 @@ export function Business() {
                 variant="blur"
                 tone="light"
                 showIcon
-                onClick={() => router.push("/our-business")}
+                onClick={() => router.push(content.cta.href)}
               >
-                Explore Our Research
+                {content.cta.label}
               </Button>
             </div>
           </div>

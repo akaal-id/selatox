@@ -2,16 +2,14 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import type { ManufacturingPageContent } from "@/lib/cms/public-content";
 import styles from "./quality.module.css";
 
-const highlights = [
-  "Chemical and Microbiological Release Tests",
-  "Advanced Cell-Based Assays",
-  "Long-term Stability Testing",
-  "24/7 Environmental Monitoring",
-] as const;
-
-export function ManufacturingQuality() {
+export function ManufacturingQuality({
+  content,
+}: {
+  content: ManufacturingPageContent["quality"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-8% 0px" });
 
@@ -38,16 +36,9 @@ export function ManufacturingQuality() {
           >
             <p className={styles.eyebrow}>Global Quality & GMP Compliance</p>
             <h2 id="manufacturing-quality-heading" className={styles.heading}>
-              Uncompromising Safety Standards
+              {content.headline}
             </h2>
-            <p className={styles.body}>
-              Excellence is our baseline. We rigorously maintain safety,
-              cleanliness, and quality across every stage of production through
-              strict GMP (Good Manufacturing Practice) compliance. By integrating
-              the proven technology and globally recognized quality management
-              systems of NABOTA, our facility aligns with the highest
-              international regulatory benchmarks.
-            </p>
+            <p className={styles.body}>{content.sub}</p>
           </motion.div>
 
           <motion.ul
@@ -56,7 +47,7 @@ export function ManufacturingQuality() {
             transition={{ duration: 0.8, delay: 0.22 }}
             className={styles.points}
           >
-            {highlights.map((item, index) => (
+            {content.points.map((item, index) => (
               <li key={item} className={styles.pointItem}>
                 <span className={styles.pointIndex}>
                   {(index + 1).toString().padStart(2, "0")}

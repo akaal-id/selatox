@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, Fragment } from "react";
 import { Button } from "@/components/ui/Button";
 import type {
   Product,
@@ -154,68 +154,67 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
         aria-labelledby="product-title"
         data-navbar="default"
       >
-        <div className={headerStyles.bg} aria-hidden>
-          <Image
-            src={product.imageSrc}
-            alt=""
-            fill
-            priority
-            sizes="(max-width: 1024px) 100vw, 60vw"
-            className={headerStyles.bgImage}
-          />
-        </div>
+        <div className={headerStyles.container}>
+          <div className={headerStyles.panel}>
+            <div className={headerStyles.titleGroup}>
+              <p className={headerStyles.eyebrow}>{product.eyebrow}</p>
+              <h1 id="product-title" className={headerStyles.title}>
+                {product.title}
+              </h1>
+              <p className={headerStyles.tagline}>{product.tagline}</p>
+            </div>
 
-        <div className={headerStyles.contentWrap}>
-          <div className={headerStyles.container}>
-            <div className={headerStyles.grid}>
-              <div className={headerStyles.panel}>
-                <div className={headerStyles.titleGroup}>
-                  <p className={headerStyles.eyebrow}>{product.eyebrow}</p>
-                  <h1 id="product-title" className={headerStyles.title}>
-                    {product.title}
-                  </h1>
-                  <p className={headerStyles.tagline}>{product.tagline}</p>
-                </div>
+            <div className={headerStyles.details}>
+              <p className={headerStyles.subtitle}>{product.shortDescription}</p>
 
-                <div className={headerStyles.details}>
-                  <p className={headerStyles.subtitle}>{product.shortDescription}</p>
+              <div className={headerStyles.highlightsBar} aria-label="Product highlights">
+                {product.valueChips.map((chip, index) => {
+                  const [line1, line2] = splitValueChipLabel(chip.label);
 
-                  <ul className={headerStyles.valueChips} aria-label="Product highlights">
-                    {product.valueChips.map((chip) => {
-                      const [line1, line2] = splitValueChipLabel(chip.label);
+                  return (
+                    <Fragment key={chip.label}>
+                      <div className={headerStyles.highlightCell}>
+                        <span className={headerStyles.chipIcon}>
+                          <ValueChipIcon icon={chip.icon} />
+                        </span>
+                        <div className={headerStyles.chipText}>
+                          <span className={headerStyles.chipLine1}>{line1}</span>
+                          {line2 ? (
+                            <span className={headerStyles.chipLine2}>{line2}</span>
+                          ) : null}
+                        </div>
+                      </div>
+                      {index < product.valueChips.length - 1 ? (
+                        <span className={headerStyles.highlightDivider} aria-hidden />
+                      ) : null}
+                    </Fragment>
+                  );
+                })}
+              </div>
 
-                      return (
-                        <li key={chip.label} className={headerStyles.valueChip}>
-                          <span className={headerStyles.chipIcon}>
-                            <ValueChipIcon icon={chip.icon} />
-                          </span>
-                          <span className={headerStyles.chipText}>
-                            {line1}
-                            {line2 ? (
-                              <>
-                                <br />
-                                {line2}
-                              </>
-                            ) : null}
-                          </span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-
-                  <div className={headerStyles.cta}>
-                    <Button
-                      variant="simple"
-                      showIcon
-                      color="var(--green-100)"
-                      onClick={() => router.push("/contact")}
-                    >
-                      Contact Us
-                    </Button>
-                  </div>
-                </div>
+              <div className={headerStyles.cta}>
+                <Button
+                  variant="simple"
+                  showIcon
+                  color="var(--green-100)"
+                  onClick={() => router.push("/contact")}
+                >
+                  Contact Us
+                </Button>
               </div>
             </div>
+          </div>
+
+          <div className={headerStyles.media}>
+            <Image
+              src={product.imageSrc}
+              alt={product.imageAlt}
+              width={1024}
+              height={1024}
+              priority
+              sizes="(max-width: 1200px) 100vw, 42vw"
+              className={headerStyles.mediaImage}
+            />
           </div>
         </div>
       </section>

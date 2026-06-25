@@ -3,14 +3,9 @@
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import {
-  PRIMARY_PRODUCT_SLUG,
-  products,
-  type ProductValueChipIcon,
-} from "@/constants/products";
+import type { Product, ProductValueChipIcon } from "@/constants/products";
+import { products } from "@/constants/products";
 import styles from "./featured-product.module.css";
-
-const FEATURED_PRODUCT = products[0];
 
 function splitValueChipLabel(label: string): [string, string] {
   const words = label.trim().split(/\s+/);
@@ -59,7 +54,12 @@ function ValueChipIcon({ icon }: { icon: ProductValueChipIcon }) {
   }
 }
 
-export function FeaturedProduct() {
+type FeaturedProductProps = {
+  product?: Product;
+};
+
+export function FeaturedProduct({ product }: FeaturedProductProps) {
+  const featured = product ?? products[0];
   const sectionRef = useRef<HTMLElement>(null);
   const router = useRouter();
   const [isInView, setIsInView] = useState(false);
@@ -87,26 +87,26 @@ export function FeaturedProduct() {
     >
       <div className={styles.media}>
         <img
-          src={FEATURED_PRODUCT.imageSrc}
-          alt={FEATURED_PRODUCT.imageAlt}
+          src={featured.imageSrc}
+          alt={featured.imageAlt}
           className={styles.mediaImage}
         />
       </div>
 
       <div className={styles.panel}>
         <div className={styles.titleGroup}>
-          <p className={styles.eyebrow}>{FEATURED_PRODUCT.eyebrow}</p>
+          <p className={styles.eyebrow}>{featured.eyebrow}</p>
           <h2 id="featured-product-heading" className={styles.title}>
-            {FEATURED_PRODUCT.title}
+            {featured.title}
           </h2>
-          <p className={styles.tagline}>{FEATURED_PRODUCT.tagline}</p>
+          <p className={styles.tagline}>{featured.tagline}</p>
         </div>
 
         <div className={styles.details}>
-          <p className={styles.subtitle}>{FEATURED_PRODUCT.shortDescription}</p>
+          <p className={styles.subtitle}>{featured.shortDescription}</p>
 
           <ul className={styles.valueChips} aria-label="Product highlights">
-            {FEATURED_PRODUCT.valueChips.map((chip) => {
+            {featured.valueChips.map((chip) => {
               const [line1, line2] = splitValueChipLabel(chip.label);
 
               return (
@@ -134,7 +134,7 @@ export function FeaturedProduct() {
               showIcon
               color="var(--green-100)"
               borderColor="var(--green-100)"
-              onClick={() => router.push(`/products/${PRIMARY_PRODUCT_SLUG}`)}
+              onClick={() => router.push(`/products/${featured.slug}`)}
             >
               View Detail
             </Button>

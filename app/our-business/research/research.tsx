@@ -1,20 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-  researchFields,
-  researchFieldsPipelineColumns,
-} from "@/constants/researchfields";
+import { researchFieldsPipelineColumns } from "@/constants/researchfields";
+import type { ResearchSectionContent } from "@/lib/cms/public-content";
 import styles from "./research.module.css";
 
-const KEY_FOCUS = [
-  "Product and formulation development",
-  "Process optimization",
-  "Analytical and quality innovation",
-  "Future pipeline development",
-];
+type ResearchProps = {
+  content: ResearchSectionContent;
+};
 
-export function Research() {
+export function Research({ content }: ResearchProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
 
@@ -46,28 +41,20 @@ export function Research() {
               <span className={styles.leadEyebrowLabel}>Research and Innovation</span>
             </p>
             <h2 id="research-heading" className={styles.leadHeadline}>
-              Creating the Science Behind Tomorrow&apos;s Aesthetics
+              {content.headline}
             </h2>
           </div>
 
           <div className={styles.leadBand}>
             <div className={styles.leadDescription}>
-              <p>
-                At Selatox, innovation begins with research. Our dedicated R&amp;D
-                capabilities support the development of next-generation aesthetic
-                solutions, process optimization, and future pipeline opportunities.
-              </p>
-              <p>
-                By combining scientific expertise with practical manufacturing
-                knowledge, we transform ideas into scalable and commercially
-                viable solutions.
-              </p>
+              <p>{content.subParagraphs[0]}</p>
+              <p>{content.subParagraphs[1]}</p>
             </div>
 
             <div className={styles.leadFocus} aria-label="Key focus areas">
               <p className={styles.focusLabel}>Key Focus</p>
               <ul className={styles.focusTags}>
-                {KEY_FOCUS.map((item) => (
+                {content.focusAreas.map((item) => (
                   <li key={item} className={styles.focusTag}>
                     {item}
                   </li>
@@ -90,14 +77,14 @@ export function Research() {
             ))}
           </div>
 
-          {researchFields.map((field) => (
+          {content.programs.map((field) => (
             <div key={field.title} className={styles.row} role="row">
               <div className={styles.programCell} role="cell">
                 <p className={styles.programTitle}>{field.title}</p>
                 <p className={styles.regimen}>{field.regimen}</p>
               </div>
               <p className={styles.indication} role="cell">
-                {field.description}
+                {field.description ?? ""}
               </p>
               <p className={styles.phase} role="cell">
                 {field.phase}

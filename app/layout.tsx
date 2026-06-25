@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { Navbar } from "@/components/navbar/navbar";
+import { SiteFooter, SiteNavbar } from "@/components/site-chrome";
 import { LenisProvider } from "@/components/lenis/LenisProvider";
 import { ScrollFloater } from "@/components/scrollfloater/ScrollFloater";
 import { PageLoader } from "@/components/loader/PageLoader";
-import { Footer } from "@/components/footer/Footer";
 import "@/styles/globals.css";
 
 const manrope = Manrope({
@@ -56,9 +55,9 @@ export default function RootLayout({
       <body className="min-h-screen antialiased font-sans">
         <LenisProvider>
           <PageLoader />
-          <Navbar />
+          <SiteNavbar />
           {children}
-          <Footer />
+          <SiteFooter />
           <ScrollFloater />
         </LenisProvider>
       </body>

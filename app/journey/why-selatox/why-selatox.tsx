@@ -2,16 +2,25 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Globe2, Rocket, Sparkles, type LucideIcon } from "lucide-react";
-import { whySelatox } from "@/constants/career-journey";
+import type { JourneyStrengthContent } from "@/lib/cms/public-content";
 import styles from "./why-selatox.module.css";
 
-const STRENGTH_ICONS: Record<(typeof whySelatox.strengths)[number]["id"], LucideIcon> = {
+const STRENGTH_ICONS: Record<string, LucideIcon> = {
   "end-to-end": Globe2,
   ownership: Rocket,
   "global-standard": Sparkles,
 };
 
-export function WhySelatox() {
+type WhySelatoxContent = {
+  headline: string;
+  strengths: JourneyStrengthContent[];
+};
+
+type WhySelatoxProps = {
+  content: WhySelatoxContent;
+};
+
+export function WhySelatox({ content }: WhySelatoxProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
 
@@ -39,15 +48,12 @@ export function WhySelatox() {
       <div className={styles.container}>
         <header className={styles.header}>
           <p className={styles.eyebrow} aria-hidden>
-            {whySelatox.eyebrow}
+            Why Selatox
           </p>
-          {/* <h2 id="why-selatox-heading" className={styles.title}>
-            {whySelatox.title}
-          </h2> */}
         </header>
 
         <ul className={styles.grid}>
-          {whySelatox.strengths.map((strength, index) => {
+          {content.strengths.map((strength, index) => {
             const Icon = STRENGTH_ICONS[strength.id];
 
             return (
@@ -58,7 +64,7 @@ export function WhySelatox() {
               >
                 <div className={styles.cardHead}>
                   <span className={styles.iconWrap} aria-hidden>
-                    <Icon size={22} strokeWidth={1.5} />
+                    {Icon ? <Icon size={22} strokeWidth={1.5} /> : null}
                   </span>
                   <span className={styles.rule} aria-hidden />
                 </div>

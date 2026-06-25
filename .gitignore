@@ -53,3 +53,6 @@ Desktop.ini
 *.log
 .cache/
 .turbo/
+
+# Supabase SQL (local queries, not committed)
+*.sql

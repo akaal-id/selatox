@@ -1,0 +1,88 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(46, 34, 46, 0.35);
+}
+
+.dialog {
+  width: min(100%, 26rem);
+  padding: 1.35rem 1.4rem 1.2rem;
+  border: 1px solid var(--neutral-60);
+  border-radius: 0.85rem;
+  background: var(--neutral-0);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--neutral-160);
+}
+
+.description {
+  margin-top: 0.55rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--neutral-120);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  margin-top: 1.2rem;
+}
+
+.cancelButton,
+.confirmPrimary,
+.confirmDanger {
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.cancelButton {
+  border: 1px solid var(--neutral-60);
+  background: var(--neutral-0);
+  color: var(--neutral-140);
+}
+
+.cancelButton:hover:not(:disabled) {
+  border-color: var(--blue-100);
+  color: var(--blue-140);
+}
+
+.confirmPrimary {
+  border: 1px solid var(--blue-120);
+  background: var(--blue-100);
+  color: var(--neutral-0);
+}
+
+.confirmPrimary:hover:not(:disabled) {
+  background: var(--blue-120);
+}
+
+.confirmDanger {
+  border: 1px solid var(--red-100);
+  background: var(--red-100);
+  color: var(--neutral-0);
+}
+
+.confirmDanger:hover:not(:disabled) {
+  background: var(--red-120);
+}
+
+.cancelButton:disabled,
+.confirmPrimary:disabled,
+.confirmDanger:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}

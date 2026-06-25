@@ -11,7 +11,8 @@ import {
   Handshake,
   type LucideIcon,
 } from "lucide-react";
-import { aboutValues } from "@/constants/about";
+import { RichHeadline, RichText } from "@/components/cms/rich-text";
+import type { AboutValuesContent } from "@/lib/cms/public-content";
 import styles from "./values.module.css";
 
 const EASE_OUT_EXPO = [0.25, 0.46, 0.45, 0.94] as const;
@@ -30,16 +31,11 @@ const CORE_VALUE_ACCENT: Record<string, "blue" | "green"> = {
   partnership: "blue",
 };
 
-/** Split "Lead phrase — supporting copy" into a prominent lead + body. */
-function splitStatement(text: string): { lead: string; body: string } {
-  const [lead, ...rest] = text.split("—");
-  return { lead: lead.trim(), body: rest.join("—").trim() };
-}
+type AboutValuesProps = {
+  content: AboutValuesContent;
+};
 
-const vision = splitStatement(aboutValues.vision);
-const mission = splitStatement(aboutValues.mission);
-
-export function AboutValues() {
+export function AboutValues({ content }: AboutValuesProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-8%" });
 
@@ -52,7 +48,6 @@ export function AboutValues() {
       data-navbar="default"
     >
       <div className={styles.container}>
-        {/* ────────── VISION / MISSION ────────── */}
         <div className={styles.statementGrid}>
           <motion.article
             initial={{ opacity: 0, y: 16 }}
@@ -71,9 +66,13 @@ export function AboutValues() {
             </div>
             <div className={styles.statementBody}>
               <span className={styles.statementCategory}>Vision</span>
-              <h3 className={styles.statementTitle}>{vision.lead}</h3>
-              {vision.body ? (
-                <p className={styles.statementDescription}>{vision.body}</p>
+              <h3 className={styles.statementTitle}>
+                <RichHeadline content={content.vision.headline} />
+              </h3>
+              {content.vision.sub ? (
+                <div className={styles.statementDescription}>
+                  <RichText html={content.vision.sub} />
+                </div>
               ) : null}
             </div>
           </motion.article>
@@ -95,15 +94,18 @@ export function AboutValues() {
             </div>
             <div className={styles.statementBody}>
               <span className={styles.statementCategory}>Mission</span>
-              <h3 className={styles.statementTitle}>{mission.lead}</h3>
-              {mission.body ? (
-                <p className={styles.statementDescription}>{mission.body}</p>
+              <h3 className={styles.statementTitle}>
+                <RichHeadline content={content.mission.headline} />
+              </h3>
+              {content.mission.sub ? (
+                <div className={styles.statementDescription}>
+                  <RichText html={content.mission.sub} />
+                </div>
               ) : null}
             </div>
           </motion.article>
         </div>
 
-        {/* ────────── CORE VALUES ────────── */}
         <div className={styles.principlesBlock}>
           <ul className={styles.principlesGrid}>
             <motion.li
@@ -120,7 +122,7 @@ export function AboutValues() {
               </p>
             </motion.li>
 
-            {aboutValues.coreValues.map((value, index) => {
+            {content.coreValues.map((value, index) => {
               const Icon = CORE_VALUE_ICONS[value.id];
               const accent = CORE_VALUE_ACCENT[value.id];
 
@@ -149,9 +151,7 @@ export function AboutValues() {
 
                   <div className={styles.principleContent}>
                     <h3 className={styles.principleTitle}>{value.name}</h3>
-                    <p className={styles.principleDescription}>
-                      {value.description}
-                    </p>
+                    <p className={styles.principleDescription}>{value.description}</p>
                   </div>
                 </motion.li>
               );

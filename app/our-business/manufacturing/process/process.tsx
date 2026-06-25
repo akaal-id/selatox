@@ -3,9 +3,14 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import type { ManufacturingPageContent } from "@/lib/cms/public-content";
 import styles from "./process.module.css";
 
-export function ManufacturingProcess() {
+export function ManufacturingProcess({
+  content,
+}: {
+  content: ManufacturingPageContent["process"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const imageWrapRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
@@ -35,8 +40,8 @@ export function ManufacturingProcess() {
           <div ref={imageWrapRef} className={styles.mediaFrame}>
             <motion.div className={styles.mediaInner} style={{ y: imageY }}>
               <Image
-                src="/images/our-business/facility-main.webp"
-                alt="Automated pharmaceutical processing line"
+                src={content.imageSrc}
+                alt={content.imageAlt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className={styles.mediaImage}
@@ -59,18 +64,10 @@ export function ManufacturingProcess() {
                 transition={{ duration: 0.8, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
                 className={styles.heading}
               >
-                Absolute Purity. Fully Automated.
+                {content.headline}
               </motion.h2>
             </div>
-            <p className={styles.body}>
-              Perfection requires total control. Our manufacturing hub is
-              equipped with the industry&apos;s most innovative aseptic
-              manufacturing systems, designed to completely prevent contamination
-              at every single stage of production. Utilizing a fully automated
-              lyophilization and high-speed filling process, we guarantee
-              flawless consistency and the highest pharmaceutical quality in
-              every vial we produce.
-            </p>
+            <p className={styles.body}>{content.sub}</p>
           </motion.div>
         </div>
       </div>

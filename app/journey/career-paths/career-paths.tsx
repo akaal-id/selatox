@@ -9,17 +9,22 @@ import {
   ShieldCheck,
   type LucideIcon,
 } from "lucide-react";
-import { careerPaths, hiringProcess } from "@/constants/career-journey";
+import { hiringProcess } from "@/constants/career-journey";
+import type { JourneyPageContent } from "@/lib/cms/public-content";
 import styles from "./career-paths.module.css";
 
-const PATH_ICONS: Record<(typeof careerPaths.paths)[number]["id"], LucideIcon> = {
+const PATH_ICONS: Record<string, LucideIcon> = {
   rnd: FlaskConical,
   "manufacturing-quality": Factory,
   "regulatory-clinical": ShieldCheck,
   "business-commercial": Briefcase,
 };
 
-export function CareerPaths() {
+type CareerPathsProps = {
+  content: JourneyPageContent["careerPaths"];
+};
+
+export function CareerPaths({ content }: CareerPathsProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
 
@@ -47,19 +52,18 @@ export function CareerPaths() {
       <div className={styles.container}>
         <header className={styles.header}>
           <p className={styles.eyebrow} aria-hidden>
-            {careerPaths.eyebrow}
+            Career Paths
           </p>
           <div className={styles.headerBody}>
             <h2 id="career-paths-heading" className={styles.title}>
-              {careerPaths.title}
+              {content.headline}
             </h2>
-            <p className={styles.lead}>{careerPaths.lead}</p>
+            <p className={styles.lead}>{content.sub}</p>
           </div>
-          {/* <div className={styles.headerRule} aria-hidden /> */}
         </header>
 
         <ul className={styles.grid}>
-          {careerPaths.paths.map((path, index) => {
+          {content.paths.map((path, index) => {
             const Icon = PATH_ICONS[path.id];
 
             return (
@@ -75,7 +79,7 @@ export function CareerPaths() {
                     </span>
                     <span className={styles.pathRule} aria-hidden />
                     <span className={styles.pathIcon} aria-hidden>
-                      <Icon size={20} strokeWidth={1.5} />
+                      {Icon ? <Icon size={20} strokeWidth={1.5} /> : null}
                     </span>
                   </div>
 

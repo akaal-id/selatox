@@ -1,10 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { careerJourneyIntro } from "@/constants/career-journey";
+import { RichHeadline, RichText } from "@/components/cms/rich-text";
+import type { JourneyIntroContent } from "@/lib/cms/public-content";
 import styles from "../../home/introsection/introsection.module.css";
 
-export function CareerJourneyIntro() {
+type CareerJourneyIntroProps = {
+  content: JourneyIntroContent;
+};
+
+export function CareerJourneyIntro({ content }: CareerJourneyIntroProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
 
@@ -32,32 +37,16 @@ export function CareerJourneyIntro() {
       <div className={styles.container}>
         <div className={styles.content}>
           <p className={styles.eyebrow}>
-            <span className={styles.eyebrowLabel}>{careerJourneyIntro.eyebrow}</span>
+            <span className={styles.eyebrowLabel}>{content.eyebrow}</span>
           </p>
 
           <h2 className={styles.headline}>
-            {careerJourneyIntro.headlineLead}
-            <br />
-            <span className={styles.headlineAccent}>
-              {careerJourneyIntro.headlineAccent}
-            </span>
+            <RichHeadline content={content.headline} />
           </h2>
 
-          <p className={styles.sub}>
-            Great visions become reality through the{" "}
-            <em>dedication, expertise, and courage</em> of individuals. Join
-            exceptional colleagues, take ownership without limits, and experience
-            the excitement of growing alongside a company shaping the future of
-            bio-aesthetics. Selatox is a biopharmaceutical company that covers
-            the{" "}
-            <em>
-              entire value chain — from research and development, to GMP
-              manufacturing, to global commercialization
-            </em>
-            . Here, your work is never isolated: every experiment, batch, and
-            partnership moves us closer to delivering{" "}
-            <em>trusted aesthetic solutions to the world</em>.
-          </p>
+          <div className={styles.sub}>
+            <RichText html={content.sub} />
+          </div>
         </div>
       </div>
     </section>

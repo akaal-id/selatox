@@ -1,38 +1,21 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { JobCard } from "@/components/jobcard/jobcard";
 import { Button } from "@/components/ui/Button";
-import {
-  OPEN_POSITIONS_ANCHOR,
-  openPositionsSection,
-} from "@/constants/career-journey";
-import { jobListings } from "@/constants/opportunities";
+import { OPEN_POSITIONS_ANCHOR, openPositionsSection } from "@/constants/career-journey";
+import type { JourneyOpenPositionsContent } from "@/lib/cms/public-content";
 import styles from "./open-positions.module.css";
 
-const JOB_STATUS_SORT_ORDER = {
-  Open: 0,
-  "Closing Soon": 1,
-  Closed: 2,
-} as const;
+type OpenPositionsProps = {
+  content: JourneyOpenPositionsContent;
+};
 
-export function OpenPositions() {
+export function OpenPositions({ content }: OpenPositionsProps) {
   const router = useRouter();
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
-
-  const featuredJobs = useMemo(
-    () =>
-      jobListings
-        .filter((job) => job.status !== "Closed")
-        .sort(
-          (a, b) =>
-            JOB_STATUS_SORT_ORDER[a.status] - JOB_STATUS_SORT_ORDER[b.status]
-        )
-        .slice(0, 6),
-    []
-  );
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -61,13 +44,13 @@ export function OpenPositions() {
             {openPositionsSection.eyebrow}
           </p>
           <h2 id="open-positions-heading" className={styles.title}>
-            {openPositionsSection.title}
+            {content.headline}
           </h2>
-          <p className={styles.lead}>{openPositionsSection.lead}</p>
+          <p className={styles.lead}>{content.sub}</p>
         </header>
 
         <ul className={styles.jobGrid}>
-          {featuredJobs.map((job, index) => (
+          {content.jobs.map((job, index) => (
             <li
               key={job.id}
               className={styles.jobGridItem}
@@ -76,9 +59,7 @@ export function OpenPositions() {
               <JobCard
                 job={job}
                 onViewDetails={() => router.push(`/openings/${job.slug}`)}
-                onApply={() =>
-                  router.push(`/openings/${job.slug}#apply`)
-                }
+                onApply={() => router.push(`/openings/${job.slug}#apply`)}
               />
             </li>
           ))}

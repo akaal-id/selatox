@@ -12,15 +12,12 @@ import {
   Users,
   type LucideIcon,
 } from "lucide-react";
-import { ethicsCommitment } from "@/constants/ethics";
+import type { EthicsCommitmentContent } from "@/lib/cms/public-content";
 import styles from "./commitment.module.css";
 
 const EASE_OUT_EXPO = [0.25, 0.46, 0.45, 0.94] as const;
 
-const COMMITMENT_ICONS: Record<
-  (typeof ethicsCommitment.commitments)[number]["id"],
-  LucideIcon
-> = {
+const COMMITMENT_ICONS: Record<string, LucideIcon> = {
   honesty: Scale,
   compliance: Shield,
   prevention: CheckCircle2,
@@ -30,10 +27,7 @@ const COMMITMENT_ICONS: Record<
   culture: Heart,
 };
 
-const COMMITMENT_TITLES: Record<
-  (typeof ethicsCommitment.commitments)[number]["id"],
-  string
-> = {
+const COMMITMENT_TITLES: Record<string, string> = {
   honesty: "Honest Conduct",
   compliance: "Regulatory Compliance",
   prevention: "Anti-Corruption",
@@ -43,10 +37,7 @@ const COMMITMENT_TITLES: Record<
   culture: "Trust & Culture",
 };
 
-const COMMITMENT_ACCENT: Record<
-  (typeof ethicsCommitment.commitments)[number]["id"],
-  "blue" | "green"
-> = {
+const COMMITMENT_ACCENT: Record<string, "blue" | "green"> = {
   honesty: "blue",
   compliance: "green",
   prevention: "blue",
@@ -56,7 +47,11 @@ const COMMITMENT_ACCENT: Record<
   culture: "blue",
 };
 
-export function EthicsCommitment() {
+type EthicsCommitmentProps = {
+  content: EthicsCommitmentContent;
+};
+
+export function EthicsCommitment({ content }: EthicsCommitmentProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-8%" });
 
@@ -76,12 +71,12 @@ export function EthicsCommitment() {
           className={styles.header}
         >
           <h2 id="ethics-commitment-heading" className={styles.eyebrow}>
-            {ethicsCommitment.eyebrow}
+            {content.eyebrow}
           </h2>
         </motion.header>
 
         <ul className={styles.commitmentsList}>
-          {ethicsCommitment.commitments.map((item, index) => {
+          {content.commitments.map((item, index) => {
             const Icon = COMMITMENT_ICONS[item.id];
             const accent = COMMITMENT_ACCENT[item.id];
 
@@ -108,7 +103,7 @@ export function EthicsCommitment() {
                   </div>
                   <div className={styles.cardContent}>
                     <h3 className={styles.cardTitle}>
-                      {COMMITMENT_TITLES[item.id]}
+                      {COMMITMENT_TITLES[item.id] ?? item.id}
                     </h3>
                     <p className={styles.cardBody}>{item.text}</p>
                   </div>
@@ -124,7 +119,7 @@ export function EthicsCommitment() {
           transition={{ duration: 0.7, delay: 0.65, ease: EASE_OUT_EXPO }}
           className={styles.closing}
         >
-          {ethicsCommitment.closing}
+          {content.closing}
         </motion.p>
       </div>
     </section>

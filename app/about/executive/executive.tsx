@@ -2,22 +2,15 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { aboutExecutive } from "@/constants/about";
+import { RichText } from "@/components/cms/rich-text";
+import type { AboutExecutiveContent } from "@/lib/cms/public-content";
 import styles from "./executive.module.css";
 
-type QuoteSegment = (typeof aboutExecutive.quote.blocks)[number]["segments"][number];
+type ExecutiveSectionProps = {
+  content: AboutExecutiveContent;
+};
 
-function QuoteSegmentText({ segment }: { segment: QuoteSegment }) {
-  if ("emphasis" in segment && segment.emphasis === "em") {
-    return <em className={styles.quoteEm}>{segment.t}</em>;
-  }
-  if ("emphasis" in segment && segment.emphasis === "lead") {
-    return <span className={styles.quoteLead}>{segment.t}</span>;
-  }
-  return <>{segment.t}</>;
-}
-
-export function ExecutiveSection() {
+export function ExecutiveSection({ content }: ExecutiveSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-10%" });
 
@@ -44,26 +37,16 @@ export function ExecutiveSection() {
             transition={{ duration: 0.7, delay: 0.24 }}
             className={styles.eyebrow}
           >
-            {aboutExecutive.eyebrow}
+            {content.eyebrow}
           </motion.p>
 
           <blockquote className={styles.blockquote}>
-            {aboutExecutive.quote.blocks.map((block, blockIndex) => (
-              <p
-                key={blockIndex}
-                id={blockIndex === 0 ? "executive-heading" : undefined}
-                className={styles.quoteBody}
-              >
-                {blockIndex === 0 && (
-                  <span className={styles.quoteMark} aria-hidden>
-                    &ldquo;
-                  </span>
-                )}
-                {block.segments.map((segment, segmentIndex) => (
-                  <QuoteSegmentText key={segmentIndex} segment={segment} />
-                ))}
-              </p>
-            ))}
+            <div id="executive-heading" className={styles.quoteBody}>
+              <span className={styles.quoteMark} aria-hidden>
+                &ldquo;
+              </span>
+              <RichText html={content.quoteHtml} className={styles.quoteRichText} />
+            </div>
           </blockquote>
 
           <motion.figcaption
@@ -73,8 +56,8 @@ export function ExecutiveSection() {
             className={styles.identityCol}
           >
             <span className={styles.identityRule} aria-hidden />
-            <span className={styles.executiveName}>{aboutExecutive.name}</span>
-            <span className={styles.executiveTitle}>{aboutExecutive.title}</span>
+            <span className={styles.executiveName}>{content.name}</span>
+            <span className={styles.executiveTitle}>{content.title}</span>
           </motion.figcaption>
         </motion.figure>
       </div>

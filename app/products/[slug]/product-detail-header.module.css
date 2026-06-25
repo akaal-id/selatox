@@ -1,5 +1,5 @@
 /**
- * Product detail page header — full-bleed image background.
+ * Product detail page header — content + image split (mirrors home intro).
  */
 
 @keyframes fadeIn {
@@ -17,79 +17,94 @@
 .header {
   position: relative;
   z-index: 1;
-  height: 90svh;
   width: 100%;
   overflow: hidden;
   background-color: var(--neutral-0);
-}
-
-.bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.bgImage {
-  object-fit: contain;
-  object-position: center right;
-}
-
-.bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    linear-gradient(
-      to right,
-      var(--neutral-0) 0%,
-      rgba(255, 255, 255, 0.96) 24%,
-      rgba(255, 255, 255, 0.72) 42%,
-      transparent 58%
-    ),
-    linear-gradient(
-      to bottom,
-      transparent 0%,
-      transparent 88%,
-      var(--neutral-0) 100%
-    );
-}
-
-.contentWrap {
-  position: relative;
-  z-index: 2;
-  height: 100%;
-  padding-inline: var(--section-px);
+  padding: var(--section-py) var(--section-px) clamp(48px, 6vw, 80px);
 }
 
 .container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(32px, 4vw, 72px);
   width: 100%;
   max-width: var(--section-max-width);
-  height: 100%;
   margin-inline: auto;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.95fr);
-  align-items: center;
-  height: 100%;
-}
-
 .panel {
-  grid-column: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex: 0 1 auto;
+  align-items: flex-start;
   min-width: 0;
-  /* max-width: min(100%, 36rem); */
-  padding-block: clamp(48px, 8vh, 96px);
+  max-width: min(720px, 58%);
+  width: auto;
+}
+
+.media {
+  position: relative;
+  flex: 1 1 0;
+  min-width: clamp(260px, 34vw, 480px);
+  width: auto;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--neutral-20);
+  opacity: 0;
+  box-shadow:
+    0 1px 2px rgba(46, 34, 46, 0.03),
+    0 4px 14px rgba(46, 34, 46, 0.035);
+  transition:
+    box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 1201px) {
+  .media {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+.media:hover {
+  box-shadow:
+    0 1px 3px rgba(46, 34, 46, 0.04),
+    0 6px 18px rgba(46, 34, 46, 0.05);
+  transform: translateY(-3px);
+}
+
+.header.inView .media {
+  animation: fadeIn 0.9s ease-out forwards;
+  animation-delay: 0.22s;
+}
+
+.mediaImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center center;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 1201px) {
+  .mediaImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.media:hover .mediaImage {
+  transform: scale(1.03);
 }
 
 .titleGroup > *,
 .details > .subtitle,
-.details > .valueChips {
+.details > .highlightsBar {
   opacity: 0;
 }
 
@@ -113,7 +128,7 @@
   animation-delay: 0.3s;
 }
 
-.header.inView .valueChips {
+.header.inView .highlightsBar {
   animation: fadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 0.38s;
 }
@@ -169,7 +184,8 @@
   margin-top: clamp(24px, 3vw, 36px);
   padding-top: clamp(24px, 3vw, 36px);
   border-top: 1px solid var(--neutral-60);
-  max-width: min(100%, 32rem);
+  width: 100%;
+  max-width: 100%;
 }
 
 .subtitle {
@@ -182,50 +198,60 @@
   max-width: 42ch;
 }
 
-.valueChips {
+.highlightsBar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 8px 0;
+  border-top: 1px solid var(--neutral-60);
+  border-bottom: 1px solid var(--neutral-60);
+}
+
+.highlightCell {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0;
-  width: fit-content;
-  max-width: 100%;
-  margin: 0;
-  padding-block: clamp(4px, 0.6vw, 8px);
-  list-style: none;
-}
-
-.valueChip {
-  display: flex;
+  gap: 12px;
+  padding: 12px 20px;
   flex: 0 0 auto;
-  align-items: center;
-  gap: clamp(12px, 1.4vw, 16px);
-  padding: 0;
-  border: none;
-  background: none;
 }
 
-.valueChip:not(:first-child) {
-  padding-left: clamp(18px, 2.2vw, 28px);
-  margin-left: clamp(18px, 2.2vw, 28px);
-  border-left: 1px solid var(--neutral-60);
+.highlightCell:first-child {
+  padding-left: 0;
+}
+
+.highlightDivider {
+  width: 1px;
+  height: 36px;
+  flex-shrink: 0;
+  background: var(--neutral-60);
 }
 
 .chipIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: clamp(40px, 4.2vw, 44px);
-  height: clamp(40px, 4.2vw, 44px);
-  border-radius: 50%;
-  background: var(--green-20);
-  color: var(--green-120);
+  width: 24px;
+  height: 24px;
+  color: var(--green-100);
   flex-shrink: 0;
 }
 
 .chipText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  min-width: 0;
+}
+
+.chipLine1,
+.chipLine2 {
   display: block;
-  width: max-content;
-  max-width: min(100%, 11rem);
   font-family: var(--font-sans);
   font-size: clamp(12px, 1vw, 13px);
   font-weight: 500;
@@ -239,91 +265,47 @@
   padding-top: 4px;
 }
 
-@media (max-width: 1024px) {
-  .header {
-    display: grid;
-    grid-template-rows: auto auto;
-    grid-template-columns: minmax(0, 1fr);
-    height: auto;
-    min-height: 0;
-  }
-
-  .bg {
-    position: relative;
-    inset: auto;
-    grid-row: 1;
-    grid-column: 1;
-    aspect-ratio: 4 / 3;
-    max-height: min(48svh, 440px);
-  }
-
-  .bgImage {
-    object-fit: cover;
-    object-position: center center;
-  }
-
-  .bg::after {
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      transparent 72%,
-      rgba(255, 255, 255, 0.55) 88%,
-      var(--neutral-0) 100%
-    );
-  }
-
-  .contentWrap {
-    grid-row: 2;
-    grid-column: 1;
-    height: auto;
-    padding: 32px var(--section-px) max(44px, calc(env(safe-area-inset-bottom, 0px) + 32px));
-  }
-
+@media (max-width: 1200px) {
   .container {
-    height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(28px, 4vw, 40px);
   }
 
-  .grid {
-    grid-template-columns: 1fr;
+  .media {
+    order: -1;
+    width: 100%;
+    min-width: 0;
+    flex: none;
+    max-width: 720px;
+    align-self: center;
+    aspect-ratio: unset;
     height: auto;
   }
 
   .panel {
-    grid-column: auto;
-    max-width: 100%;
-    padding-block: 0;
-  }
-
-  .details {
+    width: 100%;
     max-width: 100%;
   }
+}
 
-  .valueChips {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    padding-block: 8px 0;
+@media (max-width: 1024px) {
+  .highlightsBar {
+    flex-wrap: nowrap;
+    max-width: 100%;
+    padding-block: 8px;
   }
 
-  .valueChip {
-    padding-block: 14px;
-    width: 100%;
+  .highlightCell {
+    padding: 10px 16px;
   }
 
-  .valueChip:first-child {
-    padding-top: 0;
-  }
-
-  .valueChip:not(:first-child) {
+  .highlightCell:first-child {
     padding-left: 0;
-    margin-left: 0;
-    border-left: none;
-    border-top: 1px solid var(--neutral-60);
-    padding-top: 14px;
   }
 
-  .chipText {
-    max-width: none;
+  .highlightDivider {
+    display: none;
   }
 
   .cta {
@@ -338,13 +320,12 @@
 }
 
 @media (max-width: 768px) {
-  .bg {
-    aspect-ratio: 4 / 3;
-    max-height: min(52svh, 420px);
+  .header {
+    padding-bottom: max(40px, calc(env(safe-area-inset-bottom, 0px) + 28px));
   }
 
-  .contentWrap {
-    padding: 28px var(--section-px) max(40px, calc(env(safe-area-inset-bottom, 0px) + 28px));
+  .media {
+    border-radius: 14px;
   }
 
   .titleGroup {
@@ -371,7 +352,6 @@
     margin-top: 20px;
     padding-top: 20px;
     gap: 18px;
-    max-width: 100%;
   }
 
   .subtitle {
@@ -380,25 +360,42 @@
     line-height: 1.65;
   }
 
-  .chipIcon {
-    width: 40px;
-    height: 40px;
+  .highlightsBar {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding-block: 8px 0;
+    border-bottom: none;
   }
 
-  .chipText {
+  .highlightCell {
+    padding: 14px 0;
+    width: 100%;
+  }
+
+  .highlightCell:first-child {
+    padding-top: 0;
+  }
+
+  .highlightCell:not(:first-child) {
+    border-top: 1px solid var(--neutral-60);
+  }
+
+  .chipIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .chipLine1,
+  .chipLine2 {
     font-size: 13px;
     line-height: 1.4;
   }
 }
 
 @media (max-width: 480px) {
-  .bg {
-    aspect-ratio: 1 / 1;
-    max-height: min(44svh, 360px);
-  }
-
-  .contentWrap {
-    padding: 24px var(--section-px) max(36px, calc(env(safe-area-inset-bottom, 0px) + 24px));
+  .header {
+    padding-bottom: max(36px, calc(env(safe-area-inset-bottom, 0px) + 24px));
   }
 
   .title {
@@ -422,22 +419,29 @@
     line-height: 1.6;
   }
 
-  .valueChip {
-    padding-block: 12px;
-  }
-
-  .valueChip:not(:first-child) {
-    padding-top: 12px;
+  .highlightCell {
+    padding: 8px 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .titleGroup > *,
   .details > .subtitle,
-  .details > .valueChips,
-  .details > .cta {
+  .details > .highlightsBar,
+  .details > .cta,
+  .media {
     opacity: 1 !important;
     animation: none !important;
+    transform: none !important;
+  }
+
+  .media,
+  .mediaImage {
+    transition: none !important;
+  }
+
+  .media:hover,
+  .media:hover .mediaImage {
     transform: none !important;
   }
 }

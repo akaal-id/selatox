@@ -2,23 +2,24 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { aboutContact } from "@/constants/about";
+import type { ContactSectionContent } from "@/lib/cms/public-content";
 import styles from "./contact.module.css";
 
 function mapEmbedUrl(query: string) {
   return `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
 }
 
-export function ContactPageContent() {
+type ContactPageContentProps = {
+  content: ContactSectionContent;
+};
+
+export function ContactPageContent({ content }: ContactPageContentProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-8%" });
-  const [activeMap, setActiveMap] = useState<string>(
-    aboutContact.locations[0].id
-  );
+  const [activeMap, setActiveMap] = useState<string>(content.locations[0]?.id ?? "");
 
   const selected =
-    aboutContact.locations.find((loc) => loc.id === activeMap) ??
-    aboutContact.locations[0];
+    content.locations.find((loc) => loc.id === activeMap) ?? content.locations[0];
 
   return (
     <section
@@ -29,7 +30,6 @@ export function ContactPageContent() {
       data-navbar="default"
     >
       <div className={styles.splitGrid}>
-        {/* Left panel — info */}
         <div className={styles.leftPanel}>
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -38,7 +38,7 @@ export function ContactPageContent() {
             className={styles.leftInner}
           >
             <p className={styles.eyebrow} aria-hidden>
-              {aboutContact.eyebrow}
+              {content.eyebrow}
             </p>
 
             <div className={styles.titleWrap}>
@@ -53,19 +53,20 @@ export function ContactPageContent() {
                 }}
                 className={styles.title}
               >
-                {aboutContact.title}
+                {content.title}
               </motion.h1>
             </div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.3 }}
-              className={styles.lead}
-            >
-              Reach the right team directly, or visit us at one of our two sites
-              across West Java, Indonesia.
-            </motion.p>
+            {content.pageLead ? (
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: 0.3 }}
+                className={styles.lead}
+              >
+                {content.pageLead}
+              </motion.p>
+            ) : null}
 
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -73,7 +74,7 @@ export function ContactPageContent() {
               transition={{ duration: 0.7, delay: 0.4 }}
               className={styles.channelsWrap}
             >
-              {aboutContact.channels.map((channel) => (
+              {content.channels.map((channel) => (
                 <div key={channel.email}>
                   <p className={styles.channelLabel}>{channel.label}</p>
                   <a
@@ -92,7 +93,7 @@ export function ContactPageContent() {
               transition={{ duration: 0.7, delay: 0.5 }}
               className={styles.switcherWrap}
             >
-              {aboutContact.locations.map((loc) => {
+              {content.locations.map((loc) => {
                 const isActive = activeMap === loc.id;
                 return (
                   <button
@@ -113,28 +114,29 @@ export function ContactPageContent() {
           </motion.div>
         </div>
 
-        {/* Right panel — map */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3 }}
           className={styles.rightPanel}
         >
-          <AnimatePresence mode="wait">
-            <motion.iframe
-              key={selected.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              title={`Map — ${selected.name}`}
-              src={mapEmbedUrl(selected.mapQuery)}
-              className={styles.iframe}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
-          </AnimatePresence>
+          {selected ? (
+            <AnimatePresence mode="wait">
+              <motion.iframe
+                key={selected.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}
+                title={`Map — ${selected.name}`}
+                src={mapEmbedUrl(selected.mapQuery)}
+                className={styles.iframe}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+            </AnimatePresence>
+          ) : null}
         </motion.div>
       </div>
     </section>

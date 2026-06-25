@@ -2,13 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Building2, Factory, Layers, type LucideIcon } from "lucide-react";
-import { facilities } from "@/constants/facilities";
+import { RichHeadline, RichText } from "@/components/cms/rich-text";
+import type { ManufacturingContent } from "@/lib/cms/home-page-data";
 import styles from "./manufacturing-plan.module.css";
 
 const PILLAR_ICONS: LucideIcon[] = [Building2, Factory, Layers];
 const PILLAR_ACCENTS = ["green", "blue", "green"] as const;
 
-export function ManufacturingPlan() {
+type ManufacturingPlanProps = {
+  content: ManufacturingContent;
+};
+
+export function ManufacturingPlan({ content }: ManufacturingPlanProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
 
@@ -24,8 +29,6 @@ export function ManufacturingPlan() {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
-
-  const headlineParts = facilities.headline.split("\n");
 
   return (
     <section
@@ -45,35 +48,32 @@ export function ManufacturingPlan() {
             preload="metadata"
             aria-label="Selatox manufacturing facility overview"
           >
-            <source src={facilities.video} type="video/mp4" />
+            <source src={content.video} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
 
         <div className={styles.intro}>
           <p className={styles.eyebrow} aria-hidden>
-            {facilities.eyebrow}
+            {content.eyebrow}
           </p>
           <div className={styles.headerContainer}>
             <h2 id="manufacturing-plan-heading" className={styles.headline}>
-              {headlineParts.map((part, i) => (
-                <span key={i}>
-                  {part}
-                  {i < headlineParts.length - 1 && <br />}
-                </span>
-              ))}
+              <RichHeadline content={content.headline} />
             </h2>
-            <p className={styles.sub}>{facilities.sub}</p>
+            <div className={styles.sub}>
+              <RichText html={content.sub} />
+            </div>
           </div>
         </div>
 
         <ul className={styles.cardGrid}>
-          {facilities.pillars.map((pillar, index) => {
+          {content.pillars.map((pillar, index) => {
             const Icon = PILLAR_ICONS[index];
             const accent = PILLAR_ACCENTS[index];
             return (
               <li
-                key={pillar.title}
+                key={pillar.meta}
                 className={`${styles.card} ${styles[`card_${accent}`]}`}
                 style={{ "--i": index } as React.CSSProperties}
               >
@@ -87,8 +87,12 @@ export function ManufacturingPlan() {
                 </div>
                 <div className={styles.cardBody}>
                   <span className={styles.cardCategory}>{pillar.meta}</span>
-                  <h3 className={styles.cardTitle}>{pillar.title}</h3>
-                  <p className={styles.cardDescription}>{pillar.body}</p>
+                  <h3 className={styles.cardTitle}>
+                    <RichHeadline content={pillar.title} />
+                  </h3>
+                  <div className={styles.cardDescription}>
+                    <RichText html={pillar.body} />
+                  </div>
                 </div>
               </li>
             );

@@ -12,6 +12,7 @@ import {
   type TalentNetworkExperience,
   type TalentNetworkFormData,
 } from "@/constants/career-journey";
+import type { JourneyTalentNetworkContent } from "@/lib/cms/public-content";
 import { submitTalentNetwork } from "@/lib/submit-talent-network";
 import styles from "./talent-network.module.css";
 
@@ -86,7 +87,11 @@ function validateForm(data: TalentNetworkFormData): FormErrors {
   return errors;
 }
 
-export function TalentNetwork() {
+type TalentNetworkProps = {
+  content: JourneyTalentNetworkContent;
+};
+
+export function TalentNetwork({ content }: TalentNetworkProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
   const [form, setForm] = useState<TalentNetworkFormData>(INITIAL_FORM);
@@ -166,9 +171,9 @@ export function TalentNetwork() {
               {talentNetwork.eyebrow}
             </p>
             <h2 id="talent-network-heading" className={styles.title}>
-              {talentNetwork.title}
+              {content.headline}
             </h2>
-            <p className={styles.subtitle}>{talentNetwork.subtitle}</p>
+            <p className={styles.subtitle}>{content.sub}</p>
           </header>
 
           <div className={styles.formShell}>
@@ -356,10 +361,10 @@ export function TalentNetwork() {
                     </span>
                     <div className={styles.successInlineBody}>
                       <h3 className={styles.successTitle}>
-                        {talentNetwork.successTitle}
+                        {content.successTitle}
                       </h3>
                       <p className={styles.successMessage}>
-                        {talentNetwork.successMessage}
+                        {content.successMessage}
                       </p>
                     </div>
                   </div>
@@ -380,7 +385,7 @@ export function TalentNetwork() {
                         ? form.resume
                           ? talentNetwork.submittingWithResumeLabel
                           : talentNetwork.submittingLabel
-                        : talentNetwork.submitLabel}
+                        : content.submitLabel}
                     </Button>
                   </>
                 )}

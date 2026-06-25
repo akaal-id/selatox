@@ -2,7 +2,7 @@
 
 import { Fragment, useRef, useLayoutEffect, useState } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { aboutRoadmap, type RoadmapMilestone } from "@/constants/about";
+import type { AboutRoadmapContent, RoadmapMilestone } from "@/lib/cms/public-content";
 import styles from "./roadmap.module.css";
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
@@ -11,10 +11,12 @@ function isRoadmapVectorImage(src: string) {
   return /\.png(?:\?.*)?$/i.test(src);
 }
 
-const SECTION_META = {
-  history: { label: "01", title: aboutRoadmap.historyTitle },
-  milestone: { label: "02", title: aboutRoadmap.milestonesTitle },
-} as const;
+function sectionMeta(content: AboutRoadmapContent) {
+  return {
+    history: { label: "01", title: content.historyTitle },
+    milestone: { label: "02", title: content.milestonesTitle },
+  } as const;
+}
 
 function SectionHeader({
   label,
@@ -215,9 +217,14 @@ function useTimelineLinePosition(
   return linePosition;
 }
 
-export function Roadmap() {
+type RoadmapProps = {
+  content: AboutRoadmapContent;
+};
+
+export function Roadmap({ content }: RoadmapProps) {
   const timelineRef = useRef<HTMLOListElement>(null);
   const linePosition = useTimelineLinePosition(timelineRef);
+  const metaBySection = sectionMeta(content);
 
   const { scrollYProgress } = useScroll({
     target: timelineRef,
@@ -234,10 +241,10 @@ export function Roadmap() {
     >
       <div className={styles.container}>
         <ol ref={timelineRef} className={styles.timelineList}>
-          {aboutRoadmap.milestones.map((item, index) => {
-            const prev = aboutRoadmap.milestones[index - 1];
+          {content.milestones.map((item, index) => {
+            const prev = content.milestones[index - 1];
             const isSectionStart = !prev || prev.section !== item.section;
-            const meta = SECTION_META[item.section];
+            const meta = metaBySection[item.section];
 
             return (
               <Fragment key={item.year}>
