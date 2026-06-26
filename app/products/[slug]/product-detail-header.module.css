@@ -37,17 +37,17 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex: 0 1 auto;
+  flex: 1.1 1 0;
   align-items: flex-start;
   min-width: 0;
-  max-width: min(720px, 58%);
+  max-width: min(720px, 55%);
   width: auto;
 }
 
 .media {
   position: relative;
-  flex: 1 1 0;
-  min-width: clamp(260px, 34vw, 480px);
+  flex: 0.9 1 0;
+  min-width: clamp(260px, 28vw, 420px);
   width: auto;
   border-radius: 16px;
   overflow: hidden;
