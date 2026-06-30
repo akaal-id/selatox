@@ -68,24 +68,14 @@ const PAGE_SECTIONS: PageSectionsConfig[] = [
       {
         id: "executive",
         title: "Leadership",
-        description: "Executive portrait, name, title, and quote.",
-        keys: [
-          "executive_name",
-          "executive_title",
-          "executive_portrait",
-          "executive_quote",
-        ],
+        description: "Executive name, title, and quote.",
+        keys: ["executive_name", "executive_title", "executive_quote"],
       },
       {
         id: "roadmap",
         title: "Roadmap",
-        description: "Section titles for company history and milestones.",
+        description: "Section titles and timeline entries for the about page.",
         keys: ["roadmap_history_title", "roadmap_milestones_title"],
-      },
-      {
-        id: "milestones",
-        title: "Milestones",
-        description: "Timeline entries shown on the about page.",
         collectionSlug: "roadmap",
       },
     ],
@@ -456,12 +446,11 @@ const PAGE_SECTIONS: PageSectionsConfig[] = [
       {
         id: "leadership",
         title: "Leadership",
-        description: "CEO message and portrait.",
+        description: "CEO message, name, and title.",
         keys: [
           "leadership_heading",
           "leadership_name",
           "leadership_title",
-          "leadership_portrait",
           "leadership_quote",
         ],
       },
@@ -635,6 +624,10 @@ export function getNestedCollectionBySegment(
 ): PageSectionDef | undefined {
   const section = getPageSection(pageSlug, sectionId);
   return section?.collectionSlug ? section : undefined;
+}
+
+export function isCombinedPageSection(section: PageSectionDef): boolean {
+  return Boolean(section.keys?.length && section.collectionSlug);
 }
 
 export function isStandaloneCollectionSlug(slug: string): boolean {

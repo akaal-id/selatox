@@ -21,6 +21,7 @@ type CollectionListProps = {
   description: string;
   rows: Record<string, unknown>[];
   adminBasePath?: string;
+  embedded?: boolean;
 };
 
 export function CollectionList({
@@ -29,6 +30,7 @@ export function CollectionList({
   description,
   rows,
   adminBasePath,
+  embedded = false,
 }: CollectionListProps) {
   const listBasePath = adminBasePath ?? `/admin/${slug}`;
   const router = useRouter();
@@ -64,6 +66,97 @@ export function CollectionList({
     }
   }
 
+  const listContent =
+    rows.length === 0 ? (
+      <div className={styles.emptyState}>
+        <p className={styles.title}>No entries yet</p>
+        <p className={styles.lead}>Entries in {label.toLowerCase()} will appear here for editing.</p>
+      </div>
+    ) : (
+      <ul className={styles.collectionList}>
+        {rows.map((row) => {
+          const rowId = getCollectionRowId(row);
+          const title = getCollectionRowTitle(row);
+          const meta = getCollectionRowMeta(row);
+          const status = getCollectionRowStatus(row);
+
+          return (
+            <li key={rowId} className={styles.collectionItem}>
+              <div className={styles.collectionItemMain}>
+                <div className={styles.collectionItemText}>
+                  <h2 className={styles.collectionItemTitle}>{title}</h2>
+                  {meta ? <p className={styles.collectionItemMeta}>{meta}</p> : null}
+                </div>
+                {status ? (
+                  <AdminBadge
+                    tone={
+                      status.tone === "error"
+                        ? "error"
+                        : status.tone === "success"
+                          ? "success"
+                          : status.tone === "warning"
+                            ? "warning"
+                            : "default"
+                    }
+                  >
+                    {status.label}
+                  </AdminBadge>
+                ) : null}
+              </div>
+
+              <div className={styles.collectionItemActions}>
+                <Link
+                  href={`${listBasePath}/${encodeURIComponent(rowId)}`}
+                  className={styles.collectionEditButton}
+                >
+                  <Pencil size={15} strokeWidth={1.75} aria-hidden />
+                  Edit
+                </Link>
+                <button
+                  type="button"
+                  className={styles.collectionDeleteButton}
+                  onClick={() => setDeleteTarget({ id: rowId, title })}
+                >
+                  <Trash2 size={15} strokeWidth={1.75} aria-hidden />
+                  Delete
+                </button>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    );
+
+  const deleteModal = (
+    <CmsConfirmModal
+      open={deleteTarget !== null}
+      title="Delete this entry?"
+      description={
+        deleteError
+          ? deleteError
+          : `“${deleteTarget?.title ?? ""}” will be permanently removed from ${label.toLowerCase()}.`
+      }
+      confirmLabel="Delete"
+      cancelLabel="Cancel"
+      confirmTone="danger"
+      loading={deleting}
+      onConfirm={() => void handleDelete()}
+      onCancel={() => {
+        setDeleteTarget(null);
+        setDeleteError(null);
+      }}
+    />
+  );
+
+  if (embedded) {
+    return (
+      <>
+        {listContent}
+        {deleteModal}
+      </>
+    );
+  }
+
   return (
     <div className={styles.editor}>
       <EditorHeader
@@ -71,84 +164,9 @@ export function CollectionList({
         description={`${description} · ${rows.length} ${rows.length === 1 ? "entry" : "entries"}`}
       />
 
-      {rows.length === 0 ? (
-        <div className={styles.emptyState}>
-          <p className={styles.title}>No entries yet</p>
-          <p className={styles.lead}>Items seeded from SQL will appear here for editing.</p>
-        </div>
-      ) : (
-        <ul className={styles.collectionList}>
-          {rows.map((row) => {
-            const rowId = getCollectionRowId(row);
-            const title = getCollectionRowTitle(row);
-            const meta = getCollectionRowMeta(row);
-            const status = getCollectionRowStatus(row);
+      {listContent}
 
-            return (
-              <li key={rowId} className={styles.collectionItem}>
-                <div className={styles.collectionItemMain}>
-                  <div className={styles.collectionItemText}>
-                    <h2 className={styles.collectionItemTitle}>{title}</h2>
-                    {meta ? <p className={styles.collectionItemMeta}>{meta}</p> : null}
-                  </div>
-                  {status ? (
-                    <AdminBadge
-                      tone={
-                        status.tone === "error"
-                          ? "error"
-                          : status.tone === "success"
-                            ? "success"
-                            : status.tone === "warning"
-                              ? "warning"
-                              : "default"
-                      }
-                    >
-                      {status.label}
-                    </AdminBadge>
-                  ) : null}
-                </div>
-
-                <div className={styles.collectionItemActions}>
-                  <Link
-                    href={`${listBasePath}/${encodeURIComponent(rowId)}`}
-                    className={styles.collectionEditButton}
-                  >
-                    <Pencil size={15} strokeWidth={1.75} aria-hidden />
-                    Edit
-                  </Link>
-                  <button
-                    type="button"
-                    className={styles.collectionDeleteButton}
-                    onClick={() => setDeleteTarget({ id: rowId, title })}
-                  >
-                    <Trash2 size={15} strokeWidth={1.75} aria-hidden />
-                    Delete
-                  </button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-
-      <CmsConfirmModal
-        open={deleteTarget !== null}
-        title="Delete this entry?"
-        description={
-          deleteError
-            ? deleteError
-            : `“${deleteTarget?.title ?? ""}” will be permanently removed from ${label.toLowerCase()}.`
-        }
-        confirmLabel="Delete"
-        cancelLabel="Cancel"
-        confirmTone="danger"
-        loading={deleting}
-        onConfirm={() => void handleDelete()}
-        onCancel={() => {
-          setDeleteTarget(null);
-          setDeleteError(null);
-        }}
-      />
+      {deleteModal}
     </div>
   );
 }

@@ -20,6 +20,38 @@ export type ProductSpecIcon =
   | "shield"
   | "pulse";
 
+/** Fixed hero value chips. Only label text varies per product. */
+export const PRODUCT_VALUE_CHIP_DEFINITIONS: ReadonlyArray<{
+  icon: ProductValueChipIcon;
+  fieldLabel: string;
+}> = [
+  { icon: "shield", fieldLabel: "Grade" },
+  { icon: "target", fieldLabel: "Purity" },
+  { icon: "globe", fieldLabel: "Trusted By" },
+] as const;
+
+/** Fixed spec rows stored per product. Category is taken from general and rendered first on the page. */
+export const PRODUCT_SPEC_DEFINITIONS: ReadonlyArray<{
+  label: string;
+  icon: ProductSpecIcon;
+}> = [
+  { label: "Active Ingredient", icon: "molecule" },
+  { label: "Strength", icon: "vial" },
+  { label: "Presentation", icon: "snowflake" },
+  { label: "Indication", icon: "pulse" },
+] as const;
+
+export function getProductDisplaySpecs(
+  product: Pick<Product, "category" | "specs">
+): Product["specs"] {
+  const stored = product.specs.filter((spec) => spec.label !== "Category");
+
+  return [
+    { label: "Category", value: product.category, icon: "shield" },
+    ...stored,
+  ];
+}
+
 export type Product = {
   slug: string;
   title: string;
@@ -77,7 +109,6 @@ export const products: Product[] = [
       },
       { label: "Strength", value: "100 Units", icon: "vial" },
       { label: "Presentation", value: "Lyophilized Powder", icon: "snowflake" },
-      { label: "Category", value: "Prescription Medicines", icon: "shield" },
       {
         label: "Indication",
         value: "Moderate to Severe Glabellar Lines",

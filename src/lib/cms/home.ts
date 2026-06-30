@@ -61,7 +61,7 @@ export type HomePageInput = Omit<
   "id" | "created_at" | "updated_at"
 >;
 
-export type CmsFieldType = "text" | "textarea" | "richtext" | "url" | "image" | "video";
+export type CmsFieldType = "text" | "textarea" | "richtext" | "url" | "image" | "video" | "number";
 
 export type CmsFieldDef = {
   key: keyof HomePageInput;

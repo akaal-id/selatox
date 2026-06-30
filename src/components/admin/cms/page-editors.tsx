@@ -4,15 +4,31 @@ import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import {
   editableRowInput,
+  fieldHint,
   fieldLabel,
   groupCollectionFields,
   groupSingletonFields,
   inferFieldType,
+  isLockedField,
   layoutFieldKeys,
   parseRowPayload,
+  collectionFormFromRow,
 } from "@/lib/cms/field-inference";
+import { parseProductSpecsForForm } from "@/lib/cms/product-specs";
+import {
+  getProductCmsSections,
+  getProductFieldLabel,
+  parseProductValueChipsForForm,
+} from "@/lib/cms/product-cms";
+import { parseStringListForForm } from "@/lib/cms/string-list";
+import { parseRoadmapItemsForForm } from "@/lib/cms/roadmap-items";
 import { CmsInlinePair, CmsPublishToggle } from "@/components/admin/cms/form-fields";
 import { CmsMediaField } from "@/components/admin/cms/media-field";
+import { CmsRoadmapItemsField } from "@/components/admin/cms/cms-roadmap-items-field";
+import { CmsStringListField } from "@/components/admin/cms/cms-string-list-field";
+import { CmsProductSpecsField } from "@/components/admin/cms/product-specs-field";
+import { CmsProductValueChipsField } from "@/components/admin/cms/product-value-chips-field";
+import { CmsProductRegulatoryTagsField } from "@/components/admin/cms/product-regulatory-tags-field";
 import { CmsRichTextField } from "@/components/admin/cms/rich-text-editor";
 import { CmsTextareaField, CmsTextField } from "@/components/admin/cms/form-fields";
 import { CmsConfirmModal } from "@/components/admin/cms/confirm-modal";
@@ -27,14 +43,29 @@ function CmsField({
   value,
   onChange,
   uploadFolder,
+  table,
 }: {
   fieldKey: string;
   value: string;
   onChange: (next: string) => void;
   uploadFolder: string;
+  table?: string;
 }) {
-  const type = inferFieldType(fieldKey);
-  const label = fieldLabel(fieldKey);
+  const label = table === "products" ? getProductFieldLabel(fieldKey) : fieldLabel(fieldKey);
+  let type = inferFieldType(fieldKey);
+  if (table === "products") {
+    if (fieldKey === "description" || fieldKey === "short_description") {
+      type = "textarea";
+    } else if (
+      fieldKey === "eyebrow" ||
+      fieldKey === "title" ||
+      fieldKey === "tagline" ||
+      fieldKey === "spec_eyebrow" ||
+      fieldKey === "spec_headline"
+    ) {
+      type = "text";
+    }
+  }
   const wide =
     type === "textarea" ||
     type === "richtext" ||
@@ -43,11 +74,26 @@ function CmsField({
     fieldKey.includes("headline") ||
     fieldKey === "description" ||
     fieldKey === "body_html";
+  const hint = fieldHint(fieldKey);
+
+  if (isLockedField(fieldKey)) {
+    return (
+      <CmsTextField
+        label={label}
+        hint={hint}
+        value={value}
+        onChange={onChange}
+        readOnly
+        wide={wide}
+      />
+    );
+  }
 
   if (type === "image" || type === "video") {
     return (
       <CmsMediaField
         label={label}
+        hint={hint}
         value={value}
         onChange={onChange}
         mediaType={type}
@@ -62,11 +108,24 @@ function CmsField({
 
   if (type === "textarea") {
     return (
-      <CmsTextareaField label={label} value={value} onChange={onChange} wide={wide} />
+      <CmsTextareaField label={label} hint={hint} value={value} onChange={onChange} wide={wide} />
     );
   }
 
-  return <CmsTextField label={label} value={value} onChange={onChange} wide={wide} />;
+  if (type === "number") {
+    return (
+      <CmsTextField
+        label={label}
+        hint={hint}
+        value={value}
+        onChange={onChange}
+        inputType="number"
+        wide={wide}
+      />
+    );
+  }
+
+  return <CmsTextField label={label} hint={hint} value={value} onChange={onChange} wide={wide} />;
 }
 
 export function CmsFieldGrid({
@@ -74,11 +133,13 @@ export function CmsFieldGrid({
   form,
   setField,
   uploadFolder,
+  table,
 }: {
   keys: string[];
   form: Record<string, unknown>;
   setField: (key: string, value: unknown) => void;
   uploadFolder: string;
+  table?: string;
 }) {
   const layout = layoutFieldKeys(keys);
 
@@ -102,6 +163,69 @@ export function CmsFieldGrid({
           );
         }
 
+        if (table === "products" && item.key === "specs") {
+          return (
+            <CmsProductSpecsField
+              key={item.key}
+              value={parseProductSpecsForForm(form.specs)}
+              onChange={(next) => setField("specs", next)}
+            />
+          );
+        }
+
+        if (table === "products" && item.key === "value_chips") {
+          return (
+            <CmsProductValueChipsField
+              key={item.key}
+              value={parseProductValueChipsForForm(form.value_chips)}
+              onChange={(next) => setField("value_chips", next)}
+            />
+          );
+        }
+
+        if (table === "products" && item.key === "regulatory_tags") {
+          return (
+            <CmsProductRegulatoryTagsField
+              key={item.key}
+              value={parseStringListForForm(form.regulatory_tags)}
+              onChange={(next) => setField("regulatory_tags", next)}
+            />
+          );
+        }
+
+        if (table === "roadmap" && item.key === "items") {
+          return (
+            <CmsRoadmapItemsField
+              key={item.key}
+              value={parseRoadmapItemsForForm(form.items)}
+              onChange={(next) => setField("items", next)}
+            />
+          );
+        }
+
+        if (table === "rnd" && item.key === "tags") {
+          return (
+            <CmsStringListField
+              key={item.key}
+              title="Tags"
+              value={parseStringListForForm(form.tags)}
+              onChange={(next) => setField("tags", next)}
+              placeholder="Type a tag and press Enter"
+              emptyMessage="No tags yet. Press Enter to add one."
+            />
+          );
+        }
+
+        if (table === "products" && item.key === "is_published") {
+          return (
+            <CmsPublishToggle
+              key={item.key}
+              checked={Boolean(form.is_published)}
+              onChange={(checked) => setField("is_published", checked)}
+            />
+          );
+        }
+
         return (
           <CmsField
             key={item.key}
@@ -109,6 +233,7 @@ export function CmsFieldGrid({
             value={String(form[item.key] ?? "")}
             onChange={(next) => setField(item.key, next)}
             uploadFolder={uploadFolder}
+            table={table}
           />
         );
       })}
@@ -305,22 +430,13 @@ export function CollectionRowEditor({
   backHref?: string;
   backLabel?: string;
 }) {
-  const baseline = useMemo(() => editableRowInput(initialData), [initialData]);
+  const baseline = useMemo(() => collectionFormFromRow(initialData, table), [initialData, table]);
   const sections = useMemo(() => {
-    const groups = groupCollectionFields(initialData);
-
     if (table === "products") {
-      const general = groups.find((group) => group.id === "general");
-      if (general) {
-        if (!general.keys.includes("slug")) {
-          general.keys = ["slug", ...general.keys];
-        }
-      } else {
-        groups.unshift({ id: "general", title: "General", keys: ["slug"] });
-      }
+      return getProductCmsSections();
     }
 
-    return groups;
+    return groupCollectionFields(initialData);
   }, [initialData, table]);
 
   const initialForm = useMemo(
@@ -364,7 +480,7 @@ export function CollectionRowEditor({
       }
 
       if (body.data) {
-        const next = editableRowInput(body.data);
+        const next = collectionFormFromRow(body.data, table);
         const nextForm = {
           ...next,
           is_published: body.data.is_published,
@@ -420,6 +536,7 @@ export function CollectionRowEditor({
             form={form}
             setField={setField}
             uploadFolder={`${table}/${rowId}/${section.id}`}
+            table={table}
           />
         </section>
       ))}

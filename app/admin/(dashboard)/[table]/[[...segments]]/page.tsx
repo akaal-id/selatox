@@ -7,7 +7,7 @@ import {
 import adminStyles from "@/components/admin/admin-ui.module.css";
 import { CollectionList } from "@/components/admin/cms/collection-list";
 import { CollectionRowEditor } from "@/components/admin/cms/page-editors";
-import { SingletonSectionPage } from "@/components/admin/cms/singleton-section-editor";
+import { SingletonSectionPage, CombinedSectionPage } from "@/components/admin/cms/singleton-section-editor";
 import styles from "@/components/admin/cms/cms-form.module.css";
 import { CMS_TABLES, getCmsTable } from "@/lib/admin/cms-tables";
 import { getCachedCollectionRow, getCachedCmsTable } from "@/lib/cms/admin-cache";
@@ -16,6 +16,7 @@ import {
   getPageDefaultAdminHref,
   getPageSection,
   getPageSectionsConfig,
+  isCombinedPageSection,
   isPageSectionId,
   isStandaloneCollectionSlug,
 } from "@/lib/cms/page-sections";
@@ -51,7 +52,7 @@ export default async function AdminTableSegmentsPage({ params }: AdminTableSegme
 
     if (config.kind === "collection" && !isStandaloneCollectionSlug(tableSlug)) {
       if (tableSlug === "roadmap") {
-        redirect("/admin/about/milestones");
+        redirect("/admin/about/roadmap");
       }
       notFound();
     }
@@ -117,7 +118,45 @@ export default async function AdminTableSegmentsPage({ params }: AdminTableSegme
       );
     }
 
-    if (!isPageSectionId(tableSlug, segment)) notFound();
+    if (!isPageSectionId(tableSlug, segment)) {
+      if (segment === "milestones" && tableSlug === "about") {
+        redirect("/admin/about/roadmap");
+      }
+      notFound();
+    }
+
+    const section = getPageSection(tableSlug, segment);
+    if (!section) notFound();
+
+    if (isCombinedPageSection(section)) {
+      const collectionConfig = getCmsTable(section.collectionSlug!);
+      if (!collectionConfig) notFound();
+
+      const result = await getCachedCmsTable(collectionConfig);
+
+      if (!result.ok) {
+        return (
+          <div className={styles.emptyState}>
+            <p className={styles.title}>Could not load entries</p>
+            <p className={styles.lead}>{result.error}</p>
+          </div>
+        );
+      }
+
+      const pageConfig = getPageSectionsConfig(tableSlug);
+
+      return (
+        <CombinedSectionPage
+          table={config.slug}
+          section={section}
+          showPublish={segment === pageConfig?.defaultSectionId}
+          collectionSlug={collectionConfig.slug}
+          collectionLabel={collectionConfig.label}
+          collectionDescription={collectionConfig.description ?? ""}
+          collectionRows={result.rows}
+        />
+      );
+    }
 
     const nestedCollection = getNestedCollectionBySegment(tableSlug, segment);
     if (nestedCollection?.collectionSlug) {
@@ -146,9 +185,8 @@ export default async function AdminTableSegmentsPage({ params }: AdminTableSegme
       );
     }
 
-    const section = getPageSection(tableSlug, segment);
     const pageConfig = getPageSectionsConfig(tableSlug);
-    if (!section || !pageConfig) notFound();
+    if (!pageConfig) notFound();
 
     return (
       <SingletonSectionPage
@@ -160,8 +198,8 @@ export default async function AdminTableSegmentsPage({ params }: AdminTableSegme
   }
 
   if (config.kind === "collection") {
-    if (segment === "roadmap") {
-      redirect("/admin/about/milestones");
+    if (segment === "roadmap" || segment === "milestones") {
+      redirect("/admin/about/roadmap");
     }
 
     if (itemId) notFound();

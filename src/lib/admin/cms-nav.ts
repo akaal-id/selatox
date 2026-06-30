@@ -32,7 +32,7 @@ export const CMS_EDITOR_SLUGS = new Set([
 
 export function getAdminHref(slug: string): string {
   if (slug === "home") return HOME_ADMIN_HREF;
-  if (slug === "roadmap") return "/admin/about/milestones";
+  if (slug === "roadmap") return "/admin/about/roadmap";
   const pageSections = getPageSectionsConfig(slug);
   if (pageSections) return getPageDefaultAdminHref(slug);
   return `/admin/${slug}`;

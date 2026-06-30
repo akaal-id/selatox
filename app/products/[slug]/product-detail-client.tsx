@@ -9,6 +9,7 @@ import type {
   ProductSpecIcon,
   ProductValueChipIcon,
 } from "@/constants/products";
+import { getProductDisplaySpecs } from "@/constants/products";
 import styles from "./product-detail.module.css";
 import headerStyles from "./product-detail-header.module.css";
 
@@ -116,6 +117,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
   const router = useRouter();
   const heroRef = useRef<HTMLElement>(null);
   const specsRef = useRef<HTMLElement>(null);
+  const displaySpecs = getProductDisplaySpecs(product);
 
   const [headerInView, setHeaderInView] = useState(false);
   const [specsInView, setSpecsInView] = useState(false);
@@ -245,7 +247,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
               </div>
 
               <ul className={styles.specCardList}>
-                {product.specs.map((spec, i) => (
+                {displaySpecs.map((spec, i) => (
                   <li
                     key={spec.label}
                     className={styles.specCard}

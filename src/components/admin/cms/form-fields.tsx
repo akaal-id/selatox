@@ -10,6 +10,8 @@ type FieldProps = {
   onChange: (value: string) => void;
   placeholder?: string;
   wide?: boolean;
+  inputType?: "text" | "number";
+  readOnly?: boolean;
 };
 
 export function CmsTextField({
@@ -19,17 +21,25 @@ export function CmsTextField({
   onChange,
   placeholder,
   wide,
+  inputType = "text",
+  readOnly = false,
 }: FieldProps) {
   return (
     <label className={`${styles.field} ${wide ? styles.fieldGridWide : ""}`.trim()}>
       <span className={styles.label}>{label}</span>
       {hint ? <span className={styles.hint}>{hint}</span> : null}
       <input
-        className={styles.input}
-        type="text"
+        className={`${styles.input} ${readOnly ? styles.inputReadOnly : ""}`.trim()}
+        type={inputType}
+        inputMode={inputType === "number" ? "numeric" : undefined}
         value={value}
         placeholder={placeholder}
-        onChange={(event) => onChange(event.target.value)}
+        readOnly={readOnly}
+        aria-readonly={readOnly || undefined}
+        onChange={(event) => {
+          if (readOnly) return;
+          onChange(event.target.value);
+        }}
       />
     </label>
   );
@@ -204,7 +214,7 @@ export function CmsPublishToggle({
       <div>
         <p className={styles.sectionTitle}>Publish status</p>
         <p className={styles.sectionDescription}>
-          When unpublished, the public site will not receive this content once wired to Supabase.
+          Draft content is hidden from the public site. Switch to Published to make it live.
         </p>
       </div>
       <label className={styles.toggle}>

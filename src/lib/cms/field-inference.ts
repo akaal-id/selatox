@@ -1,9 +1,26 @@
 import type { CmsFieldType } from "@/lib/cms/home";
 import { isRichTextField } from "@/components/admin/admin-ui";
+import { parseStringListForForm, serializeStringList } from "@/lib/cms/string-list";
+import {
+  parseRoadmapItemsForForm,
+  serializeRoadmapItems,
+  type RoadmapItemFormItem,
+} from "@/lib/cms/roadmap-items";
+import {
+  parseProductValueChipsForForm,
+  serializeProductValueChips,
+  type ProductValueChipFormItem,
+} from "@/lib/cms/product-cms";
+import {
+  parseProductSpecsForForm,
+  serializeProductSpecs,
+  type ProductSpecFormItem,
+} from "@/lib/cms/product-specs";
 
 const SKIP_KEYS = new Set(["id", "created_at", "updated_at", "is_published", "legacy_id"]);
 
 export function inferFieldType(key: string): CmsFieldType {
+  if (key === "sort_order" || key.endsWith("_order")) return "number";
   if (key.endsWith("_video")) return "video";
   if (
     key.endsWith("_image") ||
@@ -35,9 +52,6 @@ export function inferFieldType(key: string): CmsFieldType {
   ) {
     return key.length > 80 || isRichTextField(key) ? "richtext" : "textarea";
   }
-  if (key === "value_chips" || key === "specs" || key === "items" || key === "tags") {
-    return "textarea";
-  }
   return "text";
 }
 
@@ -46,6 +60,39 @@ export function fieldLabel(key: string): string {
   return key
     .replace(/_/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+/**
+ * Keys that map a row to its public URL or seeded identity. Editing them breaks
+ * existing links and references, so the CMS shows them read-only.
+ */
+const LOCKED_KEYS = new Set(["slug"]);
+
+export function isLockedField(key: string): boolean {
+  return LOCKED_KEYS.has(key);
+}
+
+/** Plain-language guidance shown under a field so non-technical editors know what good input looks like. */
+export function fieldHint(key: string): string | undefined {
+  if (key === "slug") {
+    return "Part of the public web address. Locked to keep existing links working — ask a developer to change it.";
+  }
+  if (key === "sort_order" || key.endsWith("_order")) {
+    return "Controls ordering. Lower numbers appear first.";
+  }
+  if (key === "image_alt" || key.endsWith("_alt")) {
+    return "Describes the image for screen readers and search engines. Leave blank for decorative images.";
+  }
+  if (key.endsWith("_map_query")) {
+    return "Used to build the embedded Google Map — e.g. an address or place name.";
+  }
+  if (key.endsWith("_bg_image")) {
+    return "Displayed full-width behind the hero. Use a wide, high-resolution image.";
+  }
+  if (key.endsWith("_video")) {
+    return "Paste a hosted video URL (MP4 or WebM) or upload a file below.";
+  }
+  return undefined;
 }
 
 export function groupSingletonFields(
@@ -212,6 +259,29 @@ export function editableRowInput(row: Record<string, unknown>): Record<string, u
   return input;
 }
 
+export function collectionFormFromRow(
+  row: Record<string, unknown>,
+  table: string
+): Record<string, unknown> {
+  const input = editableRowInput(row);
+
+  if (table === "products") {
+    input.specs = parseProductSpecsForForm(row.specs);
+    input.value_chips = parseProductValueChipsForForm(row.value_chips);
+    input.regulatory_tags = parseStringListForForm(row.regulatory_tags);
+  }
+
+  if (table === "roadmap") {
+    input.items = parseRoadmapItemsForForm(row.items);
+  }
+
+  if (table === "rnd") {
+    input.tags = parseStringListForForm(row.tags);
+  }
+
+  return input;
+}
+
 export function getCollectionRowId(row: Record<string, unknown>): string {
   return String(row.id ?? row.slug ?? "");
 }
@@ -275,6 +345,32 @@ export function parseRowPayload(
 
   for (const key of Object.keys(next)) {
     const originalValue = original[key];
+
+    if (key === "specs" && Array.isArray(next[key])) {
+      next[key] = serializeProductSpecs(next[key] as ProductSpecFormItem[]);
+      continue;
+    }
+
+    if (key === "value_chips" && Array.isArray(next[key])) {
+      next[key] = serializeProductValueChips(next[key] as ProductValueChipFormItem[]);
+      continue;
+    }
+
+    if (key === "regulatory_tags" && Array.isArray(next[key])) {
+      next[key] = serializeStringList(next[key] as string[]);
+      continue;
+    }
+
+    if (key === "tags" && Array.isArray(next[key])) {
+      next[key] = serializeStringList(next[key] as string[]);
+      continue;
+    }
+
+    if (key === "items" && Array.isArray(next[key])) {
+      next[key] = serializeRoadmapItems(next[key] as RoadmapItemFormItem[]);
+      continue;
+    }
+
     if (
       typeof originalValue === "object" &&
       originalValue !== null &&
