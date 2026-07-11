@@ -9,7 +9,7 @@ import { CollectionList } from "@/components/admin/cms/collection-list";
 import { CollectionRowEditor } from "@/components/admin/cms/page-editors";
 import { SingletonSectionPage, CombinedSectionPage } from "@/components/admin/cms/singleton-section-editor";
 import styles from "@/components/admin/cms/cms-form.module.css";
-import { CMS_TABLES, getCmsTable } from "@/lib/admin/cms-tables";
+import { getCmsTable } from "@/lib/admin/cms-tables";
 import { getCachedCollectionRow, getCachedCmsTable } from "@/lib/cms/admin-cache";
 import {
   getNestedCollectionBySegment,
@@ -21,17 +21,9 @@ import {
   isStandaloneCollectionSlug,
 } from "@/lib/cms/page-sections";
 
-export const dynamicParams = true;
-
 type AdminTableSegmentsPageProps = {
   params: Promise<{ table: string; segments?: string[] }>;
 };
-
-export async function generateStaticParams() {
-  return CMS_TABLES.filter((table) => table.slug !== "home").map((table) => ({
-    table: table.slug,
-  }));
-}
 
 export default async function AdminTableSegmentsPage({ params }: AdminTableSegmentsPageProps) {
   const { table: tableSlug, segments } = await params;

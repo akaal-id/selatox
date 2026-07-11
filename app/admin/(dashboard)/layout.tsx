@@ -2,6 +2,9 @@ import { DashboardShell } from "@/components/admin/dashboard/dashboard-shell";
 import { getAdminClientMode } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
+/** Admin reads auth cookies — must never be statically prerendered. */
+export const dynamic = "force-dynamic";
+
 export default async function AdminDashboardLayout({
   children,
 }: {
