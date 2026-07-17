@@ -542,6 +542,43 @@
 
 /* ── Collection list ── */
 
+.collectionToolbar,
+.collectionEmptyActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 0.85rem;
+}
+
+.collectionEmptyActions {
+  margin-top: 1rem;
+}
+
+.collectionCreateButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.85rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--blue-100);
+  color: var(--neutral-0);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 550;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.collectionCreateButton:hover:not(:disabled) {
+  background: var(--blue-120);
+}
+
+.collectionCreateButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
 .collectionList {
   display: flex;
   flex-direction: column;
@@ -628,12 +665,13 @@
 }
 
 .collectionDeleteButton {
-  border: none;
-  background: transparent;
-  color: var(--neutral-100);
+  border: 1px solid var(--neutral-50);
+  background: var(--neutral-0);
+  color: var(--neutral-120);
 }
 
 .collectionDeleteButton:hover {
+  border-color: var(--red-40, #f0c4c4);
   background: var(--red-20);
   color: var(--red-120);
 }

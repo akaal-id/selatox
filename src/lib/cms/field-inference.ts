@@ -16,6 +16,7 @@ import {
   serializeProductSpecs,
   type ProductSpecFormItem,
 } from "@/lib/cms/product-specs";
+import { formatNewsDisplayDate } from "@/lib/cms/news-cms";
 
 const SKIP_KEYS = new Set(["id", "created_at", "updated_at", "is_published", "legacy_id"]);
 
@@ -279,6 +280,15 @@ export function collectionFormFromRow(
     input.tags = parseStringListForForm(row.tags);
   }
 
+  if (table === "news") {
+    return {
+      title: input.title ?? "",
+      category: input.category ?? "Press Release",
+      image_src: input.image_src ?? "",
+      body_html: input.body_html ?? "",
+    };
+  }
+
   return input;
 }
 
@@ -291,13 +301,21 @@ export function getCollectionRowTitle(row: Record<string, unknown>): string {
 }
 
 export function getCollectionRowMeta(row: Record<string, unknown>): string {
+  const displayDate =
+    "display_date" in row
+      ? formatNewsDisplayDate(row.created_at) ||
+        (row.display_date != null && row.display_date !== ""
+          ? String(row.display_date)
+          : null)
+      : null;
+
   const parts = [
     row.category,
     row.brand,
     row.location,
     row.year,
     row.phase,
-    row.display_date,
+    displayDate,
     row.regimen,
     row.section,
     row.experience_level,

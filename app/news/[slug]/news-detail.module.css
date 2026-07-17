@@ -12,6 +12,7 @@
 }
 
 .page {
+  --news-detail-max-width: 900px;
   background: var(--neutral-0);
 }
 
@@ -25,7 +26,7 @@
 
 
 .related {
-  max-width: 1440px;
+  max-width: var(--section-max-width);
   width: 100%;
   margin-inline: auto;
 }
@@ -35,7 +36,7 @@
 .article,
 .mediaContact {
   width: 100%;
-  max-width: var(--section-max-width);
+  max-width: var(--news-detail-max-width);
   margin-inline: auto;
 }
 
@@ -242,6 +243,7 @@
 
 .richText p {
   margin: 0 0 24px;
+  text-align: justify;
   text-wrap: pretty;
 }
 

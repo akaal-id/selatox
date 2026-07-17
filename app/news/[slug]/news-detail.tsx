@@ -124,7 +124,7 @@ export function NewsDetail({ article }: NewsDetailProps) {
             alt={article.imageAlt}
             fill
             priority
-            sizes="(max-width: 900px) 100vw, var(--section-max-width)"
+            sizes="(max-width: 900px) 100vw, 900px"
             className={styles.featureImage}
           />
         </figure>

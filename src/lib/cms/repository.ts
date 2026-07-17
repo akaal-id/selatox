@@ -112,6 +112,31 @@ export async function updateCollectionRow(
   return { ok: true, data: data as Record<string, unknown> };
 }
 
+export async function insertCollectionRow(
+  table: string,
+  input: Record<string, unknown>
+): Promise<CmsResult<Record<string, unknown>>> {
+  const result = adminClient();
+  if (!result.ok) return result;
+
+  const richKeys = getRichTextKeys(Object.keys(input));
+  const now = new Date().toISOString();
+  const payload = {
+    ...sanitizeRecord(input, richKeys),
+    created_at: now,
+    updated_at: now,
+  };
+
+  const { data, error } = await result.client
+    .from(table)
+    .insert(payload)
+    .select("*")
+    .single();
+
+  if (error) return { ok: false, error: error.message };
+  return { ok: true, data: data as Record<string, unknown> };
+}
+
 export async function deleteCollectionRow(
   table: string,
   id: string

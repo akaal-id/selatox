@@ -3,6 +3,7 @@ import type { NewsArticle } from "@/constants/news";
 import type { Product } from "@/constants/products";
 import type { RoadmapMilestone } from "@/constants/about";
 import { normalizeMediaSrc } from "@/lib/cms/media-url";
+import { formatNewsDisplayDate, newsPublishedYear } from "@/lib/cms/news-cms";
 
 export function mapProductRow(row: Record<string, unknown>): Product {
   return {
@@ -39,15 +40,22 @@ export function mapCareerRow(row: Record<string, unknown>): JobListing {
 }
 
 export function mapNewsRow(row: Record<string, unknown>): NewsArticle {
+  const title = String(row.title ?? "");
+  const createdAt = row.created_at;
+  const displayFromCreated = formatNewsDisplayDate(createdAt);
+
   return {
     id: typeof row.legacy_id === "number" ? row.legacy_id : 0,
     slug: String(row.slug),
     category: row.category as NewsArticle["category"],
-    date: String(row.display_date ?? ""),
-    publishedYear: Number(row.published_year ?? 0),
-    title: String(row.title),
+    date: displayFromCreated || String(row.display_date ?? ""),
+    publishedYear:
+      newsPublishedYear(createdAt) ||
+      Number(row.published_year ?? 0) ||
+      newsPublishedYear(new Date()),
+    title,
     imageSrc: normalizeMediaSrc(String(row.image_src ?? "")) || String(row.image_src ?? ""),
-    imageAlt: String(row.image_alt ?? ""),
+    imageAlt: String(row.image_alt || title || "News article image"),
     bodyHtml: String(row.body_html ?? ""),
   };
 }

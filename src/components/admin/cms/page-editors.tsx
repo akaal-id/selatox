@@ -20,6 +20,7 @@ import {
   getProductFieldLabel,
   parseProductValueChipsForForm,
 } from "@/lib/cms/product-cms";
+import { getNewsCmsSections, getNewsFieldLabel, NEWS_CATEGORIES } from "@/lib/cms/news-cms";
 import { parseStringListForForm } from "@/lib/cms/string-list";
 import { parseRoadmapItemsForForm } from "@/lib/cms/roadmap-items";
 import { CmsInlinePair, CmsPublishToggle } from "@/components/admin/cms/form-fields";
@@ -51,7 +52,12 @@ function CmsField({
   uploadFolder: string;
   table?: string;
 }) {
-  const label = table === "products" ? getProductFieldLabel(fieldKey) : fieldLabel(fieldKey);
+  const label =
+    table === "products"
+      ? getProductFieldLabel(fieldKey)
+      : table === "news"
+        ? getNewsFieldLabel(fieldKey)
+        : fieldLabel(fieldKey);
   let type = inferFieldType(fieldKey);
   if (table === "products") {
     if (fieldKey === "description" || fieldKey === "short_description") {
@@ -65,6 +71,9 @@ function CmsField({
     ) {
       type = "text";
     }
+  }
+  if (table === "news" && fieldKey === "title") {
+    type = "textarea";
   }
   const wide =
     type === "textarea" ||
@@ -86,6 +95,25 @@ function CmsField({
         readOnly
         wide={wide}
       />
+    );
+  }
+
+  if (table === "news" && fieldKey === "category") {
+    return (
+      <label className={styles.field}>
+        <span className={styles.label}>{label}</span>
+        <select
+          className={styles.input}
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+        >
+          {NEWS_CATEGORIES.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </label>
     );
   }
 
@@ -434,6 +462,10 @@ export function CollectionRowEditor({
   const sections = useMemo(() => {
     if (table === "products") {
       return getProductCmsSections();
+    }
+
+    if (table === "news") {
+      return getNewsCmsSections();
     }
 
     return groupCollectionFields(initialData);
