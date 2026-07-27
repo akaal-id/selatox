@@ -20,7 +20,12 @@ import {
   getProductFieldLabel,
   parseProductValueChipsForForm,
 } from "@/lib/cms/product-cms";
-import { getNewsCmsSections, getNewsFieldLabel, NEWS_CATEGORIES } from "@/lib/cms/news-cms";
+import {
+  buildNewsDatePayload,
+  getNewsCmsSections,
+  getNewsFieldLabel,
+  NEWS_CATEGORIES,
+} from "@/lib/cms/news-cms";
 import { parseStringListForForm } from "@/lib/cms/string-list";
 import { parseRoadmapItemsForForm } from "@/lib/cms/roadmap-items";
 import { CmsInlinePair, CmsPublishToggle } from "@/components/admin/cms/form-fields";
@@ -113,6 +118,21 @@ function CmsField({
             </option>
           ))}
         </select>
+      </label>
+    );
+  }
+
+  if (table === "news" && fieldKey === "published_at") {
+    return (
+      <label className={styles.field}>
+        <span className={styles.label}>{label}</span>
+        {hint ? <span className={styles.hint}>{hint}</span> : null}
+        <input
+          className={styles.input}
+          type="date"
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+        />
       </label>
     );
   }
@@ -500,6 +520,10 @@ export function CollectionRowEditor({
 
     try {
       const payload = parseRowPayload(form, initialData);
+      if (table === "news") {
+        Object.assign(payload, buildNewsDatePayload(form.published_at, initialData));
+      }
+
       const response = await fetch(`/api/admin/${table}/${encodeURIComponent(rowId)}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

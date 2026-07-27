@@ -16,7 +16,11 @@ import {
   serializeProductSpecs,
   type ProductSpecFormItem,
 } from "@/lib/cms/product-specs";
-import { formatNewsDisplayDate } from "@/lib/cms/news-cms";
+import {
+  formatNewsDisplayDate,
+  publishedAtToDateInput,
+  resolveNewsDateSource,
+} from "@/lib/cms/news-cms";
 
 const SKIP_KEYS = new Set(["id", "created_at", "updated_at", "is_published", "legacy_id"]);
 
@@ -77,6 +81,9 @@ export function isLockedField(key: string): boolean {
 export function fieldHint(key: string): string | undefined {
   if (key === "slug") {
     return "Part of the public web address. Locked to keep existing links working — ask a developer to change it.";
+  }
+  if (key === "published_at") {
+    return "Optional. Leave blank to use the creation date on the public news page.";
   }
   if (key === "sort_order" || key.endsWith("_order")) {
     return "Controls ordering. Lower numbers appear first.";
@@ -284,6 +291,7 @@ export function collectionFormFromRow(
     return {
       title: input.title ?? "",
       category: input.category ?? "Press Release",
+      published_at: publishedAtToDateInput(row.published_at),
       image_src: input.image_src ?? "",
       body_html: input.body_html ?? "",
     };
@@ -302,8 +310,8 @@ export function getCollectionRowTitle(row: Record<string, unknown>): string {
 
 export function getCollectionRowMeta(row: Record<string, unknown>): string {
   const displayDate =
-    "display_date" in row
-      ? formatNewsDisplayDate(row.created_at) ||
+    "display_date" in row || "published_at" in row
+      ? formatNewsDisplayDate(resolveNewsDateSource(row)) ||
         (row.display_date != null && row.display_date !== ""
           ? String(row.display_date)
           : null)

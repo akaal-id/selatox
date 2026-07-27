@@ -87,7 +87,7 @@ export const CMS_TABLES: CmsTableConfig[] = [
     label: "News",
     description: "Articles & press releases",
     kind: "collection",
-    orderBy: { column: "published_at", ascending: false },
+    orderBy: { column: "created_at", ascending: false },
   },
   {
     slug: "careers",

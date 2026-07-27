@@ -36,6 +36,7 @@ import {
   mapRoadmapRow,
   mapRndRow,
 } from "@/lib/cms/mappers";
+import { sortNewsRowsByPublishDate } from "@/lib/cms/news-cms";
 import {
   fetchPublicCollection,
   fetchPublicSingleton,
@@ -1173,11 +1174,11 @@ export async function getProductSlugs(): Promise<string[]> {
 export async function getNewsArticles(): Promise<NewsArticle[]> {
   const rows = await fetchPublicCollection("news", {
     filters: { status: "published" },
-    orderBy: { column: "published_at", ascending: false },
+    orderBy: { column: "created_at", ascending: false },
   });
 
   if (!rows.length) return newsArticles;
-  return rows.map(mapNewsRow);
+  return sortNewsRowsByPublishDate(rows).map(mapNewsRow);
 }
 
 export async function getNewsBySlug(slug: string): Promise<NewsArticle | null> {

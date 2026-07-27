@@ -3,7 +3,11 @@ import type { NewsArticle } from "@/constants/news";
 import type { Product } from "@/constants/products";
 import type { RoadmapMilestone } from "@/constants/about";
 import { normalizeMediaSrc } from "@/lib/cms/media-url";
-import { formatNewsDisplayDate, newsPublishedYear } from "@/lib/cms/news-cms";
+import {
+  formatNewsDisplayDate,
+  newsPublishedYear,
+  resolveNewsDateSource,
+} from "@/lib/cms/news-cms";
 
 export function mapProductRow(row: Record<string, unknown>): Product {
   return {
@@ -41,16 +45,17 @@ export function mapCareerRow(row: Record<string, unknown>): JobListing {
 
 export function mapNewsRow(row: Record<string, unknown>): NewsArticle {
   const title = String(row.title ?? "");
-  const createdAt = row.created_at;
-  const displayFromCreated = formatNewsDisplayDate(createdAt);
+  const dateSource = resolveNewsDateSource(row);
+  const displayDate =
+    formatNewsDisplayDate(dateSource) || String(row.display_date ?? "");
 
   return {
     id: typeof row.legacy_id === "number" ? row.legacy_id : 0,
     slug: String(row.slug),
     category: row.category as NewsArticle["category"],
-    date: displayFromCreated || String(row.display_date ?? ""),
+    date: displayDate,
     publishedYear:
-      newsPublishedYear(createdAt) ||
+      newsPublishedYear(dateSource) ||
       Number(row.published_year ?? 0) ||
       newsPublishedYear(new Date()),
     title,

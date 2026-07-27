@@ -37,7 +37,8 @@ export function getCollectionCreateDefaults(
         image_alt: "",
         body_html: "",
         status: "published",
-        published_at: createdAt.toISOString(),
+        // Optional — public date falls back to created_at when null.
+        published_at: null,
       };
     }
     case "careers": {

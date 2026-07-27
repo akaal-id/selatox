@@ -9,6 +9,7 @@ import type { NewsArticle } from "@/constants/news";
 import type { HomePageRow } from "@/lib/cms/home";
 import { normalizeMediaSrc } from "@/lib/cms/media-url";
 import { mapCareerRow, mapNewsRow, mapProductRow } from "@/lib/cms/mappers";
+import { sortNewsRowsByPublishDate } from "@/lib/cms/news-cms";
 import { createPublicClient } from "@/lib/supabase/public";
 
 export type HeroContent = {
@@ -376,8 +377,8 @@ export async function getHomePageContent(): Promise<HomePageContent> {
         .from("news")
         .select("*")
         .eq("status", "published")
-        .order("published_at", { ascending: false })
-        .limit(5),
+        .order("created_at", { ascending: false })
+        .limit(12),
       client
         .from("rnd")
         .select("*")
@@ -404,7 +405,9 @@ export async function getHomePageContent(): Promise<HomePageContent> {
   }
 
   if (newsResult.data?.length) {
-    content.newsroom.articles = newsResult.data.map(mapNewsRow);
+    content.newsroom.articles = sortNewsRowsByPublishDate(newsResult.data)
+      .slice(0, 5)
+      .map(mapNewsRow);
   }
 
   if (rndResult.data?.length) {
