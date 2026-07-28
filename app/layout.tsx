@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { SiteFooter, SiteNavbar } from "@/components/site-chrome";
 import { LenisProvider } from "@/components/lenis/LenisProvider";
 import { ScrollFloater } from "@/components/scrollfloater/ScrollFloater";
 import { PageLoader } from "@/components/loader/PageLoader";
 import "@/styles/globals.css";
+
+const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -60,6 +63,7 @@ export default function RootLayout({
           <SiteFooter />
           <ScrollFloater />
         </LenisProvider>
+        {gaMeasurementId && <GoogleAnalytics gaId={gaMeasurementId} />}
       </body>
     </html>
   );
