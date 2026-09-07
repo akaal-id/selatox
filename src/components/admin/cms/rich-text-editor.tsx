@@ -12,11 +12,9 @@ import {
   Bold,
   FileImage,
   Globe,
-  HardDrive,
   ImageIcon,
   Info,
   Italic,
-  Layers,
   Link2,
   Loader2,
   Pilcrow,
@@ -28,7 +26,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import styles from "./rich-text-editor.module.css";
 
-// Vercel Serverless Function has a hard request body limit of 4.5 MB (4,718,592 bytes)
+// Maximum image upload size: 4.5 MB
 const MAX_IMAGE_BYTES = Math.floor(4.5 * 1024 * 1024);
 
 type RichTextEditorProps = {
@@ -188,12 +186,12 @@ export function RichTextEditor({
 
   function handleFileSelect(file: File) {
     if (!file.type.startsWith("image/")) {
-      setErrorMessage("Pilih format gambar yang valid (JPG, PNG, WebP, GIF, SVG).");
+      setErrorMessage("Please select a valid image file (JPG, PNG, WebP, GIF, SVG).");
       return;
     }
     if (file.size > MAX_IMAGE_BYTES) {
       setErrorMessage(
-        `File "${file.name}" (${formatBytes(file.size)}) melebihi batas 4.5 MB (limit payload Vercel Serverless). Silakan kompres gambar atau gunakan tab "Dari URL".`
+        `File "${file.name}" (${formatBytes(file.size)}) exceeds the 4.5 MB limit. Please compress the image or use the "From URL" tab.`
       );
       setSelectedFile(null);
       if (previewUrl && previewUrl.startsWith("blob:")) {
@@ -215,7 +213,7 @@ export function RichTextEditor({
 
     if (activeTab === "upload") {
       if (!selectedFile) {
-        setErrorMessage("Silakan pilih gambar terlebih dahulu.");
+        setErrorMessage("Please select an image first.");
         return;
       }
 
@@ -236,7 +234,7 @@ export function RichTextEditor({
         const data = (await res.json()) as { url?: string; error?: string };
 
         if (!res.ok || !data.url) {
-          throw new Error(data.error || "Gagal mengunggah gambar.");
+          throw new Error(data.error || "Failed to upload image.");
         }
 
         editor
@@ -250,14 +248,14 @@ export function RichTextEditor({
 
         closeImageModal();
       } catch (err) {
-        setErrorMessage(err instanceof Error ? err.message : "Upload gagal.");
+        setErrorMessage(err instanceof Error ? err.message : "Upload failed.");
       } finally {
         setIsUploading(false);
       }
     } else {
       const trimmedUrl = urlInput.trim();
       if (!trimmedUrl) {
-        setErrorMessage("Silakan masukkan URL gambar.");
+        setErrorMessage("Please enter an image URL.");
         return;
       }
 
@@ -334,7 +332,7 @@ export function RichTextEditor({
         <div className={styles.editorTip}>
           <Info size={13} strokeWidth={1.75} />
           <span>
-            Klik icon gambar <strong>(🖼️)</strong> di toolbar untuk menyisipkan gambar di posisi kursor. Tekan Enter untuk membuat baris baru.
+            Click the image icon <strong>(🖼️)</strong> on the toolbar to insert an image at your cursor. Press Enter to start a new paragraph.
           </span>
         </div>
       ) : null}
@@ -351,17 +349,17 @@ export function RichTextEditor({
             <div className={styles.modalHeader}>
               <div className={styles.modalTitleGroup}>
                 <h3 id="modal-image-title" className={styles.modalTitle}>
-                  Sisipkan Gambar ke Artikel
+                  Insert Image into Article
                 </h3>
                 <p className={styles.modalSubtitle}>
-                  Gambar akan ditempatkan di posisi kursor yang sedang aktif
+                  The image will be placed at the active cursor position
                 </p>
               </div>
               <button
                 type="button"
                 className={styles.modalCloseButton}
                 onClick={closeImageModal}
-                aria-label="Tutup dialog"
+                aria-label="Close dialog"
               >
                 <X size={16} strokeWidth={2} />
               </button>
@@ -392,7 +390,7 @@ export function RichTextEditor({
                 }}
               >
                 <Globe size={14} />
-                Dari URL
+                From URL
               </button>
             </div>
 
@@ -402,29 +400,15 @@ export function RichTextEditor({
                 <div className={styles.limitItem}>
                   <Zap size={14} className={styles.limitItemIcon} />
                   <div className={styles.limitItemText}>
-                    <strong>Maks. 4.5 MB</strong>
-                    <div>Limit Vercel Serverless</div>
-                  </div>
-                </div>
-                <div className={styles.limitItem}>
-                  <HardDrive size={14} className={styles.limitItemIcon} />
-                  <div className={styles.limitItemText}>
-                    <strong>Supabase Storage</strong>
-                    <div>Bucket: &quot;uploads&quot; (1 GB)</div>
+                    <strong>Max. 4.5 MB</strong>
+                    <div>Per image file</div>
                   </div>
                 </div>
                 <div className={styles.limitItem}>
                   <FileImage size={14} className={styles.limitItemIcon} />
                   <div className={styles.limitItemText}>
-                    <strong>Format File</strong>
+                    <strong>File Formats</strong>
                     <div>JPG, PNG, WebP, GIF, SVG</div>
-                  </div>
-                </div>
-                <div className={styles.limitItem}>
-                  <Layers size={14} className={styles.limitItemIcon} />
-                  <div className={styles.limitItemText}>
-                    <strong>Jumlah Gambar</strong>
-                    <div>Tidak dibatasi</div>
                   </div>
                 </div>
               </div>
@@ -466,8 +450,8 @@ export function RichTextEditor({
                       }}
                     >
                       <Upload size={26} className={styles.dropzoneIcon} strokeWidth={1.5} />
-                      <p className={styles.dropzoneText}>Klik untuk memilih file atau seret ke sini</p>
-                      <p className={styles.dropzoneHint}>Maksimal 4.5 MB per file</p>
+                      <p className={styles.dropzoneText}>Click to select file or drag and drop here</p>
+                      <p className={styles.dropzoneHint}>Maximum 4.5 MB per file</p>
                     </div>
                   ) : (
                     <div className={styles.filePreview}>
@@ -484,20 +468,20 @@ export function RichTextEditor({
                         className={styles.fileChangeBtn}
                         onClick={() => fileInputRef.current?.click()}
                       >
-                        Ganti
+                        Change
                       </button>
                     </div>
                   )}
 
                   <div className={styles.inputGroup}>
                     <label htmlFor="image-alt-input" className={styles.inputLabel}>
-                      Keterangan / Alt Text (Opsional)
+                      Caption / Alt Text (Optional)
                     </label>
                     <input
                       id="image-alt-input"
                       type="text"
                       className={styles.inputField}
-                      placeholder="Misal: Penjelasan foto atau infografis"
+                      placeholder="e.g. Photo description or infographic details"
                       value={altInput}
                       onChange={(e) => setAltInput(e.target.value)}
                     />
@@ -508,19 +492,19 @@ export function RichTextEditor({
                   <div className={styles.urlTip}>
                     <Info size={14} className={styles.urlTipIcon} />
                     <span>
-                      <strong>Tips:</strong> Jika file gambar Anda berukuran di atas <strong>4.5 MB</strong> atau sudah tersimpan di cloud/CDN lain, masukkan tautan langsung di sini tanpa batas upload Vercel.
+                      <strong>Tip:</strong> If your image is hosted on an external CDN or cloud storage, enter the direct link here.
                     </span>
                   </div>
 
                   <div className={styles.inputGroup}>
                     <label htmlFor="image-url-input" className={styles.inputLabel}>
-                      URL Gambar (Link Langsung)
+                      Image URL (Direct Link)
                     </label>
                     <input
                       id="image-url-input"
                       type="url"
                       className={styles.inputField}
-                      placeholder="https://domain.com/path-gambar.jpg"
+                      placeholder="https://example.com/image.jpg"
                       value={urlInput}
                       onChange={(e) => setUrlInput(e.target.value)}
                       autoFocus
@@ -529,13 +513,13 @@ export function RichTextEditor({
 
                   <div className={styles.inputGroup}>
                     <label htmlFor="image-url-alt-input" className={styles.inputLabel}>
-                      Keterangan / Alt Text (Opsional)
+                      Caption / Alt Text (Optional)
                     </label>
                     <input
                       id="image-url-alt-input"
                       type="text"
                       className={styles.inputField}
-                      placeholder="Misal: Foto lab riset Selatox"
+                      placeholder="e.g. Selatox research laboratory"
                       value={altInput}
                       onChange={(e) => setAltInput(e.target.value)}
                     />
@@ -551,7 +535,7 @@ export function RichTextEditor({
                 onClick={closeImageModal}
                 disabled={isUploading}
               >
-                Batal
+                Cancel
               </button>
               <button
                 type="button"
@@ -562,10 +546,10 @@ export function RichTextEditor({
                 {isUploading ? (
                   <>
                     <Loader2 size={14} className="animate-spin" />
-                    Mengunggah…
+                    Uploading…
                   </>
                 ) : (
-                  "Sisipkan Gambar"
+                  "Insert Image"
                 )}
               </button>
             </div>

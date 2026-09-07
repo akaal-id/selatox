@@ -102,7 +102,7 @@ export function validateMediaFile(
     const limitMb = (maxBytes / (1024 * 1024)).toFixed(1).replace(/\.0$/, "");
     return {
       ok: false,
-      error: `File terlalu besar. Batas maksimal adalah ${limitMb} MB (limit payload Vercel).`,
+      error: `File is too large. Maximum allowed size is ${limitMb} MB.`,
     };
   }
 
