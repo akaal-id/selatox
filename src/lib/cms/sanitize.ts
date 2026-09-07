@@ -2,12 +2,13 @@ import sanitizeHtml from "sanitize-html";
 import { HOME_CMS_SECTIONS, type HomePageInput } from "@/lib/cms/home";
 
 const RICH_TEXT_OPTIONS: sanitizeHtml.IOptions = {
-  allowedTags: ["p", "br", "em", "i", "strong", "b", "span", "a"],
+  allowedTags: ["p", "br", "em", "i", "strong", "b", "span", "a", "img", "figure", "figcaption"],
   allowedAttributes: {
     a: ["href", "title", "target", "rel"],
     span: ["class"],
+    img: ["src", "alt", "title", "width", "height", "class", "loading"],
   },
-  allowedSchemes: ["http", "https", "mailto"],
+  allowedSchemes: ["http", "https"],
 };
 
 export function sanitizeRichText(html: string): string {

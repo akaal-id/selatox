@@ -247,6 +247,28 @@
   text-wrap: pretty;
 }
 
+.richText img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 36px auto;
+  border-radius: 12px;
+  border: 1px solid var(--neutral-60);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+.richText figure {
+  margin: 40px auto;
+  max-width: 100%;
+  text-align: center;
+}
+
+.richText figcaption {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--neutral-100);
+}
+
 .richText > p:first-of-type {
   font-size: 17px;
   line-height: 1.78;

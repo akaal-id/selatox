@@ -151,7 +151,14 @@ function CmsField({
   }
 
   if (type === "richtext") {
-    return <CmsRichTextField label={label} value={value} onChange={onChange} />;
+    return (
+      <CmsRichTextField
+        label={label}
+        value={value}
+        onChange={onChange}
+        uploadFolder={uploadFolder}
+      />
+    );
   }
 
   if (type === "textarea") {

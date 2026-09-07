@@ -14,7 +14,7 @@ export const VIDEO_MIME_TYPES = [
   "video/quicktime",
 ] as const;
 
-export const IMAGE_MAX_BYTES = 10 * 1024 * 1024;
+export const IMAGE_MAX_BYTES = Math.floor(4.5 * 1024 * 1024); // 4.5 MB — Vercel Serverless Function body limit
 export const VIDEO_MAX_BYTES = 100 * 1024 * 1024;
 
 export type CmsMediaKind = "image" | "video";
@@ -99,10 +99,10 @@ export function validateMediaFile(
 
   const maxBytes = getMaxBytesForKind(kind);
   if (file.size > maxBytes) {
-    const limitMb = Math.round(maxBytes / (1024 * 1024));
+    const limitMb = (maxBytes / (1024 * 1024)).toFixed(1).replace(/\.0$/, "");
     return {
       ok: false,
-      error: `File is too large. Maximum size is ${limitMb} MB.`,
+      error: `File terlalu besar. Batas maksimal adalah ${limitMb} MB (limit payload Vercel).`,
     };
   }
 
